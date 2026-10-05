@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env*
+*.log
+.DS_Store
+validation/
+/ICLR_2027_RoboValue_*.pdf
+__pycache__/
+/overview(8).pdf
+
+# Manuscripts are private inputs until explicitly approved for release.
+*.pdf

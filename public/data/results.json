@@ -1,0 +1,894 @@
+{
+  "source": "RoboValue public manuscript, Tables 1, 2 and 3",
+  "sourceFile": "RoboValue.pdf",
+  "sourceVersion": "2026-10-05",
+  "sourcePageCount": 93,
+  "sourceSha256": "b1506a3170f0d478d233f752f5c0da0d1fbf4b3d7931d70c8012e4b58edebf55",
+  "scale": 100,
+  "modelFamilies": 9,
+  "modelVariants": 15,
+  "rows": [
+    {
+      "name": "LIV",
+      "preview": false,
+      "setting": "zero",
+      "id": "liv-zero",
+      "order": 0,
+      "conditions": {
+        "id": {
+          "sa": 54.44,
+          "tga_ct": 9.1,
+          "tga_cf": 6.17,
+          "voc": 8.33,
+          "cycle_voc": 8.33,
+          "memory_voc": 1.5,
+          "fpl": 31.39,
+          "trr": 24.25,
+          "vs": 3.36,
+          "csvc": -8.47
+        },
+        "emb": {
+          "sa": 55.9,
+          "tga_ct": 17.34,
+          "tga_cf": 9.4,
+          "voc": 13.65,
+          "cycle_voc": 13.65,
+          "memory_voc": -2.51,
+          "fpl": 32.13,
+          "vs": 2.48
+        },
+        "env": {
+          "sa": 52.61,
+          "tga_ct": 8.36,
+          "tga_cf": 10.36,
+          "voc": 5.52,
+          "cycle_voc": 5.52,
+          "memory_voc": 2.73,
+          "fpl": 32.79,
+          "vs": 2.84
+        }
+      },
+      "aggregate": {
+        "rank": 7,
+        "understanding": 31.92,
+        "tracking": 53.51,
+        "diagnosis": 46.16,
+        "consistency": 24.39,
+        "overall": 39.0
+      }
+    },
+    {
+      "name": "ProcVLM-2B",
+      "preview": false,
+      "setting": "zero",
+      "id": "procvlm-2b-zero",
+      "order": 1,
+      "conditions": {
+        "id": {
+          "sa": 62.2,
+          "tga_ct": 20.04,
+          "tga_cf": 14.36,
+          "voc": 51.1,
+          "cycle_voc": 47.41,
+          "memory_voc": 9.73,
+          "fpl": 36.14,
+          "trr": 21.55,
+          "vs": 5.25,
+          "csvc": 4.6
+        },
+        "emb": {
+          "sa": 66.75,
+          "tga_ct": 31.26,
+          "tga_cf": 17.69,
+          "voc": 53.71,
+          "cycle_voc": 47.06,
+          "memory_voc": 8.84,
+          "fpl": 37.61,
+          "vs": 4.31
+        },
+        "env": {
+          "sa": 55.71,
+          "tga_ct": 17.5,
+          "tga_cf": 16.05,
+          "voc": 45.5,
+          "cycle_voc": 40.66,
+          "memory_voc": 15.31,
+          "fpl": 35.72,
+          "vs": 3.64
+        }
+      },
+      "aggregate": {
+        "rank": 5,
+        "understanding": 40.31,
+        "tracking": 67.65,
+        "diagnosis": 42.57,
+        "consistency": 28.46,
+        "overall": 44.75
+      }
+    },
+    {
+      "name": "RoboFAC-7B",
+      "preview": false,
+      "setting": "zero",
+      "id": "robofac-7b-zero",
+      "order": 2,
+      "conditions": {
+        "id": {
+          "sa": 72.63,
+          "tga_ct": 4.82,
+          "tga_cf": 4.34,
+          "voc": 20.44,
+          "cycle_voc": 36.95,
+          "memory_voc": -25.23,
+          "fpl": 34.64,
+          "trr": 33.8,
+          "vs": 3.34,
+          "csvc": -0.3
+        },
+        "emb": {
+          "sa": 78.22,
+          "tga_ct": 6.16,
+          "tga_cf": 7.2,
+          "voc": 27.12,
+          "cycle_voc": 36.74,
+          "memory_voc": -16.75,
+          "fpl": 39.28,
+          "vs": 3.41
+        },
+        "env": {
+          "sa": 73.15,
+          "tga_ct": 3.85,
+          "tga_cf": 3.99,
+          "voc": 5.99,
+          "cycle_voc": 26.38,
+          "memory_voc": -42.24,
+          "fpl": 39.42,
+          "vs": 5.55
+        }
+      },
+      "aggregate": {
+        "rank": 6,
+        "understanding": 39.55,
+        "tracking": 61.1,
+        "diagnosis": 48.4,
+        "consistency": 26.88,
+        "overall": 43.98
+      }
+    },
+    {
+      "name": "RoboMeter-4B",
+      "preview": false,
+      "setting": "zero",
+      "id": "robometer-4b-zero",
+      "order": 3,
+      "conditions": {
+        "id": {
+          "sa": 81.29,
+          "tga_ct": 82.0,
+          "tga_cf": 29.29,
+          "voc": 86.05,
+          "cycle_voc": 89.43,
+          "memory_voc": 2.36,
+          "fpl": 29.8,
+          "trr": 24.83,
+          "vs": 18.17,
+          "csvc": 32.41
+        },
+        "emb": {
+          "sa": 85.42,
+          "tga_ct": 79.53,
+          "tga_cf": 28.63,
+          "voc": 86.79,
+          "cycle_voc": 90.04,
+          "memory_voc": -7.57,
+          "fpl": 35.14,
+          "vs": 15.48
+        },
+        "env": {
+          "sa": 79.14,
+          "tga_ct": 91.13,
+          "tga_cf": 20.33,
+          "voc": 81.38,
+          "cycle_voc": 85.5,
+          "memory_voc": -6.22,
+          "fpl": 30.38,
+          "vs": 15.91
+        }
+      },
+      "aggregate": {
+        "rank": 1,
+        "understanding": 68.53,
+        "tracking": 83.33,
+        "diagnosis": 46.78,
+        "consistency": 41.57,
+        "overall": 60.05
+      }
+    },
+    {
+      "name": "RoboReward-4B",
+      "preview": false,
+      "setting": "zero",
+      "id": "roboreward-4b-zero",
+      "order": 4,
+      "conditions": {
+        "id": {
+          "sa": 28.1,
+          "tga_ct": 35.97,
+          "tga_cf": 9.12,
+          "voc": 82.76,
+          "cycle_voc": 44.23,
+          "memory_voc": 81.46,
+          "fpl": 32.17,
+          "trr": 3.07,
+          "vs": null,
+          "csvc": null
+        },
+        "emb": {
+          "sa": 25.03,
+          "tga_ct": 33.13,
+          "tga_cf": 11.93,
+          "voc": 79.24,
+          "cycle_voc": 41.02,
+          "memory_voc": 79.71,
+          "fpl": 35.15,
+          "vs": null
+        },
+        "env": {
+          "sa": 29.69,
+          "tga_ct": 28.08,
+          "tga_cf": 6.84,
+          "voc": 83.51,
+          "cycle_voc": 43.83,
+          "memory_voc": 83.27,
+          "fpl": 34.15,
+          "vs": null
+        }
+      },
+      "aggregate": {
+        "rank": 10,
+        "understanding": 24.5,
+        "tracking": 71.5,
+        "diagnosis": 34.83,
+        "consistency": 0.0,
+        "overall": 32.71
+      }
+    },
+    {
+      "name": "RoboReward-8B",
+      "preview": false,
+      "setting": "zero",
+      "id": "roboreward-8b-zero",
+      "order": 5,
+      "conditions": {
+        "id": {
+          "sa": 31.31,
+          "tga_ct": 28.89,
+          "tga_cf": 12.81,
+          "voc": 83.4,
+          "cycle_voc": 43.0,
+          "memory_voc": 81.77,
+          "fpl": 31.3,
+          "trr": 2.6,
+          "vs": null,
+          "csvc": null
+        },
+        "emb": {
+          "sa": 32.12,
+          "tga_ct": 40.17,
+          "tga_cf": 10.61,
+          "voc": 79.91,
+          "cycle_voc": 44.3,
+          "memory_voc": 82.42,
+          "fpl": 37.41,
+          "vs": null
+        },
+        "env": {
+          "sa": 26.81,
+          "tga_ct": 27.86,
+          "tga_cf": 9.23,
+          "voc": 82.89,
+          "cycle_voc": 41.55,
+          "memory_voc": 81.11,
+          "fpl": 35.83,
+          "vs": null
+        }
+      },
+      "aggregate": {
+        "rank": 8,
+        "understanding": 25.9,
+        "tracking": 71.48,
+        "diagnosis": 34.32,
+        "consistency": 0.0,
+        "overall": 32.92
+      }
+    },
+    {
+      "name": "RynnValue-4B",
+      "preview": false,
+      "setting": "zero",
+      "id": "rynnvalue-4b-zero",
+      "order": 6,
+      "conditions": {
+        "id": {
+          "sa": 82.12,
+          "tga_ct": 83.74,
+          "tga_cf": 56.01,
+          "voc": 73.19,
+          "cycle_voc": 81.74,
+          "memory_voc": -23.89,
+          "fpl": 39.95,
+          "trr": 23.18,
+          "vs": 9.88,
+          "csvc": 24.95
+        },
+        "emb": {
+          "sa": 79.74,
+          "tga_ct": 91.6,
+          "tga_cf": 57.61,
+          "voc": 77.87,
+          "cycle_voc": 83.84,
+          "memory_voc": -23.17,
+          "fpl": 43.62,
+          "vs": 9.78
+        },
+        "env": {
+          "sa": 76.47,
+          "tga_ct": 85.8,
+          "tga_cf": 53.19,
+          "voc": 66.74,
+          "cycle_voc": 77.03,
+          "memory_voc": -16.5,
+          "fpl": 44.19,
+          "vs": 8.58
+        }
+      },
+      "aggregate": {
+        "rank": 2,
+        "understanding": 75.54,
+        "tracking": 78.64,
+        "diagnosis": 40.63,
+        "consistency": 36.0,
+        "overall": 57.7
+      }
+    },
+    {
+      "name": "RynnValue-8B",
+      "preview": false,
+      "setting": "zero",
+      "id": "rynnvalue-8b-zero",
+      "order": 7,
+      "conditions": {
+        "id": {
+          "sa": 80.41,
+          "tga_ct": 72.82,
+          "tga_cf": 46.21,
+          "voc": 73.52,
+          "cycle_voc": 83.06,
+          "memory_voc": -24.7,
+          "fpl": 39.79,
+          "trr": 26.61,
+          "vs": 8.97,
+          "csvc": 13.25
+        },
+        "emb": {
+          "sa": 79.18,
+          "tga_ct": 76.96,
+          "tga_cf": 53.49,
+          "voc": 77.59,
+          "cycle_voc": 84.97,
+          "memory_voc": -31.88,
+          "fpl": 43.5,
+          "vs": 7.78
+        },
+        "env": {
+          "sa": 79.41,
+          "tga_ct": 79.23,
+          "tga_cf": 49.07,
+          "voc": 65.61,
+          "cycle_voc": 78.04,
+          "memory_voc": -22.45,
+          "fpl": 42.1,
+          "vs": 8.5
+        }
+      },
+      "aggregate": {
+        "rank": 3,
+        "understanding": 70.98,
+        "tracking": 78.78,
+        "diagnosis": 42.66,
+        "consistency": 32.59,
+        "overall": 56.25
+      }
+    },
+    {
+      "name": "TOPReward",
+      "preview": false,
+      "setting": "zero",
+      "id": "topreward-zero",
+      "order": 8,
+      "conditions": {
+        "id": {
+          "sa": 58.98,
+          "tga_ct": 51.89,
+          "tga_cf": 21.3,
+          "voc": 94.29,
+          "cycle_voc": 13.5,
+          "memory_voc": 95.51,
+          "fpl": 30.73,
+          "trr": 12.85,
+          "vs": 15.06,
+          "csvc": 45.45
+        },
+        "emb": {
+          "sa": 68.85,
+          "tga_ct": 51.05,
+          "tga_cf": 18.6,
+          "voc": 93.91,
+          "cycle_voc": 18.83,
+          "memory_voc": 96.24,
+          "fpl": 37.78,
+          "vs": 14.13
+        },
+        "env": {
+          "sa": 53.4,
+          "tga_ct": 49.1,
+          "tga_cf": 23.9,
+          "voc": 92.36,
+          "cycle_voc": 8.23,
+          "memory_voc": 94.51,
+          "fpl": 34.9,
+          "vs": 14.07
+        }
+      },
+      "aggregate": {
+        "rank": 4,
+        "understanding": 48.09,
+        "tracking": 57.02,
+        "diagnosis": 39.66,
+        "consistency": 43.65,
+        "overall": 47.11
+      }
+    },
+    {
+      "name": "VLAC-2B",
+      "preview": false,
+      "setting": "zero",
+      "id": "vlac-2b-zero",
+      "order": 9,
+      "conditions": {
+        "id": {
+          "sa": 33.75,
+          "tga_ct": 21.54,
+          "tga_cf": 9.16,
+          "voc": 9.13,
+          "cycle_voc": 9.72,
+          "memory_voc": 5.73,
+          "fpl": 47.46,
+          "trr": 8.95,
+          "vs": 4.15,
+          "csvc": -100.0
+        },
+        "emb": {
+          "sa": 42.9,
+          "tga_ct": 39.81,
+          "tga_cf": 10.74,
+          "voc": 10.28,
+          "cycle_voc": 16.41,
+          "memory_voc": -2.0,
+          "fpl": 39.86,
+          "vs": 5.29
+        },
+        "env": {
+          "sa": 36.92,
+          "tga_ct": 15.99,
+          "tga_cf": 3.03,
+          "voc": 14.77,
+          "cycle_voc": 15.4,
+          "memory_voc": -7.83,
+          "fpl": 49.97,
+          "vs": 5.06
+        }
+      },
+      "aggregate": {
+        "rank": 11,
+        "understanding": 26.6,
+        "tracking": 55.48,
+        "diagnosis": 31.38,
+        "consistency": 2.33,
+        "overall": 28.95
+      }
+    },
+    {
+      "name": "VLAC-8B",
+      "preview": false,
+      "setting": "zero",
+      "id": "vlac-8b-zero",
+      "order": 10,
+      "conditions": {
+        "id": {
+          "sa": 41.04,
+          "tga_ct": 35.75,
+          "tga_cf": 13.64,
+          "voc": 28.53,
+          "cycle_voc": 26.12,
+          "memory_voc": 21.7,
+          "fpl": 45.48,
+          "trr": 5.24,
+          "vs": 6.54,
+          "csvc": -100.0
+        },
+        "emb": {
+          "sa": 51.92,
+          "tga_ct": 56.87,
+          "tga_cf": 18.96,
+          "voc": 41.92,
+          "cycle_voc": 31.58,
+          "memory_voc": 9.04,
+          "fpl": 41.47,
+          "vs": 7.54
+        },
+        "env": {
+          "sa": 38.96,
+          "tga_ct": 41.46,
+          "tga_cf": 16.98,
+          "voc": 28.56,
+          "cycle_voc": 26.19,
+          "memory_voc": -6.21,
+          "fpl": 47.39,
+          "vs": 6.8
+        }
+      },
+      "aggregate": {
+        "rank": 9,
+        "understanding": 36.19,
+        "tracking": 61.16,
+        "diagnosis": 30.14,
+        "consistency": 3.43,
+        "overall": 32.73
+      }
+    },
+    {
+      "name": "ProcVLM-2B",
+      "preview": false,
+      "setting": "one",
+      "id": "procvlm-2b-one",
+      "order": 11,
+      "conditions": {
+        "id": {
+          "sa": 83.07,
+          "tga_ct": 59.25,
+          "tga_cf": 51.16,
+          "voc": 91.4,
+          "cycle_voc": 91.24,
+          "memory_voc": 23.96,
+          "fpl": 33.94,
+          "trr": 21.05,
+          "vs": 18.08,
+          "csvc": 19.9
+        },
+        "emb": {
+          "sa": 83.77,
+          "tga_ct": 48.82,
+          "tga_cf": 44.65,
+          "voc": 86.66,
+          "cycle_voc": 86.35,
+          "memory_voc": 14.86,
+          "fpl": 32.99,
+          "vs": 12.49
+        },
+        "env": {
+          "sa": 72.27,
+          "tga_ct": 50.03,
+          "tga_cf": 38.22,
+          "voc": 78.36,
+          "cycle_voc": 77.04,
+          "memory_voc": 21.23,
+          "fpl": 33.76,
+          "vs": 12.24
+        }
+      },
+      "aggregate": {
+        "rank": 2,
+        "understanding": 65.43,
+        "tracking": 84.56,
+        "diagnosis": 43.7,
+        "consistency": 37.59,
+        "overall": 57.82
+      }
+    },
+    {
+      "name": "Robo-Dopamine-3B",
+      "preview": false,
+      "setting": "one",
+      "id": "robo-dopamine-3b-one",
+      "order": 12,
+      "conditions": {
+        "id": {
+          "sa": 73.77,
+          "tga_ct": 7.44,
+          "tga_cf": 3.03,
+          "voc": 76.3,
+          "cycle_voc": 76.4,
+          "memory_voc": 16.69,
+          "fpl": 34.32,
+          "trr": 32.02,
+          "vs": 12.56,
+          "csvc": 17.65
+        },
+        "emb": {
+          "sa": 80.45,
+          "tga_ct": 7.75,
+          "tga_cf": 5.47,
+          "voc": 79.68,
+          "cycle_voc": 79.2,
+          "memory_voc": 21.47,
+          "fpl": 30.08,
+          "vs": 10.68
+        },
+        "env": {
+          "sa": 61.73,
+          "tga_ct": 17.86,
+          "tga_cf": 3.36,
+          "voc": 66.55,
+          "cycle_voc": 65.79,
+          "memory_voc": 18.55,
+          "fpl": 34.23,
+          "vs": 7.62
+        }
+      },
+      "aggregate": {
+        "rank": 6,
+        "understanding": 39.68,
+        "tracking": 79.99,
+        "diagnosis": 49.39,
+        "consistency": 34.84,
+        "overall": 50.97
+      }
+    },
+    {
+      "name": "Robo-Dopamine-4B",
+      "preview": true,
+      "setting": "one",
+      "id": "robo-dopamine-4b-preview-one",
+      "order": 13,
+      "conditions": {
+        "id": {
+          "sa": 87.16,
+          "tga_ct": 3.34,
+          "tga_cf": 0.77,
+          "voc": 94.47,
+          "cycle_voc": 94.43,
+          "memory_voc": 13.73,
+          "fpl": 27.34,
+          "trr": 33.54,
+          "vs": 30.69,
+          "csvc": 35.4
+        },
+        "emb": {
+          "sa": 85.03,
+          "tga_ct": 1.51,
+          "tga_cf": 4.76,
+          "voc": 92.48,
+          "cycle_voc": 92.68,
+          "memory_voc": 2.05,
+          "fpl": 29.45,
+          "vs": 27.99
+        },
+        "env": {
+          "sa": 80.33,
+          "tga_ct": 4.12,
+          "tga_cf": 2.26,
+          "voc": 89.84,
+          "cycle_voc": 89.4,
+          "memory_voc": 12.71,
+          "fpl": 31.45,
+          "vs": 24.34
+        }
+      },
+      "aggregate": {
+        "rank": 3,
+        "understanding": 43.76,
+        "tracking": 85.94,
+        "diagnosis": 52.32,
+        "consistency": 48.06,
+        "overall": 57.52
+      }
+    },
+    {
+      "name": "Robo-Dopamine-8B",
+      "preview": false,
+      "setting": "one",
+      "id": "robo-dopamine-8b-one",
+      "order": 14,
+      "conditions": {
+        "id": {
+          "sa": 80.09,
+          "tga_ct": 3.69,
+          "tga_cf": 1.23,
+          "voc": 88.17,
+          "cycle_voc": 87.19,
+          "memory_voc": 11.28,
+          "fpl": 32.86,
+          "trr": 36.55,
+          "vs": 19.08,
+          "csvc": 20.51
+        },
+        "emb": {
+          "sa": 80.26,
+          "tga_ct": 6.29,
+          "tga_cf": 1.16,
+          "voc": 85.23,
+          "cycle_voc": 84.05,
+          "memory_voc": 22.86,
+          "fpl": 30.46,
+          "vs": 13.25
+        },
+        "env": {
+          "sa": 71.95,
+          "tga_ct": 9.07,
+          "tga_cf": 4.07,
+          "voc": 76.81,
+          "cycle_voc": 76.46,
+          "memory_voc": 16.19,
+          "fpl": 32.28,
+          "vs": 11.13
+        }
+      },
+      "aggregate": {
+        "rank": 4,
+        "understanding": 40.95,
+        "tracking": 82.93,
+        "diagnosis": 52.22,
+        "consistency": 37.95,
+        "overall": 53.51
+      }
+    },
+    {
+      "name": "Robo-Dopamine-8B",
+      "preview": true,
+      "setting": "one",
+      "id": "robo-dopamine-8b-preview-one",
+      "order": 15,
+      "conditions": {
+        "id": {
+          "sa": 86.36,
+          "tga_ct": 0.73,
+          "tga_cf": 1.23,
+          "voc": 93.05,
+          "cycle_voc": 93.74,
+          "memory_voc": 18.84,
+          "fpl": 29.3,
+          "trr": 38.75,
+          "vs": 30.53,
+          "csvc": 39.48
+        },
+        "emb": {
+          "sa": 86.99,
+          "tga_ct": 1.46,
+          "tga_cf": 2.92,
+          "voc": 91.76,
+          "cycle_voc": 92.66,
+          "memory_voc": -4.34,
+          "fpl": 26.56,
+          "vs": 27.99
+        },
+        "env": {
+          "sa": 79.88,
+          "tga_ct": 3.79,
+          "tga_cf": 0.36,
+          "voc": 90.82,
+          "cycle_voc": 91.04,
+          "memory_voc": 12.73,
+          "fpl": 33.27,
+          "vs": 24.41
+        }
+      },
+      "aggregate": {
+        "rank": 1,
+        "understanding": 43.23,
+        "tracking": 86.23,
+        "diagnosis": 54.57,
+        "consistency": 49.05,
+        "overall": 58.27
+      }
+    },
+    {
+      "name": "VLAC-2B",
+      "preview": false,
+      "setting": "one",
+      "id": "vlac-2b-one",
+      "order": 16,
+      "conditions": {
+        "id": {
+          "sa": 64.54,
+          "tga_ct": 13.32,
+          "tga_cf": 8.99,
+          "voc": 67.57,
+          "cycle_voc": 60.24,
+          "memory_voc": 10.5,
+          "fpl": 29.59,
+          "trr": 21.0,
+          "vs": 22.34,
+          "csvc": 29.55
+        },
+        "emb": {
+          "sa": 62.81,
+          "tga_ct": 11.26,
+          "tga_cf": 15.77,
+          "voc": 66.37,
+          "cycle_voc": 58.45,
+          "memory_voc": 30.27,
+          "fpl": 29.15,
+          "vs": 17.77
+        },
+        "env": {
+          "sa": 60.1,
+          "tga_ct": 13.71,
+          "tga_cf": 2.97,
+          "voc": 59.66,
+          "cycle_voc": 56.61,
+          "memory_voc": 14.11,
+          "fpl": 29.99,
+          "vs": 17.7
+        }
+      },
+      "aggregate": {
+        "rank": 7,
+        "understanding": 37.02,
+        "tracking": 73.29,
+        "diagnosis": 45.71,
+        "consistency": 42.41,
+        "overall": 49.61
+      }
+    },
+    {
+      "name": "VLAC-8B",
+      "preview": false,
+      "setting": "one",
+      "id": "vlac-8b-one",
+      "order": 17,
+      "conditions": {
+        "id": {
+          "sa": 63.71,
+          "tga_ct": 34.63,
+          "tga_cf": 18.37,
+          "voc": 74.54,
+          "cycle_voc": 63.57,
+          "memory_voc": 51.12,
+          "fpl": 28.63,
+          "trr": 15.35,
+          "vs": 25.46,
+          "csvc": 30.26
+        },
+        "emb": {
+          "sa": 70.22,
+          "tga_ct": 28.22,
+          "tga_cf": 21.19,
+          "voc": 80.35,
+          "cycle_voc": 70.12,
+          "memory_voc": 41.96,
+          "fpl": 28.68,
+          "vs": 22.26
+        },
+        "env": {
+          "sa": 58.93,
+          "tga_ct": 34.43,
+          "tga_cf": 17.34,
+          "voc": 64.94,
+          "cycle_voc": 58.17,
+          "memory_voc": 23.62,
+          "fpl": 31.52,
+          "vs": 22.44
+        }
+      },
+      "aggregate": {
+        "rank": 5,
+        "understanding": 45.02,
+        "tracking": 78.1,
+        "diagnosis": 42.99,
+        "consistency": 44.52,
+        "overall": 52.66
+      }
+    }
+  ]
+}

@@ -1,0 +1,2207 @@
+{
+  "tasks": [
+    {
+      "id": "simulation/arrange-largest-number",
+      "domain": "simulation",
+      "slug": "arrange-largest-number",
+      "title": "Arrange Largest Number",
+      "instruction": "Arrange the numbers from left to right to form the largest possible number, and place them on the pad.",
+      "scene": "Four number tiles lie separately on the table, with four target pads arranged in a row.",
+      "procedure": "Determine the descending numerical order that forms the largest possible number and place the tiles on the pads.",
+      "order": "Place the tiles from left to right in descending numerical order.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Place the largest number on the leftmost mat. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the largest number outside the mats on the second mat from the left. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the largest number outside the mats on the third mat from the left. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the remaining number on the fourth mat from the left."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/arrange-largest-number/id.webp",
+        "emb": "/assets/tasks/simulation/arrange-largest-number/emb.webp",
+        "env": "/assets/tasks/simulation/arrange-largest-number/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/arrange-largest-number/step-1.webp",
+        "/assets/tasks/simulation/arrange-largest-number/step-2.webp",
+        "/assets/tasks/simulation/arrange-largest-number/step-3.webp",
+        "/assets/tasks/simulation/arrange-largest-number/step-4.webp",
+        "/assets/tasks/simulation/arrange-largest-number/step-5.webp",
+        "/assets/tasks/simulation/arrange-largest-number/step-6.webp",
+        "/assets/tasks/simulation/arrange-largest-number/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Arrange the numbers from left to right to form the largest possible number, and place them on the pad.",
+        "changes": {
+          "Objects": "numbers → books",
+          "Actions": "arrange to form largest number → turn face down and arrange left to right",
+          "Placement": "on pad → beside pad",
+          "Constraints": "largest → smallest"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 25
+      },
+      "sequencePage": 33
+    },
+    {
+      "id": "simulation/fill-pen-holder",
+      "domain": "simulation",
+      "slug": "fill-pen-holder",
+      "title": "Fill Pen Holder",
+      "instruction": "Pick up the pen holder, place all the pens into it one by one, then put the filled holder back on the table.",
+      "scene": "An empty pen holder stands on the table, with four pens lying separately nearby.",
+      "procedure": "Pick up the holder with one hand and use the other hand to insert all four pens individually, then return the filled holder to the table.",
+      "order": "The pens may be inserted in any order. Picking up the holder precedes insertion, and putting it down follows all four insertions.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Hold the empty pen holder. "
+        },
+        {
+          "id": "S2",
+          "text": "Insert the first selected pen into the pen holder. "
+        },
+        {
+          "id": "S3",
+          "text": "Insert the second selected pen into the pen holder. "
+        },
+        {
+          "id": "S4",
+          "text": "Insert the third selected pen into the pen holder. "
+        },
+        {
+          "id": "S5",
+          "text": "Insert the remaining pen into the pen holder. "
+        },
+        {
+          "id": "S6",
+          "text": "Place the filled pen holder upright on the table."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/fill-pen-holder/id.webp",
+        "emb": "/assets/tasks/simulation/fill-pen-holder/emb.webp",
+        "env": "/assets/tasks/simulation/fill-pen-holder/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/fill-pen-holder/step-1.webp",
+        "/assets/tasks/simulation/fill-pen-holder/step-2.webp",
+        "/assets/tasks/simulation/fill-pen-holder/step-3.webp",
+        "/assets/tasks/simulation/fill-pen-holder/step-4.webp",
+        "/assets/tasks/simulation/fill-pen-holder/step-5.webp",
+        "/assets/tasks/simulation/fill-pen-holder/step-6.webp",
+        "/assets/tasks/simulation/fill-pen-holder/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Pick up the pen holder, place all the pens into it one by one, then put the filled holder back on the table.",
+        "changes": {
+          "Objects": "pens → spoons",
+          "Actions": "return holder to table → return holder to table upside down",
+          "Placement": "inside holder → beside holder",
+          "Constraints": "all pens → exactly three pens"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 26
+      },
+      "sequencePage": 33
+    },
+    {
+      "id": "simulation/fold-clothes",
+      "domain": "simulation",
+      "slug": "fold-clothes",
+      "title": "Fold Clothes",
+      "instruction": "Fold the left sleeve inward toward the opposite chest point, fold the right sleeve inward toward the opposite chest point, then fold the lower hem upward until it is aligned with the shoulders.",
+      "scene": "An unfolded clothes lies flat on the table, with both sleeves extended.",
+      "procedure": "Fold both sleeves across the body of the clothes, then fold the lower section upward over them.",
+      "order": "Fold the left sleeve first, the right sleeve second, and the lower hem last.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Fold the left sleeve inward. "
+        },
+        {
+          "id": "S2",
+          "text": "Fold the right sleeve inward. "
+        },
+        {
+          "id": "S3",
+          "text": "Fold the lower half of the garment over the upper half."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/fold-clothes/id.webp",
+        "emb": "/assets/tasks/simulation/fold-clothes/emb.webp",
+        "env": "/assets/tasks/simulation/fold-clothes/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/fold-clothes/step-1.webp",
+        "/assets/tasks/simulation/fold-clothes/step-2.webp",
+        "/assets/tasks/simulation/fold-clothes/step-3.webp",
+        "/assets/tasks/simulation/fold-clothes/step-4.webp",
+        "/assets/tasks/simulation/fold-clothes/step-5.webp",
+        "/assets/tasks/simulation/fold-clothes/step-6.webp",
+        "/assets/tasks/simulation/fold-clothes/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Fold the left sleeve inward toward the opposite chest point, fold the right sleeve inward toward the opposite chest point, then fold the lower hem upward until it is aligned with the shoulders.",
+        "changes": {
+          "Objects": "clothing: sleeves/chest/hem → tablecloth: sides/center/edges",
+          "Actions": "three folds → leave completely unfolded on table",
+          "Placement": "hem upward until aligned with shoulders → hem downward away from shoulders",
+          "Constraints": "both sleeves and hem folded → exactly one sleeve folded; rest unfolded"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 26
+      },
+      "sequencePage": 33
+    },
+    {
+      "id": "simulation/hang-mugs",
+      "domain": "simulation",
+      "slug": "hang-mugs",
+      "title": "Hang Mugs",
+      "instruction": "Hang all three mugs on the mug rack.",
+      "scene": "Three mugs are placed separately on the table beside an empty mug rack.",
+      "procedure": "Pick up and hang all three mugs on the rack, using an empty hook for each mug.",
+      "order": "The mugs may be hung in any order.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Hang the first cup on an empty hook. "
+        },
+        {
+          "id": "S2",
+          "text": "Hang the second cup on another empty hook. "
+        },
+        {
+          "id": "S3",
+          "text": "Hang the third cup on the remaining empty hook."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/hang-mugs/id.webp",
+        "emb": "/assets/tasks/simulation/hang-mugs/emb.webp",
+        "env": "/assets/tasks/simulation/hang-mugs/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/hang-mugs/step-1.webp",
+        "/assets/tasks/simulation/hang-mugs/step-2.webp",
+        "/assets/tasks/simulation/hang-mugs/step-3.webp",
+        "/assets/tasks/simulation/hang-mugs/step-4.webp",
+        "/assets/tasks/simulation/hang-mugs/step-5.webp",
+        "/assets/tasks/simulation/hang-mugs/step-6.webp",
+        "/assets/tasks/simulation/hang-mugs/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Hang all three mugs on the mug rack.",
+        "changes": {
+          "Objects": "mugs → plates",
+          "Actions": "hang on rack → stand upright on table",
+          "Placement": "hang on rack → place beside rack",
+          "Constraints": "all three → exactly two; one on table"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 27
+      },
+      "sequencePage": 33
+    },
+    {
+      "id": "simulation/insert-tubes",
+      "domain": "simulation",
+      "slug": "insert-tubes",
+      "title": "Insert Tubes",
+      "instruction": "Insert the three tubes into the rack one by one.",
+      "scene": "Three tubes lie separately on the table in front of an empty tube rack.",
+      "procedure": "Pick up and insert each tube into an empty rack slot until all three tubes are in the rack.",
+      "order": "Insert the tubes one by one in any order.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Insert the first tube into an empty slot. "
+        },
+        {
+          "id": "S2",
+          "text": "Insert the second tube into another empty slot. "
+        },
+        {
+          "id": "S3",
+          "text": "Insert the third tube into the remaining empty slot."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/insert-tubes/id.webp",
+        "emb": "/assets/tasks/simulation/insert-tubes/emb.webp",
+        "env": "/assets/tasks/simulation/insert-tubes/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/insert-tubes/step-1.webp",
+        "/assets/tasks/simulation/insert-tubes/step-2.webp",
+        "/assets/tasks/simulation/insert-tubes/step-3.webp",
+        "/assets/tasks/simulation/insert-tubes/step-4.webp",
+        "/assets/tasks/simulation/insert-tubes/step-5.webp",
+        "/assets/tasks/simulation/insert-tubes/step-6.webp",
+        "/assets/tasks/simulation/insert-tubes/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Insert three tubes into the rack one by one.",
+        "changes": {
+          "Objects": "tubes → blocks",
+          "Actions": "insert → rotate each tube once, then insert",
+          "Placement": "insert into rack → place beside rack",
+          "Constraints": "three → exactly two; one on table"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 27
+      },
+      "sequencePage": 33
+    },
+    {
+      "id": "simulation/make-toast",
+      "domain": "simulation",
+      "slug": "make-toast",
+      "title": "Make Toast",
+      "instruction": "Pick up two bread slices one by one, place them into the toaster, and press the lever down.",
+      "scene": "Bread slices are placed beside a toaster with two empty slots on the table.",
+      "procedure": "Pick up two slices one by one, insert them into the toaster’s two slots, and press the lever down.",
+      "order": "Both slices must be inserted before the lever is pressed.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Insert the first bread slice into one toaster slot. "
+        },
+        {
+          "id": "S2",
+          "text": "Insert the second bread slice into the remaining toaster slot. "
+        },
+        {
+          "id": "S3",
+          "text": "Press the toaster lever down."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/make-toast/id.webp",
+        "emb": "/assets/tasks/simulation/make-toast/emb.webp",
+        "env": "/assets/tasks/simulation/make-toast/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/make-toast/step-1.webp",
+        "/assets/tasks/simulation/make-toast/step-2.webp",
+        "/assets/tasks/simulation/make-toast/step-3.webp",
+        "/assets/tasks/simulation/make-toast/step-4.webp",
+        "/assets/tasks/simulation/make-toast/step-5.webp",
+        "/assets/tasks/simulation/make-toast/step-6.webp",
+        "/assets/tasks/simulation/make-toast/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Pick up two bread slices one by one, place them into the toaster, and press the lever down.",
+        "changes": {
+          "Objects": "bread slices → wooden coasters",
+          "Actions": "press lever down → leave lever up",
+          "Placement": "into toaster → beside toaster",
+          "Constraints": "two slices → exactly one"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 27
+      },
+      "sequencePage": 33
+    },
+    {
+      "id": "simulation/organize-table",
+      "domain": "simulation",
+      "slug": "organize-table",
+      "title": "Organize Table",
+      "instruction": "Place the alarm clock on the drawer, put the figurine on its stand, place the mouse on the mouse pad, and push the keyboard into the frame.",
+      "scene": "An alarm clock, a figurine, a mouse, and a keyboard are placed on the table, outside their respective destinations: a drawer top, a figurine stand, a mouse pad, and a keyboard frame.",
+      "procedure": "Place the alarm clock on the drawer top, the figurine on its stand, and the mouse on its pad, and push the keyboard into its frame.",
+      "order": "The four placements have no required global order.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Place the alarm clock on top of the drawer. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the figurine on the stand. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the mouse on the mouse pad. "
+        },
+        {
+          "id": "S4",
+          "text": "Insert the keyboard into the frame."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/organize-table/id.webp",
+        "emb": "/assets/tasks/simulation/organize-table/emb.webp",
+        "env": "/assets/tasks/simulation/organize-table/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/organize-table/step-1.webp",
+        "/assets/tasks/simulation/organize-table/step-2.webp",
+        "/assets/tasks/simulation/organize-table/step-3.webp",
+        "/assets/tasks/simulation/organize-table/step-4.webp",
+        "/assets/tasks/simulation/organize-table/step-5.webp",
+        "/assets/tasks/simulation/organize-table/step-6.webp",
+        "/assets/tasks/simulation/organize-table/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the alarm clock on the drawer, put the figurine on its stand, place the mouse on the mouse pad, and push the keyboard into the frame.",
+        "changes": {
+          "Objects": "figurine on its stand; mouse on mouse pad → figurine on mouse pad; mouse on stand",
+          "Actions": "push keyboard into frame → leave keyboard outside frame",
+          "Placement": "mouse on pad → beside pad",
+          "Constraints": "all four → exactly one; three stay initial"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 28
+      },
+      "sequencePage": 33
+    },
+    {
+      "id": "simulation/press-by-number",
+      "domain": "simulation",
+      "slug": "press-by-number",
+      "title": "Press By Number",
+      "instruction": "Press the two red buttons the required number of times according to the number cards, then press the blue button to confirm.",
+      "scene": "Two number cards lie above two corresponding red buttons on the table, with a blue confirmation button beside them.",
+      "procedure": "Read the two cards and press each red button the corresponding number of times, then press the blue button to confirm.",
+      "order": "The required press counts vary with the cards. Complete the red-button presses before pressing the blue confirmation button.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Press the first button the required number of times. "
+        },
+        {
+          "id": "S2",
+          "text": "Press the blue button. "
+        },
+        {
+          "id": "S3",
+          "text": "Press the second button the required number of times. "
+        },
+        {
+          "id": "S4",
+          "text": "Press the blue button again."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/press-by-number/id.webp",
+        "emb": "/assets/tasks/simulation/press-by-number/emb.webp",
+        "env": "/assets/tasks/simulation/press-by-number/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/press-by-number/step-1.webp",
+        "/assets/tasks/simulation/press-by-number/step-2.webp",
+        "/assets/tasks/simulation/press-by-number/step-3.webp",
+        "/assets/tasks/simulation/press-by-number/step-4.webp",
+        "/assets/tasks/simulation/press-by-number/step-5.webp",
+        "/assets/tasks/simulation/press-by-number/step-6.webp",
+        "/assets/tasks/simulation/press-by-number/step-7.webp"
+      ],
+      "counterfactual": null,
+      "source": {
+        "appendix": "C.1",
+        "page": 28
+      },
+      "sequencePage": 34
+    },
+    {
+      "id": "simulation/put-bottles-into-dustbin",
+      "domain": "simulation",
+      "slug": "put-bottles-into-dustbin",
+      "title": "Put Bottles Into Dustbin",
+      "instruction": "Pick up all four bottles one by one and throw them into the dustbin.",
+      "scene": "Four bottles are placed on the table, with a dustbin beside the table.",
+      "procedure": "Pick up and deposit all four bottles in the dustbin.",
+      "order": "Handle the bottles one by one, order is not specified.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Place the first bottle in the dustbin. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the second bottle in the dustbin. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the third bottle in the dustbin. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the last bottle in the dustbin."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/put-bottles-into-dustbin/id.webp",
+        "emb": "/assets/tasks/simulation/put-bottles-into-dustbin/emb.webp",
+        "env": "/assets/tasks/simulation/put-bottles-into-dustbin/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/put-bottles-into-dustbin/step-1.webp",
+        "/assets/tasks/simulation/put-bottles-into-dustbin/step-2.webp",
+        "/assets/tasks/simulation/put-bottles-into-dustbin/step-3.webp",
+        "/assets/tasks/simulation/put-bottles-into-dustbin/step-4.webp",
+        "/assets/tasks/simulation/put-bottles-into-dustbin/step-5.webp",
+        "/assets/tasks/simulation/put-bottles-into-dustbin/step-6.webp",
+        "/assets/tasks/simulation/put-bottles-into-dustbin/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Pick up all four bottles one by one and throw them into the dustbin.",
+        "changes": {
+          "Objects": "bottles → books",
+          "Actions": "throw into bin → stand upright on table",
+          "Placement": "throw into dustbin → place beside dustbin",
+          "Constraints": "all four → exactly three; one on table"
+        },
+        "page": 32
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 28
+      },
+      "sequencePage": 34
+    },
+    {
+      "id": "simulation/pack-objects-into-box",
+      "domain": "simulation",
+      "slug": "pack-objects-into-box",
+      "title": "Pack Objects Into Box",
+      "instruction": "Move the box to the center of the table, then place all the objects into the box.",
+      "scene": "An open box and four separate objects are placed on the table, with the objects initially outside the box.",
+      "procedure": "Clear the center of the table and move the box there, then pick up and place all four objects inside.",
+      "order": "The objects may be packed in any order after the box is positioned.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Clear the center of the table, then place the box in the center of the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the shoe into the box. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the hammer into the box. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the toothbrush into the box. "
+        },
+        {
+          "id": "S5",
+          "text": "Place the toy car into the box."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/pack-objects-into-box/id.webp",
+        "emb": "/assets/tasks/simulation/pack-objects-into-box/emb.webp",
+        "env": "/assets/tasks/simulation/pack-objects-into-box/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/pack-objects-into-box/step-1.webp",
+        "/assets/tasks/simulation/pack-objects-into-box/step-2.webp",
+        "/assets/tasks/simulation/pack-objects-into-box/step-3.webp",
+        "/assets/tasks/simulation/pack-objects-into-box/step-4.webp",
+        "/assets/tasks/simulation/pack-objects-into-box/step-5.webp",
+        "/assets/tasks/simulation/pack-objects-into-box/step-6.webp",
+        "/assets/tasks/simulation/pack-objects-into-box/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Move the box to the center of the table, then place all the objects into the box.",
+        "changes": {
+          "Objects": "objects → pillows",
+          "Actions": "place objects in box → place in box, then remove to table",
+          "Placement": "inside box → beside box",
+          "Constraints": "all objects → exactly three; one outside"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 29
+      },
+      "sequencePage": 33
+    },
+    {
+      "id": "simulation/play-stacking-toy",
+      "domain": "simulation",
+      "slug": "play-stacking-toy",
+      "title": "Play Stacking Toy",
+      "instruction": "Place the four matching pieces onto the longest peg one by one, place the three matching pieces onto the second-longest peg, place the two matching pieces onto the second-shortest peg, then place the remaining piece onto the shortest peg.",
+      "scene": "A stacking-toy base with four pegs of different lengths lies on the table. Ten matching pieces lie separately around it, with four, three, two, and one piece for the respective pegs.",
+      "procedure": "Load the longest peg with its four matching pieces, the second-longest with three, the second-shortest with two, and the shortest with the remaining piece.",
+      "order": "Follow the peg order from longest to shortest and place the pieces individually.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Place the four matching pieces on the longest peg. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the three matching pieces on the second-longest peg. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the two matching pieces on the second-shortest peg. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the remaining piece on the shortest peg."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/play-stacking-toy/id.webp",
+        "emb": "/assets/tasks/simulation/play-stacking-toy/emb.webp",
+        "env": "/assets/tasks/simulation/play-stacking-toy/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/play-stacking-toy/step-1.webp",
+        "/assets/tasks/simulation/play-stacking-toy/step-2.webp",
+        "/assets/tasks/simulation/play-stacking-toy/step-3.webp",
+        "/assets/tasks/simulation/play-stacking-toy/step-4.webp",
+        "/assets/tasks/simulation/play-stacking-toy/step-5.webp",
+        "/assets/tasks/simulation/play-stacking-toy/step-6.webp",
+        "/assets/tasks/simulation/play-stacking-toy/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the four matching pieces onto the longest peg one by one, place the three matching pieces onto the second-longest peg, place the two matching pieces onto the second-shortest peg, then place the remaining piece onto the shortest peg.",
+        "changes": {
+          "Objects": "matching pieces → matching balls",
+          "Actions": "place on pegs → rotate in place; leave on table",
+          "Placement": "longest to shortest pegs → shortest to longest pegs",
+          "Constraints": "per-peg counts 4/3/2/1 → per-peg counts 3/2/1/0; four remain on table"
+        },
+        "page": 31
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 29
+      },
+      "sequencePage": 34
+    },
+    {
+      "id": "simulation/stack-blocks",
+      "domain": "simulation",
+      "slug": "stack-blocks",
+      "title": "Stack Blocks",
+      "instruction": "Stack the three blocks with different textures into one stable pile.",
+      "scene": "Three blocks with different textures are placed separately on the table.",
+      "procedure": "Place a base block at the table center, stack a second block on it, and place the third on top to form one stable pile.",
+      "order": "The blocks may be selected in any order. Each supporting block must be in place before the next block is stacked on it.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Place the first block in the center of the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the second block on the first block. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the third block on the second block."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/stack-blocks/id.webp",
+        "emb": "/assets/tasks/simulation/stack-blocks/emb.webp",
+        "env": "/assets/tasks/simulation/stack-blocks/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/stack-blocks/step-1.webp",
+        "/assets/tasks/simulation/stack-blocks/step-2.webp",
+        "/assets/tasks/simulation/stack-blocks/step-3.webp",
+        "/assets/tasks/simulation/stack-blocks/step-4.webp",
+        "/assets/tasks/simulation/stack-blocks/step-5.webp",
+        "/assets/tasks/simulation/stack-blocks/step-6.webp",
+        "/assets/tasks/simulation/stack-blocks/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Stack the three blocks with different textures into one stable pile.",
+        "changes": {
+          "Objects": "blocks → plates",
+          "Actions": "stack in pile → rotate in place; no stack",
+          "Placement": "stack in one pile → arrange side by side on table",
+          "Constraints": "one 3-block pile → one 2-block stack + one single block"
+        },
+        "page": 32
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 29
+      },
+      "sequencePage": 34
+    },
+    {
+      "id": "simulation/store-laptop-and-headphones",
+      "domain": "simulation",
+      "slug": "store-laptop-and-headphones",
+      "title": "Store Laptop And Headphones",
+      "instruction": "Hang the headphones on the headphone stand, close the laptop, then place the closed laptop into the vertical laptop stand.",
+      "scene": "An open laptop rests on a laptop stand. Headphones, an empty headphone stand, and an empty vertical laptop stand are placed nearby.",
+      "procedure": "Hang the headphones on their stand, close the laptop, lift it from its initial stand, and insert it into the vertical laptop stand.",
+      "order": "Hang the headphones first, close the laptop second, and place the closed laptop in the vertical stand last.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Place the headphones on the headphone stand. "
+        },
+        {
+          "id": "S2",
+          "text": "Close the laptop. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the closed laptop in the laptop stand."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/store-laptop-and-headphones/id.webp",
+        "emb": "/assets/tasks/simulation/store-laptop-and-headphones/emb.webp",
+        "env": "/assets/tasks/simulation/store-laptop-and-headphones/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/store-laptop-and-headphones/step-1.webp",
+        "/assets/tasks/simulation/store-laptop-and-headphones/step-2.webp",
+        "/assets/tasks/simulation/store-laptop-and-headphones/step-3.webp",
+        "/assets/tasks/simulation/store-laptop-and-headphones/step-4.webp",
+        "/assets/tasks/simulation/store-laptop-and-headphones/step-5.webp",
+        "/assets/tasks/simulation/store-laptop-and-headphones/step-6.webp",
+        "/assets/tasks/simulation/store-laptop-and-headphones/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Hang the headphones on the headphone stand, close the laptop, then place the closed laptop into the vertical laptop stand.",
+        "changes": {
+          "Objects": "headphones → scarf",
+          "Actions": "close laptop → leave open",
+          "Placement": "into laptop stand → beside laptop stand",
+          "Constraints": "headphones/laptop on their own stands → both on headphone stand; laptop stand empty"
+        },
+        "page": 32
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 30
+      },
+      "sequencePage": 34
+    },
+    {
+      "id": "simulation/swap-blocks",
+      "domain": "simulation",
+      "slug": "swap-blocks",
+      "title": "Swap Blocks",
+      "instruction": "Swap the two blocks using the empty mat, pressing the button after each move.",
+      "scene": "Three mats are arranged in a row on the table. Two hold one block each, the third is empty, and a button lies nearby.",
+      "procedure": "Move one block to the empty mat, move the other block to the newly vacant mat, and move the first block to the second block’s original mat, so that the two blocks exchange positions.",
+      "order": "Press the button after every block move.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Put the first block on the empty mat. "
+        },
+        {
+          "id": "S2",
+          "text": "Press the button to confirm the first move. "
+        },
+        {
+          "id": "S3",
+          "text": "Transfer the second block onto the original first block’s position. "
+        },
+        {
+          "id": "S4",
+          "text": "Press the button to confirm the second move. "
+        },
+        {
+          "id": "S5",
+          "text": "Put the first block on the original second block’s mat. "
+        },
+        {
+          "id": "S6",
+          "text": "Press the button to confirm the last move."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/swap-blocks/id.webp",
+        "emb": "/assets/tasks/simulation/swap-blocks/emb.webp",
+        "env": "/assets/tasks/simulation/swap-blocks/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/swap-blocks/step-1.webp",
+        "/assets/tasks/simulation/swap-blocks/step-2.webp",
+        "/assets/tasks/simulation/swap-blocks/step-3.webp",
+        "/assets/tasks/simulation/swap-blocks/step-4.webp",
+        "/assets/tasks/simulation/swap-blocks/step-5.webp",
+        "/assets/tasks/simulation/swap-blocks/step-6.webp",
+        "/assets/tasks/simulation/swap-blocks/step-7.webp"
+      ],
+      "counterfactual": null,
+      "source": {
+        "appendix": "C.1",
+        "page": 30
+      },
+      "sequencePage": 34
+    },
+    {
+      "id": "simulation/sweep-blocks",
+      "domain": "simulation",
+      "slug": "sweep-blocks",
+      "title": "Sweep Blocks",
+      "instruction": "Pick up the broom, pick up and place the dustpan upright on the table, then use the broom to sweep all the objects into the dustpan.",
+      "scene": "A broom and an empty dustpan lie on the table beside several scattered blocks.",
+      "procedure": "Pick up the broom, pick up and position the dustpan upright on the table, and sweep all blocks into it.",
+      "order": "Pick up the broom first and position the dustpan before sweeping.",
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the broom. "
+        },
+        {
+          "id": "S2",
+          "text": "Pick up the dustpan. "
+        },
+        {
+          "id": "S3",
+          "text": "Sweep all objects into the dustpan."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/simulation/sweep-blocks/id.webp",
+        "emb": "/assets/tasks/simulation/sweep-blocks/emb.webp",
+        "env": "/assets/tasks/simulation/sweep-blocks/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/simulation/sweep-blocks/step-1.webp",
+        "/assets/tasks/simulation/sweep-blocks/step-2.webp",
+        "/assets/tasks/simulation/sweep-blocks/step-3.webp",
+        "/assets/tasks/simulation/sweep-blocks/step-4.webp",
+        "/assets/tasks/simulation/sweep-blocks/step-5.webp",
+        "/assets/tasks/simulation/sweep-blocks/step-6.webp",
+        "/assets/tasks/simulation/sweep-blocks/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Pick up the broom, pick up and place the dustpan upright on the table, then use the broom to sweep all the objects into the dustpan.",
+        "changes": {
+          "Objects": "objects → balls",
+          "Actions": "sweep into dustpan → scatter away from dustpan",
+          "Placement": "into dustpan → beside dustpan",
+          "Constraints": "sweep all objects into dustpan → sweep exactly one object into dustpan"
+        },
+        "page": 32
+      },
+      "source": {
+        "appendix": "C.1",
+        "page": 30
+      },
+      "sequencePage": 34
+    },
+    {
+      "id": "real-world/apply-dish-soap-repeatedly",
+      "domain": "real-world",
+      "slug": "apply-dish-soap-repeatedly",
+      "title": "Apply Dish Soap Repeatedly",
+      "instruction": "Press the dish-soap bottle 5 times continuously, dispensing soap onto the dishcloth.",
+      "scene": "A dish-soap dispenser sits at the table center, with a dishcloth lying to its right.",
+      "procedure": "Hold the cloth beneath the outlet with the right arm while the left arm presses and releases the pump, then return the cloth to the dispenser’s right.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the dishcloth and place it below the pump outlet. "
+        },
+        {
+          "id": "S2",
+          "text": "Press the pump and dispense soap for the first time. "
+        },
+        {
+          "id": "S3",
+          "text": "Press the pump and dispense soap for the second time. "
+        },
+        {
+          "id": "S4",
+          "text": "Press the pump and dispense soap for the third time. "
+        },
+        {
+          "id": "S5",
+          "text": "Press the pump and dispense soap for the fourth time. "
+        },
+        {
+          "id": "S6",
+          "text": "Press the pump and dispense soap for the fifth time. "
+        },
+        {
+          "id": "S7",
+          "text": "Place the dishcloth on the table."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/apply-dish-soap-repeatedly/id.webp",
+        "emb": "/assets/tasks/real-world/apply-dish-soap-repeatedly/emb.webp",
+        "env": "/assets/tasks/real-world/apply-dish-soap-repeatedly/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/apply-dish-soap-repeatedly/step-1.webp",
+        "/assets/tasks/real-world/apply-dish-soap-repeatedly/step-2.webp",
+        "/assets/tasks/real-world/apply-dish-soap-repeatedly/step-3.webp",
+        "/assets/tasks/real-world/apply-dish-soap-repeatedly/step-4.webp",
+        "/assets/tasks/real-world/apply-dish-soap-repeatedly/step-5.webp",
+        "/assets/tasks/real-world/apply-dish-soap-repeatedly/step-6.webp",
+        "/assets/tasks/real-world/apply-dish-soap-repeatedly/step-7.webp"
+      ],
+      "counterfactual": null,
+      "source": {
+        "appendix": "D.1",
+        "page": 35
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/arrange-family-tea-set",
+      "domain": "real-world",
+      "slug": "arrange-family-tea-set",
+      "title": "Arrange Family Tea Set",
+      "instruction": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete these placements in any order, provided the teapot is placed before its lid.",
+      "scene": "A cup, a teapot, and a tea canister sit off their designated coasters on the table. The teapot lid lies beside the teapot, and tea tongs lie outside their holder.",
+      "procedure": "Place the cup on the left-front coaster, the teapot on the right-front teapot coaster, the lid on the teapot, the tea canister on the tea-canister coaster, and the tea tongs in the bamboo holder tool position.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the cup from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the cup on the left-front coaster. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the teapot from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the teapot on the right-front teapot coaster. "
+        },
+        {
+          "id": "S5",
+          "text": "Pick up the teapot lid from the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Place the lid on the teapot. "
+        },
+        {
+          "id": "S7",
+          "text": "Pick up the tea canister from the table. "
+        },
+        {
+          "id": "S8",
+          "text": "Place the tea canister on the tea-canister coaster. "
+        },
+        {
+          "id": "S9",
+          "text": "Pick up the tea tongs from the table. "
+        },
+        {
+          "id": "S10",
+          "text": "Place the tea tongs in the bamboo holder tool position."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/arrange-family-tea-set/id.webp",
+        "emb": "/assets/tasks/real-world/arrange-family-tea-set/emb.webp",
+        "env": "/assets/tasks/real-world/arrange-family-tea-set/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/arrange-family-tea-set/step-1.webp",
+        "/assets/tasks/real-world/arrange-family-tea-set/step-2.webp",
+        "/assets/tasks/real-world/arrange-family-tea-set/step-3.webp",
+        "/assets/tasks/real-world/arrange-family-tea-set/step-4.webp",
+        "/assets/tasks/real-world/arrange-family-tea-set/step-5.webp",
+        "/assets/tasks/real-world/arrange-family-tea-set/step-6.webp",
+        "/assets/tasks/real-world/arrange-family-tea-set/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete these placements in any order, provided the teapot is placed before its lid.",
+        "changes": {
+          "Objects": "teacup on cat-head mat; teapot on yellow mat → teacup on yellow mat; teapot on cat-head mat",
+          "Actions": "lid on teapot → leave lid off teapot",
+          "Placement": "tongs in holder → tongs beside holder",
+          "Constraints": "place teapot before lid → place lid before teapot"
+        },
+        "page": 42
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 35
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/arrange-flowers-and-reed-diffuser",
+      "domain": "real-world",
+      "slug": "arrange-flowers-and-reed-diffuser",
+      "title": "Arrange Flowers and Reed Diffuser",
+      "instruction": "Place the pink, white, and yellow flowers consecutively in the vase, in any order. Place the diffuser bottle on the coaster and insert the reed stick into it, in either order. Either diffuser action may occur before or after the flower sequence, but neither may occur between flower placements.",
+      "scene": "A sunflower, a lily, and a rose lie outside a vase on the table. A reed diffuser bottle sits off its coaster, with a diffuser reed placed separately beside it.",
+      "procedure": "Insert the three flowers into the vase one after another, place the reed diffuser bottle on the coaster, then insert the diffuser reed into the bottle.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the first flower from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Insert the first flower into the vase. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the second flower from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Insert the second flower into the vase. "
+        },
+        {
+          "id": "S5",
+          "text": "Pick up the third flower from the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Insert the third flower into the vase. "
+        },
+        {
+          "id": "S7",
+          "text": "Pick up the reed diffuser bottle from the table. "
+        },
+        {
+          "id": "S8",
+          "text": "Place the reed diffuser bottle on the coaster. "
+        },
+        {
+          "id": "S9",
+          "text": "Pick up the diffuser reed from the table. "
+        },
+        {
+          "id": "S10",
+          "text": "Insert the diffuser reed into the reed diffuser bottle."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/id.webp",
+        "emb": "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/emb.webp",
+        "env": "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/step-1.webp",
+        "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/step-2.webp",
+        "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/step-3.webp",
+        "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/step-4.webp",
+        "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/step-5.webp",
+        "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/step-6.webp",
+        "/assets/tasks/real-world/arrange-flowers-and-reed-diffuser/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the pink, white, and yellow flowers consecutively in the vase, in any order. Place the diffuser bottle on the coaster and insert the reed stick into it, in either order. Either diffuser action may occur before or after the flower sequence, but neither may occur between flower placements.",
+        "changes": {
+          "Objects": "pink, white, yellow flowers → pink, white, yellow paintbrushes",
+          "Actions": "insert reed into bottle → leave reed beside bottle",
+          "Placement": "diffuser on coaster → diffuser beside coaster",
+          "Constraints": "all three consecutive in vase → pink and white consecutive; yellow on table"
+        },
+        "page": 42
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 36
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/arrange-seasoning-jars",
+      "domain": "real-world",
+      "slug": "arrange-seasoning-jars",
+      "title": "Arrange Seasoning Jars",
+      "instruction": "Place the three seasoning jars on the two-tier rack in any order, on either tier and in any positions.",
+      "scene": "A two-tier seasoning rack and three seasoning jars are placed on the table.",
+      "procedure": "Pick up and place each of the three seasoning jars on the rack.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the first seasoning jar from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the first seasoning jar on the two-tier seasoning rack. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the second seasoning jar from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the second seasoning jar on the two-tier seasoning rack. "
+        },
+        {
+          "id": "S5",
+          "text": "Pick up the third seasoning jar from the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Place the third seasoning jar on the two-tier seasoning rack."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/arrange-seasoning-jars/id.webp",
+        "emb": "/assets/tasks/real-world/arrange-seasoning-jars/emb.webp",
+        "env": "/assets/tasks/real-world/arrange-seasoning-jars/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/arrange-seasoning-jars/step-1.webp",
+        "/assets/tasks/real-world/arrange-seasoning-jars/step-2.webp",
+        "/assets/tasks/real-world/arrange-seasoning-jars/step-3.webp",
+        "/assets/tasks/real-world/arrange-seasoning-jars/step-4.webp",
+        "/assets/tasks/real-world/arrange-seasoning-jars/step-5.webp",
+        "/assets/tasks/real-world/arrange-seasoning-jars/step-6.webp",
+        "/assets/tasks/real-world/arrange-seasoning-jars/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the three seasoning jars on the two-tier rack in any order, on either tier and in any positions.",
+        "changes": {
+          "Objects": "seasoning jars → small ceramic cups",
+          "Actions": "place all three on rack → place all three, then rotate each in place",
+          "Placement": "all three on rack → all three beside rack",
+          "Constraints": "all three → exactly two; one beside rack"
+        },
+        "page": 42
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 36
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/enter-keypad-number-sequence",
+      "domain": "real-world",
+      "slug": "enter-keypad-number-sequence",
+      "title": "Enter Keypad Number Sequence",
+      "instruction": "Press the keys in the sequence 2-8-2-6-8, fully releasing each key and returning to the waiting position in front of the keypad between presses.",
+      "scene": "A keyboard is placed on the right side of the table. The operating arm starts at its waiting position.",
+      "procedure": "Press and fully release each required key, returning to the waiting position after every press, including the last.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Press the first key in the sequence (2) on the desktop keypad with the right arm. "
+        },
+        {
+          "id": "S2",
+          "text": "Press the second key in the sequence (8) on the desktop keypad with the right arm. "
+        },
+        {
+          "id": "S3",
+          "text": "Press the third key in the sequence (2) on the desktop keypad with the right arm. "
+        },
+        {
+          "id": "S4",
+          "text": "Press the fourth key in the sequence (6) on the desktop keypad with the right arm. "
+        },
+        {
+          "id": "S5",
+          "text": "Press the fifth key in the sequence (8) on the desktop keypad with the right arm."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/enter-keypad-number-sequence/id.webp",
+        "emb": "/assets/tasks/real-world/enter-keypad-number-sequence/emb.webp",
+        "env": "/assets/tasks/real-world/enter-keypad-number-sequence/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/enter-keypad-number-sequence/step-1.webp",
+        "/assets/tasks/real-world/enter-keypad-number-sequence/step-2.webp",
+        "/assets/tasks/real-world/enter-keypad-number-sequence/step-3.webp",
+        "/assets/tasks/real-world/enter-keypad-number-sequence/step-4.webp",
+        "/assets/tasks/real-world/enter-keypad-number-sequence/step-5.webp",
+        "/assets/tasks/real-world/enter-keypad-number-sequence/step-6.webp",
+        "/assets/tasks/real-world/enter-keypad-number-sequence/step-7.webp"
+      ],
+      "counterfactual": null,
+      "source": {
+        "appendix": "D.1",
+        "page": 36
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/fill-and-place-pen-holder",
+      "domain": "real-world",
+      "slug": "fill-and-place-pen-holder",
+      "title": "Fill And Place Pen Holder",
+      "instruction": "Hold the pen holder with its opening upward, insert all four pens one by one in any order, then place the filled holder upright.",
+      "scene": "Four pens lie on the table beside an upright, empty pen holder.",
+      "procedure": "Pick up the pen holder, place the four pens inside it one by one, then place the filled holder upright on the table.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the pen holder from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Pick up the first pen from the table. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the first pen in the pen holder. "
+        },
+        {
+          "id": "S4",
+          "text": "Pick up the second pen from the table. "
+        },
+        {
+          "id": "S5",
+          "text": "Place the second pen in the pen holder. "
+        },
+        {
+          "id": "S6",
+          "text": "Pick up the third pen from the table. "
+        },
+        {
+          "id": "S7",
+          "text": "Place the third pen in the pen holder. "
+        },
+        {
+          "id": "S8",
+          "text": "Pick up the fourth pen from the table. "
+        },
+        {
+          "id": "S9",
+          "text": "Place the fourth pen in the pen holder. "
+        },
+        {
+          "id": "S10",
+          "text": "Place the pen holder upright on the table."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/fill-and-place-pen-holder/id.webp",
+        "emb": "/assets/tasks/real-world/fill-and-place-pen-holder/emb.webp",
+        "env": "/assets/tasks/real-world/fill-and-place-pen-holder/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/fill-and-place-pen-holder/step-1.webp",
+        "/assets/tasks/real-world/fill-and-place-pen-holder/step-2.webp",
+        "/assets/tasks/real-world/fill-and-place-pen-holder/step-3.webp",
+        "/assets/tasks/real-world/fill-and-place-pen-holder/step-4.webp",
+        "/assets/tasks/real-world/fill-and-place-pen-holder/step-5.webp",
+        "/assets/tasks/real-world/fill-and-place-pen-holder/step-6.webp",
+        "/assets/tasks/real-world/fill-and-place-pen-holder/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Hold the pen holder with its opening upward, insert all four pens one by one in any order, then place the filled holder upright.",
+        "changes": {
+          "Objects": "pen holder → mug",
+          "Actions": "leave holder filled → remove all pens; leave holder empty",
+          "Placement": "filled holder upright → filled holder horizontal on table",
+          "Constraints": "all four pens → exactly three pens"
+        },
+        "page": 42
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 37
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/load-plastic-plates-into-rack",
+      "domain": "real-world",
+      "slug": "load-plastic-plates-into-rack",
+      "title": "Load Plastic Plates Into Rack",
+      "instruction": "Insert the three plastic plates into the rack in any order and in any slots.",
+      "scene": "Three plastic plates lie outside a slotted plate rack on the table. The rack has 5 slots.",
+      "procedure": "Insert all three plates upright into the rack’s slots.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the first plastic plate from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the first plastic plate upright in an empty slot. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the second plastic plate from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the second plastic plate upright in an empty slot. "
+        },
+        {
+          "id": "S5",
+          "text": "Pick up the third plastic plate from the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Place the third plastic plate upright in an empty slot."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/load-plastic-plates-into-rack/id.webp",
+        "emb": "/assets/tasks/real-world/load-plastic-plates-into-rack/emb.webp",
+        "env": "/assets/tasks/real-world/load-plastic-plates-into-rack/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/load-plastic-plates-into-rack/step-1.webp",
+        "/assets/tasks/real-world/load-plastic-plates-into-rack/step-2.webp",
+        "/assets/tasks/real-world/load-plastic-plates-into-rack/step-3.webp",
+        "/assets/tasks/real-world/load-plastic-plates-into-rack/step-4.webp",
+        "/assets/tasks/real-world/load-plastic-plates-into-rack/step-5.webp",
+        "/assets/tasks/real-world/load-plastic-plates-into-rack/step-6.webp",
+        "/assets/tasks/real-world/load-plastic-plates-into-rack/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Insert the three plastic plates into the rack in any order and in any slots.",
+        "changes": {
+          "Objects": "plastic plates → thin plastic cutting boards",
+          "Actions": "insert all three into rack → lay all three flat on table beside rack",
+          "Placement": "inside rack slots → upright in front of rack",
+          "Constraints": "all three → exactly two; one beside rack"
+        },
+        "page": 42
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 37
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/operate-drawers-in-sequence",
+      "domain": "real-world",
+      "slug": "operate-drawers-in-sequence",
+      "title": "Operate Drawers In Sequence",
+      "instruction": "Open the bottom, middle, and top drawers in that order, then close the top, middle, and bottom drawers in that order.",
+      "scene": "A three-drawer storage unit stands on the table with all drawers closed.",
+      "procedure": "Grasp the knobs to pull all drawers open, then grasp the knobs to push them closed and return to the initial pose.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Open the bottom drawer on the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Open the middle drawer on the table. "
+        },
+        {
+          "id": "S3",
+          "text": "Open the top drawer on the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Close the top drawer on the table. "
+        },
+        {
+          "id": "S5",
+          "text": "Close the middle drawer on the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Close the bottom drawer on the table."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/operate-drawers-in-sequence/id.webp",
+        "emb": "/assets/tasks/real-world/operate-drawers-in-sequence/emb.webp",
+        "env": "/assets/tasks/real-world/operate-drawers-in-sequence/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/operate-drawers-in-sequence/step-1.webp",
+        "/assets/tasks/real-world/operate-drawers-in-sequence/step-2.webp",
+        "/assets/tasks/real-world/operate-drawers-in-sequence/step-3.webp",
+        "/assets/tasks/real-world/operate-drawers-in-sequence/step-4.webp",
+        "/assets/tasks/real-world/operate-drawers-in-sequence/step-5.webp",
+        "/assets/tasks/real-world/operate-drawers-in-sequence/step-6.webp",
+        "/assets/tasks/real-world/operate-drawers-in-sequence/step-7.webp"
+      ],
+      "counterfactual": null,
+      "source": {
+        "appendix": "D.1",
+        "page": 37
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/organize-books-and-pen",
+      "domain": "real-world",
+      "slug": "organize-books-and-pen",
+      "title": "Organize Books And Pen",
+      "instruction": "Center and align the closed book in the target rectangle. Place the pen along the spine of the open book, close the book, and stack it on the first book.",
+      "scene": "A white book lies outside a marked area, a gray book is open on the table, and a pen lies nearby.",
+      "procedure": "Move and align the white book in the marked area, place the pen in the gray book’s spine, close the gray book, then place it on the white book.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Move the white book on the table into the marked area. "
+        },
+        {
+          "id": "S2",
+          "text": "Adjust the white book within the marked area. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the pen from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the pen in the spine of the gray book. "
+        },
+        {
+          "id": "S5",
+          "text": "Close the gray book on the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Pick up the gray book from the table. "
+        },
+        {
+          "id": "S7",
+          "text": "Place the gray book on the white book."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/organize-books-and-pen/id.webp",
+        "emb": "/assets/tasks/real-world/organize-books-and-pen/emb.webp",
+        "env": "/assets/tasks/real-world/organize-books-and-pen/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/organize-books-and-pen/step-1.webp",
+        "/assets/tasks/real-world/organize-books-and-pen/step-2.webp",
+        "/assets/tasks/real-world/organize-books-and-pen/step-3.webp",
+        "/assets/tasks/real-world/organize-books-and-pen/step-4.webp",
+        "/assets/tasks/real-world/organize-books-and-pen/step-5.webp",
+        "/assets/tasks/real-world/organize-books-and-pen/step-6.webp",
+        "/assets/tasks/real-world/organize-books-and-pen/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Center and align the closed book in the target rectangle. Place the pen along the spine of the open book, close the book, and stack it on the first book.",
+        "changes": {
+          "Objects": "books → binders",
+          "Actions": "stack newly closed book → leave it unstacked",
+          "Placement": "pen along open book’s spine → pen beside open book",
+          "Constraints": "center/align first book, then place pen, close and stack second book → place pen, close and stack second book, then center/align first book"
+        },
+        "page": 42
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 38
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/organize-cosmetics-storage-box",
+      "domain": "real-world",
+      "slug": "organize-cosmetics-storage-box",
+      "title": "Organize Cosmetics Storage Box",
+      "instruction": "Open the upper drawer, cap the lipstick, and place the lipstick and eyebrow pencil inside. Close the drawer, then place the serum and cleansing oil in the storage area above, in either order.",
+      "scene": "A storage cabinet stands on the table with its upper drawer closed. A lipstick and its separate cap, a pink eyebrow pencil, a yellow essence bottle, and cleansing oil are placed nearby.",
+      "procedure": "Open the upper drawer, cap and store the lipstick, store the eyebrow pencil, and close the drawer. Place the yellow essence bottle in the upper open storage area with its base facing downward, then place the cleansing oil flat in the upper open storage area.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Open the upper drawer on the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Pick up the lipstick cap from the table. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the lipstick cap on the lipstick. "
+        },
+        {
+          "id": "S4",
+          "text": "Pick up the lipstick from the table. "
+        },
+        {
+          "id": "S5",
+          "text": "Place the lipstick in the drawer. "
+        },
+        {
+          "id": "S6",
+          "text": "Pick up the pink eyebrow pencil from the table. "
+        },
+        {
+          "id": "S7",
+          "text": "Place the pink eyebrow pencil in the drawer. "
+        },
+        {
+          "id": "S8",
+          "text": "Push the drawer steadily to the closed position. "
+        },
+        {
+          "id": "S9",
+          "text": "Pick up the yellow essence bottle with its base facing downward. "
+        },
+        {
+          "id": "S10",
+          "text": "Place the yellow essence bottle in the upper open storage area. "
+        },
+        {
+          "id": "S11",
+          "text": "Pick up the cleansing oil from the table. "
+        },
+        {
+          "id": "S12",
+          "text": "Place the cleansing oil flat in the upper open storage area."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/organize-cosmetics-storage-box/id.webp",
+        "emb": "/assets/tasks/real-world/organize-cosmetics-storage-box/emb.webp",
+        "env": "/assets/tasks/real-world/organize-cosmetics-storage-box/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/organize-cosmetics-storage-box/step-1.webp",
+        "/assets/tasks/real-world/organize-cosmetics-storage-box/step-2.webp",
+        "/assets/tasks/real-world/organize-cosmetics-storage-box/step-3.webp",
+        "/assets/tasks/real-world/organize-cosmetics-storage-box/step-4.webp",
+        "/assets/tasks/real-world/organize-cosmetics-storage-box/step-5.webp",
+        "/assets/tasks/real-world/organize-cosmetics-storage-box/step-6.webp",
+        "/assets/tasks/real-world/organize-cosmetics-storage-box/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Open the upper drawer, cap the lipstick, and place the lipstick and eyebrow pencil inside. Close the drawer, then place the serum and cleansing oil in the storage area above, in either order.",
+        "changes": {
+          "Objects": "lipstick → mascara",
+          "Actions": "cap lipstick → leave lipstick uncapped",
+          "Placement": "pencil ends in drawer → pencil ends in upper storage",
+          "Constraints": "serum and oil in either order → cleansing oil before serum"
+        },
+        "page": 42
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 38
+      },
+      "sequencePage": 44
+    },
+    {
+      "id": "real-world/organize-desktop-workstation",
+      "domain": "real-world",
+      "slug": "organize-desktop-workstation",
+      "title": "Organize Desktop Workstation",
+      "instruction": "Place the pen in the holder, place the eraser in the open drawer and close it, switch off the lamp, and unplug it. These actions may be performed in any order, except that the lamp must be switched off before it is unplugged.",
+      "scene": "An open storage box, an eraser, a desk lamp, a power strip, a pen holder, and a pen are placed on the table. The lamp is on and plugged into the power strip.",
+      "procedure": "Put the pen in the pen holder, put the eraser in the storage box and close it, then turn off and unplug the lamp.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the pen from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the pen in the pen holder. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the eraser from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the eraser in the storage box. "
+        },
+        {
+          "id": "S5",
+          "text": "Close the open storage box. "
+        },
+        {
+          "id": "S6",
+          "text": "Turn off the desk lamp using its switch. "
+        },
+        {
+          "id": "S7",
+          "text": "Unplug the desk lamp’s charging plug."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/organize-desktop-workstation/id.webp",
+        "emb": "/assets/tasks/real-world/organize-desktop-workstation/emb.webp",
+        "env": "/assets/tasks/real-world/organize-desktop-workstation/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/organize-desktop-workstation/step-1.webp",
+        "/assets/tasks/real-world/organize-desktop-workstation/step-2.webp",
+        "/assets/tasks/real-world/organize-desktop-workstation/step-3.webp",
+        "/assets/tasks/real-world/organize-desktop-workstation/step-4.webp",
+        "/assets/tasks/real-world/organize-desktop-workstation/step-5.webp",
+        "/assets/tasks/real-world/organize-desktop-workstation/step-6.webp",
+        "/assets/tasks/real-world/organize-desktop-workstation/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the pen in the holder, place the eraser in the open drawer and close it, switch off the lamp, and unplug it. These actions may be performed in any order, except that the lamp must be switched off before it is unplugged.",
+        "changes": {
+          "Objects": "pen to holder; eraser to drawer → pen to drawer; eraser to holder",
+          "Actions": "close drawer → leave drawer open",
+          "Placement": "pen in holder → pen beside holder",
+          "Constraints": "lamp off before unplug; object placements otherwise unordered → lamp off, then unplug, before both object placements"
+        },
+        "page": 43
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 38
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/pack-items-for-shipping",
+      "domain": "real-world",
+      "slug": "pack-items-for-shipping",
+      "title": "Pack Items For Shipping",
+      "instruction": "Place the wireless mouse, then the wired earphones, in the cardboard box. Cover both items with bubble wrap.",
+      "scene": "A cardboard box sits at the table center, with wired earphones to its left, a wireless mouse to its right, and a sheet of bubble wrap in front.",
+      "procedure": "Place the mouse and wired earphones inside the box and cover both with bubble wrap.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the wireless mouse from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the wireless mouse at the bottom of the cardboard box. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the wired earphones from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the wired earphones at the bottom of the cardboard box. "
+        },
+        {
+          "id": "S5",
+          "text": "Pick up the bubble wrap from the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Place the bubble wrap over the packed items."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/pack-items-for-shipping/id.webp",
+        "emb": "/assets/tasks/real-world/pack-items-for-shipping/emb.webp",
+        "env": "/assets/tasks/real-world/pack-items-for-shipping/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/pack-items-for-shipping/step-1.webp",
+        "/assets/tasks/real-world/pack-items-for-shipping/step-2.webp",
+        "/assets/tasks/real-world/pack-items-for-shipping/step-3.webp",
+        "/assets/tasks/real-world/pack-items-for-shipping/step-4.webp",
+        "/assets/tasks/real-world/pack-items-for-shipping/step-5.webp",
+        "/assets/tasks/real-world/pack-items-for-shipping/step-6.webp",
+        "/assets/tasks/real-world/pack-items-for-shipping/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the wireless mouse, then the wired earphones, in the cardboard box. Cover both items with bubble wrap.",
+        "changes": {
+          "Objects": "wireless mouse → wireless game controller",
+          "Actions": "cover both items → leave both uncovered",
+          "Placement": "mouse and earphones both in box → mouse in box; earphones beside box",
+          "Constraints": "cover both items → cover mouse only"
+        },
+        "page": 43
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 39
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/place-pot-on-induction-cooker",
+      "domain": "real-world",
+      "slug": "place-pot-on-induction-cooker",
+      "title": "Place Pot On Induction Cooker",
+      "instruction": "Place the pot, with the spatula inside, on the induction cooker so that most of the pot is over the cooking surface. Turn the handle toward the camera, move the spatula to the basket, and cover the pot with the lid.",
+      "scene": "An induction cooker sits at the table center, with a lid to its left and a pot containing a spatula to its right. A basket sits farther back and to the right of the pot.",
+      "procedure": "Place the pot on the induction cooker with its handle facing backward, adjust its position, move the spatula into the basket, and cover the pot with the lid.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the small pot from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the small pot on the induction cooker. "
+        },
+        {
+          "id": "S3",
+          "text": "Adjust the position of the small pot on the induction cooker. "
+        },
+        {
+          "id": "S4",
+          "text": "Pick up the spatula from inside the pot. "
+        },
+        {
+          "id": "S5",
+          "text": "Place the spatula in the basket on the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Pick up the pot lid from the table. "
+        },
+        {
+          "id": "S7",
+          "text": "Cover the pot with the lid."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/place-pot-on-induction-cooker/id.webp",
+        "emb": "/assets/tasks/real-world/place-pot-on-induction-cooker/emb.webp",
+        "env": "/assets/tasks/real-world/place-pot-on-induction-cooker/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/place-pot-on-induction-cooker/step-1.webp",
+        "/assets/tasks/real-world/place-pot-on-induction-cooker/step-2.webp",
+        "/assets/tasks/real-world/place-pot-on-induction-cooker/step-3.webp",
+        "/assets/tasks/real-world/place-pot-on-induction-cooker/step-4.webp",
+        "/assets/tasks/real-world/place-pot-on-induction-cooker/step-5.webp",
+        "/assets/tasks/real-world/place-pot-on-induction-cooker/step-6.webp",
+        "/assets/tasks/real-world/place-pot-on-induction-cooker/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the pot, with the spatula inside, on the induction cooker so that most of the pot is over the cooking surface. Turn the handle toward the camera, move the spatula to the basket, and cover the pot with the lid.",
+        "changes": {
+          "Objects": "spatula → wooden spoon",
+          "Actions": "move spatula to basket → leave spatula inside pot",
+          "Placement": "pot mostly over cooker → pot beside cooker",
+          "Constraints": "move spatula to basket, then cover pot → cover pot, then move spatula to basket"
+        },
+        "page": 43
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 39
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/prepare-breakfast",
+      "domain": "real-world",
+      "slug": "prepare-breakfast",
+      "title": "Prepare Breakfast",
+      "instruction": "Place the pig bun on the left, the yellow steamed bun on the right, and the black steamed bun at the front of the upper tier of the two already assembled, in that order. Add the empty tier on top, place the large bun in its center, then cover the steamer with the lid.",
+      "scene": "A plate holds a pig-shaped bun, a yellow steamed bun, a black steamed bun, and a large stuffed bun. Two steamer tiers are stacked at the table center, with an additional empty tier and a lid placed separately nearby.",
+      "procedure": "Load the original upper steamer tier with the pig-shaped bun, the yellow bun, and the black bun. Add the separate tier, place the large bun at its center, and cover the resulting three-tier stack.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the pig bun from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the pig bun on the left side of the upper steamer tier. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the yellow steamed bun from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the yellow steamed bun on the right side of the upper steamer tier. "
+        },
+        {
+          "id": "S5",
+          "text": "Pick up the black steamed bun from the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Place the black steamed bun at the front of the upper steamer tier. "
+        },
+        {
+          "id": "S7",
+          "text": "Pick up the empty steamer tier from the table. "
+        },
+        {
+          "id": "S8",
+          "text": "Place the empty steamer tier on top of the assembled steamer. "
+        },
+        {
+          "id": "S9",
+          "text": "Pick up the large bun from the table. "
+        },
+        {
+          "id": "S10",
+          "text": "Place the large bun in the center of the top steamer tier. "
+        },
+        {
+          "id": "S11",
+          "text": "Pick up the steamer lid from the table. "
+        },
+        {
+          "id": "S12",
+          "text": "Cover the steamer with the lid."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/prepare-breakfast/id.webp",
+        "emb": "/assets/tasks/real-world/prepare-breakfast/emb.webp",
+        "env": "/assets/tasks/real-world/prepare-breakfast/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/prepare-breakfast/step-1.webp",
+        "/assets/tasks/real-world/prepare-breakfast/step-2.webp",
+        "/assets/tasks/real-world/prepare-breakfast/step-3.webp",
+        "/assets/tasks/real-world/prepare-breakfast/step-4.webp",
+        "/assets/tasks/real-world/prepare-breakfast/step-5.webp",
+        "/assets/tasks/real-world/prepare-breakfast/step-6.webp",
+        "/assets/tasks/real-world/prepare-breakfast/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the pig bun on the left, the yellow steamed bun on the right, and the black steamed bun at the front of the upper tier of the two already assembled, in that order. Add the empty tier on top, place the large bun in its center, then cover the steamer with the lid.",
+        "changes": {
+          "Objects": "black at current upper-tier front; large at added-tier center → black at added-tier center; large at current upper-tier front",
+          "Actions": "cover with lid → leave steamer uncovered",
+          "Placement": "large bun centered on top tier → large bun beside third tier",
+          "Constraints": "three small buns at left/right/front, in fixed order → any two small buns at left/right; third left on table"
+        },
+        "page": 43
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 39
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/press-button-five-times",
+      "domain": "real-world",
+      "slug": "press-button-five-times",
+      "title": "Press Button Five Times",
+      "instruction": "Press the button 5 times, fully releasing it and returning to the waiting position after each press.",
+      "scene": "A button sits near the table center. The operating arm starts at its waiting position.",
+      "procedure": "Press and fully release the button, returning to the waiting position after each press.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Press the button for the first time. "
+        },
+        {
+          "id": "S2",
+          "text": "Press the button for the second time. "
+        },
+        {
+          "id": "S3",
+          "text": "Press the button for the third time. "
+        },
+        {
+          "id": "S4",
+          "text": "Press the button for the fourth time. "
+        },
+        {
+          "id": "S5",
+          "text": "Press the button for the fifth time."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/press-button-five-times/id.webp",
+        "emb": "/assets/tasks/real-world/press-button-five-times/emb.webp",
+        "env": "/assets/tasks/real-world/press-button-five-times/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/press-button-five-times/step-1.webp",
+        "/assets/tasks/real-world/press-button-five-times/step-2.webp",
+        "/assets/tasks/real-world/press-button-five-times/step-3.webp",
+        "/assets/tasks/real-world/press-button-five-times/step-4.webp",
+        "/assets/tasks/real-world/press-button-five-times/step-5.webp",
+        "/assets/tasks/real-world/press-button-five-times/step-6.webp",
+        "/assets/tasks/real-world/press-button-five-times/step-7.webp"
+      ],
+      "counterfactual": null,
+      "source": {
+        "appendix": "D.1",
+        "page": 40
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/season-meat-skewers-repeatedly",
+      "domain": "real-world",
+      "slug": "season-meat-skewers-repeatedly",
+      "title": "Season Meat Skewers Repeatedly",
+      "instruction": "Sprinkle the meat skewers with the seasoning shaker 5 times continuously.",
+      "scene": "Four meat skewers rest on a paper-lined baking tray, with a seasoning container to its right.",
+      "procedure": "Pick up the container with the right arm, repeatedly tilt it downward over the skewers and return it upright, then place it back on the table.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the seasoning bottle from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Sprinkle powder over the meat-skewer model for the first time. "
+        },
+        {
+          "id": "S3",
+          "text": "Sprinkle powder over the meat-skewer model for the second time. "
+        },
+        {
+          "id": "S4",
+          "text": "Sprinkle powder over the meat-skewer model for the third time. "
+        },
+        {
+          "id": "S5",
+          "text": "Sprinkle powder over the meat-skewer model for the fourth time. "
+        },
+        {
+          "id": "S6",
+          "text": "Sprinkle powder over the meat-skewer model for the fifth time. "
+        },
+        {
+          "id": "S7",
+          "text": "Place the seasoning bottle on the table."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/season-meat-skewers-repeatedly/id.webp",
+        "emb": "/assets/tasks/real-world/season-meat-skewers-repeatedly/emb.webp",
+        "env": "/assets/tasks/real-world/season-meat-skewers-repeatedly/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/season-meat-skewers-repeatedly/step-1.webp",
+        "/assets/tasks/real-world/season-meat-skewers-repeatedly/step-2.webp",
+        "/assets/tasks/real-world/season-meat-skewers-repeatedly/step-3.webp",
+        "/assets/tasks/real-world/season-meat-skewers-repeatedly/step-4.webp",
+        "/assets/tasks/real-world/season-meat-skewers-repeatedly/step-5.webp",
+        "/assets/tasks/real-world/season-meat-skewers-repeatedly/step-6.webp",
+        "/assets/tasks/real-world/season-meat-skewers-repeatedly/step-7.webp"
+      ],
+      "counterfactual": null,
+      "source": {
+        "appendix": "D.1",
+        "page": 40
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/set-the-table",
+      "domain": "real-world",
+      "slug": "set-the-table",
+      "title": "Set the Table",
+      "instruction": "Take the plate, bowl, fork, and knife out of the crate. Place the plate face up in the lower center of the placemat and the bowl open side up in the upper center, in front of the plate. Place the fork on the left and the knife on the right, with the fork tines and knife tip pointing toward the front. Complete these actions in any order.",
+      "scene": "A tablecloth lies on the table beside a tableware container holding a plate, a bowl, a fork, and a knife.",
+      "procedure": "Take the plate, bowl, fork, and knife from the tableware container. Place the plate on the tablecloth, the bowl in front of the plate, the fork to the left of the plate, and the knife to the right of the plate.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Take the plate out of the tableware container. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the plate on the tablecloth. "
+        },
+        {
+          "id": "S3",
+          "text": "Take the bowl out of the tableware container. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the bowl in front of the plate. "
+        },
+        {
+          "id": "S5",
+          "text": "Take the fork out of the tableware container. "
+        },
+        {
+          "id": "S6",
+          "text": "Place the fork to the left of the plate. "
+        },
+        {
+          "id": "S7",
+          "text": "Take the knife out of the tableware container. "
+        },
+        {
+          "id": "S8",
+          "text": "Place the knife to the right of the plate."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/set-the-table/id.webp",
+        "emb": "/assets/tasks/real-world/set-the-table/emb.webp",
+        "env": "/assets/tasks/real-world/set-the-table/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/set-the-table/step-1.webp",
+        "/assets/tasks/real-world/set-the-table/step-2.webp",
+        "/assets/tasks/real-world/set-the-table/step-3.webp",
+        "/assets/tasks/real-world/set-the-table/step-4.webp",
+        "/assets/tasks/real-world/set-the-table/step-5.webp",
+        "/assets/tasks/real-world/set-the-table/step-6.webp",
+        "/assets/tasks/real-world/set-the-table/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Take the plate, bowl, fork, and knife out of the crate. Place the plate face up in the lower center of the placemat and the bowl open side up in the upper center, in front of the plate. Place the fork on the left and the knife on the right, with the fork tines and knife tip pointing toward the front. Complete these actions in any order.",
+        "changes": {
+          "Objects": "plate lower; bowl upper/in front of plate → bowl lower; plate upper/in front of bowl",
+          "Actions": "bowl open side up → bowl open side down",
+          "Placement": "bowl in front of plate → bowl behind plate",
+          "Constraints": "any order → fixed order: plate, bowl, fork, knife"
+        },
+        "page": 43
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 40
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/sort-colored-blocks-into-boxes",
+      "domain": "real-world",
+      "slug": "sort-colored-blocks-into-boxes",
+      "title": "Sort Colored Blocks Into Boxes",
+      "instruction": "Place the red block on the yellow drawer, the yellow block on the white drawer, and the blue block on the dark-green drawer, in that order.",
+      "scene": "Three drawer storage units are arranged in a row across the table. Red, yellow, and blue blocks form a separate row in front of them.",
+      "procedure": "Place the red, yellow, and blue blocks on top of the yellow, white, and dark-green storage units, respectively.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the red block from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Place the red block on the yellow drawer. "
+        },
+        {
+          "id": "S3",
+          "text": "Pick up the yellow block from the table. "
+        },
+        {
+          "id": "S4",
+          "text": "Place the yellow block on the white drawer. "
+        },
+        {
+          "id": "S5",
+          "text": "Pick up the blue block from the table. "
+        },
+        {
+          "id": "S6",
+          "text": "Place the blue block on the dark-green drawer."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/sort-colored-blocks-into-boxes/id.webp",
+        "emb": "/assets/tasks/real-world/sort-colored-blocks-into-boxes/emb.webp",
+        "env": "/assets/tasks/real-world/sort-colored-blocks-into-boxes/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/sort-colored-blocks-into-boxes/step-1.webp",
+        "/assets/tasks/real-world/sort-colored-blocks-into-boxes/step-2.webp",
+        "/assets/tasks/real-world/sort-colored-blocks-into-boxes/step-3.webp",
+        "/assets/tasks/real-world/sort-colored-blocks-into-boxes/step-4.webp",
+        "/assets/tasks/real-world/sort-colored-blocks-into-boxes/step-5.webp",
+        "/assets/tasks/real-world/sort-colored-blocks-into-boxes/step-6.webp",
+        "/assets/tasks/real-world/sort-colored-blocks-into-boxes/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the red block on the yellow drawer, the yellow block on the white drawer, and the blue block on the dark-green drawer, in that order.",
+        "changes": {
+          "Objects": "red on yellow; yellow on white; order red-yellow-blue → red on white; yellow on yellow; order yellow-red-blue",
+          "Actions": "finish with blocks on drawers → after placement, remove all blocks to table",
+          "Placement": "blue on dark-green drawer → blue on yellow drawer",
+          "Constraints": "red, yellow, blue order → blue, red, yellow order"
+        },
+        "page": 43
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 41
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/strike-drum-five-times",
+      "domain": "real-world",
+      "slug": "strike-drum-five-times",
+      "title": "Strike Drum Five Times",
+      "instruction": "Pick up the drumstick and strike the center of the drumhead 5 times continuously.",
+      "scene": "A drum sits at the table center, with a drumstick lying to its right.",
+      "procedure": "Pick up the drumstick with the right arm, strike the drumhead center repeatedly, lifting after each strike, and return the stick to the drum’s right.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the drumstick from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Strike the center of the drum for the first time. "
+        },
+        {
+          "id": "S3",
+          "text": "Strike the center of the drum for the second time. "
+        },
+        {
+          "id": "S4",
+          "text": "Strike the center of the drum for the third time. "
+        },
+        {
+          "id": "S5",
+          "text": "Strike the center of the drum for the fourth time. "
+        },
+        {
+          "id": "S6",
+          "text": "Strike the center of the drum for the fifth time. "
+        },
+        {
+          "id": "S7",
+          "text": "Place the drumstick on the table."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/strike-drum-five-times/id.webp",
+        "emb": "/assets/tasks/real-world/strike-drum-five-times/emb.webp",
+        "env": "/assets/tasks/real-world/strike-drum-five-times/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/strike-drum-five-times/step-1.webp",
+        "/assets/tasks/real-world/strike-drum-five-times/step-2.webp",
+        "/assets/tasks/real-world/strike-drum-five-times/step-3.webp",
+        "/assets/tasks/real-world/strike-drum-five-times/step-4.webp",
+        "/assets/tasks/real-world/strike-drum-five-times/step-5.webp",
+        "/assets/tasks/real-world/strike-drum-five-times/step-6.webp",
+        "/assets/tasks/real-world/strike-drum-five-times/step-7.webp"
+      ],
+      "counterfactual": null,
+      "source": {
+        "appendix": "D.1",
+        "page": 41
+      },
+      "sequencePage": 45
+    },
+    {
+      "id": "real-world/transfer-colored-blocks-using-bowl",
+      "domain": "real-world",
+      "slug": "transfer-colored-blocks-using-bowl",
+      "title": "Transfer Colored Blocks Using Bowl",
+      "instruction": "Place the three colored blocks on the plate one at a time in the order red, green, then blue. Tilt the loaded plate to pour all three blocks into the box.",
+      "scene": "Three blocks (red, green, and blue) are placed on the table beside an empty plate and a black box.",
+      "procedure": "Load all three blocks onto the plate, align it with the edge of the black box, and tilt it until all blocks enter the black box.",
+      "order": null,
+      "subtasks": [
+        {
+          "id": "S1",
+          "text": "Pick up the plate from the table. "
+        },
+        {
+          "id": "S2",
+          "text": "Pick up the red block from the table. "
+        },
+        {
+          "id": "S3",
+          "text": "Place the red block onto the plate. "
+        },
+        {
+          "id": "S4",
+          "text": "Pick up the green block from the table. "
+        },
+        {
+          "id": "S5",
+          "text": "Place the green block onto the plate. "
+        },
+        {
+          "id": "S6",
+          "text": "Pick up the blue block from the table. "
+        },
+        {
+          "id": "S7",
+          "text": "Place the blue block onto the plate. "
+        },
+        {
+          "id": "S8",
+          "text": "Pour all three colored blocks from the plate into the black box."
+        }
+      ],
+      "images": {
+        "id": "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/id.webp",
+        "emb": "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/emb.webp",
+        "env": "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/env.webp"
+      },
+      "sequence": [
+        "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/step-1.webp",
+        "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/step-2.webp",
+        "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/step-3.webp",
+        "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/step-4.webp",
+        "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/step-5.webp",
+        "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/step-6.webp",
+        "/assets/tasks/real-world/transfer-colored-blocks-using-bowl/step-7.webp"
+      ],
+      "counterfactual": {
+        "original": "Place the three colored blocks on the plate one at a time in the order red, green, then blue. Tilt the loaded plate to pour all three blocks into the box.",
+        "changes": {
+          "Objects": "load onto plate; pour into box → load into box; pour onto plate",
+          "Actions": "tilt plate to pour → push blocks into box without tilting",
+          "Placement": "pour into box → pour onto table beside box",
+          "Constraints": "all three, red-green-blue → exactly two, red then green; blue on table"
+        },
+        "page": 43
+      },
+      "source": {
+        "appendix": "D.1",
+        "page": 41
+      },
+      "sequencePage": 45
+    }
+  ]
+}

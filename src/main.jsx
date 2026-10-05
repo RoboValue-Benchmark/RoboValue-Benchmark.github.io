@@ -1,0 +1,96 @@
+import React, { useEffect, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import { navigation, pages } from './navigation';
+import { Figure, Icon, Leaderboard, Protocol } from './benchmark';
+import { TaskOverview, TaskCatalog, TaskDetail } from './tasks';
+import './style.css';
+import './docs.css';
+import { PublicHome } from './home';
+
+function Home() {
+  return <>
+    <p className="home-title">A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models</p>
+    <p className="review-tag">RoboValue Documentation</p>
+    <div className="home-links"><button type="button" disabled title="Link to be added">Paper</button><button type="button" disabled title="Link to be added">arXiv</button><button type="button" disabled title="Link to be added">Code</button><button type="button" disabled title="Link to be added">Dataset</button><a href="/leaderboard/">Leaderboard <span>→</span></a><a href="/doc/get-started/">Get Started <span>→</span></a></div>
+    <section className="home-narrative" aria-label="About RoboValue">
+      <p>Robotic value models provide feedback for data curation, policy optimization, and execution monitoring. Yet accurate outcome predictions and strong progress correlation do not necessarily indicate reliable execution understanding. Values may increase despite task regression, rebound while errors remain unresolved, or fail to distinguish visually similar states with different execution histories.</p>
+      <p><strong className="project-name">RoboValue</strong> is a unified sim-and-real benchmark for fine-grained evaluation of robotic value models. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics. Evaluation covers four complementary dimensions: <strong>Task-State Understanding</strong>, <strong>Temporal Progress Monitoring</strong>, <strong>Failure and Recovery Reasoning</strong>, and <strong>Value Consistency</strong>.</p>
+      <Figure src="/assets/overview.png" alt="RoboValue benchmark overview: simulation and real-world trajectories, shared model interfaces, and four capability dimensions" caption="RoboValue connects simulation and real-world trajectories with shared model interfaces to evaluate four complementary dimensions of execution understanding." />
+      <p><strong className="project-name">RoboValue-Dataset</strong> contains 2,792 evaluation trajectories across 15 simulation and 20 real-world manipulation tasks, together with corresponding training data. Beyond common successful and failed executions, diagnostic trajectories include incomplete subtasks, effective and ineffective recovery, visually similar states with different histories, and alternative valid action orders.</p>
+      <div className="home-text-links"><a href="/doc/simulation-tasks/">Simulation tasks →</a><a href="/doc/real-world-tasks/">Real-world tasks →</a></div>
+      <p>We evaluate 15 model variants from 9 families under zero-shot and one-shot settings, covering standard conditions and generalization across embodiment and environment shifts. The leaderboard presents results across capability dimensions to support comparisons of model strengths and limitations.</p>
+      <div className="home-text-links"><a href="/leaderboard/">Leaderboard →</a><a href="/doc/get-started/">Get Started →</a></div>
+    </section>
+    <section className="home-citation" id="citation"><h2>Cite our work</h2><p>Citation details will be added when the publication link is available.</p></section>
+  </>;
+}
+
+function SiteHeader({ menuOpen, setMenuOpen, documentation = false }) {
+  return <header className="docs-header"><a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a><nav className="site-nav" aria-label="Website"><a href="/">Home</a><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a></nav>{documentation && <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="docs-sidebar" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? 'Close' : 'Menu'}</button>}</header>;
+}
+
+function Landing() {
+  return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><PublicHome /></div>;
+}
+
+function GetStarted() {
+  return <><p className="doc-lead">Documentation for preparing RoboValue data, evaluating a value model, and understanding the reported metrics.</p><div className="doc-link-list">{pages.filter(p => p.group === 'Get Started' && p.kind !== 'start').map(p => <a key={p.path} href={p.path}>{p.title}<span>→</span></a>)}</div></>;
+}
+
+function DocumentationNavigation({ path, page, query }) {
+  const filter = query.toLowerCase().trim();
+  const groups = navigation.map(group => ({ ...group, visible: group.pages.filter(p => `${group.title} ${p.path === '/doc/' ? 'Overview' : p.title}`.toLowerCase().includes(filter)) })).filter(group => group.visible.length);
+  const link = p => <a key={p.path} href={p.path} className={`nav-page ${p.kind === 'task' ? 'nav-task' : ''}`} aria-current={p.path === path ? 'page' : undefined}>{p.path === '/doc/' ? 'Overview' : p.title}</a>;
+  return <nav aria-label="Documentation">{groups.map(group => {
+    if (group.pages.length === 1) return <div className="nav-single" key={group.title}>{group.visible.map(link)}</div>;
+    const taskCount = group.pages.filter(p => p.kind === 'task').length;
+    return <details key={`${group.title}-${!!filter}`} className="nav-group" open={!!filter || group.title === 'Get Started' || page?.group === group.title}>
+      <summary><span>{group.title}</span></summary>
+      <div>{group.visible.filter(p => p.kind !== 'task').map(link)}{group.visible.some(p => p.kind === 'task') && <div className="nav-task-list"><p className="nav-task-heading">Tasks <span className="nav-count">{taskCount}</span></p>{group.visible.filter(p => p.kind === 'task').map(link)}</div>}</div>
+    </details>;
+  })}{!groups.length && <p className="nav-empty">No matching pages.</p>}</nav>;
+}
+
+function App() {
+  const path = window.location.pathname.replace(/\/?$/, '/');
+  const page = pages.find(p => p.path === path);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  useEffect(() => {
+    document.title = `${page?.title ?? 'Page not found'} | RoboValue`;
+    const close = e => { if (e.key === 'Escape') setMenuOpen(false); };
+    window.addEventListener('keydown', close);
+    // Native anchors also work when a linked heading is inside a collapsed metric.
+    const target = document.getElementById(window.location.hash.slice(1));
+    if (target) { if (target.tagName === 'DETAILS') target.open = true; target.scrollIntoView(); }
+    return () => window.removeEventListener('keydown', close);
+  }, [page]);
+  const index = pages.indexOf(page);
+  const title = page?.kind === 'simulation' ? 'Simulation Tasks' : page?.kind === 'real' ? 'Real-World Tasks' : page?.title;
+  let content = null;
+  switch (page?.kind) {
+    case 'home': content = <Home />; break;
+    case 'start': content = <GetStarted />; break;
+    case 'simulation': content = <TaskOverview domain="simulation" />; break;
+    case 'real': content = <TaskOverview domain="real-world" />; break;
+    case 'catalog': content = <TaskCatalog domain={page.domain} />; break;
+    case 'task': content = <TaskDetail taskId={page.taskId} />; break;
+    case 'leaderboard': content = <Leaderboard />; break;
+    case 'protocol': content = <Protocol />; break;
+  }
+  if (page?.kind === 'landing') return <Landing />;
+  return <div className="docs-app">
+    <a className="skip-link" href="#main-content">Skip to content</a>
+    <SiteHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} documentation />
+    {menuOpen && <button className="sidebar-backdrop" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
+    <aside className={`docs-sidebar ${menuOpen ? 'is-open' : ''}`} id="docs-sidebar"><label className="nav-filter"><Icon name="search" size={16} /><input type="search" placeholder="Find a page…" aria-label="Filter navigation" value={query} onChange={e => setQuery(e.target.value)} /></label><DocumentationNavigation path={path} page={page} query={query} /></aside>
+    <div className={`docs-layout ${page?.kind === 'leaderboard' ? 'full-width' : ''} no-outline`}>
+      <main className="doc-main" id="main-content" tabIndex={-1}><div className="doc-breadcrumb"><a href="/doc/">RoboValue</a><span>/</span><span>{page?.group ?? 'Not found'}</span></div><h1>{title ?? 'Page not found'}</h1>{!page ? <p>This page does not exist. <a className="inline-link" href="/">Return to Home.</a></p> : content}
+        {page && <nav className="page-pagination" aria-label="Adjacent pages">{index > 0 ? <a href={pages[index-1].path}><span>← Previous</span>{pages[index-1].group} / {pages[index-1].title}</a> : <div />}{index < pages.length-1 && <a href={pages[index+1].path}><span>Next →</span>{pages[index+1].group} / {pages[index+1].title}</a>}</nav>}
+        <div className="doc-footer">RoboValue · RoboValue Documentation</div>
+      </main>
+    </div>
+  </div>;
+}
+
+createRoot(document.getElementById('root')).render(<App />);
