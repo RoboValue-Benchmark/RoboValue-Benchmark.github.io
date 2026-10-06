@@ -1,9 +1,9 @@
 {
   "source": "RoboValue public manuscript, Tables 1, 2 and 3",
   "sourceFile": "RoboValue.pdf",
-  "sourceVersion": "2026-10-05",
-  "sourcePageCount": 93,
-  "sourceSha256": "b1506a3170f0d478d233f752f5c0da0d1fbf4b3d7931d70c8012e4b58edebf55",
+  "sourceVersion": "2026-10-07",
+  "sourcePageCount": 90,
+  "sourceSha256": "c25cc0a9dc25716437935bfd3a83641070e786b7414eb9a77be8198e2ffebf52",
   "scale": 100,
   "modelFamilies": 9,
   "modelVariants": 15,
@@ -294,7 +294,7 @@
         }
       },
       "aggregate": {
-        "rank": 8,
+        "rank": 9,
         "understanding": 25.9,
         "tracking": 71.48,
         "diagnosis": 34.32,
@@ -466,7 +466,7 @@
           "fpl": 47.46,
           "trr": 8.95,
           "vs": 4.15,
-          "csvc": -100.0
+          "csvc": -83.77
         },
         "emb": {
           "sa": 42.9,
@@ -494,8 +494,8 @@
         "understanding": 26.6,
         "tracking": 55.48,
         "diagnosis": 31.38,
-        "consistency": 2.33,
-        "overall": 28.95
+        "consistency": 6.39,
+        "overall": 29.96
       }
     },
     {
@@ -515,7 +515,7 @@
           "fpl": 45.48,
           "trr": 5.24,
           "vs": 6.54,
-          "csvc": -100.0
+          "csvc": -84.0
         },
         "emb": {
           "sa": 51.92,
@@ -539,12 +539,12 @@
         }
       },
       "aggregate": {
-        "rank": 9,
+        "rank": 8,
         "understanding": 36.19,
         "tracking": 61.16,
         "diagnosis": 30.14,
-        "consistency": 3.43,
-        "overall": 32.73
+        "consistency": 7.43,
+        "overall": 33.73
       }
     },
     {

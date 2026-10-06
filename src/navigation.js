@@ -10,7 +10,7 @@ export const navigation = [
   { title: 'Get Started', pages: [
     { path: '/doc/get-started/', title: 'Overview', kind: 'start' },
     { path: '/doc/get-started/installation/', title: 'Installation' },
-    { path: '/doc/get-started/data/', title: 'Dataset Download & Preparation' },
+    { path: '/doc/get-started/data/', title: 'Dataset Download & Preparation', kind: 'data' },
     { path: '/doc/get-started/evaluation/', title: 'Run Evaluation' },
     { path: '/doc/get-started/adapters/', title: 'Add a Model' },
     { path: '/doc/get-started/protocol/', title: 'Protocol & Metrics', kind: 'protocol' },
@@ -25,6 +25,7 @@ export const navigation = [
     { path: '/doc/real-world-tasks/catalog/', title: 'Task Catalog', kind: 'catalog', domain: 'real-world' },
     ...taskPages('real-world'),
   ] },
+  { title: 'Community', pages: [{ path: '/community/', title: 'Community', kind: 'community' }] },
   { title: 'Leaderboard', pages: [{ path: '/leaderboard/', title: 'Leaderboard', kind: 'leaderboard' }] },
 ];
 export const pages = [{ path: '/', title: 'RoboValue', kind: 'landing', group: 'Home' }, ...navigation.flatMap(group => group.pages.map(page => ({ ...page, group: group.title })))];

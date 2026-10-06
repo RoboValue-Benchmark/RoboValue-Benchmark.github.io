@@ -15,10 +15,10 @@ function Home() {
     <section className="home-narrative" aria-label="About RoboValue">
       <p>Robotic value models provide feedback for data curation, policy optimization, and execution monitoring. Yet accurate outcome predictions and strong progress correlation do not necessarily indicate reliable execution understanding. Values may increase despite task regression, rebound while errors remain unresolved, or fail to distinguish visually similar states with different execution histories.</p>
       <p><strong className="project-name">RoboValue</strong> is a unified sim-and-real benchmark for fine-grained evaluation of robotic value models. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics. Evaluation covers four complementary dimensions: <strong>Task-State Understanding</strong>, <strong>Temporal Progress Monitoring</strong>, <strong>Failure and Recovery Reasoning</strong>, and <strong>Value Consistency</strong>.</p>
-      <Figure src="/assets/overview.png" alt="RoboValue benchmark overview: simulation and real-world trajectories, shared model interfaces, and four capability dimensions" caption="RoboValue connects simulation and real-world trajectories with shared model interfaces to evaluate four complementary dimensions of execution understanding." />
-      <p><strong className="project-name">RoboValue-Dataset</strong> contains 2,792 evaluation trajectories across 15 simulation and 20 real-world manipulation tasks, together with corresponding training data. Beyond common successful and failed executions, diagnostic trajectories include incomplete subtasks, effective and ineffective recovery, visually similar states with different histories, and alternative valid action orders.</p>
+      <Figure src="/assets/overview-public.png" alt="RoboValue benchmark overview: simulation and real-world trajectories, shared model interfaces, and four capability dimensions" caption="RoboValue connects simulation and real-world trajectories with shared model interfaces to evaluate four complementary dimensions of execution understanding." />
+      <p><strong className="project-name">RoboValue-Dataset</strong> contains 3,500 training demonstrations and 2,792 separate test trajectories across 15 simulation and 20 real-world manipulation tasks. Each task has 100 standard-scenario training demonstrations. Beyond common successful and failed executions, diagnostic trajectories include incomplete subtasks, effective and ineffective recovery, visually similar states with different histories, and alternative valid action orders.</p>
       <div className="home-text-links"><a href="/doc/simulation-tasks/">Simulation tasks →</a><a href="/doc/real-world-tasks/">Real-world tasks →</a></div>
-      <p>We evaluate 15 model variants from 9 families under zero-shot and one-shot settings, covering standard conditions and generalization across embodiment and environment shifts. The leaderboard presents results across capability dimensions to support comparisons of model strengths and limitations.</p>
+      <p>We evaluate models from nine families under zero-shot and one-shot settings, covering standard conditions and generalization across embodiment and environment shifts. One-shot evaluation uses one demonstration per task from the training split, separate from the test trajectories. The leaderboard presents results across capability dimensions to support comparisons of model strengths and limitations.</p>
       <div className="home-text-links"><a href="/leaderboard/">Leaderboard →</a><a href="/doc/get-started/">Get Started →</a></div>
     </section>
     <section className="home-citation" id="citation"><h2>Cite our work</h2><p>Citation details will be added when the publication link is available.</p></section>
@@ -26,7 +26,7 @@ function Home() {
 }
 
 function SiteHeader({ menuOpen, setMenuOpen, documentation = false }) {
-  return <header className="docs-header"><a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a><nav className="site-nav" aria-label="Website"><a href="/">Home</a><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a></nav>{documentation && <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="docs-sidebar" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? 'Close' : 'Menu'}</button>}</header>;
+  return <header className="docs-header"><a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a><nav className="site-nav" aria-label="Website"><a href="/">Home</a><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a><a href="/community/">Community</a></nav>{documentation && <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="docs-sidebar" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? 'Close' : 'Menu'}</button>}</header>;
 }
 
 function Landing() {
@@ -35,6 +35,18 @@ function Landing() {
 
 function GetStarted() {
   return <><p className="doc-lead">Documentation for preparing RoboValue data, evaluating a value model, and understanding the reported metrics.</p><div className="doc-link-list">{pages.filter(p => p.group === 'Get Started' && p.kind !== 'start').map(p => <a key={p.path} href={p.path}>{p.title}<span>→</span></a>)}</div></>;
+}
+
+function DatasetGuide() {
+  return <>
+    <p className="doc-lead">RoboValue-Dataset covers 15 simulation and 20 real-world manipulation tasks, with separate training and test splits.</p>
+    <section className="task-section"><h2>Training split</h2><p>The training split contains 3,500 expert demonstrations: 100 per task, all collected under the standard in-domain setting. It does not include subtask boundary annotations. Annotations constructed for model adaptation are separate from the benchmark’s test-set labels.</p></section>
+    <section className="task-section"><h2>Test split</h2><p>The test split contains 2,792 separate trajectories under standard, cross-embodiment, and cross-environment conditions. Diagnostic trajectories cover successful executions, failure and recovery, history-dependent progress, and alternative valid solutions. Manual annotations support subtask, failure, recovery-stage, and cross-solution evaluation.</p></section>
+    <section className="task-section"><h2>Observations</h2><p>Trajectories include synchronized RGB-D observations from one head-mounted camera and two wrist-mounted cameras, together with robot states and action targets. Model-specific adapters select the observation context required by each evaluated model.</p></section>
+    <section className="task-section"><h2>Evaluation settings</h2><p>Zero-shot evaluation uses released checkpoints without task-specific adaptation or reference demonstrations. One-shot evaluation selects one demonstration from each task’s 100 standard-scenario training demonstrations for inference-time conditioning or task-specific adaptation.</p><p>A separate <strong>Full-Data Track is planned</strong> for training or fine-tuning on all 3,500 demonstrations. It will use the held-out test trajectories and the same metrics, with rankings separate from zero-shot and one-shot evaluation.</p></section>
+    <section className="task-section"><h2>Download and preparation</h2><p>Dataset download links and preparation instructions will be added when the release is available.</p></section>
+    <div className="home-text-links"><a href="/doc/simulation-tasks/">Simulation tasks →</a><a href="/doc/real-world-tasks/">Real-world tasks →</a><a href="/doc/get-started/protocol/">Protocol and metrics →</a></div>
+  </>;
 }
 
 function DocumentationNavigation({ path, page, query }) {
@@ -71,12 +83,14 @@ function App() {
   switch (page?.kind) {
     case 'home': content = <Home />; break;
     case 'start': content = <GetStarted />; break;
+    case 'data': content = <DatasetGuide />; break;
     case 'simulation': content = <TaskOverview domain="simulation" />; break;
     case 'real': content = <TaskOverview domain="real-world" />; break;
     case 'catalog': content = <TaskCatalog domain={page.domain} />; break;
     case 'task': content = <TaskDetail taskId={page.taskId} />; break;
     case 'leaderboard': content = <Leaderboard />; break;
     case 'protocol': content = <Protocol />; break;
+    case 'community': content = <><p className="doc-lead">Join the RoboValue WeChat group to discuss the benchmark, evaluation, and robotic value models.</p><section className="community-section"><h2>WeChat group</h2><p>Scan the QR code below with WeChat to join.</p><a href="/assets/community-wechat.png" target="_blank" rel="noopener noreferrer" aria-label="Open the original WeChat group QR image"><img className="community-qr" src="/assets/community-wechat.png" alt="RoboValue WeChat group invitation QR code, valid until October 14" width="540" height="830" /></a><p className="community-validity">This invitation is valid until October 14. Click the image to view it at its original size.</p></section></>; break;
   }
   if (page?.kind === 'landing') return <Landing />;
   return <div className="docs-app">

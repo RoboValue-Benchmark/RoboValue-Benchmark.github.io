@@ -37,3 +37,9 @@
 .public-citation p{font-size:14px;color:#7a818d}.public-footer{border-top:1px solid var(--doc-border);padding:24px 0 30px;display:flex;justify-content:space-between;font-size:12px;color:#7c8490}.public-footer nav{display:flex;gap:22px}.public-footer a{color:#687080}
 .public-home a:focus-visible{outline:2px solid var(--doc-accent);outline-offset:4px}
 @media(max-width:760px){.public-home{padding:94px 22px 0}.public-hero{padding-top:12px;padding-bottom:36px}.public-wordmark{font-size:39px}.public-hero h1{font-size:28px;line-height:1.35;margin-bottom:24px}.public-authors{font-size:13px;gap:7px 13px}.public-affiliations{font-size:11px;gap:8px 12px}.public-author-notes{font-size:10px;line-height:1.7}.public-resources{gap:8px}.public-resources>a,.public-resources>button{font-size:12px;padding:9px 12px}.public-section{padding:32px 0}.public-section h2{font-size:24px}.public-section>p{font-size:15px}.home-capabilities,.home-task-panels,.home-entry-links{grid-template-columns:1fr}.home-capabilities{gap:0}.home-task-panels,.home-entry-links{gap:16px}.public-footer{gap:16px}.public-home .paper-figure{margin:24px 0}}
+
+.institution-logos{display:grid;grid-template-columns:1fr 1.12fr 1.12fr 1fr 1fr 1fr;align-items:center;gap:16px;max-width:980px;margin:26px auto 0}
+.institution-logo{height:42px;display:flex;align-items:center;justify-content:center;min-width:0}
+.institution-logo img{display:block;max-width:100%;max-height:36px;width:auto;height:auto;object-fit:contain}
+.institution-logo:nth-child(2) img,.institution-logo:nth-child(3) img,.institution-logo:nth-child(4) img,.institution-logo:nth-child(5) img{max-width:88%;max-height:32px}
+@media(max-width:600px){.institution-logos{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 18px;margin-top:22px}.institution-logo{height:36px}.institution-logo img{max-height:30px}}

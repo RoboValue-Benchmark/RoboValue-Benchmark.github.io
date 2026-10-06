@@ -68,3 +68,7 @@ html{scroll-padding-top:88px}body{background:#fff}.docs-header{position:fixed;in
 @media(max-width:600px) { .site-nav { gap:12px; padding-right:8px; } .site-nav a { font-size:12px; } .landing-placeholder { padding-top:110px; } }
 
 .scoring-details{margin:16px 0;border:1px solid var(--doc-border);border-radius:6px;padding:12px 16px}.scoring-details summary{cursor:pointer;color:var(--doc-accent);font-weight:600}.scoring-details p{margin-top:12px}
+
+.community-section { margin-top: 2rem; }
+.community-qr { display: block; width: min(100%, 360px); height: auto; margin: 1.5rem 0; border: 1px solid var(--border, #e8e5ef); border-radius: 12px; }
+.community-validity { color: #706b80; font-size: .9rem; }

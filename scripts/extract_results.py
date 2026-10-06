@@ -1,6 +1,6 @@
 """Extract Tables 1–3 from the supplied paper snapshot.
 
-Usage: python scripts/extract_results.py /path/to/RoboValue.pdf
+Usage: python scripts/extract_results.py /path/to/RoboValue.pdf --version 2026-10-07
 Requires PyMuPDF. This extractor deliberately fails if the table layout changes.
 The website itself only needs Node.js; this script is optional for maintainers.
 """
@@ -37,7 +37,7 @@ def read_rows(text):
     return rows
 
 
-def extract(pdf):
+def extract(pdf, version):
     doc = pymupdf.open(pdf)
     def table_page(caption):
         found = [page for page in doc if caption in page.get_text()]
@@ -70,7 +70,7 @@ def extract(pdf):
     return {
         'source': 'RoboValue public manuscript, Tables 1, 2 and 3',
         'sourceFile': 'RoboValue.pdf',
-        'sourceVersion': '2026-10-05',
+        'sourceVersion': version,
         'sourcePageCount': len(doc),
         'sourceSha256': hashlib.sha256(Path(pdf).read_bytes()).hexdigest(),
         'scale': 100,
@@ -83,9 +83,10 @@ def extract(pdf):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('paper', type=Path)
+    parser.add_argument('--version', required=True, help='Manuscript date in YYYY-MM-DD format.')
     parser.add_argument('--check', action='store_true', help='Verify the stored JSON without changing it.')
     args = parser.parse_args()
-    data = extract(args.paper)
+    data = extract(args.paper, args.version)
     target = ROOT / 'public/data/results.json'
     if args.check:
         assert json.loads(target.read_text()) == data, 'Published data differ from the source tables.'

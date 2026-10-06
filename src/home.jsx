@@ -10,6 +10,14 @@ const AUTHORS = [
   ['Yu Wang', '1'], ['Guanghui Ren', '2,‡'], ['Chao Yu', '1,‡'],
 ];
 const AFFILIATIONS = ['Tsinghua University', 'AgiBot', 'Xspark AI', 'Sun Yat-sen University', 'Peking University', 'The University of Hong Kong'];
+const INSTITUTION_LOGOS = [
+  ['Tsinghua University', 'tsinghua.svg'],
+  ['AgiBot', 'agibot.jpg'],
+  ['Xspark AI', 'xspark.png'],
+  ['Sun Yat-sen University', 'sun-yat-sen.png'],
+  ['Peking University', 'peking.png'],
+  ['The University of Hong Kong', 'hku.png'],
+];
 const CAPABILITIES = [
   ['Task-State Understanding', 'Distinguish successful execution and assess whether values reflect the specified task requirements.'],
   ['Temporal Progress Monitoring', 'Track progress and regression, including recurring visual states with different execution histories.'],
@@ -25,6 +33,7 @@ export function PublicHome() {
       <div className="public-authors" aria-label="Authors">{AUTHORS.map(([name, affiliation]) => <span key={name}>{name}<sup>{affiliation}</sup></span>)}</div>
       <div className="public-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div>
       <p className="public-author-notes">* Equal contribution <span>·</span> † Project leader <span>·</span> ‡ Corresponding authors</p>
+      <div className="institution-logos" aria-label="Institution logos">{INSTITUTION_LOGOS.map(([name, file, style]) => <div className={`institution-logo ${style || ''}`} key={name}><img src={`/assets/affiliations/${file}`} alt={name} /></div>)}</div>
       <div className="public-resources" aria-label="Project resources">
         <a className="primary-resource" href="/doc/">Document <span>↗</span></a>
         <a href="/leaderboard/">Leaderboard <span>↗</span></a>
@@ -43,7 +52,7 @@ export function PublicHome() {
 
     <section className="public-section" aria-labelledby="dataset-title">
       <div className="public-section-heading"><h2 id="dataset-title">Simulation and real-world execution</h2><p>Annotated trajectories expose task-state differences that successful and failed outcomes alone can overlook.</p></div>
-      <p><strong className="home-accent">RoboValue-Dataset</strong> contains 2,792 evaluation trajectories across 15 simulation and 20 real-world manipulation tasks, alongside expert demonstrations for fine-tuning. Beyond fluent expert execution, the dataset includes error continuation, effective and ineffective recovery, recurring visual states with different histories, and alternative valid subtask orders.</p>
+      <p><strong className="home-accent">RoboValue-Dataset</strong> contains 3,500 training demonstrations and 2,792 separate test trajectories across 15 simulation and 20 real-world manipulation tasks. The training split provides 100 expert demonstrations per task, all collected under standard in-domain conditions. Beyond fluent expert execution, the dataset includes error continuation, effective and ineffective recovery, recurring visual states with different histories, and alternative valid subtask orders.</p>
       <div className="home-task-panels">
         <a href="/doc/simulation-tasks/"><img src="/assets/sim-pen.jpeg" alt="Dual-arm fill-pen-holder task in simulation" loading="lazy" /><div><span>15 TASKS</span><h3>Simulation tasks <span>→</span></h3><p>Controlled execution scenarios and shifts in robot embodiment or environment.</p></div></a>
         <a href="/doc/real-world-tasks/"><img src="/assets/real-cosmetics.jpeg" alt="Real-world dual-arm manipulation with cosmetics" loading="lazy" /><div><span>20 TASKS</span><h3>Real-world tasks <span>→</span></h3><p>Physical execution with realistic visual conditions and object interactions.</p></div></a>
@@ -52,13 +61,13 @@ export function PublicHome() {
 
     <section className="public-section" aria-labelledby="evaluation-title">
       <h2 id="evaluation-title">Evaluation and results</h2>
-      <p>We evaluate 15 model variants from nine families under zero-shot and one-shot settings, including standard conditions and shifts in robot embodiment or environment. Strong outcome discrimination and progress correlation can coexist with weaknesses in instruction grounding, execution memory, and recovery reasoning.</p>
+      <p>We evaluate robotic value models from nine families under zero-shot and one-shot settings, including standard conditions and shifts in robot embodiment or environment. One-shot evaluation uses one training demonstration per task, kept separate from the test trajectories. Strong outcome discrimination and progress correlation can coexist with weaknesses in instruction grounding, execution memory, and recovery reasoning.</p>
       <div className="home-entry-links">
         <a href="/leaderboard/"><h3>View the leaderboard <span>→</span></h3><p>Compare overall rankings, capability scores, and individual metrics.</p></a>
         <a href="/doc/get-started/"><h3>Get started <span>→</span></h3><p>Find documentation for data preparation, evaluation, and model integration.</p></a>
       </div>
     </section>
     <section className="public-section public-citation" aria-labelledby="citation-title"><h2 id="citation-title">Cite our work</h2><p>Citation details will be added when the public paper link is available.</p></section>
-    <footer className="public-footer"><span>RoboValue</span><nav aria-label="Footer"><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a></nav></footer>
+    <footer className="public-footer"><span>RoboValue</span><nav aria-label="Footer"><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a><a href="/community/">Community</a></nav></footer>
   </main>;
 }

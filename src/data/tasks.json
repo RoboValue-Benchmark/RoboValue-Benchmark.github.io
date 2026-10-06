@@ -49,13 +49,13 @@
           "Placement": "on pad → beside pad",
           "Constraints": "largest → smallest"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 25
+        "appendix": "C.2",
+        "page": 29
       },
-      "sequencePage": 33
+      "sequencePage": 38
     },
     {
       "id": "simulation/fill-pen-holder",
@@ -114,13 +114,13 @@
           "Placement": "inside holder → beside holder",
           "Constraints": "all pens → exactly three pens"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 26
+        "appendix": "C.2",
+        "page": 29
       },
-      "sequencePage": 33
+      "sequencePage": 38
     },
     {
       "id": "simulation/fold-clothes",
@@ -128,7 +128,7 @@
       "slug": "fold-clothes",
       "title": "Fold Clothes",
       "instruction": "Fold the left sleeve inward toward the opposite chest point, fold the right sleeve inward toward the opposite chest point, then fold the lower hem upward until it is aligned with the shoulders.",
-      "scene": "An unfolded clothes lies flat on the table, with both sleeves extended.",
+      "scene": "An unfolded garment lies flat on the table, with both sleeves extended.",
       "procedure": "Fold both sleeves across the body of the clothes, then fold the lower section upward over them.",
       "order": "Fold the left sleeve first, the right sleeve second, and the lower hem last.",
       "subtasks": [
@@ -167,13 +167,13 @@
           "Placement": "hem upward until aligned with shoulders → hem downward away from shoulders",
           "Constraints": "both sleeves and hem folded → exactly one sleeve folded; rest unfolded"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 26
+        "appendix": "C.2",
+        "page": 30
       },
-      "sequencePage": 33
+      "sequencePage": 38
     },
     {
       "id": "simulation/hang-mugs",
@@ -220,13 +220,13 @@
           "Placement": "hang on rack → place beside rack",
           "Constraints": "all three → exactly two; one on table"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 27
+        "appendix": "C.2",
+        "page": 30
       },
-      "sequencePage": 33
+      "sequencePage": 38
     },
     {
       "id": "simulation/insert-tubes",
@@ -273,13 +273,13 @@
           "Placement": "insert into rack → place beside rack",
           "Constraints": "three → exactly two; one on table"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 27
+        "appendix": "C.2",
+        "page": 31
       },
-      "sequencePage": 33
+      "sequencePage": 38
     },
     {
       "id": "simulation/make-toast",
@@ -326,13 +326,13 @@
           "Placement": "into toaster → beside toaster",
           "Constraints": "two slices → exactly one"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 27
+        "appendix": "C.2",
+        "page": 31
       },
-      "sequencePage": 33
+      "sequencePage": 38
     },
     {
       "id": "simulation/organize-table",
@@ -383,13 +383,13 @@
           "Placement": "mouse on pad → beside pad",
           "Constraints": "all four → exactly one; three stay initial"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 28
+        "appendix": "C.2",
+        "page": 32
       },
-      "sequencePage": 33
+      "sequencePage": 38
     },
     {
       "id": "simulation/press-by-number",
@@ -434,10 +434,10 @@
       ],
       "counterfactual": null,
       "source": {
-        "appendix": "C.1",
-        "page": 28
+        "appendix": "C.2",
+        "page": 32
       },
-      "sequencePage": 34
+      "sequencePage": 38
     },
     {
       "id": "simulation/put-bottles-into-dustbin",
@@ -488,13 +488,13 @@
           "Placement": "throw into dustbin → place beside dustbin",
           "Constraints": "all four → exactly three; one on table"
         },
-        "page": 32
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 28
+        "appendix": "C.2",
+        "page": 33
       },
-      "sequencePage": 34
+      "sequencePage": 38
     },
     {
       "id": "simulation/pack-objects-into-box",
@@ -549,13 +549,13 @@
           "Placement": "inside box → beside box",
           "Constraints": "all objects → exactly three; one outside"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 29
+        "appendix": "C.2",
+        "page": 33
       },
-      "sequencePage": 33
+      "sequencePage": 38
     },
     {
       "id": "simulation/play-stacking-toy",
@@ -573,11 +573,11 @@
         },
         {
           "id": "S2",
-          "text": "Place the three matching pieces on the second-longest peg. "
+          "text": "Place the three matching pieces on the secondlongest peg. "
         },
         {
           "id": "S3",
-          "text": "Place the two matching pieces on the second-shortest peg. "
+          "text": "Place the two matching pieces on the secondshortest peg. "
         },
         {
           "id": "S4",
@@ -606,13 +606,13 @@
           "Placement": "longest to shortest pegs → shortest to longest pegs",
           "Constraints": "per-peg counts 4/3/2/1 → per-peg counts 3/2/1/0; four remain on table"
         },
-        "page": 31
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 29
+        "appendix": "C.2",
+        "page": 34
       },
-      "sequencePage": 34
+      "sequencePage": 38
     },
     {
       "id": "simulation/stack-blocks",
@@ -659,13 +659,13 @@
           "Placement": "stack in one pile → arrange side by side on table",
           "Constraints": "one 3-block pile → one 2-block stack + one single block"
         },
-        "page": 32
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 29
+        "appendix": "C.2",
+        "page": 34
       },
-      "sequencePage": 34
+      "sequencePage": 38
     },
     {
       "id": "simulation/store-laptop-and-headphones",
@@ -712,13 +712,13 @@
           "Placement": "into laptop stand → beside laptop stand",
           "Constraints": "headphones/laptop on their own stands → both on headphone stand; laptop stand empty"
         },
-        "page": 32
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 30
+        "appendix": "C.2",
+        "page": 35
       },
-      "sequencePage": 34
+      "sequencePage": 38
     },
     {
       "id": "simulation/swap-blocks",
@@ -771,10 +771,10 @@
       ],
       "counterfactual": null,
       "source": {
-        "appendix": "C.1",
-        "page": 30
+        "appendix": "C.2",
+        "page": 35
       },
-      "sequencePage": 34
+      "sequencePage": 38
     },
     {
       "id": "simulation/sweep-blocks",
@@ -821,13 +821,13 @@
           "Placement": "into dustpan → beside dustpan",
           "Constraints": "sweep all objects into dustpan → sweep exactly one object into dustpan"
         },
-        "page": 32
+        "page": 37
       },
       "source": {
-        "appendix": "C.1",
-        "page": 30
+        "appendix": "C.2",
+        "page": 36
       },
-      "sequencePage": 34
+      "sequencePage": 38
     },
     {
       "id": "real-world/apply-dish-soap-repeatedly",
@@ -884,19 +884,19 @@
       ],
       "counterfactual": null,
       "source": {
-        "appendix": "D.1",
-        "page": 35
+        "appendix": "D.2",
+        "page": 40
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/arrange-family-tea-set",
       "domain": "real-world",
       "slug": "arrange-family-tea-set",
       "title": "Arrange Family Tea Set",
-      "instruction": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete these placements in any order, provided the teapot is placed before its lid.",
+      "instruction": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete the four placement units in any order; within the teapot-and-lid unit, place the teapot first and seat its lid immediately afterward.",
       "scene": "A cup, a teapot, and a tea canister sit off their designated coasters on the table. The teapot lid lies beside the teapot, and tea tongs lie outside their holder.",
-      "procedure": "Place the cup on the left-front coaster, the teapot on the right-front teapot coaster, the lid on the teapot, the tea canister on the tea-canister coaster, and the tea tongs in the bamboo holder tool position.",
+      "procedure": "Place the cup on the left-front coaster, the teapot on the right-front teapot coaster, the lid on the teapot, the tea canister on the teacanister coaster, and the tea tongs in the bamboo holder tool position.",
       "order": null,
       "subtasks": [
         {
@@ -955,20 +955,20 @@
         "/assets/tasks/real-world/arrange-family-tea-set/step-7.webp"
       ],
       "counterfactual": {
-        "original": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete these placements in any order, provided the teapot is placed before its lid.",
+        "original": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete the four placement units in any order; within the teapot-and-lid unit, place the teapot first and seat its lid immediately afterward.",
         "changes": {
           "Objects": "teacup on cat-head mat; teapot on yellow mat → teacup on yellow mat; teapot on cat-head mat",
           "Actions": "lid on teapot → leave lid off teapot",
           "Placement": "tongs in holder → tongs beside holder",
-          "Constraints": "place teapot before lid → place lid before teapot"
+          "Constraints": "place teapot immediately before lid → place lid immediately before teapot"
         },
-        "page": 42
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 35
+        "appendix": "D.2",
+        "page": 40
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/arrange-flowers-and-reed-diffuser",
@@ -1043,13 +1043,13 @@
           "Placement": "diffuser on coaster → diffuser beside coaster",
           "Constraints": "all three consecutive in vase → pink and white consecutive; yellow on table"
         },
-        "page": 42
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 36
+        "appendix": "D.2",
+        "page": 41
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/arrange-seasoning-jars",
@@ -1108,13 +1108,13 @@
           "Placement": "all three on rack → all three beside rack",
           "Constraints": "all three → exactly two; one beside rack"
         },
-        "page": 42
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 36
+        "appendix": "D.2",
+        "page": 41
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/enter-keypad-number-sequence",
@@ -1163,10 +1163,10 @@
       ],
       "counterfactual": null,
       "source": {
-        "appendix": "D.1",
-        "page": 36
+        "appendix": "D.2",
+        "page": 42
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/fill-and-place-pen-holder",
@@ -1241,13 +1241,13 @@
           "Placement": "filled holder upright → filled holder horizontal on table",
           "Constraints": "all four pens → exactly three pens"
         },
-        "page": 42
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 37
+        "appendix": "D.2",
+        "page": 42
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/load-plastic-plates-into-rack",
@@ -1306,13 +1306,13 @@
           "Placement": "inside rack slots → upright in front of rack",
           "Constraints": "all three → exactly two; one beside rack"
         },
-        "page": 42
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 37
+        "appendix": "D.2",
+        "page": 43
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/operate-drawers-in-sequence",
@@ -1365,10 +1365,10 @@
       ],
       "counterfactual": null,
       "source": {
-        "appendix": "D.1",
-        "page": 37
+        "appendix": "D.2",
+        "page": 43
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/organize-books-and-pen",
@@ -1431,13 +1431,13 @@
           "Placement": "pen along open book’s spine → pen beside open book",
           "Constraints": "center/align first book, then place pen, close and stack second book → place pen, close and stack second book, then center/align first book"
         },
-        "page": 42
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 38
+        "appendix": "D.2",
+        "page": 44
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/organize-cosmetics-storage-box",
@@ -1520,13 +1520,13 @@
           "Placement": "pencil ends in drawer → pencil ends in upper storage",
           "Constraints": "serum and oil in either order → cleansing oil before serum"
         },
-        "page": 42
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 38
+        "appendix": "D.2",
+        "page": 44
       },
-      "sequencePage": 44
+      "sequencePage": 51
     },
     {
       "id": "real-world/organize-desktop-workstation",
@@ -1534,8 +1534,8 @@
       "slug": "organize-desktop-workstation",
       "title": "Organize Desktop Workstation",
       "instruction": "Place the pen in the holder, place the eraser in the open drawer and close it, switch off the lamp, and unplug it. These actions may be performed in any order, except that the lamp must be switched off before it is unplugged.",
-      "scene": "An open storage box, an eraser, a desk lamp, a power strip, a pen holder, and a pen are placed on the table. The lamp is on and plugged into the power strip.",
-      "procedure": "Put the pen in the pen holder, put the eraser in the storage box and close it, then turn off and unplug the lamp.",
+      "scene": "An open drawer, an eraser, a desk lamp, a power strip, a pen holder, and a pen are placed on the table. The lamp is on and plugged into the power strip.",
+      "procedure": "Put the pen in the pen holder, put the eraser in the drawer and close it, then turn off and unplug the lamp.",
       "order": null,
       "subtasks": [
         {
@@ -1552,11 +1552,11 @@
         },
         {
           "id": "S4",
-          "text": "Place the eraser in the storage box. "
+          "text": "Place the eraser in the drawer. "
         },
         {
           "id": "S5",
-          "text": "Close the open storage box. "
+          "text": "Close the open drawer. "
         },
         {
           "id": "S6",
@@ -1589,13 +1589,13 @@
           "Placement": "pen in holder → pen beside holder",
           "Constraints": "lamp off before unplug; object placements otherwise unordered → lamp off, then unplug, before both object placements"
         },
-        "page": 43
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 38
+        "appendix": "D.2",
+        "page": 45
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/pack-items-for-shipping",
@@ -1654,13 +1654,13 @@
           "Placement": "mouse and earphones both in box → mouse in box; earphones beside box",
           "Constraints": "cover both items → cover mouse only"
         },
-        "page": 43
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 39
+        "appendix": "D.2",
+        "page": 45
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/place-pot-on-induction-cooker",
@@ -1669,7 +1669,7 @@
       "title": "Place Pot On Induction Cooker",
       "instruction": "Place the pot, with the spatula inside, on the induction cooker so that most of the pot is over the cooking surface. Turn the handle toward the camera, move the spatula to the basket, and cover the pot with the lid.",
       "scene": "An induction cooker sits at the table center, with a lid to its left and a pot containing a spatula to its right. A basket sits farther back and to the right of the pot.",
-      "procedure": "Place the pot on the induction cooker with its handle facing backward, adjust its position, move the spatula into the basket, and cover the pot with the lid.",
+      "procedure": "Place the pot on the induction cooker, then adjust its position so that most of the pot is over the cooking surface and its handle points toward the camera. Move the spatula into the basket and cover the pot with the lid.",
       "order": null,
       "subtasks": [
         {
@@ -1682,7 +1682,7 @@
         },
         {
           "id": "S3",
-          "text": "Adjust the position of the small pot on the induction cooker. "
+          "text": "Adjust the pot so that most of it is over the cooking surface and its handle points toward the camera. "
         },
         {
           "id": "S4",
@@ -1723,13 +1723,13 @@
           "Placement": "pot mostly over cooker → pot beside cooker",
           "Constraints": "move spatula to basket, then cover pot → cover pot, then move spatula to basket"
         },
-        "page": 43
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 39
+        "appendix": "D.2",
+        "page": 46
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/prepare-breakfast",
@@ -1812,13 +1812,13 @@
           "Placement": "large bun centered on top tier → large bun beside third tier",
           "Constraints": "three small buns at left/right/front, in fixed order → any two small buns at left/right; third left on table"
         },
-        "page": 43
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 39
+        "appendix": "D.2",
+        "page": 46
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/press-button-five-times",
@@ -1867,10 +1867,10 @@
       ],
       "counterfactual": null,
       "source": {
-        "appendix": "D.1",
-        "page": 40
+        "appendix": "D.2",
+        "page": 47
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/season-meat-skewers-repeatedly",
@@ -1927,10 +1927,10 @@
       ],
       "counterfactual": null,
       "source": {
-        "appendix": "D.1",
-        "page": 40
+        "appendix": "D.2",
+        "page": 47
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/set-the-table",
@@ -1997,19 +1997,19 @@
           "Placement": "bowl in front of plate → bowl behind plate",
           "Constraints": "any order → fixed order: plate, bowl, fork, knife"
         },
-        "page": 43
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 40
+        "appendix": "D.2",
+        "page": 48
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/sort-colored-blocks-into-boxes",
       "domain": "real-world",
       "slug": "sort-colored-blocks-into-boxes",
-      "title": "Sort Colored Blocks Into Boxes",
+      "title": "Sort Blocks in Order",
       "instruction": "Place the red block on the yellow drawer, the yellow block on the white drawer, and the blue block on the dark-green drawer, in that order.",
       "scene": "Three drawer storage units are arranged in a row across the table. Red, yellow, and blue blocks form a separate row in front of them.",
       "procedure": "Place the red, yellow, and blue blocks on top of the yellow, white, and dark-green storage units, respectively.",
@@ -2062,13 +2062,13 @@
           "Placement": "blue on dark-green drawer → blue on yellow drawer",
           "Constraints": "red, yellow, blue order → blue, red, yellow order"
         },
-        "page": 43
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 41
+        "appendix": "D.2",
+        "page": 48
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/strike-drum-five-times",
@@ -2125,16 +2125,16 @@
       ],
       "counterfactual": null,
       "source": {
-        "appendix": "D.1",
-        "page": 41
+        "appendix": "D.2",
+        "page": 49
       },
-      "sequencePage": 45
+      "sequencePage": 52
     },
     {
       "id": "real-world/transfer-colored-blocks-using-bowl",
       "domain": "real-world",
       "slug": "transfer-colored-blocks-using-bowl",
-      "title": "Transfer Colored Blocks Using Bowl",
+      "title": "Transfer Blocks Using Plate",
       "instruction": "Place the three colored blocks on the plate one at a time in the order red, green, then blue. Tilt the loaded plate to pour all three blocks into the box.",
       "scene": "Three blocks (red, green, and blue) are placed on the table beside an empty plate and a black box.",
       "procedure": "Load all three blocks onto the plate, align it with the edge of the black box, and tilt it until all blocks enter the black box.",
@@ -2195,13 +2195,15 @@
           "Placement": "pour into box → pour onto table beside box",
           "Constraints": "all three, red-green-blue → exactly two, red then green; blue on table"
         },
-        "page": 43
+        "page": 50
       },
       "source": {
-        "appendix": "D.1",
-        "page": 41
+        "appendix": "D.2",
+        "page": 49
       },
-      "sequencePage": 45
+      "sequencePage": 52
     }
-  ]
+  ],
+  "sourceVersion": "2026-10-07",
+  "sourcePageCount": 90
 }
