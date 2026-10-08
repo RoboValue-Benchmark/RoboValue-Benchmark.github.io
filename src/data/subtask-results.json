@@ -1,0 +1,48 @@
+{
+  "source": "Subtask Identification Results",
+  "sourceVersion": "2026-10-07",
+  "scale": 100,
+  "includedInOverall": false,
+  "rows": [
+    {
+      "name": "ProcVLM-2B",
+      "setting": "zero",
+      "conditions": {
+        "id": 23.75,
+        "emb": 21.34,
+        "env": 24.68
+      },
+      "overall": 23.26
+    },
+    {
+      "name": "RoboFAC-7B",
+      "setting": "zero",
+      "conditions": {
+        "id": 9.97,
+        "emb": 10.36,
+        "env": 9.94
+      },
+      "overall": 10.09
+    },
+    {
+      "name": "FailSafe",
+      "setting": "zero",
+      "conditions": {
+        "id": 10.01,
+        "emb": 9.62,
+        "env": 9.94
+      },
+      "overall": 9.85
+    },
+    {
+      "name": "ProcVLM-2B",
+      "setting": "one",
+      "conditions": {
+        "id": 24.66,
+        "emb": 19.74,
+        "env": 19.15
+      },
+      "overall": 21.19
+    }
+  ]
+}

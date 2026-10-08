@@ -72,3 +72,20 @@ html{scroll-padding-top:88px}body{background:#fff}.docs-header{position:fixed;in
 .community-section { margin-top: 2rem; }
 .community-qr { display: block; width: min(100%, 360px); height: auto; margin: 1.5rem 0; border: 1px solid var(--border, #e8e5ef); border-radius: 12px; }
 .community-validity { color: #706b80; font-size: .9rem; }
+
+/* Keep the wordmark readable and provide both navigation menus on small screens. */
+.docs-brand { flex: 0 0 174px; }
+.site-nav a[aria-current=page] { color: var(--doc-accent); font-weight: 650; }
+.header-mobile-controls { display: none; }
+.site-menu-toggle { border: 1px solid var(--doc-border); background: #fff; border-radius: 6px; padding: 8px 12px; min-height: 40px; }
+@media (max-width: 760px) {
+  .docs-header { gap: 12px; }
+  .docs-brand { flex-basis: 130px; }
+  .docs-brand img { width: 130px; }
+  .header-mobile-controls { display: flex; gap: 8px; margin-left: auto; flex-shrink: 0; }
+  .header-mobile-controls .menu-toggle { margin-left: 0; min-height: 40px; padding: 8px 10px; }
+  .docs-header .site-nav { display: none; }
+  .docs-header .site-nav.is-open { display: flex; position: absolute; left: 16px; right: 16px; top: 70px; margin: 0; padding: 8px; gap: 0; flex-direction: column; align-items: stretch; background: white; border: 1px solid var(--doc-border); border-radius: 10px; box-shadow: 0 12px 32px #26233118; }
+  .docs-header .site-nav a { font-size: 14px; padding: 12px 14px; border-radius: 6px; }
+  .docs-header .site-nav a[aria-current=page] { background: #f3f0fc; }
+}

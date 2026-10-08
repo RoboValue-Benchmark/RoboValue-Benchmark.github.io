@@ -1,0 +1,24 @@
+export const GROUPS = [
+  { id: 'understanding', short: 'Understanding', title: 'Task-State Understanding', question: 'Does it understand the task?', description: 'Distinguish successful execution and ground values in the intended instruction.', color: '#6754bf', metrics: ['sa', 'tga_ct', 'tga_cf'] },
+  { id: 'tracking', short: 'Tracking', title: 'Temporal Progress Monitoring', question: 'Does it track what happened?', description: 'Recognize progress, regression, and similar states with different execution histories.', color: '#267d91', metrics: ['voc', 'cycle_voc', 'memory_voc'] },
+  { id: 'diagnosis', short: 'Diagnosis', title: 'Failure and Recovery Reasoning', question: 'Does it recognize a failure?', description: 'Locate execution errors and assess recovery attempts separately from their eventual outcomes.', color: '#ba6a40', metrics: ['fpl', 'trr'] },
+  { id: 'consistency', short: 'Consistency', title: 'Value Consistency', question: 'Can we rely on its feedback?', description: 'Assess stability along trajectories and consistent subtask gains across valid solutions.', color: '#437858', metrics: ['vs', 'csvc'] },
+];
+export const METRICS = {
+  sa: { label: 'SA', name: 'Success Accuracy', description: 'Measures the fraction of successful–unsuccessful episode pairs in which the successful episode has a strictly higher terminal value. Terminal values average the final 2% of each episode; ties do not count as wins.' },
+  tga_ct: { label: 'TGA-CT', name: 'Task Grounding · Cross-Task', description: 'Measures how often the mean trajectory gain under the correct instruction is strictly greater than under every cross-task negative instruction, holding the visual execution fixed.' },
+  tga_cf: { label: 'TGA-CF', name: 'Task Grounding · Counterfactual', description: 'Measures how often the mean trajectory gain under the correct instruction is strictly greater than under every counterfactual negative instruction, holding the visual execution fixed. Changes target objects, actions, placement, or constraints.' },
+  voc: { label: 'VOC', name: 'Value-Order Correlation', description: 'Measures Spearman correlation between predicted values and normalized time along successful expert trajectories, using temporal order as a proxy for progress. Constant predictions receive zero.' },
+  cycle_voc: { label: 'Cycle-VOC', name: 'Cycle-VOC', description: 'Evaluates one continuous forward–reverse sequence, retaining forward context in the reverse half. This is a controlled visual diagnostic; reversed playback need not be physically executable.' },
+  memory_voc: { label: 'Memory-VOC', name: 'Memory-VOC', description: 'Applies VOC to successful long-horizon trajectories with recurring, visually similar states. A high score alone does not establish effective use of execution history, since elapsed time can remain correlated with progress.' },
+  fpl: { label: 'FPL', name: 'Failure-Point Localization', lower: true, description: 'Measures failure-onset localization error divided by episode duration. The predicted onset is the peak preceding the largest ZigZag-filtered decline; no detected decline receives the maximum possible temporal error within that episode. Lower is better.' },
+  trr: { label: 'TRR', name: 'Trajectory Recovery Reasoning', description: 'Tests stage-wise trends: value should fall during failure, not rise during continued error, rise during corrective attempts, and then rise for successful outcomes or fall for failed outcomes. A failed-outcome interval ends before the next subtask begins.' },
+  vs: { label: 'VS', name: 'Value Stability', description: 'Combines the efficiency ratio with non-flat time coverage to assess stable, informative trends. High stability alone does not establish the correct progress direction; interpret VS alongside VOC and Cycle-VOC.' },
+  csvc: { label: 'CSVC', name: 'Cross-Solution Value Consistency', description: 'Compares gains assigned to the same semantic subtask across valid solutions. Consistency is assessed alongside progress metrics and does not by itself establish correct progress estimation.' },
+};
+export const AGGREGATE_COLUMNS = ['overall', 'understanding', 'tracking', 'diagnosis', 'consistency'];
+METRICS.overall = { label: 'Overall', name: 'Overall score', description: 'Mean of the four capability scores, computed before rounding.' };
+for (const group of GROUPS) METRICS[group.id] = { label: group.short, name: group.title, description: group.title + ' aggregate score from Table 1.' };
+export const scoreValue = (row, condition, key) => condition === 'aggregate' ? row.aggregate?.[key] : row.conditions?.[condition]?.[key];
+export const excludedHighlight = (row, key) => row.name === 'TOPReward' && ['voc', 'memory_voc'].includes(key);
+export const CONDITIONS = { aggregate: 'Overall Ranking', id: 'Standard (ID)', emb: 'Cross-Embodiment', env: 'Cross-Environment' };

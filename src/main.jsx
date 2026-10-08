@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { navigation, pages } from './navigation';
-import { Figure, Icon, Leaderboard, Protocol } from './benchmark';
+import { Figure, Icon, Protocol } from './benchmark';
+import { Leaderboard } from './leaderboard';
 import { TaskOverview, TaskCatalog, TaskDetail } from './tasks';
 import './style.css';
 import './docs.css';
@@ -25,8 +26,26 @@ function Home() {
   </>;
 }
 
-function SiteHeader({ menuOpen, setMenuOpen, documentation = false }) {
-  return <header className="docs-header"><a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a><nav className="site-nav" aria-label="Website"><a href="/">Home</a><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a><a href="/community/">Community</a></nav>{documentation && <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="docs-sidebar" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? 'Close' : 'Menu'}</button>}</header>;
+function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false }) {
+  const [siteMenuOpen, setSiteMenuOpen] = useState(false);
+  useEffect(() => {
+    const close = event => {
+      if (event.key === 'Escape' || (event.type === 'pointerdown' && !event.target.closest('.docs-header'))) setSiteMenuOpen(false);
+    };
+    window.addEventListener('keydown', close);
+    window.addEventListener('pointerdown', close);
+    return () => { window.removeEventListener('keydown', close); window.removeEventListener('pointerdown', close); };
+  }, []);
+  const links = [['/', 'Home'], ['/doc/', 'Documentation'], ['/leaderboard/', 'Leaderboard'], ['/community/', 'Community']];
+  const active = path => path === '/' ? window.location.pathname === '/' : window.location.pathname.startsWith(path);
+  return <header className="docs-header">
+    <a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a>
+    <nav className={`site-nav ${siteMenuOpen ? 'is-open' : ''}`} id="site-navigation" aria-label="Website">{links.map(([path, label]) => <a key={path} href={path} aria-current={active(path) ? 'page' : undefined}>{label}</a>)}</nav>
+    <div className="header-mobile-controls">
+      {documentation && <button className="menu-toggle" aria-label={menuOpen ? 'Close documentation navigation' : 'Open documentation navigation'} aria-expanded={menuOpen} aria-controls="docs-sidebar" onClick={() => { setSiteMenuOpen(false); setMenuOpen(!menuOpen); }}>{menuOpen ? 'Close' : 'Docs'}</button>}
+      <button className="site-menu-toggle" aria-label={siteMenuOpen ? 'Close site navigation' : 'Open site navigation'} aria-expanded={siteMenuOpen} aria-controls="site-navigation" onClick={() => { setMenuOpen?.(false); setSiteMenuOpen(value => !value); }}>{siteMenuOpen ? 'Close' : 'Menu'}</button>
+    </div>
+  </header>;
 }
 
 function Landing() {
@@ -88,11 +107,11 @@ function App() {
     case 'real': content = <TaskOverview domain="real-world" />; break;
     case 'catalog': content = <TaskCatalog domain={page.domain} />; break;
     case 'task': content = <TaskDetail taskId={page.taskId} />; break;
-    case 'leaderboard': content = <Leaderboard />; break;
     case 'protocol': content = <Protocol />; break;
     case 'community': content = <><p className="doc-lead">Join the RoboValue WeChat group to discuss the benchmark, evaluation, and robotic value models.</p><section className="community-section"><h2>WeChat group</h2><p>Scan the QR code below with WeChat to join.</p><a href="/assets/community-wechat.png" target="_blank" rel="noopener noreferrer" aria-label="Open the original WeChat group QR image"><img className="community-qr" src="/assets/community-wechat.png" alt="RoboValue WeChat group invitation QR code, valid until October 14" width="540" height="830" /></a><p className="community-validity">This invitation is valid until October 14. Click the image to view it at its original size.</p></section></>; break;
   }
   if (page?.kind === 'landing') return <Landing />;
+  if (page?.kind === 'leaderboard') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><Leaderboard /></div>;
   return <div className="docs-app">
     <a className="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} documentation />
