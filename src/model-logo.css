@@ -1,0 +1,9 @@
+.model-logo { display: block; flex: 0 0 28px; width: 28px; height: 28px; object-fit: contain; }
+.lb-model-text { min-width: 0; white-space: normal; }
+.lb-sia-model { display: flex; align-items: center; gap: 12px; }
+.lb-comparison-legend .model-logo { flex-basis: 21px; width: 21px; height: 21px; }
+.rv-preview-table .rv-preview-model { display: flex; align-items: center; gap: 12px; }
+@media (max-width: 760px) {
+  .model-logo { flex-basis: 24px; width: 24px; height: 24px; }
+  .lb-sia-model, .rv-preview-table .rv-preview-model { gap: 9px; }
+}

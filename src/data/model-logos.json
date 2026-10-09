@@ -1,0 +1,78 @@
+{
+  "LIV": {
+    "src": "/assets/model-logos/penn.ico",
+    "label": "University of Pennsylvania · first institution",
+    "kind": "institution",
+    "source": "https://penn-pal-lab.github.io/LIV/",
+    "institutionSource": "https://www.upenn.edu/",
+    "assetSource": "https://www.upenn.edu/themes/custom/penn_global/assets/img/simplified-shield.ico"
+  },
+  "ProcVLM": {
+    "src": "/assets/model-logos/procvlm.png",
+    "label": "ProcVLM · project logo",
+    "kind": "project",
+    "source": "https://procvlm.github.io/",
+    "assetSource": "https://procvlm.github.io/assets/images/procvlm_icon.png"
+  },
+  "Robo-Dopamine": {
+    "src": "/assets/model-logos/robo-dopamine.png",
+    "label": "Robo-Dopamine · project logo",
+    "kind": "project",
+    "source": "https://robo-dopamine.github.io/",
+    "assetSource": "https://robo-dopamine.github.io/assets/images/dpm_logo.png"
+  },
+  "RoboFAC": {
+    "src": "/assets/model-logos/robofac.svg",
+    "label": "RoboFAC · project logo",
+    "kind": "project",
+    "source": "https://mint-sjtu.github.io/RoboFAC.io/",
+    "assetSource": "https://mint-sjtu.github.io/RoboFAC.io/static/icons/robot.svg"
+  },
+  "RoboMeter": {
+    "src": "/assets/model-logos/robometer.png",
+    "label": "Robometer · project logo",
+    "kind": "project",
+    "source": "https://robometer.github.io/",
+    "assetSource": "https://robometer.github.io/assets/images/robometer_logo.png"
+  },
+  "RoboReward": {
+    "src": "/assets/model-logos/stanford.png",
+    "label": "Stanford University · first institution",
+    "kind": "institution",
+    "source": "https://arxiv.org/html/2601.00675v1",
+    "institutionSource": "https://www.stanford.edu/",
+    "assetSource": "https://www.stanford.edu/icon3.png?icon3.2x_8y9l2cnga3.png?dpl=1b5b5f8fc2df532a662cabd8ba646b237ed922a5b2ff79629aa8929f37aa1d40366163383132666465346163653330303038356330633333"
+  },
+  "RynnValue": {
+    "src": "/assets/model-logos/damo.png",
+    "label": "DAMO Academy, Alibaba Group · first institution",
+    "kind": "institution",
+    "source": "https://alibaba-damo-academy.github.io/RynnValue.github.io/",
+    "institutionSource": "https://damo.alibaba.com/",
+    "assetSource": "https://img.alicdn.com/tfs/TB11wf2XwDqK1RjSZSyXXaxEVXa-64-64.png"
+  },
+  "TOPReward": {
+    "src": "/assets/model-logos/uw.ico",
+    "label": "University of Washington · first institution",
+    "kind": "institution",
+    "source": "https://topreward.github.io/webpage/",
+    "institutionSource": "https://www.washington.edu/",
+    "assetSource": "https://uw.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico"
+  },
+  "VLAC": {
+    "src": "/assets/model-logos/shlab.ico",
+    "label": "Shanghai AI Laboratory · first institution",
+    "kind": "institution",
+    "source": "https://arxiv.org/html/2509.15937v1",
+    "institutionSource": "https://www.shlab.org.cn/",
+    "assetSource": "https://www.shlab.org.cn/static/asset/img/favicon.ico"
+  },
+  "FailSafe": {
+    "src": "/assets/model-logos/ntu.png",
+    "label": "Nanyang Technological University · first institution",
+    "kind": "institution",
+    "source": "https://arxiv.org/html/2510.01642v1",
+    "institutionSource": "https://www.ntu.edu.sg/",
+    "assetSource": "https://www.ntu.edu.sg/ResourcePackages/NTU/assets/images/favicon.png"
+  }
+}

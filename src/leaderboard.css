@@ -52,7 +52,7 @@
 .lb-reset { border: 0; background: none; color: var(--lb-accent); font-size: 13px; padding: 3px 0; text-align: right; }
 .lb-reset:disabled { color: var(--lb-muted); opacity: 1; }
 .lb-table-scroll { overflow-x: auto; width: 100%; scrollbar-width: thin; scrollbar-color: #c7cbd0 #f8f9fa; }
-.lb-table { --rank-width: 56px; --model-width: 240px; border-collapse: separate; border-spacing: 0; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+.lb-table { --rank-width: 56px; --model-width: 276px; border-collapse: separate; border-spacing: 0; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
 .lb-table-aggregate { min-width: 890px; }
 .lb-table-metrics { min-width: 1380px; }
 .lb-table-focused.lb-table-metrics { min-width: 650px; }
@@ -193,11 +193,11 @@
   .lb-capability-tabs button { font-size: 13px; padding: 8px 10px; }
   .lb-table-status { align-items: flex-start; flex-direction: column; gap: 5px; padding: 12px 14px; }
   .lb-reset { text-align: left; }
-  .lb-table { --rank-width: 40px; --model-width: 167px; }
+  .lb-table { --rank-width: 40px; --model-width: 206px; }
   .lb-table-aggregate { min-width: 835px; }
   .lb-table th, .lb-table td { padding: 14px 10px; }
-  .lb-model-name { font-size: 14px; }
-  .lb-model-select { gap: 8px; }
+  .lb-model-name { font-size: 13px; }
+  .lb-model-select { gap: 7px; }
   .lb-model-select input { width: 15px; height: 15px; }
   .lb-table .lb-group-row .lb-model { font-size: 13px; }
   .lb-rank-badge { width: 24px; height: 24px; }
