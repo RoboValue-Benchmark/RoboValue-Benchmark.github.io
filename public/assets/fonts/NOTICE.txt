@@ -1,0 +1,6 @@
+Google Sans Flex
+Copyright Google LLC and Font Bureau (David Berlow).
+Unmodified Latin variable webfont distributed under the SIL Open Font License 1.1.
+Source: https://fonts.google.com/specimen/Google+Sans+Flex
+License source: https://github.com/google-gemini/jot-gemini-transcribe-macOS/blob/main/App/Resources/Fonts/GoogleSansFlex/OFL-GoogleSansFlex.txt
+See OFL-GoogleSansFlex.txt for the full license.

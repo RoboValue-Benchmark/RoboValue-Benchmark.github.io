@@ -7,6 +7,7 @@ import { TaskOverview, TaskCatalog, TaskDetail } from './tasks';
 import './style.css';
 import './docs.css';
 import { PublicHome } from './home';
+import './public-site.css';
 
 function Home() {
   return <>
@@ -28,6 +29,12 @@ function Home() {
 
 function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false }) {
   const [siteMenuOpen, setSiteMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(window.scrollY > 24);
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
   useEffect(() => {
     const close = event => {
       if (event.key === 'Escape' || (event.type === 'pointerdown' && !event.target.closest('.docs-header'))) setSiteMenuOpen(false);
@@ -38,7 +45,7 @@ function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false }) {
   }, []);
   const links = [['/', 'Home'], ['/leaderboard/', 'Leaderboard'], ['/doc/', 'Documentation'], ['/community/', 'Community']];
   const active = path => path === '/' ? window.location.pathname === '/' : window.location.pathname.startsWith(path);
-  return <header className="docs-header">
+  return <header className={`docs-header ${documentation ? '' : 'public-header'} ${scrolled ? 'is-scrolled' : ''}`}>
     <a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a>
     <nav className={`site-nav ${siteMenuOpen ? 'is-open' : ''}`} id="site-navigation" aria-label="Website">{links.map(([path, label]) => <a key={path} href={path} aria-current={active(path) ? 'page' : undefined}>{label}</a>)}</nav>
     <div className="header-mobile-controls">
