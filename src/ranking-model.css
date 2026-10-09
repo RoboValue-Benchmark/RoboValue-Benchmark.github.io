@@ -1,0 +1,22 @@
+/* Shared model identities use the official project marks and links. */
+.ranking-model { display: flex; align-items: center; gap: 11px; }
+.ranking-model-logo { display: block; flex: 0 0 28px; width: 28px; height: 28px; object-fit: contain; }
+.ranking-model-label { color: #1c2028; line-height: 1.4; }
+.ranking-model-label small { display: block; margin-top: 2px; color: #505663; font-size: 11px; font-weight: 450; }
+.ranking-model-label sup { font-size: 10px; margin-left: 3px; color: #7464a9; }
+.ranking-model-link { text-decoration: none; }
+.ranking-model-link:hover { color: #5853ce; text-decoration: underline; text-underline-offset: 4px; }
+/* RynnValue's original brand-mark rules from its official project site. */
+.ranking-rynnvalue-mark { position: relative; box-sizing: border-box; border: 2px solid #5a43d6; border-radius: 50%; }
+.ranking-rynnvalue-mark::before, .ranking-rynnvalue-mark::after, .ranking-rynnvalue-mark > span { content: ''; position: absolute; left: 50%; top: 50%; border-radius: 50%; transform: translate(-50%, -50%); }
+.ranking-rynnvalue-mark::before { width: 14px; height: 14px; border: 2px solid #5a43d6; }
+.ranking-rynnvalue-mark::after { width: 5px; height: 5px; background: #5a43d6; }
+.ranking-rynnvalue-mark > span { width: 22px; height: 2px; border-radius: 2px; background: #5a43d6; transform: translate(-50%, -50%) rotate(-46deg); }
+@media (max-width: 760px) {
+  .ranking-model { gap: 9px; }
+  .ranking-model-logo { width: 25px; height: 25px; flex-basis: 25px; }
+}
+@media (max-width: 360px) {
+  .ranking-model { gap: 7px; }
+  .ranking-model-label { overflow-wrap: anywhere; }
+}

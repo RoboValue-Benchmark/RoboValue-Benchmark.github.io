@@ -1,0 +1,25 @@
+.figure-dialog.figure-dialog--zoomable { position: fixed; inset: 0; width: min(1800px, calc(100vw - 32px)); height: calc(100vh - 32px); height: calc(100dvh - 32px); max-width: none; max-height: none; margin: auto; padding: 0; overflow: hidden; color: #252b35; background: #fff; }
+.figure-dialog--zoomable[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+.figure-viewer-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 16px; border-bottom: 1px solid #e0e4ef; }
+.figure-viewer-title { min-width: 0; font-size: 14px; font-weight: 600; }
+.figure-viewer-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.figure-viewer-controls button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 1px solid #dce1ef; border-radius: 8px; background: #fff; color: #3e4660; font-size: 21px; }
+.figure-viewer-controls button:hover:not(:disabled) { background: #f0f3ff; border-color: #b5b4db; }
+.figure-viewer-controls output { width: 46px; text-align: center; color: #4e5666; font-size: 12px; font-variant-numeric: tabular-nums; }
+.figure-viewer-controls .figure-viewer-fit { font-size: 12px; }
+.figure-viewer-viewport { min-width: 0; min-height: 0; overflow: auto; overscroll-behavior: contain; background: #f5f6fa; }
+.figure-viewer-viewport.is-zoomed { cursor: grab; }
+.figure-viewer-viewport.is-zoomed:active { cursor: grabbing; }
+.figure-viewer-viewport:focus-visible { outline-offset: -3px; }
+.figure-viewer-canvas { display: grid; place-items: center; width: max(100%, calc(var(--figure-image-width) + 32px)); height: max(100%, calc(var(--figure-image-height) + 32px)); padding: 16px; }
+.figure-viewer-canvas > img { display: block; width: var(--figure-image-width); height: auto; max-width: none; max-height: none; background: #fff; user-select: none; }
+.figure-dialog.figure-dialog--zoomable .figure-viewer-caption { margin: 0; padding: 10px 16px; max-width: none; border-top: 1px solid #e0e4ef; color: #505762; font-size: 12px; line-height: 1.55; text-align: center; }
+@media (max-width: 760px) {
+  .figure-dialog.figure-dialog--zoomable { width: calc(100vw - 16px); height: calc(100vh - 16px); height: calc(100dvh - 16px); }
+  .figure-viewer-toolbar { gap: 8px; padding: 8px; }
+  .figure-viewer-title { font-size: 12px; }
+  .figure-viewer-controls { gap: 3px; }
+  .figure-viewer-controls button { width: 36px; height: 44px; }
+  .figure-viewer-controls output { width: 38px; font-size: 11px; }
+  .figure-dialog.figure-dialog--zoomable .figure-viewer-caption { padding: 8px 12px; font-size: 11px; }
+}

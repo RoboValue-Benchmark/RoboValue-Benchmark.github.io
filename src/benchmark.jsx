@@ -4,6 +4,7 @@ import { GROUPS, METRICS } from './benchmark-metrics';
 function Icon({ name = 'arrow', size = 18, ...props }) {
   const paths = {
     arrow: <path d="M5 12h14m-6-6 6 6-6 6" />,
+    chevron: <path d="m9 6 6 6-6 6" />,
     down: <><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5" /></>,
     paper: <><path d="M14 2H5v20h14V7zM14 2v5h5M8 12h8M8 16h8" /></>,
     archive: <><path d="M4 3h16v4H4zM5 7v14h14V7M9 11h6" /></>,

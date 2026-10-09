@@ -2,27 +2,50 @@
 
 Official public website for RoboValue. This repository is separate from the anonymous review website.
 
+## Marked versions
+
+### 2026-10-10 · xjy · Website refresh
+
+**Tag:** `v2026.10.10-xjy-website-refresh`
+
+This snapshot records the paper-information layout, animated execution background, blue–purple visual identity, task galleries, and redesigned leaderboards together.
+
+1. **Paper information:** retain the aligned title, author, footnote, affiliation, and resource layout; improve institution-logo blending, superscript colors, text contrast, and individual resource-icon colors.
+2. **Animated execution background:** move rows of real task frames extracted from the selected simulation clips; tune tile sizes and gaps, feather the central reading area without a hard panel boundary, and increase spacing around the paper information.
+3. **Navigation:** reserve a white area above the opening background and use a lightly tinted, translucent navigation bar with subtle depth.
+4. **Color and typography:** establish the blue–purple brand palette, preserve emphasis when darkening text, distinguish the primary RoboValue name, and use the manuscript's four capability colors.
+5. **Overview:** align the introduction with the October 9 abstract and introduction; enlarge the overview-video placeholder and figure, render the figure as SVG, and provide zoom and pan controls.
+6. **Task galleries:** use the same presentation for 15 simulation tasks and 20 real-world tasks, with Standard (ID), Embodiment shift, and Environment shift controls and previous/next arrows.
+7. **Dedicated leaderboard:** simplify the page around Overall Ranking and three condition views, independent Zero-shot/One-shot tracks, sorting, CSV export, model-project identities and links, and a compact separate SIA table. Verify the existing numerical results against the October 9 manuscript and update source metadata.
+8. **Homepage leaderboard:** show all 11 Zero-shot and 7 One-shot configurations, use the concise capability headers, and share model identities and project links with the dedicated leaderboard.
+9. **Content and community:** simplify News, remove the homepage diagnostic-example module, make the homepage community section compact and white, and restore the WeChat QR image on `/community/`.
+10. **Scroll motion:** reveal homepage content blocks once with a restrained fade and upward movement; use a lighter mobile effect and preserve reduced-motion, keyboard-focus, anchor, and print behavior.
+
+The existing remote Service & Adapter documentation update is retained in this snapshot. This refresh does not publish the manuscript PDF, dataset, or overview video; their public resource placeholders remain.
+
+The earlier aligned paper-information version without the animated background is preserved under **`home-paper-info-no-background-20261010`**.
+
 ## Pages
 
-- `/`: public project homepage with paper and resource information, a reserved overview-video area, introduction and manuscript overview figure, a reserved news list, simulation and real-world task galleries, top-five rankings, an evaluation framework with diagnostic examples, community links, and a citation placeholder. The opening image carousel is removed.
-- `/doc/`: documentation reused from the review website, including all simulation and real-world task pages.
-- `/community/`: WeChat group invitation (time-limited QR code).
+- `/`: paper and resource information over an animated task-frame background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; complete selected-track rankings; the shared evaluation framework; community access; and a citation placeholder.
+- `/doc/`: documentation, evaluation and integration guidance, and all simulation and real-world task pages.
+- `/community/`: WeChat group invitation with the existing time-limited QR image.
 - `/data/`: standalone dataset page, currently showing Coming soon.
-- `/leaderboard/`: dedicated results page with independent zero-shot and one-shot ranks, ID/OOD metric details, comparisons of up to three models, metric explanations, scoring rules, and separately reported SIA results.
+- `/leaderboard/`: Overall Ranking, Standard (ID), Cross-Embodiment, and Cross-Environment results with separate Zero-shot and One-shot tracks, sortable scores, CSV export, participation and scoring links, and separately reported SIA results.
 
-The homepage introduction and overview figure follow the October 9, 2026 manuscript. Documentation, task cards, and leaderboard data retain the October 7, 2026 snapshot pending their separate review; the three main results tables are numerically unchanged in the October 9 version. Existing task URLs are retained when display names change. Unfinished documentation pages remain available for later completion.
+## Results and sources
 
-The homepage and full leaderboard share their results loader and manuscript findings. Homepage rankings reproduce the top five rows of the manuscript leaderboard for the selected track; finding cards read raw ID metric values from the main results. Links open the matching track, model comparison, or diagnostic view on the full leaderboard. Expected-trend diagrams are explicitly labeled as schematics. The task gallery uses existing task specifications and images, including the separate embodiment and environment shifts.
+The homepage introduction, overview figure, and leaderboard source metadata follow the October 9, 2026 manuscript. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. The Full-Data track remains planned.
 
-Leaderboard filters, sorting, and selected comparisons are stored in the URL and survive refreshes. Searching or sorting preserves each model's original overall rank. Best and second-best marks use all models in the selected track, with ties sharing the same mark. FPL sorts ascending by default; TOPReward's VOC and Memory-VOC are excluded from best/second-best marking, following the manuscript. CSV exports contain the displayed rows, the evaluation track, and overall ranks where applicable.
+Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the full-leaderboard link retains that track. Official project logos take priority over institution fallbacks.
 
-`public/data/results.json` retains the original values from Tables 1–3. `src/data/subtask-results.json` reproduces the four rows of the manuscript's Subtask Identification Results table. SIA does not contribute to the aggregate ranking, and VROC is explained without inferring unreported values from rounded table entries. Neither zero-shot nor one-shot uses the full training split; the Full-Data track remains planned.
+Leaderboard condition, track, and sorting are reflected in the URL. Sorting preserves each model's overall rank within its track. Best and second-best marks use all eligible models, including ties. FPL defaults to ascending order; TOPReward's VOC and Memory-VOC are excluded from best/second-best marking, following the manuscript. RoboReward's unmeasured VS and CSVC count as zero in aggregate scoring and remain unreported in raw metric views. CSV exports contain the displayed rows, track, condition, and overall ranks where applicable.
 
 ## Local development
 
 ```bash
 npm ci
-npm run dev -- --port 8876
+npm run dev -- --port 8877
 ```
 
 ## Build and deployment
@@ -31,6 +54,6 @@ npm run dev -- --port 8876
 npm run build
 ```
 
-The build generates a real HTML entry with a page-specific title, Open Graph title, and canonical URL for every page, so direct links and refreshes work on GitHub Pages. The GitHub Actions workflow deploys `dist/` when changes are pushed to `main`.
+The build generates real HTML entry files with page-specific titles, Open Graph titles, and canonical URLs so direct links and refreshes work on GitHub Pages. The GitHub Actions workflow deploys `dist/` when changes are pushed to `main`.
 
 Code links point to the official repository at `https://github.com/RoboValue-Benchmark/RoboValue`. Paper and arXiv links remain placeholders. Data opens a standalone Coming soon page until the dataset download is available.

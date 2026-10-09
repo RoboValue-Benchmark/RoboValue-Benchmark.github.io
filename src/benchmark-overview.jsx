@@ -18,7 +18,7 @@ export function BenchmarkOverview() {
     <span className="bo-arrow" aria-hidden="true">→</span>
     <div className="bo-step">
       <span className="bo-number">03</span><h3>Four capability profiles</h3>
-      <ul className="bo-profiles">{GROUPS.map(group => <li key={group.id} style={{ '--capability-color': group.color }}><i aria-hidden="true" />{group.title}</li>)}</ul>
+      <ul className="bo-profiles">{GROUPS.map(group => <li key={group.id} style={{ '--capability-color': `var(--rv-capability-${group.id}, ${group.color})` }}><i aria-hidden="true" />{group.title}</li>)}</ul>
     </div>
     <figcaption>A shared evaluation protocol connects heterogeneous value models to complementary diagnostic tests.</figcaption>
   </figure>;

@@ -38,7 +38,7 @@ function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false }) {
   ];
   const currentPath = window.location.pathname.replace(/\/?$/, '/');
   const active = path => path === '/' ? currentPath === '/' : currentPath.startsWith(path);
-  return <header className={`docs-header ${documentation ? '' : 'public-header'} ${scrolled ? 'is-scrolled' : ''}`}>
+  return <header className={`docs-header ${documentation ? '' : 'public-header'} ${currentPath === '/' ? 'public-header--home' : ''} ${scrolled ? 'is-scrolled' : ''}`}>
     <a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a>
     <nav className={`site-nav ${siteMenuOpen ? 'is-open' : ''}`} id="site-navigation" aria-label="Website">{links.map(([path, label]) => <a key={label} href={path} aria-current={active(path) ? 'page' : undefined} target={path.startsWith('https://') ? '_blank' : undefined} rel={path.startsWith('https://') ? 'noopener noreferrer' : undefined}>{label}</a>)}</nav>
     <div className="header-mobile-controls">
@@ -96,7 +96,13 @@ function App() {
     case 'catalog': content = <TaskCatalog domain={page.domain} />; break;
     case 'task': content = <TaskDetail taskId={page.taskId} />; break;
     case 'protocol': content = <ProtocolGuide />; break;
-    case 'community': break;
+    case 'community':
+      content = <section className="community-section" aria-labelledby="wechat-title">
+        <h2 id="wechat-title">Join the WeChat group</h2>
+        <p>Scan the QR code with WeChat to join the RoboValue discussion group.</p>
+        <img className="community-qr" src="/assets/community-wechat.png" alt="QR code for the RoboValue WeChat discussion group" width="540" height="830" />
+      </section>;
+      break;
   }
   if (page?.kind === 'landing') return <Landing />;
   if (page?.kind === 'data-release') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main className="public-data-page" id="main-content" tabIndex={-1}><h1>Data</h1><p>Coming soon.</p></main></div>;

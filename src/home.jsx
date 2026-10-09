@@ -1,12 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { Figure, Icon } from './benchmark';
-import { ModelLogo } from './model-logo';
+import React, { useState } from 'react';
+import { Icon } from './benchmark';
+import { ZoomableFigure } from './figure-viewer';
+import { RankingModel } from './ranking-model';
 import { BenchmarkOverview } from './benchmark-overview';
-import { HomeDiagnostics } from './home-diagnostics';
-import { GROUPS, METRICS } from './benchmark-metrics';
-import { DEFAULT_VIEW, TRACKS, modelName, viewURL } from './leaderboard-utils';
-import { paperFindings } from './paper-findings';
+import { HeroBackground } from './hero-background';
+import { GROUPS } from './benchmark-metrics';
+import { DEFAULT_VIEW, TRACKS, scoreHighlights, viewURL } from './leaderboard-utils';
 import { useResults } from './use-results';
+import { useHomeReveal } from './use-home-reveal';
 import taskData from './data/tasks.json';
 import './home.css';
 
@@ -20,7 +21,19 @@ const AUTHORS = [
 const AFFILIATIONS = ['Tsinghua University', 'AgiBot', 'Xspark AI', 'Sun Yat-sen University', 'Peking University', 'The University of Hong Kong'];
 const INSTITUTION_LOGOS = ['tsinghua.svg', 'agibot.jpg', 'xspark.png', 'sun-yat-sen.png', 'peking.png', 'hku.png'];
 const CONDITIONS = { id: 'Standard (ID)', emb: 'Embodiment shift', env: 'Environment shift' };
-const task = id => taskData.tasks.find(item => item.id === id);
+const CONDITION_ORDER = Object.keys(CONDITIONS);
+const TASK_SETTINGS = {
+  simulation: {
+    id: { robot: 'ARX', scene: 'Standard scene conditions' },
+    emb: { robot: 'Dual-arm UR5e', scene: 'Robot platform changed from ARX' },
+    env: { robot: 'ARX', scene: 'Varied surface appearance, lighting, and clutter' },
+  },
+  'real-world': {
+    id: { robot: 'AgiBot Genie02', scene: 'Standard scene conditions' },
+    emb: { robot: 'Dual-arm ARX', scene: 'Robot platform changed from AgiBot Genie02' },
+    env: { robot: 'AgiBot Genie02', scene: 'Varied tablecloth color, lighting, and tabletop clutter' },
+  },
+};
 const taskPath = item => `/doc/${item.domain}-tasks/${item.slug}/`;
 const score = value => value == null ? '—' : value.toFixed(2);
 const leaderboardHref = (track, patch = {}) => {
@@ -35,6 +48,7 @@ function ResourceEntry({ label, icon, logo, href, status, external = false, arro
 }
 function ResearchDetails() {
   return <section className="rv-paper" id="paper" aria-labelledby="paper-title">
+    <HeroBackground />
     <div className="rv-container rv-narrow">
       <h1 id="paper-title">RoboValue: A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models</h1>
       <dl className="rv-paper-details">
@@ -42,7 +56,7 @@ function ResearchDetails() {
           const [numbers, role] = affiliation.split(/,(?=[*†‡])/);
           return <span key={name}>{name}<sup>{numbers}{role && <span className="rv-author-role">,{role}</span>}</sup></span>;
         })}</div><p className="rv-author-notes"><span className="rv-author-role">*</span> Equal contribution <span className="rv-note-separator">·</span> <span className="rv-author-role">†</span> Project leader <span className="rv-note-separator">·</span> <span className="rv-author-role">‡</span> Corresponding authors</p></dd>
-        <dt>Affiliations</dt><dd><div className="rv-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div><div className="rv-institutions" aria-label="Institution logos">{INSTITUTION_LOGOS.map((file, index) => <img key={file} className={file === 'hku.png' ? 'rv-institution-hku' : undefined} src={`/assets/affiliations/${file}`} alt={AFFILIATIONS[index]} width="180" height="48" loading="lazy" />)}</div></dd>
+        <dt>Affiliations</dt><dd><div className="rv-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div><div className="rv-institutions" aria-label="Institution logos">{INSTITUTION_LOGOS.map((file, index) => <img key={file} className={file === 'hku.png' ? 'rv-institution-hku' : undefined} src={`/assets/affiliations/${file}`} alt={AFFILIATIONS[index]} width="180" height="48" loading="eager" />)}</div></dd>
         <dt className="rv-entry-label">Resources</dt><dd className="rv-release-grid">
           <ResourceEntry label="Paper" icon="paper" status="Coming soon" />
           <ResourceEntry label="arXiv" logo="arxiv" status="Coming soon" />
@@ -61,46 +75,34 @@ function ResearchDetails() {
 
 function OverviewVideo() {
   return <section className="rv-video-section" id="video" aria-labelledby="video-title">
-    <div className="rv-container rv-narrow">
-      <p className="rv-eyebrow">OVERVIEW VIDEO</p>
-      <div className="rv-video-placeholder"><p id="video-title">Video coming soon</p></div>
+    <div className="rv-video-container rv-reveal">
+      <div className="rv-video-heading"><h2 className="rv-eyebrow rv-video-eyebrow" id="video-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m10 8 6 4-6 4V8Z" fill="currentColor" stroke="none" /></svg>Overview</h2></div>
+      <div className="rv-video-placeholder"><p>Video coming soon</p></div>
     </div>
   </section>;
 }
 
 function Introduction() {
-  return <section className="rv-introduction-section" id="overview" aria-labelledby="overview-title">
+  return <section className="rv-introduction-section" id="overview" aria-label="RoboValue overview">
     <div className="rv-container rv-narrow">
-      <p className="rv-eyebrow">INTRODUCTION</p>
-      <h2 id="overview-title">Overview of RoboValue</h2>
       <div className="rv-introduction">
-        <p>Robotic value models provide feedback for policy learning and execution monitoring. Strong outcome discrimination and forward-progress correlation alone do not establish whether this feedback accurately reflects task requirements and intermediate execution events. Values may rise during regression, rebound while an error remains unresolved, or fail to reflect accumulated progress when visually similar states recur.</p>
-        <p><strong>RoboValue</strong> is a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. It evaluates four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index > 0 && (index === GROUPS.length - 1 ? ', and ' : ', ')}<strong className="rv-capability-name" style={{ '--capability-color': group.color }}>{group.title}</strong></React.Fragment>)}. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics.</p>
-        <Figure className="rv-overview-figure" src="/assets/overview-10-09.webp" alt="RoboValue evaluation framework: simulation and real-world data, shared interfaces, and diagnostic designs across four capability dimensions" caption="RoboValue evaluation framework: diagnostic trajectories and instruction variations probe task requirements and changes throughout execution." />
-        <p><strong>RoboValue-Dataset</strong> pairs expert demonstrations for model training with a separate annotated test set. Its simulation and real-world tasks include failure and recovery, recurring visual states, and alternative valid subtask orders. Standard conditions and separate shifts in robot embodiment and environment support evaluation of value judgments across execution settings.</p>
+        <p className="rv-reveal">Robotic value models assess task execution from visual observations and instructions, providing feedback for policy learning and execution monitoring. Reliable feedback must reflect how well task requirements are being fulfilled throughout execution.</p>
+        <p className="rv-reveal">Strong outcome discrimination and forward-progress correlation, however, can conceal errors in intermediate value judgments. Values may rise during reverse playback, rebound after unsuccessful recovery, or fail to reflect accumulated progress when similar visual states recur. These blind spots motivate a fine-grained assessment of feedback reliability.</p>
+        <ZoomableFigure className="rv-overview-figure rv-reveal" title="Overview of RoboValue" src="/assets/overview-10-09.svg" alt="Overview of RoboValue: simulation and real-world data, shared interfaces, resources, and diagnostic designs across four capability dimensions" caption="Overview of RoboValue: unified evaluation of robotic value models across four complementary dimensions in simulation and the real world." />
+        <p className="rv-reveal">To address these gaps, we introduce <strong className="rv-brand-name rv-brand-primary">RoboValue</strong>, a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. Its framework assesses four complementary capabilities through shared interfaces: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index > 0 && (index === GROUPS.length - 1 ? ', and ' : ', ')}<strong className="rv-capability-name" style={{ '--capability-color': `var(--rv-capability-${group.id}, ${group.color})` }}>{group.title.toLowerCase()}</strong></React.Fragment>)}. Diagnostic trajectories and instruction variations probe instruction grounding, history-dependent progress tracking, recovery assessment, and subtask value consistency across valid solutions.</p>
+        <p className="rv-reveal"><strong className="rv-brand-name">RoboValue-Dataset</strong> covers <strong className="rv-data-emphasis">15 simulation and 20 real-world manipulation tasks</strong>, with <strong className="rv-data-emphasis">3,500 expert demonstrations for training</strong> and a separate annotated test set of <strong className="rv-data-emphasis">2,792 trajectories</strong>. We establish <strong className="rv-brand-name">RoboValue-Leaderboard</strong> to compare models using overall scores and capability profiles, with separate rankings for zero-shot and one-shot evaluation. These evaluations cover standard conditions and separate shifts in robot embodiment and environment.</p>
       </div>
-      <DatasetStats />
-      <div className="rv-overview-links"><a className="rv-text-link" href="/doc/get-started/data/">Explore the dataset<Icon size={17} /></a><a className="rv-text-link" href="/doc/get-started/protocol/">Read the evaluation protocol<Icon size={17} /></a></div>
     </div>
   </section>;
 }
 
 function News() {
   return <section className="rv-news-section" id="news" aria-labelledby="news-title">
-    <div className="rv-container rv-narrow">
-      <p className="rv-eyebrow">NEWS</p><h2 id="news-title">Latest updates</h2>
+    <div className="rv-container rv-narrow rv-reveal">
+      <h2 className="rv-eyebrow" id="news-title">NEWS</h2>
       <div className="rv-news-placeholder"><p>Updates coming soon.</p></div>
     </div>
   </section>;
-}
-
-function DatasetStats() {
-  return <div className="rv-stats" aria-label="Benchmark statistics">{[
-    ['35', 'Manipulation tasks', '15 simulation + 20 real world'],
-    ['3,500', 'Training demonstrations', '100 expert demonstrations per task'],
-    ['2,792', 'Held-out test trajectories', 'Separate from the training split'],
-    ['4', 'Capability dimensions', 'A shared diagnostic protocol'],
-  ].map(([value, label, detail]) => <div key={label}><strong>{value}</strong><span>{label}</span><small>{detail}</small></div>)}</div>;
 }
 
 function TaskTile({ item, condition }) {
@@ -112,23 +114,26 @@ function TaskTile({ item, condition }) {
 
 function TaskGallery({ domain }) {
   const [condition, setCondition] = useState('id');
-  const wall = useRef(null);
   const simulation = domain === 'simulation';
   const items = taskData.tasks.filter(item => item.domain === domain);
-  const examples = ['organize-cosmetics-storage-box', 'arrange-flowers-and-reed-diffuser', 'organize-desktop-workstation'].map(slug => task(`real-world/${slug}`));
   const name = simulation ? 'Simulation' : 'Real-world';
+  const galleryId = `${domain}-task-gallery`;
+  const setting = TASK_SETTINGS[domain][condition];
+  const changeCondition = direction => setCondition(current => CONDITION_ORDER[(CONDITION_ORDER.indexOf(current) + direction + CONDITION_ORDER.length) % CONDITION_ORDER.length]);
   return <section className={`rv-task-suite rv-${simulation ? 'simulation' : 'real'}-suite`} id={simulation ? 'tasks' : 'real-world'} aria-labelledby={`${domain}-title`}>
     <div className="rv-container">
-      <div className="rv-centered-heading"><p className="rv-eyebrow">{simulation ? 'SIMULATION' : 'REAL WORLD'}</p><h2 id={`${domain}-title`}>RoboValue {simulation ? 'Simulation' : 'Real-World'} Benchmark</h2></div>
-      <div className="rv-condition-switch" role="group" aria-label={`${name} viewing condition`}>{Object.entries(CONDITIONS).map(([id, label]) => <button type="button" key={id} aria-pressed={condition === id} onClick={() => setCondition(id)}>{label}</button>)}</div>
-      {!simulation && <div className="rv-real-showcase" aria-label={`Real-world task scenes: ${CONDITIONS[condition]}`}>{examples.map((item, index) => <a href={taskPath(item)} key={item.id} className={`rv-showcase-image rv-showcase-${index}`} aria-label={`Explore ${item.title}`}><img src={item.images[condition]} alt={`${item.title}: ${CONDITIONS[condition]}`} loading="lazy" width="1200" height="900" /><span>{item.title}<Icon size={17} /></span></a>)}</div>}
-      {simulation && <div className="rv-gallery-viewport" tabIndex={0} role="region" aria-label="All 15 simulation tasks"><div className="rv-sim-wall">{items.map(item => <TaskTile key={item.id} item={item} condition={condition} />)}</div></div>}
-      <div className="rv-suite-description">
-        <p>{simulation ? <>Our <strong>15 simulation tasks</strong> span object arrangement, sequential interactions, and multi-step manipulation in Isaac Sim. Expert, failure and recovery, long-horizon, and multi-solution trajectories probe value feedback throughout execution.</> : <>Our <strong>20 real-world tasks</strong> bring the same diagnostic protocol to physical execution, from organizing everyday objects to repeated and dependency-aware actions. Embodiment and environment shifts test generalization beyond the standard setting.</>}</p>
-        <p className="rv-task-context" aria-live="polite">{simulation ? 'Standard ARX → cross-embodiment UR5e' : 'Standard AgiBot Genie02 → cross-embodiment ARX'}<span>·</span>{CONDITIONS[condition]}</p>
+      <div className="rv-centered-heading rv-reveal"><p className="rv-eyebrow">{simulation ? 'SIMULATION' : 'REAL WORLD'}</p><h2 id={`${domain}-title`}>RoboValue {simulation ? 'Simulation' : 'Real-World'} Benchmark</h2></div>
+      <div className="rv-condition-controls rv-reveal">
+        <button className="rv-condition-arrow" type="button" aria-label={`Previous ${name.toLowerCase()} condition`} aria-controls={galleryId} onClick={() => changeCondition(-1)}><Icon className="rv-previous" name="chevron" size={20} /></button>
+        <div className="rv-condition-switch" role="group" aria-label={`${name} viewing condition`}>{Object.entries(CONDITIONS).map(([id, label]) => <button type="button" key={id} aria-pressed={condition === id} aria-controls={galleryId} onClick={() => setCondition(id)}>{label}</button>)}</div>
+        <button className="rv-condition-arrow" type="button" aria-label={`Next ${name.toLowerCase()} condition`} aria-controls={galleryId} onClick={() => changeCondition(1)}><Icon name="chevron" size={20} /></button>
+      </div>
+      <div className="rv-gallery-viewport rv-reveal" id={galleryId} tabIndex={0} role="region" aria-label={`All ${items.length} ${name.toLowerCase()} tasks: ${CONDITIONS[condition]}`}><div className="rv-task-wall">{items.map(item => <TaskTile key={item.id} item={item} condition={condition} />)}</div></div>
+      <div className="rv-suite-description rv-reveal">
+        <p>{simulation ? <>Our <strong>15 simulation tasks</strong> are adapted from RoboDojo, with trajectories collected in NVIDIA Isaac Sim. Alongside expert demonstrations, diagnostic trajectories test whether value models distinguish failure and recovery outcomes, track accumulated progress when similar visual states recur, and assign consistent subtask value gains across valid solutions.</> : <>Our <strong>20 real-world tasks</strong> bring the shared diagnostic protocol to physical robot execution. The collected trajectories capture real visual conditions and contact dynamics. Evaluation includes the standard setting and separate shifts in robot embodiment and environment, testing whether value judgments remain reliable across platforms and visual contexts.</>}</p>
+        <p className="rv-task-context" aria-live="polite"><strong>{setting.robot}</strong><span className="rv-context-separator" aria-hidden="true">·</span><span>{setting.scene}</span></p>
         <a className="rv-text-link" href={`/doc/${domain}-tasks/catalog/`}>Explore all {items.length} {simulation ? 'simulation' : 'real-world'} tasks<Icon size={17} /></a>
       </div>
-      {!simulation && <div className="rv-real-wall-section"><div className="rv-wall-heading"><span>All 20 real-world tasks</span><div><button type="button" aria-label="Previous real-world tasks" onClick={() => wall.current.scrollBy({ left: -550, behavior: 'smooth' })}><Icon className="rv-previous" size={18} /></button><button type="button" aria-label="Next real-world tasks" onClick={() => wall.current.scrollBy({ left: 550, behavior: 'smooth' })}><Icon size={18} /></button></div></div><div className="rv-real-wall" ref={wall} role="region" aria-label="All 20 real-world tasks" tabIndex={0}>{items.map(item => <TaskTile key={item.id} item={item} condition={condition} />)}</div></div>}
     </div>
   </section>;
 }
@@ -136,39 +141,50 @@ function TaskGallery({ domain }) {
 function HomeResults() {
   const { data, error, retry } = useResults();
   const [track, setTrack] = useState('zero');
-  const rows = (data?.rows || []).filter(row => row.setting === track).sort((a, b) => a.aggregate.rank - b.aggregate.rank).slice(0, 5);
-  const findings = paperFindings(data?.rows || [], track);
+  const rows = (data?.rows || []).filter(row => row.setting === track).sort((a, b) => a.aggregate.rank - b.aggregate.rank);
+  const columns = ['overall', ...GROUPS.map(group => group.id)];
+  const highlights = scoreHighlights(rows, 'aggregate', columns);
+  const colors = { understanding: '#366c9a', tracking: '#447d64', diagnosis: '#a56f2d', consistency: '#a45368' };
+  const renderScore = (value, key) => <span className={value === highlights[key]?.best ? 'rv-score-best' : value === highlights[key]?.second ? 'rv-score-second' : ''}>{score(value)}</span>;
   return <section className="rv-section rv-results" id="results" aria-labelledby="home-results-title"><div className="rv-container">
-    <div className="rv-section-heading"><div><p className="rv-eyebrow">VALUE MODEL LEADERBOARD</p><h2 id="home-results-title">Top 5 value models</h2></div><p>{data?.modelFamilies || 9} model families. {data?.rows.length || 18} evaluated configurations.<br />A shared view of four complementary capabilities.</p></div>
-    <div className="rv-preview">
-      <div className="rv-preview-top"><div className="rv-small-switch" role="group" aria-label="Preview evaluation track">{Object.entries(TRACKS).map(([id, label]) => <button type="button" key={id} aria-pressed={track === id} onClick={() => setTrack(id)}>{label}</button>)}</div><span>MANUSCRIPT RESULTS</span></div>
-      <p className="rv-preview-description">{track === 'zero' ? 'Released checkpoints, without task-specific adaptation or reference demonstrations.' : 'One standard-scenario training demonstration per task, separate from all test trajectories.'}</p>
-      <div className="rv-preview-scroll" role="region" aria-label="Scrollable top-five leaderboard" tabIndex={0}><table className="rv-preview-table"><caption className="sr-only">Top five models in the {TRACKS[track]} track. Overall and capability scores reproduce the manuscript leaderboard and range from 0 to 100; higher is better.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col">Overall</th>{GROUPS.map(group => <th scope="col" key={group.id}>{group.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><td><span className={`rv-rank rv-rank-${row.aggregate.rank}`}>{row.aggregate.rank}</span></td><th scope="row"><a className="rv-preview-model" href={leaderboardHref(track, { selected: [row.id] })}><ModelLogo name={row.name} /><span>{modelName(row)}</span></a></th><td className="rv-preview-overall"><strong>{score(row.aggregate.overall)}</strong></td>{GROUPS.map(group => <td key={group.id}>{score(row.aggregate[group.id])}</td>)}</tr>)}{!rows.length && <tr><td colSpan={7} className="rv-preview-empty" aria-live="polite">{error ? <><strong>Results could not be loaded.</strong><button type="button" className="rv-text-link" onClick={retry}>Try again<Icon size={15} /></button></> : 'Loading manuscript results…'}</td></tr>}</tbody></table></div>
-      <div className="rv-preview-footer"><span>Overall = mean of four capability scores · SIA reported separately</span><a href="/leaderboard/#scoring">How scoring works<Icon size={15} /></a></div>
+    <div className="rv-section-heading rv-reveal"><div><p className="rv-eyebrow">LEADERBOARD</p><h2 id="home-results-title">RoboValue Leaderboard</h2></div><a className="rv-text-link rv-participate" href="/doc/get-started/adapters/">Participate in evaluation<Icon size={16} /></a></div>
+    <div className="rv-preview rv-reveal">
+      <div className="rv-preview-top"><div className="rv-small-switch" role="group" aria-label="Homepage evaluation track">{Object.entries(TRACKS).map(([id, label]) => <button type="button" key={id} aria-pressed={track === id} aria-controls="home-results-table" onClick={() => setTrack(id)}>{label}</button>)}</div></div>
+      <p className="rv-preview-description">{track === 'zero' ? 'Released checkpoints, without task-specific adaptation or reference demonstrations.' : 'One standard training demonstration per task, used for conditioning or adaptation; test trajectories are held out.'}</p>
+      <div className="rv-preview-scroll" role="region" aria-label="Homepage leaderboard results" tabIndex={0}><table className="rv-preview-table" id="home-results-table"><caption className="sr-only">All models in the {TRACKS[track]} track, ranked by Overall. Capability scores reproduce Table 2 of the 10-09 manuscript and range from 0 to 100; higher is better.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col" className="rv-preview-overall">Overall</th>{GROUPS.map(group => <th scope="col" key={group.id} style={{ '--capability-color': colors[group.id] }} title={group.title}>{group.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><td className="rv-rank">{row.aggregate.rank}</td><th scope="row"><RankingModel row={row} /></th><td className="rv-preview-overall">{renderScore(row.aggregate.overall, 'overall')}</td>{GROUPS.map(group => <td key={group.id}>{renderScore(row.aggregate[group.id], group.id)}</td>)}</tr>)}{!rows.length && <tr><td colSpan={7} className="rv-preview-empty" aria-live="polite">{error ? <><strong>Results could not be loaded.</strong><button type="button" className="rv-text-link" onClick={retry}>Try again<Icon size={15} /></button></> : 'Loading manuscript results…'}</td></tr>}</tbody></table></div>
+      <div className="rv-preview-legend"><b>Best</b> · <span className="rv-score-second">Second best</span> · 0–100, higher is better</div>
+      <div className="rv-preview-footer"><span>Overall = mean of four capability scores · SIA reported separately</span><a href="/doc/get-started/protocol/">Scoring &amp; metrics<Icon size={15} /></a></div>
+      {track === 'zero' && <p className="rv-preview-note">‡ TOPReward uses Qwen3-VL-8B. RoboReward’s unmeasured VS and CSVC count as zero in aggregate scoring.</p>}
     </div>
-    <div className="rv-results-link"><a className="rv-text-link" href={leaderboardHref(track)}>View the full {TRACKS[track].toLowerCase()} leaderboard<Icon size={18} /></a></div>
-    {!!findings.length && <div className="rv-home-findings"><div className="rv-findings-heading"><h3>Beyond the overall score</h3><p>Standard (ID) · {TRACKS[track]} · Raw metric scores ×100</p></div><div className="rv-finding-grid">{findings.map(finding => <article key={finding.title}><h4>{finding.title}</h4><p className="rv-finding-model">{modelName(finding.row)}</p><div className="rv-finding-values">{[finding.left, finding.right].map(key => <div key={key}><span>{METRICS[key].label}</span><strong>{score(finding.row.conditions.id[key])}</strong></div>)}</div><p className="rv-finding-explanation">{finding.text}</p><a className="rv-text-link" href={leaderboardHref(track, { condition: 'id', capability: finding.capability, query: modelName(finding.row) })}>Explore these results<Icon size={15} /></a></article>)}</div></div>}
+    <div className="rv-results-link rv-reveal"><a className="rv-text-link" href={leaderboardHref(track)}>View the {TRACKS[track].toLowerCase()} leaderboard<Icon size={18} /></a></div>
   </div></section>;
 }
 
 function EvaluationFramework() {
   return <section className="rv-section rv-framework" id="framework" aria-labelledby="framework-title"><div className="rv-container">
-    <div className="rv-section-heading"><div><p className="rv-eyebrow">EVALUATION FRAMEWORK</p><h2 id="framework-title">Shared interfaces. Complementary diagnostics.</h2></div><p>A shared protocol compares execution judgments across heterogeneous models while preserving their native value semantics.</p></div>
-    <div className="rv-workflow"><BenchmarkOverview /><p className="rv-track-note">Current results cover Zero-Shot and One-Shot evaluation. The Full-Data track is planned to open with the dataset release.</p><div className="rv-framework-links"><a className="rv-text-link" href="/doc/get-started/protocol/">Protocol and metrics<Icon size={17} /></a><a className="rv-text-link" href="/doc/get-started/evaluation/">Evaluation workflow<Icon size={17} /></a></div></div>
-    <HomeDiagnostics />
+    <div className="rv-section-heading rv-reveal"><div><p className="rv-eyebrow">EVALUATION FRAMEWORK</p><h2 id="framework-title">Shared interfaces. Complementary diagnostics.</h2></div><p>A shared protocol compares execution judgments across heterogeneous models while preserving their native value semantics.</p></div>
+    <div className="rv-workflow rv-reveal"><BenchmarkOverview /><p className="rv-track-note">Current results cover Zero-Shot and One-Shot evaluation. The Full-Data track is planned to open with the dataset release.</p><div className="rv-framework-links"><a className="rv-text-link" href="/doc/get-started/protocol/">Protocol and metrics<Icon size={17} /></a><a className="rv-text-link" href="/doc/get-started/evaluation/">Evaluation workflow<Icon size={17} /></a></div></div>
   </div></section>;
 }
 
 function Community() {
-  return <section className="rv-resources" id="community" aria-labelledby="community-title"><div className="rv-container rv-narrow"><p className="rv-eyebrow">COMMUNITY</p><h2 id="community-title">Join the RoboValue community</h2><p>Discuss the benchmark, evaluation, and robotic value models.</p><div className="rv-resource-links"><a href="/community/">Join the WeChat group<Icon size={17} /></a><a href="/doc/">Explore the documentation<Icon size={17} /></a></div></div></section>;
+  return <section className="rv-resources" id="community" aria-labelledby="community-title">
+    <div className="rv-container rv-narrow rv-reveal">
+      <p className="rv-eyebrow">COMMUNITY</p>
+      <h2 id="community-title">Join the RoboValue community</h2>
+      <p className="rv-community-description">Discuss the benchmark, evaluation, and robotic value models.</p>
+      <div className="rv-resource-links"><a href="/community/">Join the WeChat group<Icon size={17} /></a></div>
+    </div>
+  </section>;
 }
 
 function Citation() {
-  return <section className="rv-citation" id="citation" aria-labelledby="citation-title"><div className="rv-container rv-narrow"><p className="rv-eyebrow">CITATION</p><h2 id="citation-title">Cite our work</h2><div className="rv-citation-placeholder"><p>Citation details will be added when the public paper is released.</p></div></div></section>;
+  return <section className="rv-citation" id="citation" aria-labelledby="citation-title"><div className="rv-container rv-narrow rv-reveal"><p className="rv-eyebrow">CITATION</p><h2 id="citation-title">Cite our work</h2><div className="rv-citation-placeholder"><p>Citation details will be added when the public paper is released.</p></div></div></section>;
 }
 
 export function PublicHome() {
-  return <main className="public-home rv-home" id="main-content" tabIndex={-1}>
+  const revealRoot = useHomeReveal();
+  return <main ref={revealRoot} className="public-home rv-home" id="main-content" tabIndex={-1}>
     <ResearchDetails />
     <OverviewVideo />
     <Introduction />
