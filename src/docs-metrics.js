@@ -24,14 +24,14 @@ export const metricDocumentation = {
     aliases: 'VOC; implementation key: voc',
     purpose: 'Do predicted values follow the progress order of successful execution?',
     cohort: 'Successful standard trajectories in the shared forward/cycle protocol, excluding TRR branches and diverse-solution episodes.',
-    rules: 'Compute Spearman progress-order correlation. Constant predictions score zero. The current author-confirmed implementation uses the forward half of Cycle-VOC, with the same trajectory selection and shared turn, rather than a separate legacy successful-episode cohort.',
+    rules: 'Compute Spearman progress-order correlation. Constant predictions score zero. The current protocol uses the forward half of Cycle-VOC, with the same trajectory selection and shared turning point, rather than a separate set of successful trajectories.',
     interpretation: 'Higher is better. A high forward correlation alone does not establish memory use or sensitivity to regression. Read it alongside Memory-VOC and Cycle-VOC.',
   },
   cycle_voc: {
     aliases: 'Cycle-VOC; implementation key: cycle_voc',
     purpose: 'Does the model respond to regression rather than simply to elapsed execution time?',
     cohort: 'A continuous forward–reverse sequence with a shared turning point.',
-    rules: 'Preserve forward context when evaluating the reverse half; do not reset history at the turn or evaluate two unrelated clips. Compute Spearman correlation against increasing progress in the forward half and decreasing progress in the reverse half, including the shared turn in both. Cycle-VOC is the arithmetic mean of these two segment scores. A constant prediction scores zero for that segment. Preserve the versioned cycle query plan.',
+    rules: 'Preserve forward context when evaluating the reverse half; do not reset history at the turn or evaluate two unrelated clips. Compute Spearman correlation against increasing progress in the forward half and decreasing progress in the reverse half, including the shared turn in both. Cycle-VOC is the arithmetic mean of these two segment scores. A constant prediction scores zero for that segment.',
     interpretation: 'Higher is better. Reversed playback is a controlled visual diagnostic and need not be physically executable. VROC denotes the reverse-half component; it is not a synonym for the complete Cycle-VOC score.',
   },
   memory_voc: {
@@ -53,7 +53,7 @@ export const metricDocumentation = {
     purpose: 'Does the model distinguish failure, a recovery attempt, and its eventual outcome?',
     cohort: 'Actual continued-error, effective-recovery, and ineffective-recovery branches; the current published leaderboard reports ID coverage only.',
     rules: 'Each branch has its own time-coverage-weighted all-pairs stage directions. Correctness is a binary conjunction: continued error requires Df < 0 and Dc ≤ 0; successful recovery requires Df < 0, Dr > 0, and Do > 0; failed recovery requires Df < 0, Dr > 0, and Do < 0. A zero denominator gives direction zero. Only continued error allows a zero direction. Average branches within a group, then groups within a task/condition, then follow that domain’s protocol.',
-    interpretation: 'Higher is better. Df is failure, Dc continued error, Dr recovery attempt, and Do outcome. A failed-outcome interval ends before the next subtask begins. Current runner defaults are 10 Hz and K=10; exact archived reproduction requires the frozen sampling selection, including historical sim/real empty-grid differences.',
+    interpretation: 'Higher is better. Df describes the failure stage, Dc continued error, Dr the recovery attempt, and Do the outcome. A failed-outcome interval ends before the next subtask begins. Published scores must be read with their recorded sampling protocol.',
   },
   vs: {
     aliases: 'VS; implementation key: vs',
@@ -67,6 +67,6 @@ export const metricDocumentation = {
     purpose: 'Are gains for the same semantic subtask consistent across alternative valid solutions?',
     cohort: 'Semantically matched subtasks across valid solutions; the current published leaderboard reports ID coverage only.',
     rules: 'Align semantic subtask identities, not temporal positions. Standard repeats contribute one median solution profile, weighted like each valid alternative. Preserve gain-signal exclusions. The current author-confirmed contract uses CSVC = (G − D)/(G + D), where G is the gain signal and D its cross-solution disagreement, without clipping. Covered tasks with G + D = 0 score −1; missing matched semantic coverage remains N/A rather than receiving that penalty.',
-    interpretation: 'Higher is better. The ratio contract is versioned as semantic-gain-symmetric-ratio-v2; legacy rmse-v1 caches are incompatible. Consistency alone does not establish correct progress, and updated scoring must not be applied silently to older result artifacts.',
+    interpretation: 'Higher is better. This symmetric-ratio score is distinct from the earlier RMSE-based score; the two should not be compared as if they used the same rule. Consistency alone does not establish correct progress. Read older results with their recorded scoring protocol.',
   },
 };
