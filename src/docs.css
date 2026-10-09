@@ -73,6 +73,173 @@ html{scroll-padding-top:88px}body{background:#fff}.docs-header{position:fixed;in
 .community-qr { display: block; width: min(100%, 360px); height: auto; margin: 1.5rem 0; border: 1px solid var(--border, #e8e5ef); border-radius: 12px; }
 .community-validity { color: #706b80; font-size: .9rem; }
 
+.docs-layout.has-outline {
+  grid-template-columns: minmax(0, 800px) 184px;
+  gap: 36px;
+}
+
+.page-outline {
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.doc-content .doc-section > p + p,
+.doc-content .doc-section .paper-figure + p {
+  margin-top: 16px;
+}
+
+.doc-content .doc-section h2 {
+  margin-bottom: 20px;
+}
+
+.doc-content a:not(.doc-heading-anchor) {
+  color: var(--doc-accent);
+}
+
+.doc-content p a,
+.doc-definition-list a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.doc-heading-anchor {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--doc-accent);
+  opacity: 0;
+}
+
+.doc-content h2:hover .doc-heading-anchor,
+.doc-content h3:hover .doc-heading-anchor,
+.doc-heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.doc-notice {
+  margin: 24px 0;
+  padding: 20px 22px;
+  border: 1px solid #ded8f0;
+  border-left: 3px solid var(--doc-accent);
+  border-radius: 6px;
+  background: #f8f6fd;
+  color: #454052;
+}
+
+.doc-notice strong {
+  color: #44358c;
+  font-size: 15px;
+}
+
+.doc-notice p {
+  margin-top: 8px;
+}
+
+.doc-reading-path {
+  margin: 0;
+  padding-left: 24px;
+  line-height: 1.7;
+}
+
+.doc-reading-path li + li {
+  margin-top: 20px;
+}
+
+.doc-reading-path li::marker {
+  color: var(--doc-accent);
+  font-weight: 650;
+}
+
+.doc-reading-path li > a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.doc-reading-path p {
+  margin-top: 5px;
+  color: #505764;
+}
+
+.doc-definition-list,
+.doc-contract-rules {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  line-height: 1.8;
+}
+
+.doc-definition-list dt,
+.doc-contract-rules dt {
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #34303f;
+}
+
+.doc-definition-list dd,
+.doc-contract-rules dd {
+  margin: 0;
+  color: #505764;
+}
+
+.doc-definition-list + p {
+  margin-top: 20px;
+}
+
+.doc-metric-contract {
+  margin-top: 22px;
+  padding: 24px;
+  border: 1px solid var(--doc-border);
+  border-radius: 8px;
+}
+
+.doc-metric-aliases {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--doc-muted);
+}
+
+.doc-metric-purpose {
+  margin: 16px 0 18px;
+  font-weight: 550;
+}
+
+.doc-contract-rules {
+  gap: 16px;
+  font-size: 14px;
+}
+
+.doc-next-steps {
+  display: block;
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid var(--doc-border);
+}
+
+.doc-next-steps h2 {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1190px) {
+  .docs-layout.has-outline {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .doc-notice,
+  .doc-metric-contract {
+    padding: 18px;
+  }
+
+  .doc-heading-anchor {
+    opacity: .65;
+  }
+}
+
 /* Keep the wordmark readable and provide both navigation menus on small screens. */
 .docs-header { background: #fffffff5; backdrop-filter: blur(12px); }
 .docs-brand { flex: 0 0 154px; }

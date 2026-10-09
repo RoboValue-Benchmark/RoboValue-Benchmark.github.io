@@ -4,15 +4,14 @@ const taskPages = domain => taskData.tasks.filter(task => task.domain === domain
   path: `/doc/${domain}-tasks/${task.slug}/`, title: task.title, kind: 'task', taskId: task.id,
 }));
 
-// Every entry is a real page. Missing documentation intentionally has no body yet.
 export const navigation = [
   { title: 'Home', pages: [{ path: '/doc/', title: 'RoboValue', kind: 'home' }] },
   { title: 'Get Started', pages: [
     { path: '/doc/get-started/', title: 'Overview', kind: 'start' },
-    { path: '/doc/get-started/installation/', title: 'Installation' },
-    { path: '/doc/get-started/data/', title: 'Dataset Download & Preparation', kind: 'data' },
-    { path: '/doc/get-started/evaluation/', title: 'Run Evaluation' },
-    { path: '/doc/get-started/adapters/', title: 'Add a Model' },
+    { path: '/doc/get-started/data/', title: 'Dataset Overview', kind: 'data' },
+    { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation' },
+    { path: '/doc/get-started/adapters/', title: 'Submit a Model', kind: 'submission' },
+    { path: '/doc/model-api/', title: 'Model API', kind: 'api' },
     { path: '/doc/get-started/protocol/', title: 'Protocol & Metrics', kind: 'protocol' },
   ] },
   { title: 'Simulation Tasks', pages: [
@@ -26,6 +25,11 @@ export const navigation = [
     ...taskPages('real-world'),
   ] },
   { title: 'Community', pages: [{ path: '/community/', title: 'Community', kind: 'community' }] },
-  { title: 'Leaderboard', pages: [{ path: '/leaderboard/', title: 'Leaderboard', kind: 'leaderboard' }] },
 ];
-export const pages = [{ path: '/', title: 'RoboValue', kind: 'landing', group: 'Home' }, ...navigation.flatMap(group => group.pages.map(page => ({ ...page, group: group.title })))];
+export const navigationPages = navigation.flatMap(group => group.pages.map(page => ({ ...page, group: group.title })));
+export const documentationPages = navigationPages.filter(page => page.path.startsWith('/doc/'));
+export const pages = [
+  { path: '/', title: 'RoboValue', kind: 'landing', group: 'Home' },
+  ...navigationPages,
+  { path: '/leaderboard/', title: 'Leaderboard', kind: 'leaderboard', group: 'Leaderboard' },
+];
