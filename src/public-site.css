@@ -6,7 +6,13 @@
   src: url('/assets/fonts/google-sans-flex-latin.woff2') format('woff2');
 }
 .public-header, .leaderboard-main { font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif; }
+.docs-header .site-nav a[aria-current=page] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 8px; text-decoration-color: currentColor; }
+.public-data-page { width: min(960px, calc(100% - 80px)); min-height: 100svh; margin: 0 auto; padding: 142px 0 72px; color: #202124; font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif; outline: none; }
+.public-data-page h1 { margin: 0; font-size: 36px; line-height: 1.35; font-weight: 600; }
+.public-data-page p { margin-top: 20px; font-size: 16px; color: #5f6368; }
 .public-header {
+  position: fixed;
+  z-index: 80;
   inset: 24px auto auto 50%;
   transform: translateX(-50%);
   width: min(1140px, calc(100% - 64px));
@@ -18,21 +24,26 @@
   backdrop-filter: blur(18px);
   transition: border-color .2s, box-shadow .2s;
 }
-.public-header.is-scrolled { border-color: #e3e6e9; box-shadow: 0 4px 22px #2021240c; }
+.public-header.is-scrolled { border-color: #e3e6e9; background: #fffffff5; box-shadow: 0 4px 22px #2021240c; }
 .public-header .docs-brand { flex-basis: 154px; }
 .public-header .docs-brand img { width: 154px; height: 52px; }
 .public-header .site-nav { flex: 1; margin-left: 16px; gap: 30px; padding: 0; }
 .public-header .site-nav a { font-size: 15px; color: #5f6368; }
 .public-header .site-nav a[aria-current=page] { color: #1a73e8; font-weight: 550; }
 .public-header .site-nav a:hover { color: #1a73e8; }
-.public-header .site-nav a:last-child { margin-left: auto; }
+@media (min-width: 761px) and (max-width: 1050px) {
+  .docs-header { gap: 16px; }
+  .docs-header .site-nav { gap: 18px; padding-right: 0; }
+  .public-header .site-nav { margin-left: 0; }
+}
 @media (max-width: 760px) {
+  .public-data-page { width: calc(100% - 40px); padding-top: 112px; }
+  .public-data-page h1 { font-size: 29px; }
   .public-header { top: 12px; left: 16px; right: 16px; width: auto; height: 58px; padding: 0 14px; transform: none; border-radius: 19px; border-color: #e3e6e9; background: #fffffff5; }
   .public-header .docs-brand { flex-basis: 130px; }
   .public-header .docs-brand img { width: 130px; height: 44px; }
   .public-header .site-nav.is-open { top: 66px; left: 0; right: 0; padding: 8px; border-radius: 16px; }
   .public-header .site-nav a { padding: 13px 14px; font-size: 14px; }
-  .public-header .site-nav a:last-child { margin-left: 0; }
   .public-header .site-nav a[aria-current=page] { background: #e8f0fe; }
   .public-header .site-menu-toggle { border-color: #e3e6e9; border-radius: 9px; font-size: 13px; }
 }

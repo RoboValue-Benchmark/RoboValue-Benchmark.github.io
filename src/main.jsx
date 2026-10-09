@@ -28,11 +28,19 @@ function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false }) {
     window.addEventListener('pointerdown', close);
     return () => { window.removeEventListener('keydown', close); window.removeEventListener('pointerdown', close); };
   }, []);
-  const links = [['/', 'Home'], ['/leaderboard/', 'Leaderboard'], ['/doc/', 'Documentation'], ['/community/', 'Community']];
-  const active = path => path === '/' ? window.location.pathname === '/' : window.location.pathname.startsWith(path);
+  const links = [
+    ['/', 'Home'],
+    ['/doc/', 'Document'],
+    ['/leaderboard/', 'Leaderboard'],
+    ['/data/', 'Data'],
+    ['https://github.com/RoboValue-Benchmark/RoboValue', 'Code'],
+    ['/community/', 'Community'],
+  ];
+  const currentPath = window.location.pathname.replace(/\/?$/, '/');
+  const active = path => path === '/' ? currentPath === '/' : currentPath.startsWith(path);
   return <header className={`docs-header ${documentation ? '' : 'public-header'} ${scrolled ? 'is-scrolled' : ''}`}>
     <a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a>
-    <nav className={`site-nav ${siteMenuOpen ? 'is-open' : ''}`} id="site-navigation" aria-label="Website">{links.map(([path, label]) => <a key={path} href={path} aria-current={active(path) ? 'page' : undefined}>{label}</a>)}</nav>
+    <nav className={`site-nav ${siteMenuOpen ? 'is-open' : ''}`} id="site-navigation" aria-label="Website">{links.map(([path, label]) => <a key={label} href={path} aria-current={active(path) ? 'page' : undefined} target={path.startsWith('https://') ? '_blank' : undefined} rel={path.startsWith('https://') ? 'noopener noreferrer' : undefined}>{label}</a>)}</nav>
     <div className="header-mobile-controls">
       {documentation && <button className="menu-toggle" aria-label={menuOpen ? 'Close documentation navigation' : 'Open documentation navigation'} aria-expanded={menuOpen} aria-controls="docs-sidebar" onClick={() => { setSiteMenuOpen(false); setMenuOpen(!menuOpen); }}>{menuOpen ? 'Close' : 'Docs'}</button>}
       <button className="site-menu-toggle" aria-label={siteMenuOpen ? 'Close site navigation' : 'Open site navigation'} aria-expanded={siteMenuOpen} aria-controls="site-navigation" onClick={() => { setMenuOpen?.(false); setSiteMenuOpen(value => !value); }}>{siteMenuOpen ? 'Close' : 'Menu'}</button>
@@ -91,6 +99,7 @@ function App() {
     case 'community': break;
   }
   if (page?.kind === 'landing') return <Landing />;
+  if (page?.kind === 'data-release') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main className="public-data-page" id="main-content" tabIndex={-1}><h1>Data</h1><p>Coming soon.</p></main></div>;
   if (page?.kind === 'leaderboard') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><Leaderboard /></div>;
   return <div className="docs-app docs-workspace">
     <a className="skip-link" href="#main-content">Skip to content</a>

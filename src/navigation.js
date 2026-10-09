@@ -30,6 +30,7 @@ export const navigationPages = navigation.flatMap(group => group.pages.map(page 
 export const documentationPages = navigationPages.filter(page => page.path.startsWith('/doc/'));
 export const pages = [
   { path: '/', title: 'RoboValue', kind: 'landing', group: 'Home' },
+  { path: '/data/', title: 'Data', kind: 'data-release', group: 'Data' },
   ...navigationPages,
   { path: '/leaderboard/', title: 'Leaderboard', kind: 'leaderboard', group: 'Leaderboard' },
 ];

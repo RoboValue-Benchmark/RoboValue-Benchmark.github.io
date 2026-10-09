@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Icon } from './benchmark';
+import { Figure, Icon } from './benchmark';
 import { ModelLogo } from './model-logo';
 import { BenchmarkOverview } from './benchmark-overview';
 import { HomeDiagnostics } from './home-diagnostics';
@@ -27,70 +27,69 @@ const leaderboardHref = (track, patch = {}) => {
   const url = viewURL({ ...DEFAULT_VIEW, track, ...patch }, new URL('/leaderboard/', window.location.href));
   return url.pathname + url.search + url.hash;
 };
-const HERO_SCENES = [
-  { item: task('real-world/arrange-flowers-and-reed-diffuser'), label: 'SIMULATION + REAL WORLD', description: 'Fine-grained evaluation across 35 robotic manipulation tasks.' },
-  { item: task('simulation/hang-mugs'), label: '15 SIMULATION TASKS', description: 'Understanding, tracking, diagnosis, and consistency in simulation.' },
-  { item: task('real-world/organize-desktop-workstation'), label: '20 REAL-WORLD TASKS', description: 'From physical execution to a finer view of robotic value feedback.' },
-];
-
-function Hero() {
-  const [slide, setSlide] = useState(0);
-  const touchStart = useRef(null);
-  const scene = HERO_SCENES[slide];
-  const move = offset => setSlide(value => (value + offset + HERO_SCENES.length) % HERO_SCENES.length);
-  return <section className="rv-cover" aria-labelledby="project-title" aria-roledescription="carousel" onKeyDown={event => {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      event.preventDefault(); move(event.key === 'ArrowLeft' ? -1 : 1);
-    }
-  }}>
-    <div className="rv-cover-viewport" onTouchStart={event => { touchStart.current = event.touches[0].clientX; }} onTouchEnd={event => {
-      if (touchStart.current == null) return;
-      const distance = event.changedTouches[0].clientX - touchStart.current;
-      if (Math.abs(distance) > 50) move(distance < 0 ? 1 : -1);
-      touchStart.current = null;
-    }}>
-      <div className="rv-cover-track">
-        {[-1, 0, 1].map(offset => {
-          const imageScene = HERO_SCENES[(slide + offset + HERO_SCENES.length) % HERO_SCENES.length];
-          return <div className={`rv-cover-panel ${offset === 0 ? 'is-current' : offset === -1 ? 'is-previous' : 'is-next'}`} key={offset} aria-hidden={offset !== 0 ? true : undefined}>
-            <img src={imageScene.item.images.id} alt={offset === 0 ? `${imageScene.item.title}: standard benchmark scene` : ''} width="1200" height="900" fetchPriority={offset === 0 ? 'high' : 'auto'} />
-          </div>;
-        })}
-        <div className="rv-cover-copy">
-          <p className="rv-cover-eyebrow">{scene.label}</p>
-          <h1 id="project-title">RoboValue</h1>
-          <p className="rv-cover-subtitle">Sim-and-Real Value Model Benchmark</p>
-          <p className="rv-cover-description">{scene.description}</p>
-          <a className="rv-cover-link" href="#paper">Learn more<Icon size={19} /></a>
-        </div>
-        <p className="rv-cover-caption">{scene.item.domain === 'simulation' ? 'Simulation' : 'Real world'}<span>·</span>{scene.item.title}</p>
-      </div>
-    </div>
-    <div className="rv-cover-controls" aria-label="Benchmark highlights">
-      <button type="button" onClick={() => move(-1)} aria-label="Previous highlight"><Icon className="rv-previous" size={20} /></button>
-      <div className="rv-cover-dots">{HERO_SCENES.map((item, index) => <button type="button" key={item.item.id} aria-label={`Show highlight ${index + 1}: ${item.item.title}`} aria-pressed={slide === index} onClick={() => setSlide(index)}><span /></button>)}</div>
-      <button type="button" onClick={() => move(1)} aria-label="Next highlight"><Icon size={20} /></button>
-      <span className="sr-only" aria-live="polite">Highlight {slide + 1} of {HERO_SCENES.length}: {scene.item.title}</span>
+function ResourceEntry({ label, icon, logo, href, status, external = false, arrow = false }) {
+  const content = <>{logo ? <img className="rv-entry-logo" src={`/assets/resource-icons/${logo}.svg`} alt="" width="20" height="20" aria-hidden="true" /> : <Icon name={icon} size={20} />}<strong>{label}</strong>{status && <span className="rv-entry-status">{status}</span>}{href && (external || arrow) && <Icon className="rv-entry-arrow" name={external ? 'external' : 'arrow'} size={14} />}</>;
+  return href
+    ? <a className="rv-entry" data-icon={logo || icon} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{content}</a>
+    : <button className="rv-entry rv-entry-pending" data-icon={logo || icon} type="button" disabled>{content}</button>;
+}
+function ResearchDetails() {
+  return <section className="rv-paper" id="paper" aria-labelledby="paper-title">
+    <div className="rv-container rv-narrow">
+      <h1 id="paper-title">RoboValue: A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models</h1>
+      <dl className="rv-paper-details">
+        <dt>Authors</dt><dd><div className="rv-authors" aria-label="Authors">{AUTHORS.map(([name, affiliation]) => {
+          const [numbers, role] = affiliation.split(/,(?=[*†‡])/);
+          return <span key={name}>{name}<sup>{numbers}{role && <span className="rv-author-role">,{role}</span>}</sup></span>;
+        })}</div><p className="rv-author-notes"><span className="rv-author-role">*</span> Equal contribution <span className="rv-note-separator">·</span> <span className="rv-author-role">†</span> Project leader <span className="rv-note-separator">·</span> <span className="rv-author-role">‡</span> Corresponding authors</p></dd>
+        <dt>Affiliations</dt><dd><div className="rv-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div><div className="rv-institutions" aria-label="Institution logos">{INSTITUTION_LOGOS.map((file, index) => <img key={file} className={file === 'hku.png' ? 'rv-institution-hku' : undefined} src={`/assets/affiliations/${file}`} alt={AFFILIATIONS[index]} width="180" height="48" loading="lazy" />)}</div></dd>
+        <dt className="rv-entry-label">Resources</dt><dd className="rv-release-grid">
+          <ResourceEntry label="Paper" icon="paper" status="Coming soon" />
+          <ResourceEntry label="arXiv" logo="arxiv" status="Coming soon" />
+          <ResourceEntry label="Code" logo="github" href="https://github.com/RoboValue-Benchmark/RoboValue" status="GitHub" external />
+          <ResourceEntry label="Dataset" icon="database" href="/data/" status="Coming soon" />
+        </dd>
+        <dt className="rv-entry-label">Explore</dt><dd className="rv-paper-links">
+          <ResourceEntry label="Leaderboard" icon="trophy" href="/leaderboard/" arrow />
+          <ResourceEntry label="Document" icon="book" href="/doc/" arrow />
+          <ResourceEntry label="Community" icon="conversation" href="/community/" arrow />
+        </dd>
+      </dl>
     </div>
   </section>;
 }
 
-function ResearchDetails() {
-  return <section className="rv-paper" id="paper" aria-labelledby="paper-title">
+function OverviewVideo() {
+  return <section className="rv-video-section" id="video" aria-labelledby="video-title">
     <div className="rv-container rv-narrow">
-      <h2 id="paper-title">RoboValue: A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models</h2>
-      <dl className="rv-paper-details">
-        <dt>Authors</dt><dd><div className="rv-authors" aria-label="Authors">{AUTHORS.map(([name, affiliation]) => <span key={name}>{name}<sup>{affiliation}</sup></span>)}</div><p className="rv-author-notes">* Equal contribution <span>·</span> † Project leader <span>·</span> ‡ Corresponding authors</p></dd>
-        <dt>Affiliations</dt><dd><div className="rv-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div><div className="rv-institutions" aria-label="Institution logos">{INSTITUTION_LOGOS.map((file, index) => <img key={file} src={`/assets/affiliations/${file}`} alt={AFFILIATIONS[index]} width="180" height="48" loading="lazy" />)}</div></dd>
-        <dt>Resources</dt><dd className="rv-release-grid">{['Paper', 'arXiv', 'Code', 'Dataset'].map(label => <button type="button" disabled key={label}><strong>{label}</strong><span>Coming soon</span></button>)}</dd>
-        <dt>Explore</dt><dd className="rv-paper-links"><a href="/leaderboard/">Leaderboard<Icon size={16} /></a><a href="/doc/">Documentation<Icon size={16} /></a><a href="/community/">Community<Icon size={16} /></a></dd>
-      </dl>
-      <div className="rv-introduction" id="overview">
-        <p>Robotic value models guide data curation, policy optimization, and execution monitoring. But predicting success or correlating with forward progress tells only part of the story: a value may rise during regression, rebound before an error is resolved, or overlook the history behind a familiar visual state.</p>
-        <p><strong>RoboValue</strong> evaluates four complementary capabilities: task-state understanding, temporal progress monitoring, failure and recovery reasoning, and value consistency. A unified protocol connects heterogeneous value models with diagnostic trajectories in simulation and the real world.</p>
+      <p className="rv-eyebrow">OVERVIEW VIDEO</p>
+      <div className="rv-video-placeholder"><p id="video-title">Video coming soon</p></div>
+    </div>
+  </section>;
+}
+
+function Introduction() {
+  return <section className="rv-introduction-section" id="overview" aria-labelledby="overview-title">
+    <div className="rv-container rv-narrow">
+      <p className="rv-eyebrow">INTRODUCTION</p>
+      <h2 id="overview-title">Overview of RoboValue</h2>
+      <div className="rv-introduction">
+        <p>Robotic value models provide feedback for policy learning and execution monitoring. Strong outcome discrimination and forward-progress correlation alone do not establish whether this feedback accurately reflects task requirements and intermediate execution events. Values may rise during regression, rebound while an error remains unresolved, or fail to reflect accumulated progress when visually similar states recur.</p>
+        <p><strong>RoboValue</strong> is a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. It evaluates four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index > 0 && (index === GROUPS.length - 1 ? ', and ' : ', ')}<strong className="rv-capability-name" style={{ '--capability-color': group.color }}>{group.title}</strong></React.Fragment>)}. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics.</p>
+        <Figure className="rv-overview-figure" src="/assets/overview-10-09.webp" alt="RoboValue evaluation framework: simulation and real-world data, shared interfaces, and diagnostic designs across four capability dimensions" caption="RoboValue evaluation framework: diagnostic trajectories and instruction variations probe task requirements and changes throughout execution." />
+        <p><strong>RoboValue-Dataset</strong> pairs expert demonstrations for model training with a separate annotated test set. Its simulation and real-world tasks include failure and recovery, recurring visual states, and alternative valid subtask orders. Standard conditions and separate shifts in robot embodiment and environment support evaluation of value judgments across execution settings.</p>
       </div>
       <DatasetStats />
-      <div className="rv-workflow"><BenchmarkOverview /><a className="rv-text-link" href="/doc/get-started/protocol/">Explore the evaluation protocol<Icon size={17} /></a></div>
+      <div className="rv-overview-links"><a className="rv-text-link" href="/doc/get-started/data/">Explore the dataset<Icon size={17} /></a><a className="rv-text-link" href="/doc/get-started/protocol/">Read the evaluation protocol<Icon size={17} /></a></div>
+    </div>
+  </section>;
+}
+
+function News() {
+  return <section className="rv-news-section" id="news" aria-labelledby="news-title">
+    <div className="rv-container rv-narrow">
+      <p className="rv-eyebrow">NEWS</p><h2 id="news-title">Latest updates</h2>
+      <div className="rv-news-placeholder"><p>Updates coming soon.</p></div>
     </div>
   </section>;
 }
@@ -142,9 +141,9 @@ function HomeResults() {
   return <section className="rv-section rv-results" id="results" aria-labelledby="home-results-title"><div className="rv-container">
     <div className="rv-section-heading"><div><p className="rv-eyebrow">VALUE MODEL LEADERBOARD</p><h2 id="home-results-title">Top 5 value models</h2></div><p>{data?.modelFamilies || 9} model families. {data?.rows.length || 18} evaluated configurations.<br />A shared view of four complementary capabilities.</p></div>
     <div className="rv-preview">
-      <div className="rv-preview-top"><div className="rv-small-switch" role="group" aria-label="Preview evaluation track">{Object.entries(TRACKS).map(([id, label]) => <button type="button" key={id} aria-pressed={track === id} onClick={() => setTrack(id)}>{label}</button>)}</div><span>MANUSCRIPT RESULTS · TABLE 1</span></div>
+      <div className="rv-preview-top"><div className="rv-small-switch" role="group" aria-label="Preview evaluation track">{Object.entries(TRACKS).map(([id, label]) => <button type="button" key={id} aria-pressed={track === id} onClick={() => setTrack(id)}>{label}</button>)}</div><span>MANUSCRIPT RESULTS</span></div>
       <p className="rv-preview-description">{track === 'zero' ? 'Released checkpoints, without task-specific adaptation or reference demonstrations.' : 'One standard-scenario training demonstration per task, separate from all test trajectories.'}</p>
-      <div className="rv-preview-scroll" role="region" aria-label="Scrollable top-five leaderboard" tabIndex={0}><table className="rv-preview-table"><caption className="sr-only">Top five models in the {TRACKS[track]} track. Overall and capability scores reproduce Table 1 and range from 0 to 100; higher is better.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col">Overall</th>{GROUPS.map(group => <th scope="col" key={group.id}>{group.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><td><span className={`rv-rank rv-rank-${row.aggregate.rank}`}>{row.aggregate.rank}</span></td><th scope="row"><a className="rv-preview-model" href={leaderboardHref(track, { selected: [row.id] })}><ModelLogo name={row.name} /><span>{modelName(row)}</span></a></th><td className="rv-preview-overall"><strong>{score(row.aggregate.overall)}</strong></td>{GROUPS.map(group => <td key={group.id}>{score(row.aggregate[group.id])}</td>)}</tr>)}{!rows.length && <tr><td colSpan={7} className="rv-preview-empty" aria-live="polite">{error ? <><strong>Results could not be loaded.</strong><button type="button" className="rv-text-link" onClick={retry}>Try again<Icon size={15} /></button></> : 'Loading manuscript results…'}</td></tr>}</tbody></table></div>
+      <div className="rv-preview-scroll" role="region" aria-label="Scrollable top-five leaderboard" tabIndex={0}><table className="rv-preview-table"><caption className="sr-only">Top five models in the {TRACKS[track]} track. Overall and capability scores reproduce the manuscript leaderboard and range from 0 to 100; higher is better.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col">Overall</th>{GROUPS.map(group => <th scope="col" key={group.id}>{group.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><td><span className={`rv-rank rv-rank-${row.aggregate.rank}`}>{row.aggregate.rank}</span></td><th scope="row"><a className="rv-preview-model" href={leaderboardHref(track, { selected: [row.id] })}><ModelLogo name={row.name} /><span>{modelName(row)}</span></a></th><td className="rv-preview-overall"><strong>{score(row.aggregate.overall)}</strong></td>{GROUPS.map(group => <td key={group.id}>{score(row.aggregate[group.id])}</td>)}</tr>)}{!rows.length && <tr><td colSpan={7} className="rv-preview-empty" aria-live="polite">{error ? <><strong>Results could not be loaded.</strong><button type="button" className="rv-text-link" onClick={retry}>Try again<Icon size={15} /></button></> : 'Loading manuscript results…'}</td></tr>}</tbody></table></div>
       <div className="rv-preview-footer"><span>Overall = mean of four capability scores · SIA reported separately</span><a href="/leaderboard/#scoring">How scoring works<Icon size={15} /></a></div>
     </div>
     <div className="rv-results-link"><a className="rv-text-link" href={leaderboardHref(track)}>View the full {TRACKS[track].toLowerCase()} leaderboard<Icon size={18} /></a></div>
@@ -152,14 +151,34 @@ function HomeResults() {
   </div></section>;
 }
 
-function Resources() {
-  return <section className="rv-resources" id="resources" aria-labelledby="resources-title"><div className="rv-container rv-narrow"><h2 id="resources-title">Explore RoboValue</h2><p>Browse task specifications, evaluation definitions, and the full manuscript results.</p><div className="rv-resource-links"><a href="/doc/">Documentation<Icon size={17} /></a><a href="/leaderboard/">Leaderboard<Icon size={17} /></a><a href="/community/">Join the community<Icon size={17} /></a></div><p className="rv-release-note">The paper, code, and dataset are coming soon. Citation details will accompany the paper release.</p></div></section>;
+function EvaluationFramework() {
+  return <section className="rv-section rv-framework" id="framework" aria-labelledby="framework-title"><div className="rv-container">
+    <div className="rv-section-heading"><div><p className="rv-eyebrow">EVALUATION FRAMEWORK</p><h2 id="framework-title">Shared interfaces. Complementary diagnostics.</h2></div><p>A shared protocol compares execution judgments across heterogeneous models while preserving their native value semantics.</p></div>
+    <div className="rv-workflow"><BenchmarkOverview /><p className="rv-track-note">Current results cover Zero-Shot and One-Shot evaluation. The Full-Data track is planned to open with the dataset release.</p><div className="rv-framework-links"><a className="rv-text-link" href="/doc/get-started/protocol/">Protocol and metrics<Icon size={17} /></a><a className="rv-text-link" href="/doc/get-started/evaluation/">Evaluation workflow<Icon size={17} /></a></div></div>
+    <HomeDiagnostics />
+  </div></section>;
+}
+
+function Community() {
+  return <section className="rv-resources" id="community" aria-labelledby="community-title"><div className="rv-container rv-narrow"><p className="rv-eyebrow">COMMUNITY</p><h2 id="community-title">Join the RoboValue community</h2><p>Discuss the benchmark, evaluation, and robotic value models.</p><div className="rv-resource-links"><a href="/community/">Join the WeChat group<Icon size={17} /></a><a href="/doc/">Explore the documentation<Icon size={17} /></a></div></div></section>;
+}
+
+function Citation() {
+  return <section className="rv-citation" id="citation" aria-labelledby="citation-title"><div className="rv-container rv-narrow"><p className="rv-eyebrow">CITATION</p><h2 id="citation-title">Cite our work</h2><div className="rv-citation-placeholder"><p>Citation details will be added when the public paper is released.</p></div></div></section>;
 }
 
 export function PublicHome() {
   return <main className="public-home rv-home" id="main-content" tabIndex={-1}>
-    <Hero /><ResearchDetails /><TaskGallery domain="simulation" /><TaskGallery domain="real-world" /><HomeResults />
-    <div className="rv-container rv-diagnostics-container"><HomeDiagnostics /></div>
-    <Resources /><footer className="rv-footer rv-container"><a href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" width="154" height="51" /></a><p>A fine-grained view of robotic value models.</p><nav aria-label="Footer"><a href="/doc/">Documentation</a><a href="/leaderboard/">Leaderboard</a><a href="/community/">Community</a></nav></footer>
+    <ResearchDetails />
+    <OverviewVideo />
+    <Introduction />
+    <News />
+    <TaskGallery domain="simulation" />
+    <TaskGallery domain="real-world" />
+    <HomeResults />
+    <EvaluationFramework />
+    <Community />
+    <Citation />
+    <footer className="rv-footer rv-container"><a href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" width="154" height="51" /></a><p>A fine-grained view of robotic value models.</p><nav aria-label="Footer"><a href="/doc/">Documentation</a><a href="/leaderboard/">Leaderboard</a><a href="/community/">Community</a></nav></footer>
   </main>;
 }
