@@ -26,7 +26,7 @@ const DOMAINS = {
 };
 
 function TaskLinks({ domain }) {
-  return <div className="home-text-links task-links"><a href={`/doc/${domain}-tasks/catalog/`}>Browse all tasks →</a><a href="/doc/get-started/data/">Dataset preparation →</a></div>;
+  return <div className="home-text-links task-links"><a href={`/doc/${domain}-tasks/catalog/`}>Browse all tasks →</a><a href="/doc/get-started/data/">Dataset Overview →</a></div>;
 }
 
 export function TaskOverview({ domain }) {
@@ -44,7 +44,7 @@ export function TaskOverview({ domain }) {
       </dl>
     </section>
     <section className="task-section"><h2>Evaluation conditions</h2><p>These conditions follow the same evaluation protocol. Each distribution shift varies either the embodiment or the environment relative to the standard setting.</p>
-      <dl className="condition-descriptions"><div><dt>Standard (ID)</dt><dd>{info.standard}</dd></div><div><dt>Cross-Embodiment (OOD-EMB)</dt><dd>{info.embodiment}</dd></div><div><dt>Cross-Environment (OOD-ENV)</dt><dd>{info.environment}</dd></div></dl>
+      <dl className="condition-descriptions"><div><dt>Standard (ID)</dt><dd>{info.standard}</dd></div><div><dt>Cross-Embodiment (EMB-OOD)</dt><dd>{info.embodiment}</dd></div><div><dt>Cross-Environment (ENV-OOD)</dt><dd>{info.environment}</dd></div></dl>
     </section>
     <section className="task-section"><h2>Manipulation skills</h2><p>Representative skills include {info.skills.charAt(0).toLowerCase() + info.skills.slice(1)}</p></section>
     <section className="task-section"><h2>Task specifications</h2><p>Each task page includes its instruction, scene and procedure, subtask decomposition, representative views under each evaluation condition, and execution keyframes. Counterfactual changes are provided for the tasks covered by that evaluation.</p><a className="inline-link" href={`/doc/${domain}-tasks/catalog/`}>View the task catalog →</a></section>
@@ -62,7 +62,7 @@ export function TaskDetail({ taskId }) {
   const task = tasks.find(t => t.id === taskId);
   return <div className="task-content">
     <section className="task-section first"><h2>Instruction</h2><blockquote className="task-instruction">{task.instruction}</blockquote></section>
-    <section className="task-section"><h2>Evaluation conditions</h2><div className="task-condition-images">{[['id', 'Standard (ID)'], ['emb', 'Cross-Embodiment (OOD-EMB)'], ['env', 'Cross-Environment (OOD-ENV)']].map(([key, label]) => <Figure key={key} src={task.images[key]} alt={`${task.title}: ${label}`} caption={label} />)}</div></section>
+    <section className="task-section"><h2>Evaluation conditions</h2><div className="task-condition-images">{[['id', 'Standard (ID)'], ['emb', 'Cross-Embodiment (EMB-OOD)'], ['env', 'Cross-Environment (ENV-OOD)']].map(([key, label]) => <Figure key={key} src={task.images[key]} alt={`${task.title}: ${label}`} caption={label} />)}</div></section>
     <section className="task-section"><h2>Scene and procedure</h2><dl className="task-specification"><div><dt>Scene</dt><dd>{task.scene}</dd></div><div><dt>Procedure</dt><dd>{task.procedure}</dd></div>{task.order && <div><dt>Order and variations</dt><dd>{task.order}</dd></div>}</dl></section>
     <section className="task-section"><h2>Subtask decomposition</h2><p className="task-hint">Subtask labels reproduce the manuscript’s decomposition. For tasks with alternative valid orders, the listed procedure does not impose additional ordering constraints beyond the instruction.</p><ol className="subtask-list">{task.subtasks.map(s => <li key={s.id}><span>{s.id}</span><p>{s.text}</p></li>)}</ol></section>
     <section className="task-section"><h2>Execution example</h2><p>Representative keyframes from a successful execution, in chronological order.</p><div className="task-sequence" role="region" tabIndex={0} aria-label={`${task.title}: seven execution frames`}>{task.sequence.map((src, i) => <figure key={src}><img src={src} alt={`${task.title}: execution sample ${i + 1} of 7`} loading="lazy" /><figcaption>{String(i + 1).padStart(2, '0')}</figcaption></figure>)}</div></section>

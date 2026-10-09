@@ -7,11 +7,11 @@ const taskPages = domain => taskData.tasks.filter(task => task.domain === domain
 export const navigation = [
   { title: 'Home', pages: [{ path: '/doc/', title: 'RoboValue', kind: 'home' }] },
   { title: 'Get Started', pages: [
-    { path: '/doc/get-started/', title: 'Overview', kind: 'start' },
+    { path: '/doc/get-started/', title: 'Quick Start', kind: 'start' },
     { path: '/doc/get-started/data/', title: 'Dataset Overview', kind: 'data' },
     { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation' },
     { path: '/doc/get-started/adapters/', title: 'Submit a Model', kind: 'submission' },
-    { path: '/doc/model-api/', title: 'Model API', kind: 'api' },
+    { path: '/doc/model-api/', title: 'Service & Adapter', kind: 'integration' },
     { path: '/doc/get-started/protocol/', title: 'Protocol & Metrics', kind: 'protocol' },
   ] },
   { title: 'Simulation Tasks', pages: [

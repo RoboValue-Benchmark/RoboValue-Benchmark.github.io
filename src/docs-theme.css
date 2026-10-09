@@ -4,6 +4,8 @@
   --doc-border: #e8e2f1;
   --doc-ink: #272039;
   min-height: 100vh;
+  font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif;
+  font-size: 17px;
   color: var(--doc-ink);
   background: radial-gradient(ellipse at 12% 0, #e9ddff 0, transparent 44%), radial-gradient(ellipse at 95% 8%, #eeebff 0, transparent 38%), #f8f7fc;
   background-attachment: fixed;
@@ -31,7 +33,7 @@
   padding: 0 10px;
   margin-bottom: 18px;
   color: #51465e;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
 }
 
@@ -39,7 +41,7 @@
   padding: 3px 6px;
   border: 1px solid #e0d6ee;
   border-radius: 5px;
-  font-size: 9px;
+  font-size: 11px;
   color: #7a639c;
   background: #ffffff8f;
 }
@@ -51,9 +53,26 @@
   border-radius: 9px;
 }
 
+.docs-workspace .nav-filter input {
+  font-size: 14px;
+}
+
 .docs-workspace .nav-page,
 .docs-workspace .nav-group > summary {
   border-radius: 8px;
+  font-size: 15px;
+}
+
+.docs-workspace .nav-task {
+  font-size: 14px;
+}
+
+.docs-workspace .nav-task-heading {
+  font-size: 12px;
+}
+
+.docs-workspace .nav-count {
+  font-size: 11px;
 }
 
 .docs-workspace .nav-page[aria-current="page"] {
@@ -68,7 +87,7 @@
   margin: 28px 8px 0;
   padding-top: 20px;
   border-top: 1px solid #e2d9ed;
-  font-size: 12px;
+  font-size: 14px;
   color: #6b597f;
 }
 
@@ -94,11 +113,11 @@
 
 .docs-workspace .doc-breadcrumb {
   margin-bottom: 18px;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .docs-workspace .doc-main > h1 {
-  font-size: 32px;
+  font-size: 34px;
   letter-spacing: -1px;
   padding-bottom: 22px;
   margin-bottom: 28px;
@@ -109,7 +128,7 @@
 }
 
 .docs-workspace .doc-main h2 {
-  font-size: 23px;
+  font-size: 25px;
   line-height: 1.4;
   letter-spacing: -.5px;
 }
@@ -122,7 +141,7 @@
 
 .docs-workspace .doc-lead {
   color: #5b506d;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.8;
 }
 
@@ -135,10 +154,11 @@
 
 .docs-workspace .page-outline p {
   color: #473852;
+  font-size: 14px;
 }
 
 .docs-workspace .page-outline a {
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.65;
 }
 
@@ -157,7 +177,7 @@
   gap: 8px;
   margin-bottom: 19px;
   color: #77589a;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 650;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -184,7 +204,7 @@
   max-width: 610px;
   margin-top: 19px;
   color: #766386;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .doc-actions {
@@ -202,7 +222,7 @@
   padding: 11px 16px;
   border: 1px solid #decfed;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   transition: background .18s ease, box-shadow .18s ease;
 }
@@ -235,7 +255,7 @@
   padding-top: 20px;
   border-top: 1px solid #ddcfec;
   color: #7e6497;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .doc-hero-flow span:not([aria-hidden]) {
@@ -245,49 +265,8 @@
   background: #ffffff70;
 }
 
-.doc-stat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  padding: 25px 0;
-  margin-top: 2px;
-  border-bottom: 1px solid var(--doc-border);
-}
-
-.doc-stat-grid > div + div {
-  padding-left: 18px;
-  border-left: 1px solid var(--doc-border);
-}
-
-.doc-stat-grid strong,
-.doc-stat-grid span,
-.doc-stat-grid small {
-  display: block;
-}
-
-.doc-stat-grid strong {
-  color: #583789;
-  font-size: 28px;
-  font-weight: 650;
-  letter-spacing: -.8px;
-}
-
-.doc-stat-grid span {
-  margin-top: 5px;
-  font-size: 11px;
-  color: #51435d;
-}
-
-.doc-stat-grid small {
-  margin-top: 5px;
-  font-size: 9px;
-  line-height: 1.6;
-  color: #877792;
-}
-
 .doc-capability-grid,
-.doc-reading-cards,
-.doc-split-grid {
+.doc-reading-cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
@@ -307,18 +286,18 @@
   margin-bottom: 12px;
   color: #9674b7;
   font-family: ui-monospace, monospace;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .docs-workspace .doc-main .doc-capability-grid h3 {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.5;
 }
 
 .doc-capability-grid p,
 .doc-reading-cards p {
   margin-top: 9px;
-  font-size: 12px;
+  font-size: 15px;
   color: #796f86;
   line-height: 1.7;
 }
@@ -337,7 +316,7 @@
   justify-content: space-between;
   gap: 12px;
   color: #41304f;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -351,14 +330,14 @@
   align-items: center;
   gap: 12px 20px;
   margin-top: 22px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .doc-resource-row button {
   border: 0;
   padding: 0;
   background: transparent;
-  font-size: 12px;
+  font-size: 14px;
   opacity: 1;
   color: #94889f;
 }
@@ -377,27 +356,14 @@
 .docs-workspace .doc-notice strong,
 .doc-note strong {
   color: #69488a;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .docs-workspace .doc-notice p,
 .doc-note p {
   margin-top: 8px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.8;
-}
-
-.doc-split-card {
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  border: 1px solid #e3d8f0;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #faf6ff, #fff);
-}
-
-.doc-split-card.is-private {
-  background: linear-gradient(135deg, #f5f2fb, #fff);
 }
 
 .doc-pill {
@@ -408,36 +374,7 @@
   border-radius: 5px;
   color: #826394;
   background: #ffffffa8;
-  font-size: 10px;
-}
-
-.doc-split-card > strong {
-  margin-top: 18px;
-  color: #63418a;
-  font-size: 36px;
-  letter-spacing: -1.2px;
-}
-
-.doc-split-card > p {
-  color: #4b3e59;
-  font-size: 14px;
-}
-
-.doc-split-card > small {
-  color: #897b95;
-  font-size: 10px;
-  line-height: 1.7;
-  margin-top: 6px;
-}
-
-.doc-split-footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 22px;
-  padding-top: 14px;
-  border-top: 1px solid #e6dcef;
-  font-size: 10px;
-  color: #8c70a0;
+  font-size: 12px;
 }
 
 .doc-download-panel {
@@ -453,12 +390,12 @@
 }
 
 .doc-download-panel strong {
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .doc-download-panel p {
   margin-top: 6px;
-  font-size: 12px;
+  font-size: 15px;
   color: #82718f;
 }
 
@@ -468,7 +405,7 @@
   border: 1px solid #ded4e9;
   border-radius: 7px;
   background: #f3eff8;
-  font-size: 11px;
+  font-size: 13px;
   color: #8a7b97;
   opacity: 1;
 }
@@ -499,10 +436,10 @@
 .doc-track-grid p {
   margin-top: 9px;
   color: #7a6c87;
-  font-size: 12px;
+  font-size: 15px;
 }
 
-.doc-api-intro {
+.doc-integration-intro {
   padding: 23px;
   border: 1px solid #e4d7f0;
   border-radius: 13px;
@@ -523,7 +460,7 @@
   color: #8a6d9f;
   background: #ffffff9c;
   font-family: ui-monospace, monospace;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .docs-workspace .doc-content :not(pre) > code {
@@ -548,7 +485,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.7;
 }
 
@@ -556,7 +493,7 @@
   padding: 13px 16px;
   color: #7e6590;
   background: #f7f3fc;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -584,7 +521,7 @@
   border-bottom: 1px solid #e9e0f1;
   background: #f5f0fa;
   color: #745587;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .doc-code-header > span {
@@ -595,9 +532,9 @@
 }
 
 .doc-code-header small {
-  color: #a188b3;
+  color: #80678f;
   font-family: ui-monospace, monospace;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .doc-code-header button {
@@ -609,7 +546,7 @@
   border-radius: 5px;
   background: #ffffffa8;
   color: #9273a6;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .doc-code-block pre {
@@ -618,34 +555,47 @@
   overflow-x: auto;
   color: #655077;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
   tab-size: 2;
 }
 
-.doc-wire-tabs {
-  display: flex;
-  gap: 8px;
-  margin-top: 22px;
+.doc-code-block pre code {
+  font: inherit;
 }
 
-.doc-wire-tabs button {
-  padding: 8px 13px;
-  border: 1px solid var(--doc-border);
-  border-radius: 7px;
-  background: #fff;
-  font-size: 12px;
-  color: #877491;
+.doc-token-key,
+.doc-token-type,
+.doc-token-option {
+  color: #6d36b4;
 }
 
-.doc-wire-tabs button[aria-selected="true"] {
-  color: #6a3da5;
-  background: #f0e7fa;
-  border-color: #d6c3e8;
+.doc-token-string,
+.doc-token-bare {
+  color: #156f56;
+}
+
+.doc-token-number,
+.doc-token-variable {
+  color: #9a5120;
+}
+
+.doc-token-keyword {
+  color: #b13d77;
+}
+
+.doc-token-command,
+.doc-token-function {
+  color: #255fba;
+}
+
+.doc-token-punctuation,
+.doc-token-comment {
+  color: #786a86;
 }
 
 .doc-example-caption {
-  font-size: 12px;
+  font-size: 14px;
   color: #8b7998;
 }
 
@@ -656,6 +606,23 @@
 .docs-workspace .page-pagination > a {
   border-radius: 9px;
   background: #fbf9fe;
+  font-size: 14px;
+}
+
+.docs-workspace .page-pagination span {
+  font-size: 12px;
+}
+
+.docs-workspace .doc-footer {
+  font-size: 13px;
+}
+
+.docs-workspace .doc-contract-rules {
+  font-size: 16px;
+}
+
+.docs-workspace .doc-metric-aliases {
+  font-size: 14px;
 }
 
 @media (max-width: 1190px) {
@@ -693,13 +660,13 @@
     border-radius: 16px;
   }
   .docs-workspace .doc-main > h1 {
-    font-size: 27px;
+    font-size: 29px;
     letter-spacing: -.8px;
     padding-bottom: 18px;
     margin-bottom: 23px;
   }
   .docs-workspace .doc-main h2 {
-    font-size: 21px;
+    font-size: 23px;
   }
   .docs-workspace .doc-section {
     margin-top: 32px;
@@ -720,39 +687,16 @@
     padding: 10px 12px;
     gap: 12px;
   }
-  .doc-stat-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 22px 0;
-  }
-  .doc-stat-grid > div {
-    display: grid;
-    grid-template-columns: 88px 1fr;
-    align-items: center;
-    gap: 0 12px;
-  }
-  .doc-stat-grid > div + div {
-    padding-left: 0;
-    border-left: 0;
-  }
-  .doc-stat-grid strong {
-    grid-row: span 2;
-    font-size: 25px;
-  }
   .doc-capability-grid,
-  .doc-reading-cards,
-  .doc-split-grid {
+  .doc-reading-cards {
     grid-template-columns: 1fr;
-  }
-  .doc-split-card {
-    padding: 20px;
   }
   .doc-download-panel {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
-  .doc-api-intro {
+  .doc-integration-intro {
     padding: 19px;
   }
   .doc-contract-table {
@@ -763,7 +707,6 @@
   }
   .doc-code-block pre {
     padding: 15px;
-    font-size: 11px;
   }
   .doc-code-header button {
     min-height: 34px;

@@ -7,7 +7,7 @@ import { TaskOverview, TaskCatalog, TaskDetail } from './tasks';
 import './style.css';
 import './docs.css';
 import './docs-theme.css';
-import { ModelAPI, apiSections } from './docs-api';
+import { ServiceAdapter, adapterSections } from './docs-adapter';
 import { PublicHome } from './home';
 import './public-site.css';
 import { DocumentationOverview, GetStarted, DatasetOverview, EvaluationWorkflow, SubmitModel, ProtocolGuide, PageOutline, documentationSections } from './docs-content';
@@ -74,7 +74,7 @@ function App() {
   }, [page]);
   const index = documentationPages.indexOf(page);
   const title = page?.kind === 'simulation' ? 'Simulation Tasks' : page?.kind === 'real' ? 'Real-World Tasks' : page?.title;
-  const outline = page?.kind === 'api' ? apiSections : documentationSections[page?.kind];
+  const outline = page?.kind === 'integration' ? adapterSections : documentationSections[page?.kind];
   let content = null;
   switch (page?.kind) {
     case 'home': content = <DocumentationOverview />; break;
@@ -82,7 +82,7 @@ function App() {
     case 'data': content = <DatasetOverview />; break;
     case 'evaluation': content = <EvaluationWorkflow />; break;
     case 'submission': content = <SubmitModel />; break;
-    case 'api': content = <ModelAPI />; break;
+    case 'integration': content = <ServiceAdapter />; break;
     case 'simulation': content = <TaskOverview domain="simulation" />; break;
     case 'real': content = <TaskOverview domain="real-world" />; break;
     case 'catalog': content = <TaskCatalog domain={page.domain} />; break;
@@ -96,7 +96,7 @@ function App() {
     <a className="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} documentation />
     {menuOpen && <button className="sidebar-backdrop" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
-    <aside className={`docs-sidebar ${menuOpen ? 'is-open' : ''}`} id="docs-sidebar"><div className="docs-sidebar-label">Documentation <span>RoboValue</span></div><label className="nav-filter"><Icon name="search" size={16} /><input type="search" placeholder="Find a page…" aria-label="Filter navigation" value={query} onChange={e => setQuery(e.target.value)} /></label><DocumentationNavigation path={path} page={page} query={query} /><a className="docs-source-link" href="https://github.com/RoboValue-Benchmark/RoboValue">View code on GitHub <Icon name="arrow" size={15} /></a></aside>
+    <aside className={`docs-sidebar ${menuOpen ? 'is-open' : ''}`} id="docs-sidebar"><div className="docs-sidebar-label">Documentation <span>RoboValue</span></div><label className="nav-filter"><Icon name="search" size={16} /><input type="search" placeholder="Find a page…" aria-label="Filter navigation" value={query} onChange={e => setQuery(e.target.value)} /></label><DocumentationNavigation path={path} page={page} query={query} /><a className="docs-source-link" href="https://github.com/RoboValue-Benchmark/RoboValue">Code repository ↗</a></aside>
     <div className={`docs-layout ${outline ? 'has-outline' : 'no-outline'}`}>
       <main className="doc-main" id="main-content" tabIndex={-1}><div className="doc-breadcrumb"><a href="/doc/">RoboValue</a><span>/</span><span>{page?.group ?? 'Not found'}</span></div><h1>{title ?? 'Page not found'}</h1>{!page ? <p>This page does not exist. <a className="inline-link" href="/">Return to Home.</a></p> : content}
         {index >= 0 && <nav className="page-pagination" aria-label="Adjacent pages">{index > 0 ? <a href={documentationPages[index-1].path}><span>← Previous</span>{documentationPages[index-1].group} / {documentationPages[index-1].title}</a> : <div />}{index < documentationPages.length-1 && <a href={documentationPages[index+1].path}><span>Next →</span>{documentationPages[index+1].group} / {documentationPages[index+1].title}</a>}</nav>}
