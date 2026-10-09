@@ -18,7 +18,7 @@
   width: max-content;
   max-width: calc(100% - 64px);
   height: 64px;
-  gap: 36px;
+  gap: 48px;
   padding: 0 22px;
   border: 1px solid #ffffff66;
   border-radius: 36px;
@@ -44,6 +44,7 @@
 @media (min-width: 761px) and (max-width: 1050px) {
   .docs-header { gap: 16px; }
   .docs-header .site-nav { gap: 18px; padding-right: 0; }
+  .public-header { gap: 28px; }
   .public-header .site-nav { margin-left: 0; }
 }
 @media (max-width: 760px) {
