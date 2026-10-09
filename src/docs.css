@@ -74,7 +74,9 @@ html{scroll-padding-top:88px}body{background:#fff}.docs-header{position:fixed;in
 .community-validity { color: #706b80; font-size: .9rem; }
 
 /* Keep the wordmark readable and provide both navigation menus on small screens. */
-.docs-brand { flex: 0 0 174px; }
+.docs-header { background: #fffffff5; backdrop-filter: blur(12px); }
+.docs-brand { flex: 0 0 154px; }
+.docs-brand img { width: 154px; }
 .site-nav a[aria-current=page] { color: var(--doc-accent); font-weight: 650; }
 .header-mobile-controls { display: none; }
 .site-menu-toggle { border: 1px solid var(--doc-border); background: #fff; border-radius: 6px; padding: 8px 12px; min-height: 40px; }

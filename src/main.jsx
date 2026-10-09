@@ -16,7 +16,7 @@ function Home() {
     <section className="home-narrative" aria-label="About RoboValue">
       <p>Robotic value models provide feedback for data curation, policy optimization, and execution monitoring. Yet accurate outcome predictions and strong progress correlation do not necessarily indicate reliable execution understanding. Values may increase despite task regression, rebound while errors remain unresolved, or fail to distinguish visually similar states with different execution histories.</p>
       <p><strong className="project-name">RoboValue</strong> is a unified sim-and-real benchmark for fine-grained evaluation of robotic value models. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics. Evaluation covers four complementary dimensions: <strong>Task-State Understanding</strong>, <strong>Temporal Progress Monitoring</strong>, <strong>Failure and Recovery Reasoning</strong>, and <strong>Value Consistency</strong>.</p>
-      <Figure src="/assets/overview-public.png" alt="RoboValue benchmark overview: simulation and real-world trajectories, shared model interfaces, and four capability dimensions" caption="RoboValue connects simulation and real-world trajectories with shared model interfaces to evaluate four complementary dimensions of execution understanding." />
+      <Figure src="/assets/benchmark-overview.svg" alt="RoboValue evaluation workflow: simulation and real-world trajectories, shared model interfaces, and four capability profiles" caption="RoboValue connects simulation and real-world trajectories with shared model interfaces to evaluate four complementary dimensions of execution understanding." />
       <p><strong className="project-name">RoboValue-Dataset</strong> contains 3,500 training demonstrations and 2,792 separate test trajectories across 15 simulation and 20 real-world manipulation tasks. Each task has 100 standard-scenario training demonstrations. Beyond common successful and failed executions, diagnostic trajectories include incomplete subtasks, effective and ineffective recovery, visually similar states with different histories, and alternative valid action orders.</p>
       <div className="home-text-links"><a href="/doc/simulation-tasks/">Simulation tasks →</a><a href="/doc/real-world-tasks/">Real-world tasks →</a></div>
       <p>We evaluate models from nine families under zero-shot and one-shot settings, covering standard conditions and generalization across embodiment and environment shifts. One-shot evaluation uses one demonstration per task from the training split, separate from the test trajectories. The leaderboard presents results across capability dimensions to support comparisons of model strengths and limitations.</p>
@@ -36,7 +36,7 @@ function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false }) {
     window.addEventListener('pointerdown', close);
     return () => { window.removeEventListener('keydown', close); window.removeEventListener('pointerdown', close); };
   }, []);
-  const links = [['/', 'Home'], ['/doc/', 'Documentation'], ['/leaderboard/', 'Leaderboard'], ['/community/', 'Community']];
+  const links = [['/', 'Home'], ['/leaderboard/', 'Leaderboard'], ['/doc/', 'Documentation'], ['/community/', 'Community']];
   const active = path => path === '/' ? window.location.pathname === '/' : window.location.pathname.startsWith(path);
   return <header className="docs-header">
     <a className="docs-brand" href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" /></a>
@@ -88,7 +88,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [query, setQuery] = useState('');
   useEffect(() => {
-    document.title = `${page?.title ?? 'Page not found'} | RoboValue`;
+    document.title = page?.kind === 'landing' ? 'RoboValue — Fine-Grained Evaluation of Robotic Value Models' : `${page?.kind === 'home' ? 'Documentation' : page?.title ?? 'Page not found'} | RoboValue`;
     const close = e => { if (e.key === 'Escape') setMenuOpen(false); };
     window.addEventListener('keydown', close);
     // Native anchors also work when a linked heading is inside a collapsed metric.

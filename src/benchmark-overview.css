@@ -1,0 +1,16 @@
+.benchmark-overview { display: grid; grid-template-columns: 1fr 24px 1fr 24px 1fr; align-items: stretch; gap: 14px; margin: 28px 0; }
+.bo-step { min-width: 0; padding: 24px; border: 1px solid #e6e2ee; border-radius: 14px; background: #fff; }
+.bo-number { display: block; margin-bottom: 16px; font-size: 11px; letter-spacing: .1em; font-weight: 650; color: #8b7da5; }
+.bo-step h3 { margin: 0 0 18px; font-size: 17px; line-height: 1.4; font-weight: 650; color: #30293d; }
+.bo-step p { margin: 17px 0 0; font-size: 12px; line-height: 1.75; color: #776e83; }
+.bo-domains { display: grid; gap: 9px; }
+.bo-domains span { display: flex; align-items: baseline; gap: 10px; font-size: 13px; color: #62586f; }
+.bo-domains strong { font-size: 25px; font-weight: 650; color: #6550bd; }
+.bo-interfaces { display: flex; flex-wrap: wrap; gap: 7px; }
+.bo-interfaces span { padding: 7px 9px; border-radius: 5px; font-size: 11px; color: #675784; background: #f5f2fb; }
+.bo-profiles { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.bo-profiles li { display: flex; align-items: center; gap: 9px; font-size: 12px; line-height: 1.5; color: #62586f; }
+.bo-profiles i { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--capability-color); }
+.bo-arrow { align-self: center; text-align: center; color: #a99bbd; font-size: 22px; }
+.benchmark-overview > figcaption { grid-column: 1 / -1; text-align: center; margin-top: 5px; font-size: 12px; line-height: 1.7; color: #84798f; }
+@media (max-width: 900px) { .benchmark-overview { grid-template-columns: 1fr; gap: 12px; } .bo-arrow { display: none; } .bo-step { padding: 22px; } .bo-number { float: right; margin: 0 0 12px 12px; } }

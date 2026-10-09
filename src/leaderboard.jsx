@@ -3,6 +3,8 @@ import { Icon } from './benchmark';
 import { GROUPS, METRICS, CONDITIONS, excludedHighlight, scoreValue } from './benchmark-metrics';
 import { TRACKS, metricGroups, modelName, readView, resultsCSV, scoreHighlights, sortedRows, viewURL } from './leaderboard-utils';
 import subtaskData from './data/subtask-results.json';
+import { paperFindings } from './paper-findings';
+import { useResults } from './use-results';
 import './leaderboard.css';
 
 const COMPARISON_COLORS = ['#6952bf', '#247e93', '#b56735'];
@@ -59,16 +61,7 @@ function ModelComparison({ rows, onRemove, onClear }) {
 }
 
 function PaperFindings({ rows, track, onExplore }) {
-  const find = (name, preview = false) => rows.find(row => row.name === name && row.preview === preview);
-  const examples = track === 'zero' ? [
-    { row: find('RynnValue-4B'), title: 'Fine-grained instructions remain difficult', left: 'tga_ct', right: 'tga_cf', capability: 'understanding', text: 'Discriminating different tasks is easier than resolving a changed object, action, placement, or constraint.' },
-    { row: find('TOPReward'), title: 'Forward progress can hide reversal errors', left: 'voc', right: 'cycle_voc', capability: 'tracking', text: 'Strong forward correlation can coexist with poor responses when the recorded progress reverses.' },
-    { row: find('RoboMeter-4B'), title: 'Execution history needs its own test', left: 'voc', right: 'memory_voc', capability: 'tracking', text: 'Tracking fluent execution does not establish reliable progress judgments when similar visual states recur.' },
-  ] : [
-    { row: find('Robo-Dopamine-8B', true), title: 'Outcome accuracy does not establish grounding', left: 'sa', right: 'tga_cf', capability: 'understanding', text: 'Strong outcome discrimination can coexist with weak sensitivity to fine-grained instruction changes.' },
-    { row: find('ProcVLM-2B'), title: 'A demonstration does not resolve execution memory', left: 'voc', right: 'memory_voc', capability: 'tracking', text: 'Task adaptation improves fluent progress tracking, while recurring states still pose a challenge.' },
-    { row: find('Robo-Dopamine-8B', true), title: 'Recovery assessment remains challenging', left: 'cycle_voc', right: 'trr', capability: 'diagnosis', text: 'Reliable direction tracking does not imply that every failure and recovery stage is assessed correctly.' },
-  ];
+  const examples = paperFindings(rows, track);
   return <section className="lb-findings" aria-labelledby="findings-title"><div className="lb-section-heading"><div><p className="lb-kicker">BEYOND THE OVERALL SCORE</p><h2 id="findings-title">What the evaluations reveal</h2><p>Examples from standard (ID), {TRACKS[track].toLowerCase()} evaluation. Values are raw metric scores ×100.</p></div></div><div className="lb-findings-grid">{examples.filter(example => example.row).map((example, index) => <article key={index}><span className="lb-finding-number">0{index + 1}</span><h3>{example.title}</h3><p className="lb-finding-model">{modelName(example.row)}</p><div className="lb-finding-scores">{[example.left, example.right].map(key => <div key={key}><span>{METRICS[key].label}</span><strong>{format(example.row.conditions.id[key])}</strong></div>)}</div><p>{example.text}</p><button className="lb-link" onClick={() => onExplore(example)}>Explore these results <Icon size={16} /></button></article>)}</div></section>;
 }
 
@@ -98,21 +91,13 @@ function SubtaskResults({ track }) {
 }
 
 export function Leaderboard() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(false);
-  const [attempt, setAttempt] = useState(0);
+  const { data, error, retry } = useResults();
   const [view, setView] = useState(() => readView(window.location.search));
   const [help, setHelp] = useState(null);
   const [notice, setNotice] = useState('');
   const noticeTimer = useRef(null);
   const comparisonRef = useRef(null);
   const boardRef = useRef(null);
-  useEffect(() => {
-    const controller = new AbortController();
-    setError(false);
-    fetch('/data/results.json', { signal: controller.signal }).then(response => { if (!response.ok) throw Error('Results unavailable'); return response.json(); }).then(setData).catch(error => { if (error.name !== 'AbortError') setError(true); });
-    return () => controller.abort();
-  }, [attempt]);
   useEffect(() => {
     const url = viewURL(view, window.location.href);
     window.history.replaceState(window.history.state, '', url);
@@ -160,7 +145,7 @@ export function Leaderboard() {
         <div className="lb-table-status"><span aria-live="polite">{error ? 'Results unavailable' : data ? `${rows.length} of ${eligible.length} configurations · ${TRACKS[view.track]}` : 'Loading results…'}</span><button className="lb-reset" disabled={!view.sort && !view.query} onClick={() => update({ sort: null, query: '' })}>{view.sort ? `Sorted by ${METRICS[view.sort.key].label} ${view.sort.asc ? 'ascending' : 'descending'} · Reset` : view.query ? 'Clear search' : ranked ? 'Overall rank · Click column names to sort' : 'Paper order · Click column names to sort'}</button></div>
         <div className="lb-table-scroll" tabIndex={0} role="region" aria-label="Scrollable leaderboard results"><table className={`lb-table ${ranked ? 'lb-table-aggregate' : 'lb-table-metrics'} ${groups.length === 1 ? 'lb-table-focused' : ''}`}><caption className="sr-only">RoboValue {CONDITIONS[view.condition]}, {TRACKS[view.track]}. Select up to three models to compare capability profiles. Scores ×100. FPL: lower is better; other metrics: higher is better. Rank is the original overall rank within this track and is preserved when sorting or filtering.</caption>
           <thead><tr className="lb-group-row">{ranked && <th rowSpan={2} scope="col" className="lb-rank">Rank</th>}<th rowSpan={2} scope="col" className="lb-model">Model <span className="lb-model-hint">Select to compare</span></th>{groups.map(group => <th key={group.id} colSpan={group.metrics.length} scope="colgroup" style={{ '--group-color': group.color || '#6952bf' }}>{group.short}</th>)}</tr><tr className="lb-metric-row">{columns.map(key => <th key={key} scope="col" aria-sort={view.sort?.key === key ? view.sort.asc ? 'ascending' : 'descending' : 'none'} style={{ '--group-color': GROUPS.find(group => group.metrics.includes(key) || group.id === key)?.color || '#6952bf' }}><div><button className="lb-sort-button" onClick={() => sortBy(key)} title={`Sort by ${METRICS[key].name}`}><span>{METRICS[key].label}</span><span className="lb-direction" aria-label={METRICS[key].lower ? 'lower is better' : 'higher is better'}>{METRICS[key].lower ? '↓' : '↑'}</span>{view.sort?.key === key && <span className="lb-sort-indicator" aria-hidden="true">{view.sort.asc ? '▲' : '▼'}</span>}</button><button className="lb-info-button" aria-label={`About ${METRICS[key].label}`} onClick={() => setHelp(key)}>i</button></div></th>)}</tr></thead>
-          <tbody>{rows.map(row => <tr key={row.id} className={view.selected.includes(row.id) ? 'lb-selected-row' : ''}>{ranked && <td className="lb-rank"><span className={row.aggregate.rank <= 3 ? `lb-rank-badge lb-rank-${row.aggregate.rank}` : ''}>{row.aggregate.rank}</span></td>}<th scope="row" className="lb-model"><label className="lb-model-select"><input type="checkbox" checked={view.selected.includes(row.id)} disabled={selected.length >= 3 && !view.selected.includes(row.id)} aria-label={`Compare ${modelName(row)}`} onChange={() => toggleSelection(row.id)} /><span><span className="lb-model-name">{row.name}{row.preview && <sup>†</sup>}{row.name === 'TOPReward' && <sup>‡</sup>}</span>{row.preview && <span className="lb-preview">2.0 Preview</span>}</span></label></th>{columns.map(key => <td key={key} style={{ '--group-color': GROUPS.find(group => group.metrics.includes(key) || group.id === key)?.color || '#6952bf' }}><Score value={scoreValue(row, view.condition, key)} highlight={highlights[key]} excluded={excludedHighlight(row, key)} overall={key === 'overall'} /></td>)}</tr>)}{!rows.length && <tr><td colSpan={columns.length + 1 + Number(ranked)} className="lb-empty">{error ? <><strong>Results could not be loaded.</strong><button className="lb-quiet-button" onClick={() => setAttempt(value => value + 1)}>Try again</button></> : data ? <><strong>No models match “{view.query}”.</strong><button className="lb-quiet-button" onClick={() => update({ query: '' })}>Clear search</button></> : 'Loading manuscript results…'}</td></tr>}</tbody>
+          <tbody>{rows.map(row => <tr key={row.id} className={view.selected.includes(row.id) ? 'lb-selected-row' : ''}>{ranked && <td className="lb-rank"><span className={row.aggregate.rank <= 3 ? `lb-rank-badge lb-rank-${row.aggregate.rank}` : ''}>{row.aggregate.rank}</span></td>}<th scope="row" className="lb-model"><label className="lb-model-select"><input type="checkbox" checked={view.selected.includes(row.id)} disabled={selected.length >= 3 && !view.selected.includes(row.id)} aria-label={`Compare ${modelName(row)}`} onChange={() => toggleSelection(row.id)} /><span><span className="lb-model-name">{row.name}{row.preview && <sup>†</sup>}{row.name === 'TOPReward' && <sup>‡</sup>}</span>{row.preview && <span className="lb-preview">2.0 Preview</span>}</span></label></th>{columns.map(key => <td key={key} style={{ '--group-color': GROUPS.find(group => group.metrics.includes(key) || group.id === key)?.color || '#6952bf' }}><Score value={scoreValue(row, view.condition, key)} highlight={highlights[key]} excluded={excludedHighlight(row, key)} overall={key === 'overall'} /></td>)}</tr>)}{!rows.length && <tr><td colSpan={columns.length + 1 + Number(ranked)} className="lb-empty">{error ? <><strong>Results could not be loaded.</strong><button className="lb-quiet-button" onClick={retry}>Try again</button></> : data ? <><strong>No models match “{view.query}”.</strong><button className="lb-quiet-button" onClick={() => update({ query: '' })}>Clear search</button></> : 'Loading manuscript results…'}</td></tr>}</tbody>
         </table></div>
         <div className="lb-table-legend"><div><span><b className="lb-best">Best</b></span><span><b className="lb-second">Second best</b></span><span>— Not reported</span></div><span>All scores ×100 · FPL ↓ · Other metrics ↑</span></div>
         <div className="lb-selection-toolbar"><span><strong>{selected.length}/3</strong> models selected for comparison</span><button className="lb-quiet-button" disabled={!selected.length} onClick={() => comparisonRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })}>View comparison <Icon size={16} /></button></div>

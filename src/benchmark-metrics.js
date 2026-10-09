@@ -1,7 +1,7 @@
 export const GROUPS = [
   { id: 'understanding', short: 'Understanding', title: 'Task-State Understanding', question: 'Does it understand the task?', description: 'Distinguish successful execution and ground values in the intended instruction.', color: '#6754bf', metrics: ['sa', 'tga_ct', 'tga_cf'] },
   { id: 'tracking', short: 'Tracking', title: 'Temporal Progress Monitoring', question: 'Does it track what happened?', description: 'Recognize progress, regression, and similar states with different execution histories.', color: '#267d91', metrics: ['voc', 'cycle_voc', 'memory_voc'] },
-  { id: 'diagnosis', short: 'Diagnosis', title: 'Failure and Recovery Reasoning', question: 'Does it recognize a failure?', description: 'Locate execution errors and assess recovery attempts separately from their eventual outcomes.', color: '#ba6a40', metrics: ['fpl', 'trr'] },
+  { id: 'diagnosis', short: 'Diagnosis', title: 'Failure and Recovery Reasoning', question: 'Does it recognize a failure?', description: 'Locate execution errors and assess recovery attempts separately from their eventual outcomes.', color: '#9f5731', metrics: ['fpl', 'trr'] },
   { id: 'consistency', short: 'Consistency', title: 'Value Consistency', question: 'Can we rely on its feedback?', description: 'Assess stability along trajectories and consistent subtask gains across valid solutions.', color: '#437858', metrics: ['vs', 'csvc'] },
 ];
 export const METRICS = {
