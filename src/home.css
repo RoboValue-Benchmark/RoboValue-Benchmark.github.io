@@ -18,8 +18,9 @@
   --rv-capability-consistency: #a45368;
   color: var(--rv-ink);
   background: #fff;
-  /* Reserve white space behind the fixed navigation before the hero starts. */
-  padding-top: 112px;
+  /* Keep the first viewport and the navigation reserve in the same coordinate system. */
+  --rv-header-space: 112px;
+  padding-top: var(--rv-header-space);
   font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
   outline: none;
@@ -51,7 +52,17 @@
 }
 
 /* Paper information follows the compact label-and-content layout of the reference. */
-.rv-paper { --rv-ink: #15171c; --rv-muted: #333840; --rv-note-accent: #8583c8; position: relative; isolation: isolate; overflow: clip; color: var(--rv-ink); background: #f7f8fc; padding: 330px 0 240px; scroll-margin-top: 110px; }
+.rv-paper {
+  --rv-ink: #15171c; --rv-muted: #333840; --rv-note-accent: #8583c8;
+  position: relative; isolation: isolate; overflow: clip;
+  display: grid; grid-template-columns: minmax(0, 1fr); align-items: center;
+  box-sizing: border-box;
+  min-height: calc(100vh - var(--rv-header-space));
+  min-height: calc(100svh - var(--rv-header-space));
+  padding: clamp(36px, 6vh, 88px) 0;
+  padding-block: clamp(36px, 6svh, 88px);
+  color: var(--rv-ink); background: #f7f8fc; scroll-margin-top: 110px;
+}
 .rv-paper > .rv-container { position: relative; }
 .rv-hero-backdrop { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
 .rv-hero-wall { display: flex; flex-direction: column; justify-content: center; min-height: 100%; gap: 12px; padding-block: 12px; }
@@ -61,7 +72,7 @@
 .rv-hero-scene { flex: 0 0 auto; width: clamp(128px, 10.5vw, 164px); aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid #68768e29; border-radius: 10px; background: #e6eaf1; box-shadow: 0 3px 9px #17234110, inset 0 1px 0 #ffffff66; }
 .rv-hero-scene img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.85) contrast(.95); }
 /* A white reading area with long feathered edges, rather than a visible panel. */
-.rv-hero-reading { position: absolute; left: 50%; top: 52%; width: min(96vw, 1440px); height: min(148%, 960px); transform: translate(-50%, -50%); background: radial-gradient(ellipse at 24% 20%, #e4ecff2b, transparent 70%), radial-gradient(ellipse at 76% 72%, #ede2f926, transparent 72%), #ffffff85; backdrop-filter: blur(28px) saturate(.95); -webkit-backdrop-filter: blur(28px) saturate(.95); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #00000026 5%, #00000080 12%, #000000d9 20%, #000 28%, #000 72%, #000000d9 80%, #00000080 88%, #00000026 95%, transparent 100%), linear-gradient(180deg, transparent 0%, #00000026 5%, #00000080 12%, #000000d9 20%, #000 25%, #000 75%, #000000d9 80%, #00000080 88%, #00000026 95%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0%, #00000026 5%, #00000080 12%, #000000d9 20%, #000 28%, #000 72%, #000000d9 80%, #00000080 88%, #00000026 95%, transparent 100%), linear-gradient(180deg, transparent 0%, #00000026 5%, #00000080 12%, #000000d9 20%, #000 25%, #000 75%, #000000d9 80%, #00000080 88%, #00000026 95%, transparent 100%); mask-composite: intersect; }
+.rv-hero-reading { position: absolute; left: 50%; top: 50%; width: min(96vw, 1440px); height: min(148%, 960px); transform: translate(-50%, -50%); background: radial-gradient(ellipse at 24% 20%, #e4ecff2b, transparent 70%), radial-gradient(ellipse at 76% 72%, #ede2f926, transparent 72%), #ffffff85; backdrop-filter: blur(28px) saturate(.95); -webkit-backdrop-filter: blur(28px) saturate(.95); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #00000026 5%, #00000080 12%, #000000d9 20%, #000 28%, #000 72%, #000000d9 80%, #00000080 88%, #00000026 95%, transparent 100%), linear-gradient(180deg, transparent 0%, #00000026 5%, #00000080 12%, #000000d9 20%, #000 25%, #000 75%, #000000d9 80%, #00000080 88%, #00000026 95%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0%, #00000026 5%, #00000080 12%, #000000d9 20%, #000 28%, #000 72%, #000000d9 80%, #00000080 88%, #00000026 95%, transparent 100%), linear-gradient(180deg, transparent 0%, #00000026 5%, #00000080 12%, #000000d9 20%, #000 25%, #000 75%, #000000d9 80%, #00000080 88%, #00000026 95%, transparent 100%); mask-composite: intersect; }
 .rv-hero-wash { position: absolute; inset: 0; background: linear-gradient(165deg, #8654bd24, transparent 46%), linear-gradient(205deg, #397af21c, transparent 50%), linear-gradient(180deg, #ffffff4d 0%, transparent 13%, transparent 84%, #fff 100%); }
 .rv-paper #paper-title, .rv-authors, .rv-author-notes, .rv-affiliations, .rv-paper-details dt { text-shadow: 0 1px 12px #ffffffa6; }
 .rv-hero-backdrop.is-paused .rv-hero-row { animation-play-state: paused; }
@@ -314,10 +325,10 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
   .rv-diagnostic-pair { gap: 28px; }
 }
 @media (max-width: 760px) {
-  .rv-home { padding-top: 86px; font-size: 15px; }
+  .rv-home { --rv-header-space: 86px; font-size: 15px; }
   .rv-container, .rv-narrow { width: calc(100% - 40px); }
   .rv-home h2, .rv-home #paper-title { font-size: 27px; }
-  .rv-paper { padding: 190px 0 104px; scroll-margin-top: 90px; }
+  .rv-paper { padding-block: clamp(28px, 5vh, 48px); padding-block: clamp(28px, 5svh, 48px); scroll-margin-top: 90px; }
   .rv-hero-wall { justify-content: space-around; opacity: .28; }
   .rv-hero-row { animation: none; will-change: auto; }
   .rv-hero-reading { inset: 0; width: auto; height: auto; transform: none; background: radial-gradient(ellipse at 50% 50%, #ffffffb3, #ffffff66 70%, transparent); backdrop-filter: none; -webkit-backdrop-filter: none; -webkit-mask-image: none; mask-image: none; }

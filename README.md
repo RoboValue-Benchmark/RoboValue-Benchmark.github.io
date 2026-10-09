@@ -4,6 +4,14 @@ Official public website for RoboValue. This repository is separate from the anon
 
 ## Marked versions
 
+### 2026-10-10 · xjy · Responsive hero fix
+
+**Tag:** `v2026.10.10-xjy-responsive-hero-fix`
+
+Replace the opening section's fixed 330px/240px vertical spacing with viewport-aware minimum height, symmetric fluid padding, and centered layout below the navigation. Keep the paper information left-aligned internally and preserve its readable type sizes. Align the feathered reading background with the same center; let long mobile content expand naturally instead of clipping or shrinking it.
+
+Validated with live browser resizing across 14 desktop, tablet, phone, and effective-zoom viewport sizes. The complete website-refresh tag below remains unchanged for comparison and rollback.
+
 ### 2026-10-10 · xjy · Website refresh
 
 **Tag:** `v2026.10.10-xjy-website-refresh`
