@@ -4,13 +4,22 @@ Official public website for RoboValue. This repository is separate from the anon
 
 ## Marked versions
 
-### 2026-10-11 · xjy · Benchmark, evaluation and dark mode
+### 2026-10-11 07:36 (Asia/Shanghai) · xjy · Website refresh
 
-**Tag:** `v2026.10.11-xjy-benchmark-eval-dark-mode`
+**Tag:** `v2026.10.11-0736-xjy-website-refresh`
 
-Refresh Home's dataset → benchmark → leaderboard presentation; separate Overall Ranking from detailed results, add an empty Full-Shot track, and integrate SIA into the results tables. Update Community with WeChat and Discord, implement the Eval application form and local receiver, and fix dark-mode panels, ranking tables, figure corners, and model-logo contrast.
+This version records the website refresh across the paper-information island, execution background, Home, Leaderboard, Eval, Community, formatting, and dark mode.
 
-See [the version notes](docs/releases/2026-10-11-benchmark-eval-dark-mode.md) for the background-frame arrangement, changes, validation, and remaining deployment work. The pre-island and soft-island checkpoints are retained as `v2026.10.11-xjy-pre-island-home` and `v2026.10.11-xjy-soft-island-home`.
+1. **Paper information and background:** use a translucent blue–purple gradient island for the paper information; update alternating simulation and real-world execution frames, with disjoint Standard A/B task sets; adjust resource-button labels, icon spacing, and alignment.
+2. **Home:** arrange Dataset → Benchmark → Leaderboard, with the manuscript's four capability dimensions and corresponding diagnostic tests.
+3. **Leaderboard:** separate Overall Ranking from condition results, give the two areas independent track controls, reserve Full-Shot with no results, integrate SIA into detailed Understanding results, and simplify notes and entry links.
+4. **Eval:** add the application form with required-field validation, multiple contact details retained when switching tabs, WeChat selected by default, public community access, private local-server storage, and a Get Started link after successful submission.
+5. **Community:** remove the documentation sidebar, add Discord alongside WeChat, and synchronize the Home community area and footer.
+6. **Formatting and dark mode:** unify capitalization, arrows, and link styles; adjust type sizes, centering, shadows, and resource-icon alignment; fix dark panels, ranking frames, overview corners, and model-logo contrast.
+
+See [the version notes](docs/releases/2026-10-11-website-refresh.md) for the complete changes, background-frame counts, validation, and remaining deployment work. The earlier `v2026.10.11-xjy-benchmark-eval-dark-mode` tag and the pre-island/soft-island checkpoints remain available as history.
+
+This follow-up commit updates the version description and tag. Website code and the current local Document are unchanged. The public Eval receiver still requires separate HTTPS deployment.
 
 ### 2026-10-10 · xjy · Home resources and Eval navigation
 
