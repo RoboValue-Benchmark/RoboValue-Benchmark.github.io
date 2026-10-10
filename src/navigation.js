@@ -1,18 +1,33 @@
 import taskData from './data/tasks.json';
+import { GROUPS, METRICS } from './benchmark-metrics.js';
 
 const taskPages = domain => taskData.tasks.filter(task => task.domain === domain).map(task => ({
   path: `/doc/${domain}-tasks/${task.slug}/`, title: task.title, kind: 'task', taskId: task.id,
 }));
 
+export const metricPages = GROUPS.flatMap(group => {
+  const keys = group.id === 'understanding' ? [...group.metrics, 'sia'] : group.metrics;
+  return keys.map(key => ({
+    path: `/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`,
+    title: key === 'sia' ? 'SIA' : METRICS[key].label,
+    kind: 'metric', metricKey: key, dimension: group.id, anchors: [`metric-${key}`],
+  }));
+});
+
 export const navigation = [
   { title: 'Home', pages: [{ path: '/doc/', title: 'RoboValue', kind: 'home' }] },
   { title: 'Get Started', pages: [
     { path: '/doc/get-started/', title: 'Quick Start', kind: 'start' },
-    { path: '/doc/get-started/data/', title: 'Dataset Overview & Training Data Download', kind: 'data' },
-    { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation' },
-    { path: '/doc/get-started/adapters/', title: 'Submit a Model', kind: 'submission' },
-    { path: '/doc/model-api/', title: 'Service & Adapter', kind: 'integration' },
-    { path: '/doc/get-started/protocol/', title: 'Protocol & Metrics', kind: 'protocol' },
+    { path: '/doc/get-started/data/', title: 'Dataset Overview&Download', kind: 'data' },
+    { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation', children: [
+      { path: '/doc/get-started/adapters/', title: 'Submit a Model', kind: 'submission' },
+      { path: '/doc/model-api/', title: 'Service & Adapter', kind: 'integration' },
+      { path: '/doc/get-started/evaluation/results/', title: 'Evaluation & Results', kind: 'evaluation-results' },
+    ] },
+    { path: '/doc/get-started/protocol/', title: 'Protocol & Metrics', kind: 'protocol', children: [
+      { path: '/doc/get-started/protocol/evaluation/', title: 'Evaluation Protocol', kind: 'evaluation-protocol', anchors: ['protocol-settings', 'protocol-coverage', 'protocol-results', 'protocol-provenance'] },
+      { path: '/doc/get-started/protocol/metrics/', title: 'Metrics Reference', kind: 'metrics', anchors: GROUPS.map(group => `protocol-${group.id}`), children: metricPages },
+    ] },
   ] },
   { title: 'Simulation Tasks', pages: [
     { path: '/doc/simulation-tasks/', title: 'Overview', kind: 'simulation' },
@@ -24,9 +39,15 @@ export const navigation = [
     { path: '/doc/real-world-tasks/catalog/', title: 'Task Catalog', kind: 'catalog', domain: 'real-world' },
     ...taskPages('real-world'),
   ] },
+  { title: 'Diagnostic Trajectories', pages: [{ path: '/doc/diagnostic-trajectories/', title: 'Diagnostic Trajectories', kind: 'diagnostics' }] },
   { title: 'Community', pages: [{ path: '/community/', title: 'Community', kind: 'community' }] },
 ];
-export const navigationPages = navigation.flatMap(group => group.pages.map(page => ({ ...page, group: group.title })));
+function flattenPages(page, group, parent) {
+  const current = { ...page, group, parent };
+  return [current, ...(page.children ?? []).flatMap(child => flattenPages(child, group, current))];
+}
+
+export const navigationPages = navigation.flatMap(group => group.pages.flatMap(page => flattenPages(page, group.title)));
 export const documentationPages = navigationPages.filter(page => page.path.startsWith('/doc/'));
 export const pages = [
   { path: '/', title: 'RoboValue', kind: 'landing', group: 'Home' },

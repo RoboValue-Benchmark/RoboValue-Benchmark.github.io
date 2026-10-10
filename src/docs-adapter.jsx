@@ -21,7 +21,7 @@ export const adapterSections = [
   ['adapter-interfaces', 'Implement your adapter'],
   ['adapter-example', 'Adapter examples'],
   ['adapter-handoff', 'Handoff checklist'],
-  ['adapter-access', 'Settings and test access'],
+  ['adapter-access', 'Test observations and security'],
 ];
 
 const pythonTokens = /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:class|def|from|import|return|for|in|if|else|True|False|None)\b)|(?<type>\b(?:ValueQuery|CompareQuery|SubtaskQuery|Sequence|Image|list|float|str)\b)|(?<function>\b[a-zA-Z_]\w*(?=\())|(?<number>\b\d+(?:\.\d+)?\b)|(?<punctuation>[()[\]{}:.,])/g;
@@ -58,8 +58,9 @@ function CodeBlock({ title, code }) {
 export function ServiceAdapter() {
   return <div className="doc-content">
     <div className="doc-integration-intro">
-      <div className="doc-eyebrow"><span className="doc-status-dot" /> Your service, your adapter</div>
-      <p className="doc-lead">Provide your model’s inference service and a model-specific adapter. You implement the adapter; the RoboValue team reviews it and runs the evaluation with the private test set.</p>
+      <div className="doc-eyebrow"><span className="doc-status-dot" /> Closed-source model integration</div>
+      <p className="doc-lead">This step is for closed-source models: connect your inference service through an adapter and hand over the integration for review. Your model weights do not need to be released.</p>
+      <p>Open-source providers can skip this step; the RoboValue team handles integration. See <a href="/doc/get-started/adapters/#submission-participation">Submit a Model</a> for the submission routes.</p>
       <div className="doc-tag-row"><span>Native service</span><span>Model-specific adapter</span><span>Organizer-run evaluation</span></div>
     </div>
     <Section id="adapter-service" title="1. Provide your inference service">
@@ -100,17 +101,16 @@ export function ServiceAdapter() {
       <ul>
         <li><strong>Adapter source:</strong> the model-specific implementation, supported methods, and native output units and direction.</li>
         <li><strong>Service description:</strong> the endpoint, native input/output specification, model and preprocessing versions, and authentication instructions without secret values.</li>
-        <li><strong>Model preparation:</strong> adapter dependencies and input preprocessing; One-Shot reference handling or Full-Data training setup, where applicable.</li>
+        <li><strong>Model preparation:</strong> adapter dependencies and input preprocessing; One-Shot reference handling or Full-Shot training setup, where applicable.</li>
         <li><strong>A synthetic check:</strong> an example that exercises the integration without private test observations.</li>
       </ul>
-      <p>The RoboValue team reviews the adapter before evaluation. Return model predictions, not benchmark scores, and report service failures as errors rather than zero predictions or N/A. See <a href="/doc/get-started/adapters/">Submit a Model</a> for the participation checklist.</p>
+      <p>The RoboValue team reviews the adapter before evaluation. Return model predictions, not benchmark scores, and report service failures as errors rather than zero predictions or N/A.</p>
     </Section>
-    <Section id="adapter-access" title="5. Evaluation settings and test access">
-      <p><strong>Zero-Shot:</strong> use the model without task-specific fine-tuning or references. <strong>One-Shot:</strong> use the reference available to the adapter on the evaluation side. <strong>Full-Data:</strong> download the training set, fine-tune your model, and expose it through the same inference interface as Zero-Shot.</p>
-      <p>Find the download entry under <a href="/doc/get-started/data/#dataset-training">Dataset Overview → Training data download</a>. See <a href="/doc/get-started/data/#dataset-references">references and fine-tuning</a> for the training-data policy.</p>
+    <Section id="adapter-access" title="5. Protect evaluation observations">
+      <p>Follow the reference and fine-tuning policy in <a href="/doc/get-started/data/#dataset-references">Dataset Overview&amp;Download</a>. The model-specific adapter prepares any required One-Shot reference inputs on the evaluation side.</p>
       <p>The test set is not publicly released for download or local evaluation. An external service will receive the observations and instructions needed for inference. Keep file paths, internal query IDs, test labels, and ground-truth candidate identities out of service requests. If observations cannot leave organizer-controlled systems, the service must run there.</p>
       <p>Use HTTPS with certificate verification. Share credentials privately and read them from environment variables, never source code or public configuration. Keep the agreed model and preprocessing versions fixed during evaluation.</p>
     </Section>
-    <NextSteps links={[["/doc/get-started/adapters/", 'Submit a Model'], ["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/get-started/data/", 'Dataset Overview']]} />
+    <NextSteps links={[["/doc/get-started/evaluation/results/", 'Next: Evaluation & Results'], ["/doc/get-started/evaluation/", 'Evaluation Workflow']]} />
   </div>;
 }

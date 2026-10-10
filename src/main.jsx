@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { documentationPages, navigation, pages } from './navigation';
+import { documentationPages, pages } from './navigation';
+import { DocumentationNavigation } from './docs-navigation';
 import { Icon } from './benchmark';
 import { Leaderboard } from './leaderboard';
 import { TaskOverview, TaskCatalog, TaskDetail } from './tasks';
@@ -10,7 +11,9 @@ import './docs-theme.css';
 import { ServiceAdapter, adapterSections } from './docs-adapter';
 import { PublicHome } from './home';
 import './public-site.css';
-import { DocumentationOverview, GetStarted, DatasetOverview, EvaluationWorkflow, SubmitModel, ProtocolGuide, PageOutline, documentationSections } from './docs-content';
+import { DocumentationOverview, GetStarted, DatasetOverview, EvaluationWorkflow, EvaluationResults, SubmitModel, PageOutline, documentationSections } from './docs-content';
+import { ProtocolGuide, EvaluationProtocol, MetricsReference, MetricGuide, protocolSections } from './docs-protocol';
+import { DiagnosticTrajectories, diagnosticSections } from './docs-diagnostics';
 
 function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false }) {
   const [siteMenuOpen, setSiteMenuOpen] = useState(false);
@@ -52,25 +55,22 @@ function Landing() {
   return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><PublicHome /></div>;
 }
 
-function DocumentationNavigation({ path, page, query }) {
-  const filter = query.toLowerCase().trim();
-  const groups = navigation.map(group => ({ ...group, visible: group.pages.filter(p => `${group.title} ${p.path === '/doc/' ? 'Overview' : p.title}`.toLowerCase().includes(filter)) })).filter(group => group.visible.length);
-  const link = p => <a key={p.path} href={p.path} className={`nav-page ${p.kind === 'task' ? 'nav-task' : ''}`} aria-current={p.path === path ? 'page' : undefined}>{p.path === '/doc/' ? 'Overview' : p.title}</a>;
-  return <nav aria-label="Documentation">{groups.map(group => {
-    if (group.pages.length === 1) return <div className="nav-single" key={group.title}>{group.visible.map(link)}</div>;
-    const taskCount = group.pages.filter(p => p.kind === 'task').length;
-    return <details key={`${group.title}-${!!filter}`} className="nav-group" open={!!filter || group.title === 'Get Started' || page?.group === group.title}>
-      <summary><span>{group.title}</span></summary>
-      <div>{group.visible.filter(p => p.kind !== 'task').map(link)}{group.visible.some(p => p.kind === 'task') && <div className="nav-task-list"><p className="nav-task-heading">Tasks <span className="nav-count">{taskCount}</span></p>{group.visible.filter(p => p.kind === 'task').map(link)}</div>}</div>
-    </details>;
-  })}{!groups.length && <p className="nav-empty">No matching pages.</p>}</nav>;
-}
 
 function App() {
   const path = window.location.pathname.replace(/\/?$/, '/');
   const page = pages.find(p => p.path === path);
   const [menuOpen, setMenuOpen] = useState(false);
   const [query, setQuery] = useState('');
+  useEffect(() => {
+    if (!['protocol', 'metrics'].includes(page?.kind)) return;
+    const followAnchor = () => {
+      const child = documentationPages.find(candidate => candidate.path !== page.path && candidate.anchors?.includes(window.location.hash.slice(1)));
+      if (child) window.location.replace(`${child.path}${window.location.hash}`);
+    };
+    followAnchor();
+    window.addEventListener('hashchange', followAnchor);
+    return () => window.removeEventListener('hashchange', followAnchor);
+  }, [page]);
   useEffect(() => {
     document.title = page?.kind === 'landing' ? 'RoboValue — Fine-Grained Evaluation of Robotic Value Models' : `${page?.kind === 'home' ? 'Documentation' : page?.title ?? 'Page not found'} | RoboValue`;
     const close = e => { if (e.key === 'Escape') setMenuOpen(false); };
@@ -82,20 +82,25 @@ function App() {
   }, [page]);
   const index = documentationPages.indexOf(page);
   const title = page?.kind === 'simulation' ? 'Simulation Tasks' : page?.kind === 'real' ? 'Real-World Tasks' : page?.title;
-  const outline = page?.kind === 'integration' ? adapterSections : documentationSections[page?.kind];
+  const outline = page?.kind === 'integration' ? adapterSections : page?.kind === 'diagnostics' ? diagnosticSections : protocolSections[page?.kind] ?? documentationSections[page?.kind];
   let content = null;
   switch (page?.kind) {
     case 'home': content = <DocumentationOverview />; break;
     case 'start': content = <GetStarted />; break;
     case 'data': content = <DatasetOverview />; break;
     case 'evaluation': content = <EvaluationWorkflow />; break;
+    case 'evaluation-results': content = <EvaluationResults />; break;
     case 'submission': content = <SubmitModel />; break;
     case 'integration': content = <ServiceAdapter />; break;
     case 'simulation': content = <TaskOverview domain="simulation" />; break;
     case 'real': content = <TaskOverview domain="real-world" />; break;
     case 'catalog': content = <TaskCatalog domain={page.domain} />; break;
     case 'task': content = <TaskDetail taskId={page.taskId} />; break;
+    case 'diagnostics': content = <DiagnosticTrajectories />; break;
     case 'protocol': content = <ProtocolGuide />; break;
+    case 'evaluation-protocol': content = <EvaluationProtocol />; break;
+    case 'metrics': content = <MetricsReference />; break;
+    case 'metric': content = <MetricGuide metricKey={page.metricKey} />; break;
     case 'community':
       content = <section className="community-section" aria-labelledby="wechat-title">
         <h2 id="wechat-title">Join the WeChat group</h2>
@@ -113,8 +118,8 @@ function App() {
     {menuOpen && <button className="sidebar-backdrop" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
     <aside className={`docs-sidebar ${menuOpen ? 'is-open' : ''}`} id="docs-sidebar"><div className="docs-sidebar-label">Documentation</div><label className="nav-filter"><Icon name="search" size={16} /><input type="search" placeholder="Find a page…" aria-label="Filter navigation" value={query} onChange={e => setQuery(e.target.value)} /></label><DocumentationNavigation path={path} page={page} query={query} /><a className="docs-source-link" href="https://github.com/RoboValue-Benchmark/RoboValue">Code repository ↗</a></aside>
     <div className={`docs-layout ${outline ? 'has-outline' : 'no-outline'}`}>
-      <main className="doc-main" id="main-content" tabIndex={-1}><div className="doc-breadcrumb"><a href="/doc/">RoboValue</a><span>/</span><span>{page?.group ?? 'Not found'}</span></div><h1>{title ?? 'Page not found'}</h1>{!page ? <p>This page does not exist. <a className="inline-link" href="/">Return to Home.</a></p> : content}
-        {index >= 0 && <nav className="page-pagination" aria-label="Adjacent pages">{index > 0 ? <a href={documentationPages[index-1].path}><span>← Previous</span>{documentationPages[index-1].group} / {documentationPages[index-1].title}</a> : <div />}{index < documentationPages.length-1 && <a href={documentationPages[index+1].path}><span>Next →</span>{documentationPages[index+1].group} / {documentationPages[index+1].title}</a>}</nav>}
+      <main className="doc-main" id="main-content" tabIndex={-1}><div className="doc-breadcrumb"><a href="/doc/">RoboValue</a><span>/</span>{page?.parent ? <a href={page.parent.path}>{page.parent.title}</a> : <span>{page?.group ?? 'Not found'}</span>}</div><h1>{title ?? 'Page not found'}</h1>{!page ? <p>This page does not exist. <a className="inline-link" href="/">Return to Home.</a></p> : content}
+        {index >= 0 && <nav className="page-pagination" aria-label="Adjacent pages">{index > 0 ? <a href={documentationPages[index-1].path}><span>← Previous</span>{documentationPages[index-1].group !== documentationPages[index-1].title && `${documentationPages[index-1].group} / `}{documentationPages[index-1].title}</a> : <div />}{index < documentationPages.length-1 && <a href={documentationPages[index+1].path}><span>Next →</span>{documentationPages[index+1].group !== documentationPages[index+1].title && `${documentationPages[index+1].group} / `}{documentationPages[index+1].title}</a>}</nav>}
         <div className="doc-footer">RoboValue · RoboValue Documentation</div>
       </main>
       {outline && <PageOutline sections={outline} />}

@@ -163,7 +163,7 @@ function HomeResults() {
 function EvaluationFramework() {
   return <section className="rv-section rv-framework" id="framework" aria-labelledby="framework-title"><div className="rv-container">
     <div className="rv-section-heading rv-reveal"><div><p className="rv-eyebrow">EVALUATION FRAMEWORK</p><h2 id="framework-title">Shared interfaces. Complementary diagnostics.</h2></div><p>A shared protocol compares execution judgments across heterogeneous models while preserving their native value semantics.</p></div>
-    <div className="rv-workflow rv-reveal"><BenchmarkOverview /><p className="rv-track-note">Current results cover Zero-Shot and One-Shot evaluation. The Full-Data track is planned to open with the dataset release.</p><div className="rv-framework-links"><a className="rv-text-link" href="/doc/get-started/protocol/">Protocol and metrics<Icon size={17} /></a><a className="rv-text-link" href="/doc/get-started/evaluation/">Evaluation workflow<Icon size={17} /></a></div></div>
+    <div className="rv-workflow rv-reveal"><BenchmarkOverview /><p className="rv-track-note">Current results cover Zero-Shot and One-Shot evaluation. The Full-Shot track is planned to open with the dataset release.</p><div className="rv-framework-links"><a className="rv-text-link" href="/doc/get-started/protocol/">Protocol and metrics<Icon size={17} /></a><a className="rv-text-link" href="/doc/get-started/evaluation/">Evaluation workflow<Icon size={17} /></a></div></div>
   </div></section>;
 }
 

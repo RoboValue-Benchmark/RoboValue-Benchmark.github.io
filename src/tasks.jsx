@@ -13,7 +13,6 @@ const DOMAINS = {
     standard: 'ARX is the standard embodiment in Isaac Sim.',
     embodiment: 'UR5e is the shifted embodiment, testing generalization across robot morphology and execution patterns.',
     environment: 'Tabletop and floor materials, distractor objects, and lighting are varied to test generalization across visual conditions.',
-    skills: 'Pick, place, fold, hand over, carry, grasp, hang, move, press, close, insert, lift, sweep, stack, and throw.',
   },
   'real-world': {
     name: 'Real-World', count: 20,
@@ -21,7 +20,6 @@ const DOMAINS = {
     standard: 'AgiBot Genie02 is the standard embodiment.',
     embodiment: 'ARX is the shifted embodiment, testing generalization across robot morphology and execution patterns under real-world conditions.',
     environment: 'Tablecloth color, lighting direction and tone, and distractor objects are varied to test generalization across real-world visual conditions.',
-    skills: 'Cap, insert, place, open, align, close, unplug, cover, rotate, stack, press, shake, pick, strike, and pour.',
   },
 };
 
@@ -44,10 +42,10 @@ export function TaskOverview({ domain }) {
       </dl>
     </section>
     <section className="task-section"><h2>Evaluation conditions</h2><p>These conditions follow the same evaluation protocol. Each distribution shift varies either the embodiment or the environment relative to the standard setting.</p>
-      <dl className="condition-descriptions"><div><dt>Standard (ID)</dt><dd>{info.standard}</dd></div><div><dt>Cross-Embodiment (EMB-OOD)</dt><dd>{info.embodiment}</dd></div><div><dt>Cross-Environment (ENV-OOD)</dt><dd>{info.environment}</dd></div></dl>
+      <dl className="condition-descriptions"><div><dt>Standard Version</dt><dd>{info.standard}</dd></div><div><dt>Cross-Embodiment (EMB-OOD)</dt><dd>{info.embodiment}</dd></div><div><dt>Cross-Environment (ENV-OOD)</dt><dd>{info.environment}</dd></div></dl>
     </section>
-    <section className="task-section"><h2>Manipulation skills</h2><p>Representative skills include {info.skills.charAt(0).toLowerCase() + info.skills.slice(1)}</p></section>
-    <section className="task-section"><h2>Task specifications</h2><p>Each task page includes its instruction, scene and procedure, subtask decomposition, representative views under each evaluation condition, and execution keyframes. Counterfactual changes are provided for the tasks covered by that evaluation.</p><a className="inline-link" href={`/doc/${domain}-tasks/catalog/`}>View the task catalog →</a></section>
+    <section className="task-section" id="manipulation-skills"><h2>Manipulation skills</h2><Figure src={`/assets/tasks/${domain}-skills.webp`} alt={`${info.name} manipulation skills`} /></section>
+    <section className="task-section"><h2>Task specifications</h2><p>Each task page includes its instruction, scene and procedure, subtask decomposition, and videos under each evaluation condition. Counterfactual changes are provided for the tasks covered by that evaluation.</p><a className="inline-link" href={`/doc/${domain}-tasks/catalog/`}>View the task catalog →</a></section>
   </div>;
 }
 
@@ -58,16 +56,23 @@ export function TaskCatalog({ domain }) {
   </div>;
 }
 
+export function VideoGallery({ videos, title }) {
+  return <div className="task-videos" role="group" aria-label={`${title} videos`}>{videos.map(video => <figure key={video.src}>
+    <video src={video.src} poster={video.src.replace(/\.mp4$/, '.jpg')} controls preload="none" playsInline aria-label={`${title}: ${video.label}`} />
+    <figcaption>{video.label}</figcaption>
+  </figure>)}</div>;
+}
+
 export function TaskDetail({ taskId }) {
   const task = tasks.find(t => t.id === taskId);
+  const videoDirectory = task.domain === 'real-world' ? `real-world/${task.slug}` : task.slug;
   return <div className="task-content">
     <section className="task-section first"><h2>Instruction</h2><blockquote className="task-instruction">{task.instruction}</blockquote></section>
-    <section className="task-section"><h2>Evaluation conditions</h2><div className="task-condition-images">{[['id', 'Standard (ID)'], ['emb', 'Cross-Embodiment (EMB-OOD)'], ['env', 'Cross-Environment (ENV-OOD)']].map(([key, label]) => <Figure key={key} src={task.images[key]} alt={`${task.title}: ${label}`} caption={label} />)}</div></section>
+    <section className="task-section"><h2>Videos</h2><VideoGallery title={task.title} videos={[['id', 'Standard Version'], ['emb', 'Cross-Embodiment (EMB-OOD)'], ['env', 'Cross-Environment (ENV-OOD)']].map(([key, label]) => ({ src: `/assets/tasks/videos/${videoDirectory}/${key}.mp4`, label }))} /></section>
     <section className="task-section"><h2>Scene and procedure</h2><dl className="task-specification"><div><dt>Scene</dt><dd>{task.scene}</dd></div><div><dt>Procedure</dt><dd>{task.procedure}</dd></div>{task.order && <div><dt>Order and variations</dt><dd>{task.order}</dd></div>}</dl></section>
     <section className="task-section"><h2>Subtask decomposition</h2><p className="task-hint">Subtask labels reproduce the manuscript’s decomposition. For tasks with alternative valid orders, the listed procedure does not impose additional ordering constraints beyond the instruction.</p><ol className="subtask-list">{task.subtasks.map(s => <li key={s.id}><span>{s.id}</span><p>{s.text}</p></li>)}</ol></section>
-    <section className="task-section"><h2>Execution example</h2><p>Representative keyframes from a successful execution, in chronological order.</p><div className="task-sequence" role="region" tabIndex={0} aria-label={`${task.title}: seven execution frames`}>{task.sequence.map((src, i) => <figure key={src}><img src={src} alt={`${task.title}: execution sample ${i + 1} of 7`} loading="lazy" /><figcaption>{String(i + 1).padStart(2, '0')}</figcaption></figure>)}</div></section>
     <section className="task-section"><h2>Counterfactual instruction changes</h2>{task.counterfactual ? <><p>TGA-CF holds the successful trajectory fixed and changes the instruction. The summaries below describe the semantic changes; they are not complete counterfactual prompts. Each category names the primary change, and related semantics may also change.</p><dl className="counterfactual-changes">{Object.entries(task.counterfactual.changes).map(([category, value]) => { const [original, changed] = value.split(' → '); return <div key={category}><dt>{category}</dt><dd><span>{original}</span><span className="change-arrow" aria-label="changed to"> → </span><strong>{changed}</strong></dd></div>; })}</dl></> : <p>This task is omitted from the paired counterfactual instruction set in the manuscript and is reserved for history-dependent progress evaluation.</p>}</section>
-    <p className="task-source">Task specifications: Appendix {task.source.appendix}. Execution examples: Appendix {task.domain === 'simulation' ? 'C.5' : 'D.5'}{task.counterfactual ? `. Counterfactual changes: Appendix ${task.domain === 'simulation' ? 'C.3' : 'D.3'}` : ''}.</p>
+    <p className="task-source">Task specifications: Appendix {task.source.appendix}{task.counterfactual ? `. Counterfactual changes: Appendix ${task.domain === 'simulation' ? 'C.3' : 'D.3'}` : ''}.</p>
     <TaskLinks domain={task.domain} />
   </div>;
 }
