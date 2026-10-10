@@ -100,13 +100,13 @@ export function ServiceAdapter() {
       <ul>
         <li><strong>Adapter source:</strong> the model-specific implementation, supported methods, and native output units and direction.</li>
         <li><strong>Service description:</strong> the endpoint, native input/output specification, model and preprocessing versions, and authentication instructions without secret values.</li>
-        <li><strong>Model preparation:</strong> adapter dependencies and input preprocessing; One-Shot reference handling or Few-Shot training setup, where applicable.</li>
+        <li><strong>Model preparation:</strong> adapter dependencies and input preprocessing; One-Shot reference handling or Full-Data training setup, where applicable.</li>
         <li><strong>A synthetic check:</strong> an example that exercises the integration without private test observations.</li>
       </ul>
       <p>The RoboValue team reviews the adapter before evaluation. Return model predictions, not benchmark scores, and report service failures as errors rather than zero predictions or N/A. See <a href="/doc/get-started/adapters/">Submit a Model</a> for the participation checklist.</p>
     </Section>
     <Section id="adapter-access" title="5. Evaluation settings and test access">
-      <p><strong>Zero-Shot:</strong> use the model without task-specific fine-tuning or references. <strong>One-Shot:</strong> use the reference available to the adapter on the evaluation side. <strong>Few-Shot:</strong> download the training set, fine-tune your model, and expose it through the same inference interface as Zero-Shot.</p>
+      <p><strong>Zero-Shot:</strong> use the model without task-specific fine-tuning or references. <strong>One-Shot:</strong> use the reference available to the adapter on the evaluation side. <strong>Full-Data:</strong> download the training set, fine-tune your model, and expose it through the same inference interface as Zero-Shot.</p>
       <p>Find the download entry under <a href="/doc/get-started/data/#dataset-training">Dataset Overview → Training data download</a>. See <a href="/doc/get-started/data/#dataset-references">references and fine-tuning</a> for the training-data policy.</p>
       <p>The test set is not publicly released for download or local evaluation. An external service will receive the observations and instructions needed for inference. Keep file paths, internal query IDs, test labels, and ground-truth candidate identities out of service requests. If observations cannot leave organizer-controlled systems, the service must run there.</p>
       <p>Use HTTPS with certificate verification. Share credentials privately and read them from environment variables, never source code or public configuration. Keep the agreed model and preprocessing versions fixed during evaluation.</p>

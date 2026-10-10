@@ -8,7 +8,7 @@ export function EvaluationWorkflow() {
     <p className="doc-lead">Follow the evaluation process from model submission and adapter review to testing and results. The RoboValue team runs the evaluation; you do not need a local copy of the private test set.</p>
     <PrivateTestNotice />
     <Section id="workflow-discuss" title="1. Discuss your model">
-      <p>Describe your model and its version, the evaluation setting you want—Zero-Shot, One-Shot, or Few-Shot—and the inputs and predictions it supports. See <a href="/community/">Community</a> for participation and integration discussions.</p>
+      <p>Describe your model and its version, the evaluation setting you want—Zero-Shot, One-Shot, or Full-Data—and the inputs and predictions it supports. See <a href="/community/">Community</a> for participation and integration discussions.</p>
       <p>Read <a href="/doc/get-started/adapters/">Submit a Model</a> for the adapter and service handoff checklist.</p>
     </Section>
     <Section id="workflow-connect" title="2. Hand over and review the adapter">
@@ -17,7 +17,7 @@ export function EvaluationWorkflow() {
       <p>Use HTTPS and share credentials privately, not in public documentation or Community messages. An externally hosted API receives the observations needed for inference. If observations must not leave the organizer environment, the model service must be hosted within that environment. Confirm data-handling arrangements and the evaluation package version during integration.</p>
     </Section>
     <Section id="workflow-evaluate" title="3. Organizer-run evaluation">
-      <p>The RoboValue team runs the reviewed adapter on the private test set. For One-Shot, the reference is available on the evaluation side and the adapter uses it directly. For Few-Shot, participants fine-tune their model on the training set before evaluation; inference uses the same interface as Zero-Shot.</p>
+      <p>The RoboValue team runs the reviewed adapter on the private test set. For One-Shot, the reference is available on the evaluation side and the adapter uses it directly. For Full-Data, participants fine-tune their model on the training set before evaluation; inference uses the same interface as Zero-Shot.</p>
       <p>Evaluation preserves each model’s native output semantics and required observation context. Results report simulation and real-world coverage separately, with ID, ENV-OOD, and EMB-OOD conditions identified. Metrics without supported or eligible coverage are reported as N/A, not zero.</p>
       <p>See <a href="/doc/get-started/protocol/">Protocol &amp; Metrics</a> for the scoring rules and how to interpret results.</p>
     </Section>
@@ -26,7 +26,7 @@ export function EvaluationWorkflow() {
       <p>The <a href="/leaderboard/">Leaderboard</a> displays existing manuscript results. Its published aggregate ranking follows its own documented rules; completing an evaluation is not a promise of automatic publication or immediate inclusion on that page.</p>
     </Section>
     <Section id="workflow-questions" title="Common questions">
-      <dl className="doc-definition-list"><div><dt>Can I download the test set and run it locally?</dt><dd>No. The held-out test set is private; participants provide an inference service and adapter for evaluation by the RoboValue team.</dd></div><div><dt>Must I change my service to a shared API format?</dt><dd>No. Your model-specific adapter connects your native service to the benchmark. Implement only the prediction methods the model supports.</dd></div><div><dt>How do the evaluation settings differ?</dt><dd>Zero-Shot uses no task-specific references or fine-tuning. One-Shot uses a reference supplied on the evaluation side. Few-Shot uses a model fine-tuned by the participant on the training set.</dd></div><div><dt>Where can I ask integration questions?</dt><dd>See <a href="/community/">Community</a>. Share credentials privately.</dd></div></dl>
+      <dl className="doc-definition-list"><div><dt>Can I download the test set and run it locally?</dt><dd>No. The held-out test set is private; participants provide an inference service and adapter for evaluation by the RoboValue team.</dd></div><div><dt>Must I change my service to a shared API format?</dt><dd>No. Your model-specific adapter connects your native service to the benchmark. Implement only the prediction methods the model supports.</dd></div><div><dt>How do the evaluation settings differ?</dt><dd>Zero-Shot uses no task-specific references or fine-tuning. One-Shot uses a reference supplied on the evaluation side. Full-Data uses a model fine-tuned by the participant on the training set.</dd></div><div><dt>Where can I ask integration questions?</dt><dd>See <a href="/community/">Community</a>. Share credentials privately.</dd></div></dl>
     </Section>
     <NextSteps links={[["/doc/get-started/adapters/", 'Submit a Model'], ["/doc/get-started/protocol/", 'Protocol & Metrics'], ["/leaderboard/", 'Explore published results']]} />
   </div>;
@@ -41,7 +41,7 @@ export function SubmitModel() {
     <Section id="submission-context" title="Describe the model you want evaluated">
       <ol className="doc-reading-path">
         <li><strong>Identify the model version.</strong><p>Specify the model or checkpoint version and the preprocessing or prompt revision. Keep these fixed during evaluation.</p></li>
-        <li><strong>Choose the evaluation setting.</strong><p>Specify Zero-Shot, One-Shot, or Few-Shot. See below for reference use and fine-tuning.</p></li>
+        <li><strong>Choose the evaluation setting.</strong><p>Specify Zero-Shot, One-Shot, or Full-Data. See below for reference use and fine-tuning.</p></li>
         <li><strong>Describe input preparation.</strong><p>Document required camera views, execution history, frame sampling, padding, and preprocessing. Confirm that the required observations are available.</p></li>
         <li><strong>Describe the predictions.</strong><p>Explain the meaning, units, direction, and supported methods of the model’s outputs.</p></li>
       </ol>
@@ -55,7 +55,7 @@ export function SubmitModel() {
       <p>Follow <a href="/doc/model-api/">Service &amp; Adapter</a> for the mock and real adapter examples and the <a href="/doc/model-api/#adapter-handoff">handoff checklist</a>. Share authentication instructions separately, without embedding API keys in code or configuration.</p>
     </Section>
     <Section id="submission-inputs" title="References and fine-tuning">
-      <p>For One-Shot, use the reference supplied on the evaluation side through your adapter. For Few-Shot, use <a href="/doc/get-started/data/#dataset-training">Dataset Overview → Training data download</a> and fine-tune your model before providing the inference service.</p>
+      <p>For One-Shot, use the reference supplied on the evaluation side through your adapter. For Full-Data, use <a href="/doc/get-started/data/#dataset-training">Dataset Overview → Training data download</a> and fine-tune your model before providing the inference service.</p>
       <p>A fine-tuned model uses the same inference interface as Zero-Shot; it does not need training demonstrations attached to each query. Record the fine-tuned model version and training setup. See <a href="/doc/get-started/data/#dataset-references">reference use and fine-tuning</a> and the <a href="/doc/model-api/#adapter-example">real adapter examples</a>.</p>
     </Section>
     <Section id="submission-semantics" title="Preserve native output semantics">
@@ -72,7 +72,7 @@ export function ProtocolGuide() {
   return <div className="doc-content">
     <p className="doc-lead">Learn what each metric measures, which trajectories it covers, and how to read its score. The metrics diagnose complementary capabilities rather than reducing model quality to a single rank.</p>
     <Section id="protocol-settings" title="Evaluation settings">
-      <dl className="doc-definition-list"><div><dt>Zero-Shot</dt><dd>Evaluate without task-specific fine-tuning or reference demonstrations. Publicly released weights are not required for service-based participation.</dd></div><div><dt>One-Shot / Few-Shot</dt><dd>One-Shot uses the first training trajectory per task as a reference, available to the adapter on the evaluation side. Few-Shot uses each task’s full training split—all 100 trajectories—for participant-side fine-tuning. The fine-tuned model uses the same inference interface as Zero-Shot, but its results remain labeled Few-Shot.</dd></div><div><dt>Generalization</dt><dd>Evaluate a changed embodiment or environment without further adaptation to the shifted condition.</dd></div></dl>
+      <dl className="doc-definition-list"><div><dt>Zero-Shot</dt><dd>Evaluate without task-specific fine-tuning or reference demonstrations. Publicly released weights are not required for service-based participation.</dd></div><div><dt>One-Shot / Full-Data</dt><dd>One-Shot uses the first training trajectory per task as a reference, available to the adapter on the evaluation side. Full-Data uses each task’s full training split—all 100 trajectories—for participant-side fine-tuning. The fine-tuned model uses the same inference interface as Zero-Shot, but its results remain labeled Full-Data.</dd></div><div><dt>Generalization</dt><dd>Evaluate a changed embodiment or environment without further adaptation to the shifted condition.</dd></div></dl>
       <p>These are the current participation settings. Published results retain their recorded use of conditioning or adaptation; this page does not relabel or re-evaluate those snapshots.</p>
       <Figure src="/assets/benchmark-overview.svg" alt="RoboValue shared model interfaces and four diagnostic capability dimensions" caption="Four complementary dimensions diagnose execution understanding while preserving model-specific value semantics." />
     </Section>
@@ -100,7 +100,7 @@ export function ProtocolGuide() {
       <p>SIA is reported separately and contributes no weight to the current aggregate leaderboard. Read its coverage and setting alongside the reported probability score. Implementation key: <code>sia</code>; paper naming aliases do not change the contract.</p>
     </Section>
     <Section id="protocol-results" title="Read the results">
-      <ol className="doc-reading-path"><li><strong>Select the evaluation track.</strong><p>Keep Zero-Shot, One-Shot, and Few-Shot results distinct, including the demonstration count. The existing published snapshot has separate Zero-Shot and One-Shot rankings; these are not Few-Shot results.</p></li><li><strong>Select the condition and check coverage.</strong><p>Separate standard, embodiment-shift, and environment-shift results. An unreported cell is not a measured zero.</p></li><li><strong>Read the metric direction and units.</strong><p>The current website tables display scores ×100. FPL is lower-is-better; the other displayed primary metrics are higher-is-better.</p></li><li><strong>Compare capability profiles before overall ranks.</strong><p>Success, grounding, progress, failure/recovery, and consistency diagnose different behaviors. Inspect limitations even when an overall score is high.</p></li></ol>
+      <ol className="doc-reading-path"><li><strong>Select the evaluation track.</strong><p>Keep Zero-Shot, One-Shot, and Full-Data results distinct, including the demonstration count. The existing published snapshot has separate Zero-Shot and One-Shot rankings; these are not Full-Data results.</p></li><li><strong>Select the condition and check coverage.</strong><p>Separate standard, embodiment-shift, and environment-shift results. An unreported cell is not a measured zero.</p></li><li><strong>Read the metric direction and units.</strong><p>The current website tables display scores ×100. FPL is lower-is-better; the other displayed primary metrics are higher-is-better.</p></li><li><strong>Compare capability profiles before overall ranks.</strong><p>Success, grounding, progress, failure/recovery, and consistency diagnose different behaviors. Inspect limitations even when an overall score is high.</p></li></ol>
       <p>The <a href="/leaderboard/#scoring">published aggregate scoring guide</a> documents that snapshot’s normalization, condition/domain weights, capability weights, and missing-metric policy. Its treatment of unmeasured metrics in the aggregate rank does not turn missing scientific coverage into observed zeros.</p>
       <p>VROC, the reverse-half progress correlation, contributes to the published aggregate tracking score but is not separately tabulated in Tables 2–3. Do not infer it from rounded table entries. SIA remains outside the aggregate ranking.</p>
     </Section>
@@ -217,7 +217,7 @@ export function DocumentationOverview() {
     </Section>
     <Section id="private-test-evaluation" title="A clear boundary between training and testing">
       <PrivateTestNotice />
-      <p>The RoboValue team supplies One-Shot references on the evaluation side. Participants may download the training set for Few-Shot fine-tuning. Test trajectories and annotations remain private.</p>
+      <p>The RoboValue team supplies One-Shot references on the evaluation side. Participants may download the training set for Full-Data fine-tuning. Test trajectories and annotations remain private.</p>
     </Section>
     <Section id="explore-documentation" title="Choose your next step">
       <div className="doc-reading-cards">
@@ -247,11 +247,11 @@ export function GetStarted() {
       </ol>
     </Section>
     <Section id="evaluation-responsibilities" title="Who does what">
-      <dl className="doc-definition-list"><div><dt>Participants</dt><dd>Provide the inference service and adapter, with documented inputs, outputs, dependencies, and model version. For Few-Shot, fine-tune the model before evaluation.</dd></div><div><dt>RoboValue team</dt><dd>Review and run the adapter, supply One-Shot references, and manage private test queries, scoring, and result reporting.</dd></div></dl>
+      <dl className="doc-definition-list"><div><dt>Participants</dt><dd>Provide the inference service and adapter, with documented inputs, outputs, dependencies, and model version. For Full-Data, fine-tune the model before evaluation.</dd></div><div><dt>RoboValue team</dt><dd>Review and run the adapter, supply One-Shot references, and manage private test queries, scoring, and result reporting.</dd></div></dl>
     </Section>
     <Section id="before-participating" title="Before participating">
-      <p>Choose the evaluation setting, identify the inputs and predictions your model supports, and document its native output semantics. Keep Zero-Shot, One-Shot, and Few-Shot results distinct.</p>
-      <p>One-Shot references are available on the evaluation side. For Few-Shot, download the training set and fine-tune your model; inference uses the same interface as Zero-Shot. See <a href="/doc/get-started/data/#dataset-references">references and fine-tuning</a>.</p>
+      <p>Choose the evaluation setting, identify the inputs and predictions your model supports, and document its native output semantics. Keep Zero-Shot, One-Shot, and Full-Data results distinct.</p>
+      <p>One-Shot references are available on the evaluation side. For Full-Data, download the training set and fine-tune your model; inference uses the same interface as Zero-Shot. See <a href="/doc/get-started/data/#dataset-references">references and fine-tuning</a>.</p>
       <p>See <a href="/community/">Community</a> for participation and integration discussions. Do not post API keys or other credentials publicly.</p>
     </Section>
     <NextSteps links={[["/doc/get-started/adapters/", 'Submit a Model'], ["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/simulation-tasks/", 'Simulation Tasks'], ["/doc/real-world-tasks/", 'Real-World Tasks']]} />
@@ -274,13 +274,13 @@ export function DatasetOverview() {
     <Section id="dataset-settings" title="Evaluation settings and demonstration access">
       <div className="doc-track-grid">
         <div><span className="doc-pill">No task-specific demonstrations</span><h3>Zero-Shot</h3><p>Evaluate without task-specific adaptation or training references.</p></div>
-        <div><span className="doc-pill">Task training demonstrations</span><h3>One-Shot / Few-Shot</h3><p>One-Shot uses a reference through the adapter. Few-Shot fine-tunes the model on the training set before evaluation.</p></div>
+        <div><span className="doc-pill">Task training demonstrations</span><h3>One-Shot / Full-Data</h3><p>One-Shot uses a reference through the adapter. Full-Data fine-tunes the model on the training set before evaluation.</p></div>
       </div>
       <p>Environment and embodiment shifts are evaluated separately, without additional adaptation to the shifted conditions. State the evaluation setting independently of the adapter’s supported prediction methods.</p>
     </Section>
-    <Section id="dataset-references" title="One-Shot references and Few-Shot fine-tuning">
+    <Section id="dataset-references" title="One-Shot references and Full-Data fine-tuning">
       <p><strong>One-Shot:</strong> the first training trajectory for each task is available to the adapter on the evaluation side. The adapter reads it and prepares the reference inputs your model needs.</p>
-      <p><strong>Few-Shot:</strong> use the full training split for each task—all 100 trajectories—to fine-tune your model using your own training procedure. Provide the resulting model through the same inference interface as Zero-Shot; no per-query training reference is required.</p>
+      <p><strong>Full-Data:</strong> use the full training split for each task—all 100 trajectories—to fine-tune your model using your own training procedure. Provide the resulting model through the same inference interface as Zero-Shot; no per-query training reference is required.</p>
       <p>The same policy applies to simulation and real-world tasks. Use only the training split for fine-tuning, never the private test trajectories. See <a href="/doc/model-api/#adapter-example">RoboMeter and Robo-Dopamine</a> for concrete adapter implementations.</p>
     </Section>
     <Section id="dataset-observations" title="Dataset observations and model inputs">
