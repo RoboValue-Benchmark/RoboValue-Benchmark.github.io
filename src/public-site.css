@@ -7,8 +7,8 @@
 }
 .public-header, .leaderboard-main { font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif; }
 .docs-header .site-nav a[aria-current=page] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 8px; text-decoration-color: currentColor; }
-.public-data-page { width: min(960px, calc(100% - 80px)); min-height: 100svh; margin: 0 auto; padding: 142px 0 72px; color: #202124; font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif; outline: none; }
-.public-data-page h1 { margin: 0; font-size: 36px; line-height: 1.35; font-weight: 600; }
+.public-data-page, .public-eval-page { width: min(960px, calc(100% - 80px)); min-height: 100svh; margin: 0 auto; padding: 142px 0 72px; color: #202124; font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif; outline: none; }
+.public-data-page h1, .public-eval-page h1 { margin: 0; font-size: 36px; line-height: 1.35; font-weight: 600; }
 .public-data-page p { margin-top: 20px; font-size: 16px; color: #5f6368; }
 .public-header {
   position: fixed;
@@ -48,8 +48,8 @@
   .public-header .site-nav { margin-left: 0; }
 }
 @media (max-width: 760px) {
-  .public-data-page { width: calc(100% - 40px); padding-top: 112px; }
-  .public-data-page h1 { font-size: 29px; }
+  .public-data-page, .public-eval-page { width: calc(100% - 40px); padding-top: 112px; }
+  .public-data-page h1, .public-eval-page h1 { font-size: 29px; }
   .public-header { top: 12px; left: 16px; right: 16px; width: auto; max-width: none; height: 58px; gap: 14px; padding: 0 14px; transform: none; border-radius: 19px; border-color: #e4e8f280; background: linear-gradient(115deg, #ffffffb3, #f7f9ffad 55%, #faf7ffa8); }
   .public-header.public-header--home { background: linear-gradient(115deg, #e7eaf5b3, #edeaf7ad 55%, #f0e8f6a8); }
   .public-header .docs-brand { flex-basis: 130px; }

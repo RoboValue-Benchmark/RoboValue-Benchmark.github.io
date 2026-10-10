@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
+import taskData from './data/tasks.json';
 
-// Real frames from the selected simulation clips, arranged to mix tasks and scenes.
-const SCENES = [
+// Alternate simulation clip frames with the existing real-world task images.
+const SIMULATION_SCENES = [
   'make-toast-env', 'fill-pen-holder', 'fold-clothes', 'stack-blocks', 'organize-table', 'hang-mugs-emb',
   'hang-mugs', 'swap-blocks', 'store-laptop-and-headphone-frt', 'pack-objects-into-box', 'press-by-number', 'arrange-largest-number',
   'put-bottles-into-dustbin', 'sweep-blocks', 'make-toast', 'insert-tubes', 'store-laptop-and-headphone', 'play-stacking-toy',
-];
+].map(scene => `/assets/hero-scenes/${scene}.webp`);
+const REAL_WORLD_SCENES = taskData.tasks
+  .filter(task => task.domain === 'real-world')
+  .map(task => task.images.id);
 const ROW_DURATIONS = [180, 215, 195, 230, 205, 220, 190, 240];
 
 export function HeroBackground() {
@@ -43,11 +47,14 @@ export function HeroBackground() {
       <div className="rv-hero-wall">
         {Array.from({ length: rowCount }, (_, row) => {
           const duration = ROW_DURATIONS[row % ROW_DURATIONS.length];
-          const scenes = Array.from({ length: columnCount }, (_, index) => SCENES[(index + row * 5) % SCENES.length]);
-          return <div className="rv-hero-row" key={row} style={{ '--row-duration': `${duration}s` }}>
+          const realWorld = row % 2 !== 0;
+          const pool = realWorld ? REAL_WORLD_SCENES : SIMULATION_SCENES;
+          const offset = Math.floor(row / 2) * 5;
+          const scenes = Array.from({ length: columnCount }, (_, index) => pool[(index + offset) % pool.length]);
+          return <div className={`rv-hero-row${realWorld ? ' rv-hero-row-real' : ''}`} key={row} style={{ '--row-duration': `${duration}s` }}>
             {[0, 1].map(copy => <div className="rv-hero-row-group" key={copy}>
               {scenes.map((scene, index) => <div className="rv-hero-scene" key={`${scene}-${index}`}>
-                <img src={`/assets/hero-scenes/${scene}.webp`} alt="" width="320" height="240" decoding="async" fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
+                <img src={scene} alt="" width="320" height="240" decoding="async" fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
               </div>)}
             </div>)}
           </div>;

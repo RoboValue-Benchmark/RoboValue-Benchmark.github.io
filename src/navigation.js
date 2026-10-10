@@ -31,6 +31,7 @@ export const documentationPages = navigationPages.filter(page => page.path.start
 export const pages = [
   { path: '/', title: 'RoboValue', kind: 'landing', group: 'Home' },
   { path: '/data/', title: 'Data', kind: 'data-release', group: 'Data' },
+  { path: '/eval/', title: 'Eval', kind: 'evaluation-page', group: 'Eval' },
   ...navigationPages,
   { path: '/leaderboard/', title: 'Leaderboard', kind: 'leaderboard', group: 'Leaderboard' },
 ];

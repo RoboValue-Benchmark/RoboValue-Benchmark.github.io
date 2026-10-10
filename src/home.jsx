@@ -41,7 +41,7 @@ const leaderboardHref = (track, patch = {}) => {
   return url.pathname + url.search + url.hash;
 };
 function ResourceEntry({ label, icon, logo, href, status, external = false, arrow = false }) {
-  const content = <>{logo ? <img className="rv-entry-logo" src={`/assets/resource-icons/${logo}.svg`} alt="" width="20" height="20" aria-hidden="true" /> : <Icon name={icon} size={20} />}<strong>{label}</strong>{status && <span className="rv-entry-status">{status}</span>}{href && (external || arrow) && <Icon className="rv-entry-arrow" name={external ? 'external' : 'arrow'} size={14} />}</>;
+  const content = <>{logo ? <img className="rv-entry-logo" src={`/assets/resource-icons/${logo}.svg`} alt="" width="20" height="20" aria-hidden="true" /> : <Icon name={icon} size={20} />}<strong>{label}</strong>{status && <span className="rv-entry-status">{status}</span>}{(external || (href && arrow)) && <Icon className="rv-entry-arrow" name={external ? 'external' : 'arrow'} size={14} />}</>;
   return href
     ? <a className="rv-entry" data-icon={logo || icon} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{content}</a>
     : <button className="rv-entry rv-entry-pending" data-icon={logo || icon} type="button" disabled>{content}</button>;
@@ -57,18 +57,19 @@ function ResearchDetails() {
           return <span key={name}>{name}<sup>{numbers}{role && <span className="rv-author-role">,{role}</span>}</sup></span>;
         })}</div><p className="rv-author-notes"><span className="rv-author-role">*</span> Equal contribution <span className="rv-note-separator">·</span> <span className="rv-author-role">†</span> Project leader <span className="rv-note-separator">·</span> <span className="rv-author-role">‡</span> Corresponding authors</p></dd>
         <dt>Affiliations</dt><dd><div className="rv-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div><div className="rv-institutions" aria-label="Institution logos">{INSTITUTION_LOGOS.map((file, index) => <img key={file} className={file === 'hku.png' ? 'rv-institution-hku' : undefined} src={`/assets/affiliations/${file}`} alt={AFFILIATIONS[index]} width="180" height="48" loading="eager" />)}</div></dd>
-        <dt className="rv-entry-label">Resources</dt><dd className="rv-release-grid">
-          <ResourceEntry label="Paper" icon="paper" status="Coming soon" />
-          <ResourceEntry label="arXiv" logo="arxiv" status="Coming soon" />
-          <ResourceEntry label="Code" logo="github" href="https://github.com/RoboValue-Benchmark/RoboValue" status="GitHub" external />
-          <ResourceEntry label="Dataset" icon="database" href="/data/" status="Coming soon" />
-        </dd>
-        <dt className="rv-entry-label">Explore</dt><dd className="rv-paper-links">
-          <ResourceEntry label="Leaderboard" icon="trophy" href="/leaderboard/" arrow />
-          <ResourceEntry label="Document" icon="book" href="/doc/" arrow />
-          <ResourceEntry label="Community" icon="conversation" href="/community/" arrow />
-        </dd>
       </dl>
+      <div className="rv-paper-entries" aria-label="Project links">
+        <div className="rv-release-grid">
+          <ResourceEntry label="Report" logo="arxiv" status="arXiv" external />
+          <ResourceEntry label="Document" icon="book" href="/doc/" arrow />
+          <ResourceEntry label="Code" logo="github" href="https://github.com/RoboValue-Benchmark/RoboValue" status="GitHub" external />
+          <ResourceEntry label="Dataset" icon="database" />
+        </div>
+        <div className="rv-paper-links">
+          <ResourceEntry label="Leaderboard" icon="trophy" href="/leaderboard/" arrow />
+          <ResourceEntry label="Community" icon="conversation" href="/community/" arrow />
+        </div>
+      </div>
     </div>
   </section>;
 }
@@ -90,7 +91,7 @@ function Introduction() {
         <p className="rv-reveal">Strong outcome discrimination and forward-progress correlation, however, can conceal errors in intermediate value judgments. Values may rise during reverse playback, rebound after unsuccessful recovery, or fail to reflect accumulated progress when similar visual states recur. These blind spots motivate a fine-grained assessment of feedback reliability.</p>
         <ZoomableFigure className="rv-overview-figure rv-reveal" title="Overview of RoboValue" src="/assets/overview-10-09.svg" alt="Overview of RoboValue: simulation and real-world data, shared interfaces, resources, and diagnostic designs across four capability dimensions" caption="Overview of RoboValue: unified evaluation of robotic value models across four complementary dimensions in simulation and the real world." />
         <p className="rv-reveal">To address these gaps, we introduce <strong className="rv-brand-name rv-brand-primary">RoboValue</strong>, a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. Its framework assesses four complementary capabilities through shared interfaces: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index > 0 && (index === GROUPS.length - 1 ? ', and ' : ', ')}<strong className="rv-capability-name" style={{ '--capability-color': `var(--rv-capability-${group.id}, ${group.color})` }}>{group.title.toLowerCase()}</strong></React.Fragment>)}. Diagnostic trajectories and instruction variations probe instruction grounding, history-dependent progress tracking, recovery assessment, and subtask value consistency across valid solutions.</p>
-        <p className="rv-reveal"><strong className="rv-brand-name">RoboValue-Dataset</strong> covers <strong className="rv-data-emphasis">15 simulation and 20 real-world manipulation tasks</strong>, with <strong className="rv-data-emphasis">3,500 expert demonstrations for training</strong> and a separate annotated test set of <strong className="rv-data-emphasis">2,792 trajectories</strong>. We establish <strong className="rv-brand-name">RoboValue-Leaderboard</strong> to compare models using overall scores and capability profiles, with separate rankings for zero-shot and one-shot evaluation. These evaluations cover standard conditions and separate shifts in robot embodiment and environment.</p>
+        <p className="rv-reveal"><strong className="rv-brand-name">RoboValue-Dataset</strong> covers <strong className="rv-data-emphasis">15 simulation and 20 real-world manipulation tasks</strong>. We establish <strong className="rv-brand-name">RoboValue-Leaderboard</strong> to compare models using overall scores and capability profiles, with separate rankings for zero-shot and one-shot evaluation. These evaluations cover standard conditions and separate shifts in robot embodiment and environment.</p>
       </div>
     </div>
   </section>;
@@ -130,7 +131,6 @@ function TaskGallery({ domain }) {
       </div>
       <div className="rv-gallery-viewport rv-reveal" id={galleryId} tabIndex={0} role="region" aria-label={`All ${items.length} ${name.toLowerCase()} tasks: ${CONDITIONS[condition]}`}><div className="rv-task-wall">{items.map(item => <TaskTile key={item.id} item={item} condition={condition} />)}</div></div>
       <div className="rv-suite-description rv-reveal">
-        <p>{simulation ? <>Our <strong>15 simulation tasks</strong> are adapted from RoboDojo, with trajectories collected in NVIDIA Isaac Sim. Alongside expert demonstrations, diagnostic trajectories test whether value models distinguish failure and recovery outcomes, track accumulated progress when similar visual states recur, and assign consistent subtask value gains across valid solutions.</> : <>Our <strong>20 real-world tasks</strong> bring the shared diagnostic protocol to physical robot execution. The collected trajectories capture real visual conditions and contact dynamics. Evaluation includes the standard setting and separate shifts in robot embodiment and environment, testing whether value judgments remain reliable across platforms and visual contexts.</>}</p>
         <p className="rv-task-context" aria-live="polite"><strong>{setting.robot}</strong><span className="rv-context-separator" aria-hidden="true">·</span><span>{setting.scene}</span></p>
         <a className="rv-text-link" href={`/doc/${domain}-tasks/catalog/`}>Explore all {items.length} {simulation ? 'simulation' : 'real-world'} tasks<Icon size={17} /></a>
       </div>

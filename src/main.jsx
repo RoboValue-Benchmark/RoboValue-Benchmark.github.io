@@ -32,8 +32,7 @@ function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false }) {
     ['/', 'Home'],
     ['/doc/', 'Document'],
     ['/leaderboard/', 'Leaderboard'],
-    ['/data/', 'Data'],
-    ['https://github.com/RoboValue-Benchmark/RoboValue', 'Code'],
+    ['/eval/', 'Eval'],
     ['/community/', 'Community'],
   ];
   const currentPath = window.location.pathname.replace(/\/?$/, '/');
@@ -105,6 +104,7 @@ function App() {
       break;
   }
   if (page?.kind === 'landing') return <Landing />;
+  if (page?.kind === 'evaluation-page') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main className="public-eval-page" id="main-content" tabIndex={-1}><h1>Eval</h1></main></div>;
   if (page?.kind === 'data-release') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main className="public-data-page" id="main-content" tabIndex={-1}><h1>Data</h1><p>Coming soon.</p></main></div>;
   if (page?.kind === 'leaderboard') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><Leaderboard /></div>;
   return <div className="docs-app docs-workspace">

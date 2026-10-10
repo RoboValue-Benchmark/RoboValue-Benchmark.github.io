@@ -4,6 +4,14 @@ Official public website for RoboValue. This repository is separate from the anon
 
 ## Marked versions
 
+### 2026-10-10 · xjy · Home resources and Eval navigation
+
+**Tag:** `v2026.10.10-xjy-home-resources-and-eval`
+
+Alternate simulation and real-world task frames in the opening background. Simplify the project links to Report, Document, Code, Dataset, Leaderboard, and Community, centered in one row on wide screens and wrapping on smaller screens. Remove the Resources/Explore labels and Paper button; leave Report and Dataset disabled until their links are available.
+
+Replace Data and Code in the shared navigation with Eval. Add `/eval/` with only its title. Shorten the dataset introduction and remove the explanatory paragraphs below both task galleries.
+
 ### 2026-10-10 · xjy · Responsive hero fix
 
 **Tag:** `v2026.10.10-xjy-responsive-hero-fix`
@@ -37,6 +45,7 @@ The earlier aligned paper-information version without the animated background is
 
 - `/`: paper and resource information over an animated task-frame background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; complete selected-track rankings; the shared evaluation framework; community access; and a citation placeholder.
 - `/doc/`: documentation, evaluation and integration guidance, and all simulation and real-world task pages.
+- `/eval/`: evaluation page, currently blank apart from its title.
 - `/community/`: WeChat group invitation with the existing time-limited QR image.
 - `/data/`: standalone dataset page, currently showing Coming soon.
 - `/leaderboard/`: Overall Ranking, Standard (ID), Cross-Embodiment, and Cross-Environment results with separate Zero-shot and One-shot tracks, sortable scores, CSV export, participation and scoring links, and separately reported SIA results.
@@ -64,4 +73,4 @@ npm run build
 
 The build generates real HTML entry files with page-specific titles, Open Graph titles, and canonical URLs so direct links and refreshes work on GitHub Pages. The GitHub Actions workflow deploys `dist/` when changes are pushed to `main`.
 
-Code links point to the official repository at `https://github.com/RoboValue-Benchmark/RoboValue`. Paper and arXiv links remain placeholders. Data opens a standalone Coming soon page until the dataset download is available.
+Code links point to the official repository at `https://github.com/RoboValue-Benchmark/RoboValue`. The homepage Report (arXiv) and Dataset buttons remain disabled until their destinations are available. The shared navigation is Home, Document, Leaderboard, Eval, and Community; the existing `/data/` placeholder remains accessible by its URL.
