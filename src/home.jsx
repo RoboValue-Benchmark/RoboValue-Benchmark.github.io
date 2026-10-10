@@ -10,6 +10,7 @@ import { useResults } from './use-results';
 import { useHomeReveal } from './use-home-reveal';
 import taskData from './data/tasks.json';
 import './home.css';
+import { INSTITUTIONS } from './project-info';
 
 const AUTHORS = [
   ['Shengbang Liu', '1,2,*'], ['Zhengye Du', '1,2,*'], ['Zhilong Wan', '1,2,*'], ['Honghao Su', '3,*'],
@@ -18,8 +19,8 @@ const AUTHORS = [
   ['Tianxing Chen', '3,6'], ['Chuankang Li', '2'], ['Maoqing Yao', '2'], ['Wenbo Ding', '1,3'],
   ['Yu Wang', '1'], ['Guanghui Ren', '2,‡'], ['Chao Yu', '1,‡'],
 ];
-const AFFILIATIONS = ['Tsinghua University', 'AgiBot', 'Xspark AI', 'Sun Yat-sen University', 'Peking University', 'The University of Hong Kong'];
-const INSTITUTION_LOGOS = ['tsinghua.svg', 'agibot.jpg', 'xspark.png', 'sun-yat-sen.png', 'peking.png', 'hku.png'];
+const AFFILIATIONS = INSTITUTIONS.map(([name]) => name);
+const INSTITUTION_LOGOS = INSTITUTIONS.map(([, file]) => file);
 const CONDITIONS = { id: 'Standard (ID)', emb: 'Embodiment shift', env: 'Environment shift' };
 const CONDITION_ORDER = Object.keys(CONDITIONS);
 const TASK_SETTINGS = {

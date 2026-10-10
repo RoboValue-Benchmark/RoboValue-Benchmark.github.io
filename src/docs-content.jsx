@@ -1,4 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Figure } from './benchmark';
+import { METRICS } from './benchmark-metrics';
+import { INSTITUTIONS } from './project-info';
+
+const OVERVIEW_METRICS = [
+  ['Task-State Understanding', [
+    ['sa', 'Do terminal values rank successful executions above unsuccessful ones?'],
+    ['tga_ct', 'Does the correct instruction yield more value gain than other task instructions?'],
+    ['tga_cf', 'Do edits to the required object, action, placement, or constraint reduce value gain?'],
+    ['sia', 'Can the model identify the current subtask?'],
+  ]],
+  ['Temporal Progress Monitoring', [
+    ['voc', 'Do values increase along a successful execution?'],
+    ['cycle_voc', 'Do values rise in forward replay and fall in reverse replay?'],
+    ['memory_voc', 'Do values track accumulated progress when similar visual states recur?'],
+  ]],
+  ['Failure and Recovery Reasoning', [
+    ['fpl', 'Does the largest value decline align with failure onset?'],
+    ['trr', 'Do value trends reflect failure, continued error, recovery attempts, and outcomes?'],
+  ]],
+  ['Value Consistency', [
+    ['vs', 'Do values avoid both spurious fluctuations and prolonged flatness?'],
+    ['csvc', 'Does the same subtask receive comparable gains across valid execution orders?'],
+  ]],
+];
+
+
 
 export function EvaluationWorkflow() {
   return <div className="doc-content">
@@ -57,12 +84,7 @@ export function EvaluationResults() {
 
 
 export const documentationSections = {
-  home: [
-    ['about-robovalue', 'About RoboValue'],
-    ['private-test-evaluation', 'Private-test evaluation'],
-    ['explore-documentation', 'Explore the documentation'],
-    ['citation', 'Citation'],
-  ],
+  home: [['about-robovalue', 'About RoboValue'], ['benchmark-overview', 'Overview'], ['overview-metrics', 'Metrics'], ['explore-documentation', 'Explore']],
   start: [
     ['recommended-path', 'Recommended reading path'],
     ['evaluation-responsibilities', 'Who does what'],
@@ -118,50 +140,42 @@ export function NextSteps({ links }) {
 }
 
 export function PageOutline({ sections }) {
-  return <aside className="page-outline" aria-label="On this page">
-    <p>On this page</p>
-    <nav aria-label="Page sections">{sections.map(([id, title]) => <a key={id} href={`#${id}`}>{title}</a>)}</nav>
+  const [activeId, setActiveId] = useState(sections[0]?.[0]);
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const update = () => {
+      const reached = sections.filter(([id]) => document.getElementById(id)?.getBoundingClientRect().top <= 180);
+      setActiveId((reached.at(-1) ?? sections[0])?.[0]);
+      setProgress(Math.min(100, Math.round(window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight) * 100)));
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update); };
+  }, [sections]);
+  return <aside className="page-outline" aria-label="Page sections">
+    <nav aria-label="Page sections">{sections.map(([id, title]) => <a key={id} href={`#${id}`} aria-current={activeId === id ? 'location' : undefined}>{title}</a>)}</nav>
+    <div className="reading-progress" aria-label={`Reading progress: ${progress}%`}><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="11" /><circle className="reading-progress-value" cx="14" cy="14" r="11" pathLength="100" strokeDasharray={`${progress} 100`} /></svg><span>{progress}%</span></div>
   </aside>;
 }
 
 export function DocumentationOverview() {
-  return <div className="doc-content">
-    <div className="doc-hero">
-      <div className="doc-eyebrow"><span className="doc-status-dot" /> Benchmark documentation</div>
-      <h2 className="doc-hero-title">Do value models understand<br className="desktop-break" /> robotic execution?</h2>
-      <p>Go beyond outcome prediction. Explore a fine-grained sim-and-real benchmark for task understanding, progress, failure and recovery, and value consistency.</p>
-      <div className="doc-actions">
-        <a className="doc-action-primary" href="/doc/get-started/">Get started <span aria-hidden="true">→</span></a>
-        <a className="doc-action-secondary" href="/doc/get-started/evaluation/">Evaluation workflow <span aria-hidden="true">↗</span></a>
-      </div>
-    </div>
-    <Section id="about-robovalue" title="Understand the feedback, not just the ranking">
-      <p>Strong outcome prediction does not guarantee reliable execution understanding. A value can rise during regression, rebound after an unsuccessful recovery, or miss different histories behind similar observations. RoboValue tests these gaps through four complementary capabilities.</p>
-      <div className="doc-capability-grid">
-        {[
-          ['01', 'Task-State Understanding', 'Does the judgment reflect the intended task and current subtask?'],
-          ['02', 'Temporal Progress Monitoring', 'Does it track progress, regression, and execution history?'],
-          ['03', 'Failure and Recovery Reasoning', 'Does it recognize errors and distinguish recovery attempts from outcomes?'],
-          ['04', 'Value Consistency', 'Is feedback stable and consistent across valid execution orders?'],
-        ].map(([number, title, description]) => <div key={number}><span className="doc-card-index">{number}</span><h3>{title}</h3><p>{description}</p></div>)}
-      </div>
-      <p>Scalar values, ordered comparisons, and subtask descriptions connect heterogeneous models to shared metrics while preserving their native value semantics. Read <a href="/doc/get-started/protocol/">Protocol &amp; Metrics</a> for the scoring rules.</p>
+  return <div className="doc-content doc-overview">
+    <header className="doc-project-heading"><img src="/assets/robovalue-logo.png" alt="RoboValue" width="240" /><h1>RoboValue: A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models</h1></header>
+    <div className="doc-affiliations" aria-label="Participating institutions">{INSTITUTIONS.map(([name, file]) => <figure key={name}><img src={`/assets/affiliations/${file}`} alt="" loading="eager" /><figcaption>{name}</figcaption></figure>)}</div>
+    <Section id="about-robovalue" title="What should a value model understand?">
+      <p>A robot drops an object, reaches for it again, then continues without retrieving it. The retry is a recovery attempt; the unresolved error is its outcome. A useful value signal should distinguish the two. Recognizing success alone is not enough: a model may still miss a changed instruction, lose count of repeated actions, or assign different gains to the same subtask in different valid orders.</p>
+      <p><strong>RoboValue is a fine-grained benchmark for understanding what robotic value models recognize—and what they miss.</strong> These models turn observations and instructions into feedback for data selection, policy improvement, and execution monitoring. RoboValue looks beyond final success to examine whether that feedback follows the task as it unfolds: what has been completed, what went wrong, and whether a correction actually worked.</p>
+      <p>The benchmark examines four complementary capabilities: <strong>Task-State Understanding</strong>, <strong>Temporal Progress Monitoring</strong>, <strong>Failure and Recovery Reasoning</strong>, and <strong>Value Consistency</strong>. Together, they ask whether a model understands the instructed task and current subtask, tracks progress and regression, distinguishes recovery attempts from outcomes, and produces stable feedback with comparable subtask gains across valid solutions.</p>
+      <p>The benchmark spans simulation and real-world manipulation. Successful executions establish progress ordering; diagnostic trajectories expose specific blind spots. Failure-and-recovery branches separate continued error from successful and unsuccessful corrections. Repeated actions revisit similar images at different stages of completion, making history relevant. Alternative valid subtask orders test whether the same work receives comparable gains. Instruction edits hold the execution fixed while changing what counts as success, and forward–reverse replay separates execution direction from elapsed time.</p>
+      <p>Model-specific adapters expose scalar values, pairwise comparisons, and supported subtask descriptions while retaining each model’s native output semantics. Evaluation separates the standard setting from changes in embodiment and environment. The protocol distinguishes Zero-Shot, One-Shot, and Full-Shot tracks; the published results currently cover Zero-Shot and One-Shot. Training demonstrations support adaptation, while the held-out test trajectories remain private and are evaluated by the RoboValue team.</p>
     </Section>
-    <Section id="private-test-evaluation" title="A clear boundary between training and testing">
-      <PrivateTestNotice />
-      <p>The RoboValue team supplies One-Shot references on the evaluation side. Participants may download the training set for Full-Shot fine-tuning. Test trajectories and annotations remain private.</p>
+    <Section id="benchmark-overview" title="Benchmark overview"><Figure src="/assets/overview-10-09.webp" alt="RoboValue overview: sim-and-real data, shared model interfaces, and four complementary evaluation capabilities" /></Section>
+    <Section id="overview-metrics" title="What each metric asks">
+      <div className="doc-table-scroll" tabIndex={0} role="region" aria-label="Evaluation metrics"><table className="doc-overview-metrics"><thead><tr><th scope="col">Capability</th><th scope="col">Metric</th><th scope="col">Key question</th></tr></thead><tbody>{OVERVIEW_METRICS.map(([capability, metrics]) => metrics.map(([key, question], index) => <tr key={key}>{index === 0 && <th scope="rowgroup" rowSpan={metrics.length}>{capability}</th>}<th scope="row"><a href={`/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`}>{key === 'sia' ? 'SIA' : METRICS[key].label}</a></th><td>{question}</td></tr>))}</tbody></table></div>
+      <p className="doc-metric-note">Read these tests together. Cycle-VOC probes elapsed-time shortcuts in VOC and Memory-VOC; VS and CSVC assess consistency, not the correctness of progress direction.</p>
     </Section>
-    <Section id="explore-documentation" title="Choose your next step">
-      <div className="doc-reading-cards">
-        {[
-          ['/doc/get-started/data/', 'Dataset Overview&Download', 'Find the training-data download entry and learn about training and evaluation trajectories.'],
-          ['/doc/get-started/evaluation/', 'Evaluation Workflow', 'Follow model submission, closed-source service integration, and organizer-run evaluation step by step.'],
-          ['/doc/get-started/protocol/', 'Understand the metrics', 'Four capability dimensions, score directions, eligibility, and result interpretation.'],
-          ['/doc/simulation-tasks/', 'Browse the tasks', 'Explore the simulation catalog, then visit the real-world task collection.'],
-        ].map(([path, title, description]) => <a key={path} href={path}><span className="doc-reading-card-title">{title}<span aria-hidden="true">→</span></span><p>{description}</p></a>)}
-      </div>
-    </Section>
-    <Section id="citation" title="Cite our work"><p>Citation details will be added when the publication link is available.</p></Section>
+    <div id="explore-documentation"><NextSteps links={[["/doc/get-started/", 'Get started'], ["/doc/get-started/data/", 'Dataset Overview&Download'], ["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/diagnostic-trajectories/", 'Diagnostic Trajectories']]} /></div>
   </div>;
 }
 

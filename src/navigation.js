@@ -39,8 +39,11 @@ export const navigation = [
     { path: '/doc/real-world-tasks/catalog/', title: 'Task Catalog', kind: 'catalog', domain: 'real-world' },
     ...taskPages('real-world'),
   ] },
-  { title: 'Diagnostic Trajectories', pages: [{ path: '/doc/diagnostic-trajectories/', title: 'Diagnostic Trajectories', kind: 'diagnostics' }] },
-  { title: 'Community', pages: [{ path: '/community/', title: 'Community', kind: 'community' }] },
+  { title: 'Diagnostic Trajectories', pages: [{ path: '/doc/diagnostic-trajectories/', title: 'Diagnostic Trajectories', kind: 'diagnostics', children: [
+    { path: '/doc/diagnostic-trajectories/failure-and-recovery/', title: 'Failure and Recovery', kind: 'diagnostic-category', category: 'diagnostic-failure-recovery', anchors: ['diagnostic-failure-recovery'] },
+    { path: '/doc/diagnostic-trajectories/long-horizon/', title: 'Long-Horizon Temporal', kind: 'diagnostic-category', category: 'diagnostic-long-horizon', anchors: ['diagnostic-long-horizon'] },
+    { path: '/doc/diagnostic-trajectories/multi-solution/', title: 'Multi-Solution', kind: 'diagnostic-category', category: 'diagnostic-multi-solution', anchors: ['diagnostic-multi-solution'] },
+  ] }] },
 ];
 function flattenPages(page, group, parent) {
   const current = { ...page, group, parent };
@@ -54,5 +57,6 @@ export const pages = [
   { path: '/data/', title: 'Data', kind: 'data-release', group: 'Data' },
   { path: '/eval/', title: 'Eval', kind: 'evaluation-page', group: 'Eval' },
   ...navigationPages,
+  { path: '/community/', title: 'Community', kind: 'community', group: 'Community' },
   { path: '/leaderboard/', title: 'Leaderboard', kind: 'leaderboard', group: 'Leaderboard' },
 ];
