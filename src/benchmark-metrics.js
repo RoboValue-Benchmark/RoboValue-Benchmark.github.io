@@ -21,4 +21,4 @@ METRICS.overall = { label: 'Overall', name: 'Overall score', description: 'Mean 
 for (const group of GROUPS) METRICS[group.id] = { label: group.short, name: group.title, description: group.title + ' aggregate score from Table 1.' };
 export const scoreValue = (row, condition, key) => condition === 'aggregate' ? row.aggregate?.[key] : row.conditions?.[condition]?.[key];
 export const excludedHighlight = (row, key) => row.name === 'TOPReward' && ['voc', 'memory_voc'].includes(key);
-export const CONDITIONS = { aggregate: 'Overall Ranking', id: 'Standard (ID)', emb: 'Cross-Embodiment', env: 'Cross-Environment' };
+export const CONDITIONS = { aggregate: 'Overall Ranking', id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment' };

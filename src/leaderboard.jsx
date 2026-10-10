@@ -31,7 +31,7 @@ function Score({ value, highlight, excluded, overall = false }) {
 function SubtaskResults({ track }) {
   const rows = subtaskData.rows.filter(row => row.setting === track);
   const columns = ['id', 'emb', 'env', 'overall'];
-  const labels = { id: 'Standard (ID)', emb: 'Cross-Embodiment', env: 'Cross-Environment', overall: 'Mean' };
+  const labels = { id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment', overall: 'Mean' };
   const highlights = Object.fromEntries(columns.map(key => {
     const values = [...new Set(rows.map(row => key === 'overall' ? row.overall : row.conditions[key]))].sort((a, b) => b - a);
     return [key, { best: values[0], second: values[1] }];
@@ -105,7 +105,7 @@ export function Leaderboard() {
       </div></div>
       <div className="lb-table-legend"><span><b>Best</b> · <span className="lb-second">Second best</span> · {ranked ? '0–100, higher is better' : 'Scores ×100; FPL ↓, others ↑; — not reported'}</span>{view.sort && <button onClick={() => update({ sort: null })}>Reset {ranked ? 'ranking' : 'order'}</button>}</div>
       <div className="lb-result-notes">
-        {ranked ? <p>Overall is the mean of the four capability scores, aggregated across applicable ID and OOD conditions. Zero-shot and one-shot are ranked separately; simulation and real-world domains receive equal weight.</p> : <p>Simulation and real-world domains receive equal weight.{view.condition !== 'id' && ' TRR and CSVC are evaluated only in the standard (ID) setting.'}{view.track === 'zero' && ' § TOPReward’s VOC and Memory-VOC are excluded from best/second-best marking, following the paper.'}</p>}
+        {ranked ? <p>Overall is the mean of the four capability scores, aggregated across applicable ID and OOD conditions. Zero-shot and one-shot are ranked separately; simulation and real-world domains receive equal weight.</p> : <p>Simulation and real-world domains receive equal weight.{view.condition !== 'id' && ' TRR and CSVC are evaluated only in the standard setting.'}{view.track === 'zero' && ' § TOPReward’s VOC and Memory-VOC are excluded from best/second-best marking, following the paper.'}</p>}
         <p>{view.track === 'zero' ? <>‡ TOPReward uses Qwen3-VL-8B. {ranked ? 'RoboReward’s unmeasured VS and CSVC count as zero in aggregate scoring.' : 'RoboReward’s VS and CSVC are not measured.'}</> : 'Preview identifies the Robo-Dopamine 2.0 checkpoints.'}</p>
       </div>
       <div className="lb-source-row"><span>Source: Table {sourceTable} · {data?.sourceVersion || '2026-10-09'} manuscript</span><a href="/doc/get-started/protocol/">Scoring & metrics <Icon size={14} /></a></div>
