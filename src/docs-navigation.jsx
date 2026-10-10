@@ -15,8 +15,8 @@ function PageLink({ entry, path }) {
 }
 
 function PageTree({ entries, path, filter, activePaths }) {
-  return entries.map(entry => entry.children ? <details key={`${entry.path}-${!!filter}`} className="nav-group nav-branch" open={!!filter || activePaths.has(entry.path)}>
-    <summary><span><a href={entry.path} aria-current={entry.path === path ? 'page' : undefined}>{entry.title}</a></span></summary>
+  return entries.map(entry => entry.children ? <details key={`${entry.path ?? entry.title}-${!!filter}`} className="nav-group nav-branch" open={!!filter || activePaths.has(entry.path) || entry.children.some(child => activePaths.has(child.path))}>
+    <summary><span>{entry.path ? <a href={entry.path} aria-current={entry.path === path ? 'page' : undefined}>{entry.title}</a> : entry.title}</span></summary>
     <div className="nav-subpages"><PageTree entries={entry.children} path={path} filter={filter} activePaths={activePaths} /></div>
   </details> : <PageLink key={entry.path} entry={entry} path={path} />);
 }
@@ -30,7 +30,7 @@ export function DocumentationNavigation({ path, page, query }) {
     if (group.pages.length === 1) return <div className="nav-single" key={group.title}><PageTree entries={group.visible} path={path} filter={filter} activePaths={activePaths} /></div>;
     const tasks = group.visible.filter(entry => entry.kind === 'task');
     const taskCount = group.pages.filter(entry => entry.kind === 'task').length;
-    return <details key={`${group.title}-${!!filter}`} className="nav-group" open={!!filter || group.title === 'Get Started' || page?.group === group.title}>
+    return <details key={`${group.title}-${!!filter}`} className="nav-group" open={!!filter || group.title === 'Usage' || page?.group === group.title}>
       <summary><span>{group.title}</span></summary>
       <div><PageTree entries={group.visible.filter(entry => entry.kind !== 'task')} path={path} filter={filter} activePaths={activePaths} />{tasks.length > 0 && <div className="nav-task-list"><p className="nav-task-heading">Tasks <span className="nav-count">{taskCount}</span></p><PageTree entries={tasks} path={path} filter={filter} activePaths={activePaths} /></div>}</div>
     </details>;
