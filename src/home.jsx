@@ -124,7 +124,7 @@ function TaskGallery({ domain }) {
   const changeCondition = direction => setCondition(current => CONDITION_ORDER[(CONDITION_ORDER.indexOf(current) + direction + CONDITION_ORDER.length) % CONDITION_ORDER.length]);
   return <section className={`rv-task-suite rv-${simulation ? 'simulation' : 'real'}-suite`} id={simulation ? 'tasks' : 'real-world'} aria-labelledby={`${domain}-title`}>
     <div className="rv-container">
-      <div className="rv-centered-heading rv-reveal"><p className="rv-eyebrow">{simulation ? 'SIMULATION' : 'REAL WORLD'}</p><h2 id={`${domain}-title`}>RoboValue {simulation ? 'Simulation' : 'Real-World'} Tasks</h2></div>
+      <div className="rv-centered-heading rv-reveal"><p className="rv-eyebrow">DATASET</p><h2 id={`${domain}-title`}>RoboValue {simulation ? 'Simulation' : 'Real-World'} Tasks</h2></div>
       <div className="rv-condition-controls rv-reveal">
         <button className="rv-condition-arrow" type="button" aria-label={`Previous ${name.toLowerCase()} condition`} aria-controls={galleryId} onClick={() => changeCondition(-1)}><Icon className="rv-previous" name="chevron" size={20} /></button>
         <div className="rv-condition-switch" role="group" aria-label={`${name} viewing condition`}>{Object.entries(CONDITIONS).map(([id, label]) => <button type="button" key={id} aria-pressed={condition === id} aria-controls={galleryId} onClick={() => setCondition(id)}>{label}</button>)}</div>
