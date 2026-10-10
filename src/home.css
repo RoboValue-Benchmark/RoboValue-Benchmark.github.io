@@ -62,7 +62,7 @@
   min-height: calc(100svh - var(--rv-header-space));
   padding: clamp(36px, 6vh, 88px) 0;
   padding-block: clamp(36px, 6svh, 88px);
-  color: var(--rv-ink); background: #f7f8fc; scroll-margin-top: 110px;
+  color: var(--rv-ink); background: #efe9f8; scroll-margin-top: 110px;
 }
 .rv-paper > .rv-container { position: relative; }
 .rv-hero-backdrop { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -70,7 +70,7 @@
 .rv-hero-row { display: flex; width: max-content; animation: rv-hero-drift var(--row-duration) linear infinite; will-change: transform; }
 .rv-hero-row:nth-child(even) { animation-direction: reverse; }
 .rv-hero-row-group { display: flex; flex: 0 0 auto; gap: 12px; padding-right: 12px; }
-.rv-hero-scene { flex: 0 0 auto; width: clamp(128px, 10.5vw, 164px); aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid #68768e29; border-radius: 10px; background: #e6eaf1; box-shadow: 0 3px 9px #17234110, inset 0 1px 0 #ffffff66; }
+.rv-hero-scene { flex: 0 0 auto; width: clamp(128px, 10.5vw, 164px); aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid #8d77b52e; border-radius: 10px; background: #e8e0f1; box-shadow: 0 3px 9px #60428f12, inset 0 1px 0 #ffffff66; }
 .rv-hero-scene img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.85) contrast(.95); }
 /* Crop the real-world thumbnails' letterboxing for the background tiles. */
 .rv-hero-row-real .rv-hero-scene img { transform: scale(1.2); }

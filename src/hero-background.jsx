@@ -10,7 +10,7 @@ const SIMULATION_SCENES = [
 const REAL_WORLD_SCENES = taskData.tasks
   .filter(task => task.domain === 'real-world')
   .map(task => task.images.id);
-const ROW_DURATIONS = [180, 215, 195, 230, 205, 220, 190, 240];
+const ROW_DURATION = 210;
 
 export function HeroBackground() {
   const wall = useRef(null);
@@ -46,12 +46,11 @@ export function HeroBackground() {
     <div ref={wall} className={`rv-hero-backdrop${paused || !visible || !tabVisible ? ' is-paused' : ''}`} aria-hidden="true">
       <div className="rv-hero-wall">
         {Array.from({ length: rowCount }, (_, row) => {
-          const duration = ROW_DURATIONS[row % ROW_DURATIONS.length];
           const realWorld = row % 2 !== 0;
           const pool = realWorld ? REAL_WORLD_SCENES : SIMULATION_SCENES;
           const offset = Math.floor(row / 2) * 5;
           const scenes = Array.from({ length: columnCount }, (_, index) => pool[(index + offset) % pool.length]);
-          return <div className={`rv-hero-row${realWorld ? ' rv-hero-row-real' : ''}`} key={row} style={{ '--row-duration': `${duration}s` }}>
+          return <div className={`rv-hero-row${realWorld ? ' rv-hero-row-real' : ''}`} key={row} style={{ '--row-duration': `${ROW_DURATION}s` }}>
             {[0, 1].map(copy => <div className="rv-hero-row-group" key={copy}>
               {scenes.map((scene, index) => <div className="rv-hero-scene" key={`${scene}-${index}`}>
                 <img src={scene} alt="" width="320" height="240" decoding="async" fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
