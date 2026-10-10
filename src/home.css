@@ -184,8 +184,6 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
 .rv-task-tile span svg { flex-shrink: 0; }
 .rv-task-tile:hover > span, .rv-task-tile:focus-visible > span { opacity: 1; }
 .rv-task-tile:hover img { transform: scale(1.035); }
-.rv-real-suite .rv-task-tile img { transform: scale(1.2); }
-.rv-real-suite .rv-task-tile:hover img { transform: scale(1.235); }
 .rv-suite-description { max-width: 810px; text-align: center; margin: 32px auto 0; font-size: 15px; color: var(--rv-muted); }
 .rv-suite-description strong { color: var(--rv-ink); font-weight: 500; }
 .rv-task-context { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 13px; margin-top: 18px; }

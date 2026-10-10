@@ -2205,5 +2205,12 @@
     }
   ],
   "sourceVersion": "2026-10-07",
-  "sourcePageCount": 90
+  "sourcePageCount": 90,
+  "catalogSource": {
+    "format": "LaTeX task cards",
+    "files": {
+      "simulation": "RoboValue_Sim_Overleaf/RoboValue_Sim_Compact_content.tex",
+      "real-world": "RoboValue_Real_Overleaf4/RoboValue_Real_Compact_content.tex"
+    }
+  }
 }
