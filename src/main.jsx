@@ -14,7 +14,7 @@ import { CommunityPage } from './community';
 import { EvaluationPage } from './eval';
 import './public-site.css';
 import './reading-theme.css';
-import { DocumentationOverview, GetStarted, DatasetOverview, EvaluationWorkflow, EvaluationResults, SubmitModel, PageOutline, documentationSections } from './docs-content';
+import { DocumentationOverview, GetStarted, DatasetOverview, DatasetDownload, EvaluationWorkflow, EvaluationResults, SubmitModel, PageOutline, documentationSections } from './docs-content';
 import { ProtocolGuide, EvaluationProtocol, MetricsReference, MetricGuide, protocolSections } from './docs-protocol';
 import { DiagnosticTrajectories, DiagnosticCategory, diagnosticSections } from './docs-diagnostics';
 
@@ -79,7 +79,7 @@ function App() {
     localStorage.setItem('robovalue-sidebar', sidebarCollapsed ? 'collapsed' : 'expanded');
   }, [sidebarCollapsed]);
   useEffect(() => {
-    if (!['protocol', 'metrics', 'diagnostics'].includes(page?.kind)) return;
+    if (!['protocol', 'metrics', 'diagnostics', 'data', 'data-download'].includes(page?.kind)) return;
     const followAnchor = () => {
       const child = documentationPages.find(candidate => candidate.path !== page.path && candidate.anchors?.includes(window.location.hash.slice(1)));
       if (child) window.location.replace(child.kind === 'diagnostic-category' ? child.path : `${child.path}${window.location.hash}`);
@@ -105,6 +105,7 @@ function App() {
     case 'home': content = <DocumentationOverview />; break;
     case 'start': content = <GetStarted />; break;
     case 'data': content = <DatasetOverview />; break;
+    case 'data-download': content = <DatasetDownload />; break;
     case 'evaluation': content = <EvaluationWorkflow />; break;
     case 'evaluation-results': content = <EvaluationResults />; break;
     case 'submission': content = <SubmitModel />; break;

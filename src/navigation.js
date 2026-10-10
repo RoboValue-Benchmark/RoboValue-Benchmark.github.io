@@ -16,16 +16,19 @@ export const metricPages = GROUPS.flatMap(group => {
 
 export const navigation = [
   { title: 'Home', pages: [{ path: '/doc/', title: 'RoboValue', kind: 'home' }] },
-  { title: 'Get Started', pages: [
+  { title: 'Usage', pages: [
     { path: '/doc/get-started/', title: 'Quick Start', kind: 'start' },
-    { path: '/doc/get-started/data/', title: 'Dataset Overview & Download', kind: 'data' },
-    { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation', children: [
-      { path: '/doc/get-started/adapters/', title: 'Submit a Model', kind: 'submission' },
-      { path: '/doc/model-api/', title: 'Service & Adapter', kind: 'integration' },
-      { path: '/doc/get-started/evaluation/results/', title: 'Evaluation & Results', kind: 'evaluation-results' },
+    { title: 'Dataset', children: [
+      { path: '/doc/get-started/data/', title: 'Overview', kind: 'data' },
+      { path: '/doc/get-started/data/download/', title: 'Download', kind: 'data-download', anchors: ['dataset-training'] },
     ] },
-    { path: '/doc/get-started/protocol/', title: 'Protocol & Metrics', kind: 'protocol', children: [
-      { path: '/doc/get-started/protocol/evaluation/', title: 'Evaluation Protocol', kind: 'evaluation-protocol', anchors: ['protocol-settings', 'protocol-coverage', 'protocol-results', 'protocol-provenance'] },
+    { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation', children: [
+      { path: '/doc/get-started/adapters/', title: 'Submission', kind: 'submission' },
+      { path: '/doc/model-api/', title: 'Integration', kind: 'integration' },
+      { path: '/doc/get-started/evaluation/results/', title: 'Results', kind: 'evaluation-results' },
+    ] },
+    { path: '/doc/get-started/protocol/', title: 'Protocol', kind: 'protocol', children: [
+      { path: '/doc/get-started/protocol/evaluation/', title: 'Evaluation Protocol', kind: 'evaluation-protocol', anchors: ['protocol-evaluation', 'protocol-settings', 'dataset-references', 'protocol-coverage', 'protocol-trajectories', 'protocol-inference', 'protocol-integrity', 'protocol-results', 'protocol-provenance'] },
       { path: '/doc/get-started/protocol/metrics/', title: 'Metrics Reference', kind: 'metrics', anchors: GROUPS.map(group => `protocol-${group.id}`), children: metricPages },
     ] },
   ] },
@@ -40,12 +43,13 @@ export const navigation = [
     ...taskPages('real-world'),
   ] },
   { title: 'Diagnostic Trajectories', pages: [{ path: '/doc/diagnostic-trajectories/', title: 'Diagnostic Trajectories', kind: 'diagnostics', children: [
-    { path: '/doc/diagnostic-trajectories/failure-and-recovery/', title: 'Failure and Recovery', kind: 'diagnostic-category', category: 'diagnostic-failure-recovery', anchors: ['diagnostic-failure-recovery'] },
-    { path: '/doc/diagnostic-trajectories/long-horizon/', title: 'Long-Horizon Temporal', kind: 'diagnostic-category', category: 'diagnostic-long-horizon', anchors: ['diagnostic-long-horizon'] },
+    { path: '/doc/diagnostic-trajectories/failure-and-recovery/', title: 'Failure–Recovery', kind: 'diagnostic-category', category: 'diagnostic-failure-recovery', anchors: ['diagnostic-failure-recovery'] },
+    { path: '/doc/diagnostic-trajectories/long-horizon/', title: 'Long-Horizon', kind: 'diagnostic-category', category: 'diagnostic-long-horizon', anchors: ['diagnostic-long-horizon'] },
     { path: '/doc/diagnostic-trajectories/multi-solution/', title: 'Multi-Solution', kind: 'diagnostic-category', category: 'diagnostic-multi-solution', anchors: ['diagnostic-multi-solution'] },
   ] }] },
 ];
 function flattenPages(page, group, parent) {
+  if (!page.path) return page.children.flatMap(child => flattenPages(child, group, parent));
   const current = { ...page, group, parent };
   return [current, ...(page.children ?? []).flatMap(child => flattenPages(child, group, current))];
 }

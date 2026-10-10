@@ -11,7 +11,7 @@
 - **Community**：去掉文档侧栏，公开展示 WeChat 和 Discord 入口；同步 Home 的社区区域与箭头样式。
 - **Eval**：保留 Team Name、Organization、Model Name、Email 四项必填信息，不设置 Evaluation Type。Phone、WeChat、Discord 至少填写一项，允许同时填写多项，切换时保留输入；默认显示 WeChat，电话框提示国家区号。必填星号为红色，前后端均校验输入。微信群与 Discord 在提交前公开展示，保存成功后显示 Application Submitted，并提供 Get Started 链接。
 - **夜间模式**：Home 的 News、Citation、视频占位框及榜单使用深色样式，保留榜单边框和圆角。Overview 保留原图颜色和白底，并裁切为圆角。Home 与 Leaderboard 的模型图标增加仅在深色模式显示的白色衬底，保持原资源、颜色和尺寸。
-- **文档**：本轮本地调整只修正明显的文字格式，如 `Dataset Overview & Download` 的空格；同步保留远程已有的文档更新。
+- **文档**：同步远程最新文档更新，保留其目录结构、Dataset Overview / Download 拆分、标题及阅读指南修订。
 
 ## 背景墙
 

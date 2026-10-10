@@ -5,7 +5,7 @@ import { METRICS } from './benchmark-metrics';
 
 const diagnosticGroups = [
   {
-    id: 'diagnostic-failure-recovery', title: 'Failure and Recovery Trajectories',
+    id: 'diagnostic-failure-recovery', title: 'Failure–Recovery',
     description: 'Start from an execution error, then contrast leaving it unresolved, correcting it, and trying to correct it without success.',
     slug: 'failure-and-recovery', question: 'A recovery attempt is not a recovery outcome.',
     pattern: 'An execution error creates three distinct paths: the robot continues without fixing it, makes a successful correction, or tries to recover but leaves the error unresolved. The difference lies in both the response and its outcome—not simply whether the robot moves again.',
@@ -21,7 +21,7 @@ const diagnosticGroups = [
     ],
   },
   {
-    id: 'diagnostic-long-horizon', title: 'Long-Horizon Temporal Trajectories',
+    id: 'diagnostic-long-horizon', title: 'Long-Horizon',
     description: 'A fifth button press can look like the first. The completed work differs even when the image barely changes.',
     slug: 'long-horizon', question: 'The same-looking state can mean different progress.',
     pattern: 'Pressing a button, striking a drum, or operating drawers can bring the robot back to a familiar-looking state. That state may follow one completed action or several. These successful trajectories revisit similar observations while the amount of completed work changes.',
@@ -54,7 +54,7 @@ const diagnosticGroups = [
   },
 ];
 
-export const diagnosticSections = [['trajectory-pattern', 'Trajectory pattern'], ['tested-capability', 'What this tests'], ['diagnostic-examples', 'Video examples']];
+export const diagnosticSections = [['trajectory-pattern', 'Trajectory Pattern'], ['tested-capability', 'Capability'], ['diagnostic-examples', 'Video Examples']];
 
 export function DiagnosticTrajectories() {
   return <div className="doc-content">
@@ -68,15 +68,15 @@ export function DiagnosticCategory({ category }) {
   const group = diagnosticGroups.find(candidate => candidate.id === category);
   return <div className="doc-content" id={group.id}>
     <p className="doc-lead">{group.question}</p>
-    <Section id="trajectory-pattern" title="Trajectory pattern"><p>{group.pattern}</p>{group.id === 'diagnostic-failure-recovery' && <dl className="doc-definition-list"><div><dt>Error Continuation</dt><dd>The robot proceeds without correcting the execution error.</dd></div><div><dt>Effective Recovery</dt><dd>Corrective actions resolve the error.</dd></div><div><dt>Ineffective Recovery</dt><dd>The robot attempts a correction but does not resolve the error before continuing.</dd></div></dl>}</Section>
-    <Section id="tested-capability" title="What this tests"><p>{group.capability}</p><p>{group.evidence}</p><div className="diagnostic-metrics">{group.metrics.map(key => <a key={key} href={`/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`}>{METRICS[key].label}<span aria-hidden="true">↗</span></a>)}</div></Section>
-    <Section id="diagnostic-examples" title="Video examples">
+    <Section id="trajectory-pattern" title="Trajectory Pattern"><p>{group.pattern}</p>{group.id === 'diagnostic-failure-recovery' && <dl className="doc-definition-list"><div><dt>Error Continuation</dt><dd>The robot proceeds without correcting the execution error.</dd></div><div><dt>Effective Recovery</dt><dd>Corrective actions resolve the error.</dd></div><div><dt>Ineffective Recovery</dt><dd>The robot attempts a correction but does not resolve the error before continuing.</dd></div></dl>}</Section>
+    <Section id="tested-capability" title="Capability"><p>{group.capability}</p><p>{group.evidence}</p><div className="diagnostic-metrics">{group.metrics.map(key => <a key={key} href={`/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`}>{METRICS[key].label}<span aria-hidden="true">↗</span></a>)}</div></Section>
+    <Section id="diagnostic-examples" title="Video Examples">
       {group.examples.map(example => {
         const task = tasks.find(candidate => candidate.id === example.taskId);
         const videos = example.sources.map((src, index) => ({ src, label: group.labels[index] }));
         return <div className="diagnostic-example" key={example.taskId}><h3><a href={taskPath(task)}>{task.title}</a><span className="diagnostic-domain">{task.domain === 'simulation' ? 'Simulation' : 'Real-World'}</span></h3><VideoGallery videos={videos} title={task.title} /></div>;
       })}
     </Section>
-    <NextSteps links={[["/doc/diagnostic-trajectories/", 'All diagnostic trajectories'], ["/doc/get-started/protocol/metrics/", 'Metrics Reference']]} />
+    <NextSteps links={[["/doc/diagnostic-trajectories/", 'Diagnostic Trajectories'], ["/doc/get-started/protocol/metrics/", 'Metrics Reference']]} />
   </div>;
 }
