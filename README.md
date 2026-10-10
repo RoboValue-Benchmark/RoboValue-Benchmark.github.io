@@ -52,7 +52,7 @@ The earlier aligned paper-information version without the animated background is
 
 ## Results and sources
 
-The homepage introduction, overview figure, and leaderboard source metadata follow the October 9, 2026 manuscript. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. The Full-Data track remains planned.
+The homepage introduction, overview figure, and leaderboard source metadata follow the October 9, 2026 manuscript. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. The Full-Shot track remains planned.
 
 Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the full-leaderboard link retains that track. Official project logos take priority over institution fallbacks.
 
