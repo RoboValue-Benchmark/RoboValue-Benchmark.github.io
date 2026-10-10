@@ -50,7 +50,7 @@ function ResourceEntry({ label, icon, logo, href, status, external = false, arro
 function ResearchDetails() {
   return <section className="rv-paper" id="paper" aria-labelledby="paper-title">
     <HeroBackground />
-    <div className="rv-container rv-narrow">
+    <div className="rv-container rv-paper-panel">
       <h1 id="paper-title">RoboValue: A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models</h1>
       <dl className="rv-paper-details">
         <dt>Authors</dt><dd><div className="rv-authors" aria-label="Authors">{AUTHORS.map(([name, affiliation]) => {

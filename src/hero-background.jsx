@@ -60,7 +60,6 @@ export function HeroBackground() {
         })}
       </div>
       <div className="rv-hero-wash" />
-      <div className="rv-hero-reading" />
     </div>
     <button className="rv-backdrop-toggle" type="button" onClick={() => setPaused(value => !value)} aria-pressed={paused} aria-label={paused ? 'Resume background motion' : 'Pause background motion'} title={paused ? 'Resume background motion' : 'Pause background motion'}>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
