@@ -19,9 +19,9 @@ const predictionExample = `    def value(self, queries: Sequence[ValueQuery]) ->
 export const adapterSections = [
   ['adapter-service', 'Provide your service'],
   ['adapter-interfaces', 'Implement your adapter'],
-  ['adapter-example', 'Reference adapter'],
+  ['adapter-example', 'Adapter examples'],
   ['adapter-handoff', 'Handoff checklist'],
-  ['adapter-access', 'References and access'],
+  ['adapter-access', 'Settings and test access'],
 ];
 
 const pythonTokens = /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:class|def|from|import|return|for|in|if|else|True|False|None)\b)|(?<type>\b(?:ValueQuery|CompareQuery|SubtaskQuery|Sequence|Image|list|float|str)\b)|(?<function>\b[a-zA-Z_]\w*(?=\())|(?<number>\b\d+(?:\.\d+)?\b)|(?<punctuation>[()[\]{}:.,])/g;
@@ -78,8 +78,14 @@ export function ServiceAdapter() {
       <p>Each method accepts a batch of queries and returns one prediction per query in the same order. Implement only the methods your model supports, preserving native units and score direction. Use the existing <code>V(b) − V(a)</code> helper only if that difference matches your model’s comparison semantics; otherwise implement its native comparison. The RoboValue team’s judge scores subtask descriptions.</p>
       <p>Keep the history your model needs. Memory-dependent inputs retain the necessary prefix; Cycle-VOC uses a continuous forward/backward timeline with a shared turn, not a freshly reset reverse segment.</p>
     </Section>
-    <Section id="adapter-example" title="3. Start from the reference adapter">
-      <p>Read the <a href={`${sourceRoot}/src/vmbmk/adapters/base.py`}>adapter interface</a> and the <a href={`${sourceRoot}/src/vmbmk/adapters/mock_service.py`}>complete CPU mock adapter</a>. These excerpts come from the published implementation, not a new service specification.</p>
+    <Section id="adapter-example" title="3. Start from an existing adapter">
+      <p>Read the <a href={`${sourceRoot}/src/vmbmk/adapters/base.py`}>adapter interface</a>, then choose an example that matches your model.</p>
+      <dl className="doc-definition-list">
+        <div><dt><a href={`${sourceRoot}/src/vmbmk/adapters/mock_service.py`}>CPU mock adapter</a></dt><dd>A minimal example of input preparation and ordered batch outputs. Replace its toy prediction functions with calls to your service.</dd></div>
+        <div><dt><a href={`${sourceRoot}/src/vmbmk/adapters/robometer.py`}>RoboMeter · no reference</a></dt><dd>Shows observation-prefix preparation, scalar progress predictions in <code>value</code>, and value-difference comparisons in <code>compare</code>. It does not use a reference demonstration.</dd></div>
+        <div><dt><a href={`${sourceRoot}/src/vmbmk/adapters/robodopamine.py`}>Robo-Dopamine · One-Shot reference</a></dt><dd>Shows how <code>_reference</code> reads the reference from <code>reference_data</code> on the evaluation side, uses its start/end frames in native comparisons, and accumulates relative progress into scalar values.</dd></div>
+      </dl>
+      <p>RoboMeter and Robo-Dopamine run models locally in these implementations. For a hosted service, keep the relevant input preparation and output mapping, and replace model inference with your service call.</p>
       <CodeBlock title="Prepare native context · MockServiceAdapter" code={contextExample} />
       <CodeBlock title="Return native predictions · MockServiceAdapter" code={predictionExample} />
       <p className="doc-example-caption">The mock prepares a complete RGB prefix and predicts locally with toy functions. It is not an HTTP server, a real model, or a reference-conditioned baseline. For your integration, use your model’s native input policy and replace the prediction functions with calls to your service.</p>
@@ -94,13 +100,14 @@ export function ServiceAdapter() {
       <ul>
         <li><strong>Adapter source:</strong> the model-specific implementation, supported methods, and native output units and direction.</li>
         <li><strong>Service description:</strong> the endpoint, native input/output specification, model and preprocessing versions, and authentication instructions without secret values.</li>
-        <li><strong>Reproducible preparation:</strong> adapter dependencies, camera/history/preprocessing rules, and any reference-conditioned modes.</li>
+        <li><strong>Model preparation:</strong> adapter dependencies and input preprocessing; One-Shot reference handling or Few-Shot training setup, where applicable.</li>
         <li><strong>A synthetic check:</strong> an example that exercises the integration without private test observations.</li>
       </ul>
       <p>The RoboValue team reviews the adapter before evaluation. Return model predictions, not benchmark scores, and report service failures as errors rather than zero predictions or N/A. See <a href="/doc/get-started/adapters/">Submit a Model</a> for the participation checklist.</p>
     </Section>
-    <Section id="adapter-access" title="5. Prepare references and protect test observations">
-      <p>Zero-Shot uses no training references. For each task, One-Shot uses the first training trajectory in the supplied order; Few-Shot uses all 100 training trajectories. Prepare these on the model side before evaluation, rather than uploading reference videos with each query. See the <a href="/doc/get-started/data/#dataset-references">training-reference policy</a>.</p>
+    <Section id="adapter-access" title="5. Evaluation settings and test access">
+      <p><strong>Zero-Shot:</strong> use the model without task-specific fine-tuning or references. <strong>One-Shot:</strong> use the reference available to the adapter on the evaluation side. <strong>Few-Shot:</strong> download the training set, fine-tune your model, and expose it through the same inference interface as Zero-Shot.</p>
+      <p>Find the download entry under <a href="/doc/get-started/data/#dataset-training">Dataset Overview → Training data download</a>. See <a href="/doc/get-started/data/#dataset-references">references and fine-tuning</a> for the training-data policy.</p>
       <p>The test set is not publicly released for download or local evaluation. An external service will receive the observations and instructions needed for inference. Keep file paths, internal query IDs, test labels, and ground-truth candidate identities out of service requests. If observations cannot leave organizer-controlled systems, the service must run there.</p>
       <p>Use HTTPS with certificate verification. Share credentials privately and read them from environment variables, never source code or public configuration. Keep the agreed model and preprocessing versions fixed during evaluation.</p>
     </Section>
