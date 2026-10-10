@@ -30,8 +30,8 @@
 .rv-home p { line-height: 1.8; }
 .rv-container { width: min(1200px, calc(100% - 80px)); margin-inline: auto; }
 .rv-narrow { width: min(960px, calc(100% - 80px)); }
-.rv-home .rv-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; line-height: 1.5; font-weight: 650; color: var(--rv-heading-color); letter-spacing: .13em; text-transform: uppercase; }
-.rv-home .rv-eyebrow::before { content: ''; flex: 0 0 28px; height: 2px; border-radius: 2px; background: var(--rv-heading-gradient); }
+.rv-home .rv-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; line-height: 1.5; font-weight: 650; color: var(--rv-heading-color); letter-spacing: .13em; text-transform: uppercase; }
+.rv-home .rv-eyebrow::before, .rv-home .rv-eyebrow::after { content: ''; flex: 0 0 22px; height: 2px; border-radius: 2px; background: var(--rv-heading-gradient); }
 .rv-text-link { display: inline-flex; align-items: center; gap: 9px; color: var(--rv-accent); font-size: 15px; font-weight: 500; }
 .rv-text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .rv-previous { transform: rotate(180deg); }
@@ -123,7 +123,7 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
 .rv-video-section { padding: 48px 0 0; scroll-margin-top: 110px; }
 .rv-video-container { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }
 .rv-video-heading { text-align: center; }
-.rv-home .rv-video-eyebrow { margin: 0; font-size: 12px; line-height: 1.5; letter-spacing: .13em; }
+.rv-home .rv-video-eyebrow { margin: 0; line-height: 1.5; letter-spacing: .13em; }
 .rv-video-eyebrow svg { flex-shrink: 0; color: #6c66bc; }
 .rv-video-placeholder { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 9; margin: 24px auto 0; border: 1px solid #dce3f1; border-radius: 18px; background: linear-gradient(135deg, #f5f9ff, #faf7ff); box-shadow: 0 12px 36px #3d51830a; }
 .rv-video-placeholder p { font-size: 14px; color: #79849a; }
@@ -186,9 +186,9 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
 .rv-task-tile:hover img { transform: scale(1.035); }
 .rv-suite-description { max-width: 810px; text-align: center; margin: 32px auto 0; font-size: 15px; color: var(--rv-muted); }
 .rv-suite-description strong { color: var(--rv-ink); font-weight: 500; }
-.rv-task-context { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 13px; margin-top: 18px; }
+.rv-task-context { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 16px; margin-top: 18px; }
 .rv-task-context .rv-context-separator { color: #c3c7cb; }
-.rv-suite-description > .rv-text-link { margin-top: 18px; }
+.rv-suite-description > .rv-text-link { margin-top: 18px; font-size: 18px; }
 /* Manuscript tables retain the original values and independent track rankings. */
 .rv-section { padding: 96px 0; scroll-margin-top: 105px; }
 .rv-results { border-top: 1px solid var(--rv-line); }
@@ -365,7 +365,7 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
   .rv-workflow .benchmark-overview > figcaption { font-size: 11px; }
   .rv-text-link { font-size: 14px; }
   .rv-task-suite { padding: 60px 0; }
-  .rv-home .rv-eyebrow { font-size: 11px; gap: 8px; }
+  .rv-home .rv-eyebrow { font-size: 12px; gap: 8px; }
   .rv-condition-controls { gap: 4px; margin: 20px 0 25px; }
   .rv-condition-switch { display: grid; flex: 1; min-width: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
   .rv-condition-switch button { font-size: 13px; line-height: 1.5; padding: 10px 0; }
@@ -374,7 +374,8 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
   .rv-task-wall { grid-template-columns: repeat(5, 170px); gap: 12px; width: max-content; }
   .rv-task-tile > span { opacity: 1; font-size: 12px; padding: 20px 10px 10px; }
   .rv-suite-description { margin-top: 26px; font-size: 14px; }
-  .rv-task-context { font-size: 12px; gap: 5px; }
+  .rv-task-context { font-size: 14px; gap: 5px; }
+  .rv-suite-description > .rv-text-link { font-size: 16px; }
   .rv-section { padding: 58px 0; }
   .rv-framework .rv-benchmark { padding: 40px 0 0; }
   .rv-track-note { text-align: left; font-size: 12px; }
