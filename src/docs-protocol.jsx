@@ -24,7 +24,7 @@ export function ProtocolGuide() {
       <a href="/doc/get-started/protocol/evaluation/"><span className="doc-reading-card-title">Evaluation Protocol<span aria-hidden="true">→</span></span><p>Zero-Shot, One-Shot, Full-Shot, domain coverage, and how to read reported results.</p></a>
       <a href="/doc/get-started/protocol/metrics/"><span className="doc-reading-card-title">Metrics Reference<span aria-hidden="true">→</span></span><p>Four capability dimensions, eligible trajectories, scoring rules, and score directions.</p></a>
     </div>
-    <NextSteps links={[["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/get-started/data/", 'Dataset Overview&Download']]} />
+    <NextSteps links={[["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/get-started/data/", 'Dataset Overview & Download']]} />
   </div>;
 }
 

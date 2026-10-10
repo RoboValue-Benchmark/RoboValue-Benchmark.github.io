@@ -1,0 +1,40 @@
+.community-app { background: var(--theme-page); }
+.community-page {
+  width: min(1040px, 100%);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 148px 48px 72px;
+  font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif;
+  color: var(--theme-ink);
+  outline: none;
+}
+.community-heading { margin-bottom: 36px; text-align: center; }
+.community-heading h1 { font-size: 40px; font-weight: 650; line-height: 1.2; letter-spacing: -.8px; }
+.community-heading p { max-width: 680px; margin: 18px auto 0; color: var(--theme-body); font-size: 17px; line-height: 1.75; }
+.community-channel { border-top: 1px solid var(--theme-border); padding: 36px 0; scroll-margin-top: 116px; }
+.community-channel-copy h2 { margin: 0; color: var(--theme-ink); font-size: 25px; font-weight: 600; line-height: 1.35; }
+.community-channel-copy p { max-width: 380px; margin-top: 14px; color: var(--theme-body); font-size: 16px; line-height: 1.75; }
+.community-wechat { display: grid; grid-template-columns: minmax(0, 1fr) 320px; align-items: center; gap: 56px; }
+.community-qr-card { margin: 0; padding: 14px; border: 1px solid var(--theme-border); border-radius: 14px; background: var(--theme-panel); }
+.community-qr-card a { display: block; overflow: hidden; border-radius: 8px; background: #fff; }
+.community-qr-card img { display: block; width: 100%; height: auto; }
+.community-qr-card figcaption { margin-top: 12px; color: var(--theme-body); text-align: center; font-size: 14px; line-height: 1.6; }
+.community-discord { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.community-join-link { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 11px 20px; border: 1px solid #cbc5eb; border-radius: 10px; background: linear-gradient(115deg, #edf1fc, #efe9fa); color: #5853ce; font-size: 17px; font-weight: 550; line-height: 1.5; transition: border-color .18s ease; }
+.community-join-link:hover { border-color: #a99fdb; }
+.community-join-link svg { flex-shrink: 0; }
+[data-theme="dark"] .community-join-link { border-color: #655781; background: linear-gradient(115deg, #282f43, #352b47); color: #c6b6ff; }
+@media (max-width: 760px) {
+  .community-page { padding: 116px 24px 48px; }
+  .community-heading { margin-bottom: 28px; }
+  .community-heading h1 { font-size: 32px; }
+  .community-heading p { font-size: 16px; }
+  .community-channel { padding: 28px 0; scroll-margin-top: 92px; }
+  .community-channel-copy h2 { font-size: 23px; }
+  .community-wechat { grid-template-columns: 1fr; gap: 24px; }
+  .community-qr-card { width: min(320px, 100%); justify-self: center; }
+  .community-discord { align-items: flex-start; flex-direction: column; gap: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .community-join-link { transition: none; }
+}

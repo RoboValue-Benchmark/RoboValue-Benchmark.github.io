@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { Icon } from './benchmark';
 import { ZoomableFigure } from './figure-viewer';
 import { RankingModel } from './ranking-model';
-import { BenchmarkOverview } from './benchmark-overview';
 import { HeroBackground } from './hero-background';
 import { GROUPS } from './benchmark-metrics';
-import { DEFAULT_VIEW, TRACKS, scoreHighlights, viewURL } from './leaderboard-utils';
+import { TRACKS, scoreHighlights } from './leaderboard-utils';
 import { useResults } from './use-results';
 import { useHomeReveal } from './use-home-reveal';
 import taskData from './data/tasks.json';
 import './home.css';
 import { INSTITUTIONS } from './project-info';
+import { DISCORD_INVITE } from './community';
 
 const AUTHORS = [
   ['Shengbang Liu', '1,2,*'], ['Zhengye Du', '1,2,*'], ['Zhilong Wan', '1,2,*'], ['Honghao Su', '3,*'],
@@ -37,9 +37,27 @@ const TASK_SETTINGS = {
 };
 const taskPath = item => `/doc/${item.domain}-tasks/${item.slug}/`;
 const score = value => value == null ? '—' : value.toFixed(2);
-const leaderboardHref = (track, patch = {}) => {
-  const url = viewURL({ ...DEFAULT_VIEW, track, ...patch }, new URL('/leaderboard/', window.location.href));
-  return url.pathname + url.search + url.hash;
+// Table 1 includes SIA as an understanding capability, separately from aggregate scoring.
+const CAPABILITY_METRICS = {
+  understanding: [
+    ['SA', 'Distinguish overall goal satisfaction from partial or failed execution.'],
+    ['TGA-CT', 'Ground value judgments in language-specified goals across tasks.'],
+    ['TGA-CF', 'Ground judgments in object, action, placement, and constraint requirements.'],
+    ['SIA', 'Identify the active semantic subtask during execution.'],
+  ],
+  tracking: [
+    ['VOC', 'Order intermediate states by progress toward task completion.'],
+    ['Cycle-VOC', 'Distinguish progress direction from elapsed-time cues.'],
+    ['Memory-VOC', 'Use execution history to resolve progress ambiguity at recurring visual states.'],
+  ],
+  diagnosis: [
+    ['FPL', 'Locate the onset of task-relevant execution errors.'],
+    ['TRR', 'Distinguish unresolved errors, corrective progress, and recovery outcomes.'],
+  ],
+  consistency: [
+    ['VS', 'Maintain stable local feedback with informative updates.'],
+    ['CSVC', 'Assign comparable gains to the same semantic subtask across valid execution orders.'],
+  ],
 };
 function ResourceEntry({ label, icon, logo, href, status, external = false, arrow = false }) {
   const content = <>{logo ? <img className="rv-entry-logo" src={`/assets/resource-icons/${logo}.svg`} alt="" width="20" height="20" aria-hidden="true" /> : <Icon name={icon} size={20} />}<strong>{label}</strong>{status && <span className="rv-entry-status">{status}</span>}{(external || (href && arrow)) && <Icon className="rv-entry-arrow" name={external ? 'external' : 'arrow'} size={14} />}</>;
@@ -61,9 +79,9 @@ function ResearchDetails() {
       </dl>
       <div className="rv-paper-entries" aria-label="Project links">
         <div className="rv-release-grid">
-          <ResourceEntry label="Report" logo="arxiv" status="arXiv" external />
+          <ResourceEntry label="Report" icon="paper" external />
           <ResourceEntry label="Document" icon="book" href="/doc/" arrow />
-          <ResourceEntry label="Code" logo="github" href="https://github.com/RoboValue-Benchmark/RoboValue" status="GitHub" external />
+          <ResourceEntry label="Code" logo="github" href="https://github.com/RoboValue-Benchmark/RoboValue" external />
           <ResourceEntry label="Dataset" icon="database" />
         </div>
         <div className="rv-paper-links">
@@ -79,7 +97,7 @@ function OverviewVideo() {
   return <section className="rv-video-section" id="video" aria-labelledby="video-title">
     <div className="rv-video-container rv-reveal">
       <div className="rv-video-heading"><h2 className="rv-eyebrow rv-video-eyebrow" id="video-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m10 8 6 4-6 4V8Z" fill="currentColor" stroke="none" /></svg>Overview</h2></div>
-      <div className="rv-video-placeholder"><p>Video coming soon</p></div>
+      <div className="rv-video-placeholder"><p>Video coming soon.</p></div>
     </div>
   </section>;
 }
@@ -134,7 +152,7 @@ function TaskGallery({ domain }) {
       <div className="rv-gallery-viewport rv-reveal" id={galleryId} tabIndex={0} role="region" aria-label={`All ${items.length} ${name.toLowerCase()} tasks: ${CONDITIONS[condition]}`}><div className="rv-task-wall">{items.map(item => <TaskTile key={item.id} item={item} condition={condition} />)}</div></div>
       <div className="rv-suite-description rv-reveal">
         <p className="rv-task-context" aria-live="polite"><strong>{setting.robot}</strong><span className="rv-context-separator" aria-hidden="true">·</span><span>{setting.scene}</span></p>
-        <a className="rv-text-link" href={`/doc/${domain}-tasks/catalog/`}>Explore all {items.length} {simulation ? 'simulation' : 'real-world'} tasks<Icon size={17} /></a>
+        <a className="rv-text-link" href={`/doc/${domain}-tasks/catalog/`}>Explore All {items.length} {simulation ? 'Simulation' : 'Real-World'} Tasks<Icon size={20} /></a>
       </div>
     </div>
   </section>;
@@ -149,23 +167,33 @@ function HomeResults() {
   const colors = { understanding: '#366c9a', tracking: '#447d64', diagnosis: '#a56f2d', consistency: '#a45368' };
   const renderScore = (value, key) => <span className={value === highlights[key]?.best ? 'rv-score-best' : value === highlights[key]?.second ? 'rv-score-second' : ''}>{score(value)}</span>;
   return <section className="rv-section rv-results" id="results" aria-labelledby="home-results-title"><div className="rv-container">
-    <div className="rv-section-heading rv-reveal"><div><p className="rv-eyebrow">LEADERBOARD</p><h2 id="home-results-title">RoboValue Leaderboard</h2></div><a className="rv-text-link rv-participate" href="/doc/get-started/adapters/">Participate in evaluation<Icon size={16} /></a></div>
+    <div className="rv-section-heading rv-reveal"><div><p className="rv-eyebrow">LEADERBOARD</p><h2 id="home-results-title">RoboValue Leaderboard</h2></div><a className="rv-text-link rv-results-page-link" href="/leaderboard/">View Leaderboard<Icon size={18} /></a></div>
     <div className="rv-preview rv-reveal">
       <div className="rv-preview-top"><div className="rv-small-switch" role="group" aria-label="Homepage evaluation track">{Object.entries(TRACKS).map(([id, label]) => <button type="button" key={id} aria-pressed={track === id} aria-controls="home-results-table" onClick={() => setTrack(id)}>{label}</button>)}</div></div>
-      <p className="rv-preview-description">{track === 'zero' ? 'Released checkpoints, without task-specific adaptation or reference demonstrations.' : 'One standard training demonstration per task, used for conditioning or adaptation; test trajectories are held out.'}</p>
-      <div className="rv-preview-scroll" role="region" aria-label="Homepage leaderboard results" tabIndex={0}><table className="rv-preview-table" id="home-results-table"><caption className="sr-only">All models in the {TRACKS[track]} track, ranked by Overall. Capability scores reproduce Table 2 of the 10-09 manuscript and range from 0 to 100; higher is better.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col" className="rv-preview-overall">Overall</th>{GROUPS.map(group => <th scope="col" key={group.id} style={{ '--capability-color': colors[group.id] }} title={group.title}>{group.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><td className="rv-rank">{row.aggregate.rank}</td><th scope="row"><RankingModel row={row} /></th><td className="rv-preview-overall">{renderScore(row.aggregate.overall, 'overall')}</td>{GROUPS.map(group => <td key={group.id}>{renderScore(row.aggregate[group.id], group.id)}</td>)}</tr>)}{!rows.length && <tr><td colSpan={7} className="rv-preview-empty" aria-live="polite">{error ? <><strong>Results could not be loaded.</strong><button type="button" className="rv-text-link" onClick={retry}>Try again<Icon size={15} /></button></> : 'Loading manuscript results…'}</td></tr>}</tbody></table></div>
-      <div className="rv-preview-legend"><b>Best</b> · <span className="rv-score-second">Second best</span> · 0–100, higher is better</div>
-      <div className="rv-preview-footer"><span>Overall = mean of four capability scores · SIA reported separately</span><a href="/doc/get-started/protocol/">Scoring &amp; metrics<Icon size={15} /></a></div>
-      {track === 'zero' && <p className="rv-preview-note">‡ TOPReward uses Qwen3-VL-8B. RoboReward’s unmeasured VS and CSVC count as zero in aggregate scoring.</p>}
+      <div className="rv-preview-frame"><div className="rv-preview-scroll" role="region" aria-label={`Homepage overall ranking, ${TRACKS[track]}`} tabIndex={0}><table className="rv-preview-table" id="home-results-table"><caption className="sr-only">All models in the {TRACKS[track]} track, ranked by Overall. Normalized capability scores range from 0 to 100; higher is better.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col" className="rv-preview-overall">Overall</th>{GROUPS.map(group => <th scope="col" key={group.id} style={{ '--capability-color': colors[group.id] }} title={group.title}>{group.short}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><td className="rv-rank">{row.aggregate.rank}</td><th scope="row"><RankingModel row={row} /></th><td className="rv-preview-overall">{renderScore(row.aggregate.overall, 'overall')}</td>{GROUPS.map(group => <td key={group.id}>{renderScore(row.aggregate[group.id], group.id)}</td>)}</tr>)}</tbody></table></div>{!rows.length && <div className="rv-preview-empty" role="status">{track === 'full' ? 'No results yet.' : error ? <><strong>Results could not be loaded.</strong><button type="button" className="rv-text-link" onClick={retry}>Try Again<Icon size={15} /></button></> : data ? 'No results yet.' : 'Loading results…'}</div>}</div>
+      {!!rows.length && <div className="rv-preview-legend"><b>Best</b> · <span className="rv-score-second">Second Best</span></div>}
+      {track === 'zero' && <p className="rv-preview-note">‡ TOPReward uses Qwen3-VL-8B.</p>}
     </div>
-    <div className="rv-results-link rv-reveal"><a className="rv-text-link" href={leaderboardHref(track)}>View the {TRACKS[track].toLowerCase()} leaderboard<Icon size={18} /></a></div>
+    <nav className="rv-results-doc-links rv-reveal" aria-label="Evaluation documentation"><a className="rv-text-link" href="/doc/get-started/evaluation/">Participate in Evaluation<Icon size={20} /></a></nav>
   </div></section>;
 }
 
 function EvaluationFramework() {
   return <section className="rv-section rv-framework" id="framework" aria-labelledby="framework-title"><div className="rv-container">
-    <div className="rv-section-heading rv-reveal"><div><p className="rv-eyebrow">EVALUATION FRAMEWORK</p><h2 id="framework-title">Shared interfaces. Complementary diagnostics.</h2></div><p>A shared protocol compares execution judgments across heterogeneous models while preserving their native value semantics.</p></div>
-    <div className="rv-workflow rv-reveal"><BenchmarkOverview /><p className="rv-track-note">Current results cover Zero-Shot and One-Shot evaluation. The Full-Shot track is planned to open with the dataset release.</p><div className="rv-framework-links"><a className="rv-text-link" href="/doc/get-started/protocol/">Protocol and metrics<Icon size={17} /></a><a className="rv-text-link" href="/doc/get-started/evaluation/">Evaluation workflow<Icon size={17} /></a></div></div>
+    <div className="rv-centered-heading rv-reveal">
+      <p className="rv-eyebrow">BENCHMARK</p>
+      <h2 id="framework-title">Four Capability Dimensions</h2>
+      <p className="rv-framework-intro">RoboValue evaluates what an execution achieves, how progress evolves, how errors and recovery affect value, and whether the resulting feedback remains consistent.</p>
+    </div>
+    <div className="rv-dimension-grid">
+      {GROUPS.map(group => <article className="rv-dimension rv-reveal" key={group.id} aria-labelledby={`framework-${group.id}`} style={{ '--dimension-color': `var(--rv-capability-${group.id})` }}>
+        <h3 id={`framework-${group.id}`}>{group.title}</h3>
+        <dl className="rv-dimension-metrics">
+          {CAPABILITY_METRICS[group.id].map(([metric, capability]) => <div key={metric}><dt>{metric}</dt><dd>{capability}</dd></div>)}
+        </dl>
+      </article>)}
+    </div>
+    <div className="rv-framework-link rv-reveal"><a className="rv-text-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics<Icon size={20} /></a></div>
   </div></section>;
 }
 
@@ -173,15 +201,15 @@ function Community() {
   return <section className="rv-resources" id="community" aria-labelledby="community-title">
     <div className="rv-container rv-narrow rv-reveal">
       <p className="rv-eyebrow">COMMUNITY</p>
-      <h2 id="community-title">Join the RoboValue community</h2>
-      <p className="rv-community-description">Discuss the benchmark, evaluation, and robotic value models.</p>
-      <div className="rv-resource-links"><a href="/community/">Join the WeChat group<Icon size={17} /></a></div>
+      <h2 id="community-title">Join the RoboValue Community</h2>
+      <p className="rv-community-description">Connect on WeChat and Discord to discuss the benchmark, evaluation, and robotic value models.</p>
+      <div className="rv-resource-links"><a href="/community/#wechat">Join WeChat<Icon size={18} /></a><a href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer">Join Discord<Icon size={18} /></a></div>
     </div>
   </section>;
 }
 
 function Citation() {
-  return <section className="rv-citation" id="citation" aria-labelledby="citation-title"><div className="rv-container rv-narrow rv-reveal"><p className="rv-eyebrow">CITATION</p><h2 id="citation-title">Cite our work</h2><div className="rv-citation-placeholder"><p>Citation details will be added when the public paper is released.</p></div></div></section>;
+  return <section className="rv-citation" id="citation" aria-labelledby="citation-title"><div className="rv-container rv-narrow rv-reveal"><div className="rv-centered-heading"><p className="rv-eyebrow">CITATION</p><h2 id="citation-title">Cite Our Work</h2></div><div className="rv-citation-placeholder"><p>Citation details will be added when the public paper is released.</p></div></div></section>;
 }
 
 export function PublicHome() {
@@ -193,10 +221,10 @@ export function PublicHome() {
     <News />
     <TaskGallery domain="simulation" />
     <TaskGallery domain="real-world" />
-    <HomeResults />
     <EvaluationFramework />
+    <HomeResults />
     <Community />
     <Citation />
-    <footer className="rv-footer rv-container"><a href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" width="154" height="51" /></a><p>A fine-grained view of robotic value models.</p><nav aria-label="Footer"><a href="/doc/">Documentation</a><a href="/leaderboard/">Leaderboard</a><a href="/community/">Community</a></nav></footer>
+    <footer className="rv-footer rv-container"><a href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" width="154" height="51" /></a><p>A benchmark for robotic value models.</p><nav aria-label="Footer"><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a><a href="/community/">Community</a><a href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer">Discord</a></nav></footer>
   </main>;
 }

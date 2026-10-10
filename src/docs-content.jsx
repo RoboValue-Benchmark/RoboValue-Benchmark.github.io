@@ -37,7 +37,7 @@ export function EvaluationWorkflow() {
         <li><a href="/doc/get-started/evaluation/results/">Evaluation &amp; Results</a><p>The team evaluates the model on private trajectories and reports its supported coverage and diagnostic scores.</p></li>
       </ol>
     </Section>
-    <NextSteps links={[["/doc/get-started/protocol/", 'Protocol & Metrics'], ["/doc/get-started/data/", 'Dataset Overview&Download']]} />
+    <NextSteps links={[["/doc/get-started/protocol/", 'Protocol & Metrics'], ["/doc/get-started/data/", 'Dataset Overview & Download']]} />
   </div>;
 }
 
@@ -57,7 +57,7 @@ export function SubmitModel() {
     </Section>
     <Section id="submission-inputs" title="References and fine-tuning">
       <p>One-Shot uses the reference supplied on the evaluation side through the model adapter. For Full-Shot, download the training set and fine-tune your model before evaluation. The fine-tuned model uses the same inference interface as Zero-Shot; no training demonstrations are attached to each query.</p>
-      <p>Find the download entry and reference-selection policy in <a href="/doc/get-started/data/#dataset-training">Dataset Overview&amp;Download</a>. Record the fine-tuned model version and training setup.</p>
+      <p>Find the download entry and reference-selection policy in <a href="/doc/get-started/data/#dataset-training">Dataset Overview &amp; Download</a>. Record the fine-tuned model version and training setup.</p>
     </Section>
     <Section id="submission-contact" title="Share your submission information">
       <p>See <a href="/community/">Community</a> to discuss the model and evaluation setting. Open-source submissions include the repository, checkpoints, dependencies, and inference instructions. Closed-source submissions continue to the service and adapter handoff. Share credentials privately.</p>
@@ -175,7 +175,7 @@ export function DocumentationOverview() {
       <div className="doc-table-scroll" tabIndex={0} role="region" aria-label="Evaluation metrics"><table className="doc-overview-metrics"><thead><tr><th scope="col">Capability</th><th scope="col">Metric</th><th scope="col">Key question</th></tr></thead><tbody>{OVERVIEW_METRICS.map(([capability, metrics]) => metrics.map(([key, question], index) => <tr key={key}>{index === 0 && <th scope="rowgroup" rowSpan={metrics.length}>{capability}</th>}<th scope="row"><a href={`/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`}>{key === 'sia' ? 'SIA' : METRICS[key].label}</a></th><td>{question}</td></tr>))}</tbody></table></div>
       <p className="doc-metric-note">Read these tests together. Cycle-VOC probes elapsed-time shortcuts in VOC and Memory-VOC; VS and CSVC assess consistency, not the correctness of progress direction.</p>
     </Section>
-    <div id="explore-documentation"><NextSteps links={[["/doc/get-started/", 'Get started'], ["/doc/get-started/data/", 'Dataset Overview&Download'], ["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/diagnostic-trajectories/", 'Diagnostic Trajectories']]} /></div>
+    <div id="explore-documentation"><NextSteps links={[["/doc/get-started/", 'Get started'], ["/doc/get-started/data/", 'Dataset Overview & Download'], ["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/diagnostic-trajectories/", 'Diagnostic Trajectories']]} /></div>
   </div>;
 }
 
@@ -185,7 +185,7 @@ export function GetStarted() {
     <PrivateTestNotice />
     <Section id="recommended-path" title="Recommended reading path">
       <ol className="doc-reading-path">
-        <li><a href="/doc/get-started/data/">Dataset Overview&amp;Download</a><p>Find the <a href="/doc/get-started/data/#dataset-training">Training data download</a> entry and understand training and evaluation trajectories.</p></li>
+        <li><a href="/doc/get-started/data/">Dataset Overview &amp; Download</a><p>Find the <a href="/doc/get-started/data/#dataset-training">Training data download</a> entry and understand training and evaluation trajectories.</p></li>
         <li><a href="/doc/get-started/protocol/">Protocol &amp; Metrics</a><p>Choose the relevant evaluation setting and learn what each capability score does—and does not—establish.</p></li>
         <li><a href="/doc/get-started/evaluation/">Evaluation Workflow</a><p>Follow the submission route, service integration where needed, and evaluation reporting in three steps.</p></li>
       </ol>

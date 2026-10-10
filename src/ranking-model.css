@@ -12,6 +12,9 @@
 .ranking-rynnvalue-mark::before { width: 14px; height: 14px; border: 2px solid #5a43d6; }
 .ranking-rynnvalue-mark::after { width: 5px; height: 5px; background: #5a43d6; }
 .ranking-rynnvalue-mark > span { width: 22px; height: 2px; border-radius: 2px; background: #5a43d6; transform: translate(-50%, -50%) rotate(-46deg); }
+/* A light backing keeps the original logo colors legible without shrinking them. */
+[data-theme="dark"] .ranking-model-logo { background-color: #fff; box-shadow: 0 0 0 2px #fff; }
+[data-theme="dark"] img.ranking-model-logo { border-radius: 3px; }
 @media (max-width: 760px) {
   .ranking-model { gap: 9px; }
   .ranking-model-logo { width: 25px; height: 25px; flex-basis: 25px; }

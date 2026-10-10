@@ -107,7 +107,7 @@ export function ServiceAdapter() {
       <p>The RoboValue team reviews the adapter before evaluation. Return model predictions, not benchmark scores, and report service failures as errors rather than zero predictions or N/A.</p>
     </Section>
     <Section id="adapter-access" title="5. Protect evaluation observations">
-      <p>Follow the reference and fine-tuning policy in <a href="/doc/get-started/data/#dataset-references">Dataset Overview&amp;Download</a>. The model-specific adapter prepares any required One-Shot reference inputs on the evaluation side.</p>
+      <p>Follow the reference and fine-tuning policy in <a href="/doc/get-started/data/#dataset-references">Dataset Overview &amp; Download</a>. The model-specific adapter prepares any required One-Shot reference inputs on the evaluation side.</p>
       <p>The test set is not publicly released for download or local evaluation. An external service will receive the observations and instructions needed for inference. Keep file paths, internal query IDs, test labels, and ground-truth candidate identities out of service requests. If observations cannot leave organizer-controlled systems, the service must run there.</p>
       <p>Use HTTPS with certificate verification. Share credentials privately and read them from environment variables, never source code or public configuration. Keep the agreed model and preprocessing versions fixed during evaluation.</p>
     </Section>

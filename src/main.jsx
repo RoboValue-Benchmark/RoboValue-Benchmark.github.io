@@ -10,6 +10,8 @@ import './docs.css';
 import './docs-theme.css';
 import { ServiceAdapter, adapterSections } from './docs-adapter';
 import { PublicHome } from './home';
+import { CommunityPage } from './community';
+import { EvaluationPage } from './eval';
 import './public-site.css';
 import './reading-theme.css';
 import { DocumentationOverview, GetStarted, DatasetOverview, EvaluationWorkflow, EvaluationResults, SubmitModel, PageOutline, documentationSections } from './docs-content';
@@ -117,18 +119,12 @@ function App() {
     case 'evaluation-protocol': content = <EvaluationProtocol />; break;
     case 'metrics': content = <MetricsReference />; break;
     case 'metric': content = <MetricGuide metricKey={page.metricKey} />; break;
-    case 'community':
-      content = <section className="community-section" aria-labelledby="wechat-title">
-        <h2 id="wechat-title">Join the WeChat group</h2>
-        <p>Scan the QR code with WeChat to join the RoboValue discussion group.</p>
-        <img className="community-qr" src="/assets/community-wechat.png" alt="QR code for the RoboValue WeChat discussion group" width="540" height="830" />
-      </section>;
-      break;
   }
   if (page?.kind === 'landing') return <Landing />;
-  if (page?.kind === 'evaluation-page') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main className="public-eval-page" id="main-content" tabIndex={-1}><h1>Eval</h1></main></div>;
+  if (page?.kind === 'community') return <div className="docs-app community-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><CommunityPage /></div>;
+  if (page?.kind === 'evaluation-page') return <div className="docs-app eval-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><EvaluationPage /></div>;
   if (page?.kind === 'data-release') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main className="public-data-page" id="main-content" tabIndex={-1}><h1>Data</h1><p>Coming soon.</p></main></div>;
-  if (page?.kind === 'leaderboard') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><Leaderboard /></div>;
+  if (page?.kind === 'leaderboard') return <div className="docs-app leaderboard-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><Leaderboard /></div>;
   return <div className={`docs-app docs-workspace ${sidebarCollapsed ? 'is-sidebar-collapsed' : ''}`}>
     <a className="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} documentation sidebarCollapsed={sidebarCollapsed} onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} />

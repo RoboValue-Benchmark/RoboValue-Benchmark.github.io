@@ -28,6 +28,14 @@ export default defineConfig({
   }],
   base: '/',
   // The remote workspace uses a shared filesystem; poll for reliable updates.
-  server: { watch: { usePolling: true, interval: 500 } },
+  server: {
+    watch: { usePolling: true, interval: 500 },
+    proxy: {
+      '/api/evaluation-applications': {
+        target: 'http://127.0.0.1:8878',
+        changeOrigin: false,
+      },
+    },
+  },
   build: { sourcemap: false },
 });

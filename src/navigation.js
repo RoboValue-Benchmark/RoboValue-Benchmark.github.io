@@ -18,7 +18,7 @@ export const navigation = [
   { title: 'Home', pages: [{ path: '/doc/', title: 'RoboValue', kind: 'home' }] },
   { title: 'Get Started', pages: [
     { path: '/doc/get-started/', title: 'Quick Start', kind: 'start' },
-    { path: '/doc/get-started/data/', title: 'Dataset Overview&Download', kind: 'data' },
+    { path: '/doc/get-started/data/', title: 'Dataset Overview & Download', kind: 'data' },
     { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation', children: [
       { path: '/doc/get-started/adapters/', title: 'Submit a Model', kind: 'submission' },
       { path: '/doc/model-api/', title: 'Service & Adapter', kind: 'integration' },

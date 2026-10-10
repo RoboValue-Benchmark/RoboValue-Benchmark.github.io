@@ -4,6 +4,14 @@ Official public website for RoboValue. This repository is separate from the anon
 
 ## Marked versions
 
+### 2026-10-11 · xjy · Benchmark, evaluation and dark mode
+
+**Tag:** `v2026.10.11-xjy-benchmark-eval-dark-mode`
+
+Refresh Home's dataset → benchmark → leaderboard presentation; separate Overall Ranking from detailed results, add an empty Full-Shot track, and integrate SIA into the results tables. Update Community with WeChat and Discord, implement the Eval application form and local receiver, and fix dark-mode panels, ranking tables, figure corners, and model-logo contrast.
+
+See [the version notes](docs/releases/2026-10-11-benchmark-eval-dark-mode.md) for the background-frame arrangement, changes, validation, and remaining deployment work. The pre-island and soft-island checkpoints are retained as `v2026.10.11-xjy-pre-island-home` and `v2026.10.11-xjy-soft-island-home`.
+
 ### 2026-10-10 · xjy · Home resources and Eval navigation
 
 **Tag:** `v2026.10.10-xjy-home-resources-and-eval`
@@ -43,16 +51,16 @@ The earlier aligned paper-information version without the animated background is
 
 ## Pages
 
-- `/`: paper and resource information over an animated task-frame background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; complete selected-track rankings; the shared evaluation framework; community access; and a citation placeholder.
+- `/`: paper and resource information over an animated task-frame background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; selected-track rankings; community access; and a citation placeholder.
 - `/doc/`: documentation, evaluation and integration guidance, and all simulation and real-world task pages.
-- `/eval/`: evaluation page, currently blank apart from its title.
-- `/community/`: WeChat group invitation with the existing time-limited QR image.
+- `/eval/`: evaluation application form with public WeChat and Discord access. After a successful submission, applicants can open Get Started to prepare their model.
+- `/community/`: public WeChat group invitation and Discord access, without the documentation sidebar.
 - `/data/`: standalone dataset page, currently showing Coming soon.
-- `/leaderboard/`: Overall Ranking, Standard (ID), Cross-Embodiment, and Cross-Environment results with separate Zero-shot and One-shot tracks, sortable scores, CSV export, participation and scoring links, and separately reported SIA results.
+- `/leaderboard/`: a separate Overall Ranking table and Standard (ID), Cross-Embodiment, and Cross-Environment results. Ranking and results have independent Zero-Shot, One-Shot, and empty Full-Shot controls; detailed results include SIA. Scores are sortable and exportable as CSV, with evaluation-workflow and protocol links.
 
 ## Results and sources
 
-The homepage introduction, overview figure, and leaderboard source metadata follow the October 9, 2026 manuscript. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. The Full-Shot track remains planned.
+The homepage introduction, overview figure, and leaderboard source metadata follow the October 9, 2026 manuscript. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
 
 Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the full-leaderboard link retains that track. Official project logos take priority over institution fallbacks.
 
@@ -64,6 +72,16 @@ Leaderboard condition, track, and sorting are reflected in the URL. Sorting pres
 npm ci
 npm run dev -- --port 8877
 ```
+
+For local Eval submissions, also run the receiver in a separate terminal:
+
+```bash
+npm run eval:server
+```
+
+The website forwards `/api/evaluation-applications` to the receiver on `127.0.0.1:8878`. Each application is saved as a private JSON file in `../robovalue-eval-submissions/submissions/`, outside this repository. The adjacent `../robovalue-eval-submissions/README.md` documents the fields, storage, and operating instructions. The page shows **Application Submitted** only after the server confirms that the record was saved. This does not send automatic messages to applicants.
+
+Run the receiver checks with `npm run test:eval`; they use isolated temporary storage. GitHub Pages only hosts the frontend: public submissions will require a separately configured HTTPS receiver or gateway. `VITE_EVAL_API_URL` can specify that endpoint when it is ready; it must not point to a visitor's `localhost`.
 
 ## Build and deployment
 

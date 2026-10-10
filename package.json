@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "eval:server": "node server/evaluation-applications.mjs",
+    "test:eval": "node --test server/evaluation-applications.test.mjs",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0"
   },

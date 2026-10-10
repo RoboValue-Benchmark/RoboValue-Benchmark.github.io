@@ -1,6 +1,6 @@
 import { AGGREGATE_COLUMNS, CONDITIONS, GROUPS, METRICS, excludedHighlight, scoreValue } from './benchmark-metrics';
 
-export const TRACKS = { zero: 'Zero-shot', one: 'One-shot' };
+export const TRACKS = { zero: 'Zero-Shot', one: 'One-Shot', full: 'Full-Shot' };
 export const DEFAULT_VIEW = { condition: 'aggregate', track: 'zero', capability: 'all', query: '', sort: null, selected: [] };
 const VIEW_PARAMS = ['condition', 'track', 'capability', 'q', 'sort', 'direction', 'compare'];
 
@@ -51,18 +51,18 @@ export function sortedRows(rows, view) {
   });
 }
 
-export function scoreHighlights(rows, condition, columns) {
+export function scoreHighlights(rows, condition, columns, metrics = METRICS) {
   return Object.fromEntries(columns.map(key => {
     const values = [...new Set(rows.filter(row => !excludedHighlight(row, key)).map(row => scoreValue(row, condition, key)).filter(value => value != null))];
-    values.sort((a, b) => METRICS[key].lower ? a - b : b - a);
+    values.sort((a, b) => metrics[key].lower ? a - b : b - a);
     return [key, { best: values[0], second: values[1] }];
   }));
 }
 
-export function resultsCSV(rows, view, columns) {
+export function resultsCSV(rows, view, columns, metrics = METRICS, tracks = TRACKS) {
   const ranked = view.condition === 'aggregate';
-  const header = ['Model', 'Track', 'Condition', ...(ranked ? ['Rank'] : []), ...columns.map(key => METRICS[key].label)];
-  const values = rows.map(row => [modelName(row), TRACKS[row.setting], CONDITIONS[view.condition], ...(ranked ? [row.aggregate.rank] : []), ...columns.map(key => scoreValue(row, view.condition, key) ?? '')]);
+  const header = ['Model', 'Track', 'Condition', ...(ranked ? ['Rank'] : []), ...columns.map(key => metrics[key].label)];
+  const values = rows.map(row => [modelName(row), tracks[row.setting], CONDITIONS[view.condition], ...(ranked ? [row.aggregate.rank] : []), ...columns.map(key => scoreValue(row, view.condition, key) ?? '')]);
   const escape = value => `"${String(value).replaceAll('"', '""')}"`;
   return [header, ...values].map(row => row.map(escape).join(',')).join('\r\n');
 }
