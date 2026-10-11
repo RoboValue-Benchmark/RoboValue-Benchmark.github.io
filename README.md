@@ -4,9 +4,9 @@ Official public website for RoboValue. This repository is separate from the anon
 
 ## Marked versions
 
-### 2026-10-11 07:36 (Asia/Shanghai) · xjy · Website refresh
+### 2026-10-11 08:10 (Asia/Shanghai) · xjy · Website refresh
 
-**Tag:** `v2026.10.11-0736-xjy-website-refresh`
+**Tag:** `v2026.10.11-0810-xjy-website-refresh`
 
 This version records the website refresh across the paper-information island, execution background, Home, Leaderboard, Eval, Community, formatting, and dark mode.
 
@@ -17,9 +17,11 @@ This version records the website refresh across the paper-information island, ex
 5. **Community:** remove the documentation sidebar, add Discord alongside WeChat, and synchronize the Home community area and footer.
 6. **Formatting and dark mode:** unify capitalization, arrows, and link styles; adjust type sizes, centering, shadows, and resource-icon alignment; fix dark panels, ranking frames, overview corners, and model-logo contrast.
 
-See [the version notes](docs/releases/2026-10-11-website-refresh.md) for the complete changes, background-frame counts, validation, and remaining deployment work. The earlier `v2026.10.11-xjy-benchmark-eval-dark-mode` tag and the pre-island/soft-island checkpoints remain available as history.
+See [the version notes](docs/releases/2026-10-11-website-refresh.md) for the complete changes, source and merge record, background-frame counts, validation, and remaining deployment work. The earlier `v2026.10.11-0736-xjy-website-refresh`, `v2026.10.11-xjy-benchmark-eval-dark-mode`, and pre-island/soft-island checkpoints remain available as history.
 
-This follow-up commit updates the version description and tag. Website code and the current local Document are unchanged. The public Eval receiver still requires separate HTTPS deployment.
+**Sources for this version:** Document content, navigation, task pages, and documentation styles adopt `liushb9`'s `fb210d8`. Home, Leaderboard, Eval, Community, shared styles, assets, results, and the local receiver retain `354bb36`, associated with GitHub account `xiaojy36` (Git signature `Level-0-Xiaojy`). The shared `src/main.jsx` preserves the public-page entries from the local version and the documentation routes from the remote version. These changes were combined in merge commit `4008c60`.
+
+This follow-up commit records the confirmed sources and version tag. Website code and the current local Document are unchanged. The public Eval receiver still requires separate HTTPS deployment.
 
 ### 2026-10-10 · xjy · Home resources and Eval navigation
 

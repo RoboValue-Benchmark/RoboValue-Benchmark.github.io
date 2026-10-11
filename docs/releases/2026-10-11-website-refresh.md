@@ -1,12 +1,33 @@
-# 2026-10-11 07:36 网站整体改版
+# 2026-10-11 08:10 网站整体改版
 
-版本标记：`v2026.10.11-0736-xjy-website-refresh`
+版本标记：`v2026.10.11-0810-xjy-website-refresh`
 
-标记时间：2026-10-11 07:36，时区 Asia/Shanghai。
+标记时间：2026-10-11 08:10，时区 Asia/Shanghai。
 
 本版汇总论文信息区灵动岛、背景墙、Home、Leaderboard、Eval、Community、格式调整和夜间模式的整批改动。本次补充提交更新版本说明与标记，页面代码及当前本机 Document 保持不变。
 
-此前的 `v2026.10.11-xjy-benchmark-eval-dark-mode` 标记，以及非灵动岛版 `v2026.10.11-xjy-pre-island-home`、柔和紫蓝灵动岛版 `v2026.10.11-xjy-soft-island-home`，均保留在历史中。
+此前的 `v2026.10.11-0736-xjy-website-refresh`、`v2026.10.11-xjy-benchmark-eval-dark-mode` 标记，以及非灵动岛版 `v2026.10.11-xjy-pre-island-home`、柔和紫蓝灵动岛版 `v2026.10.11-xjy-soft-island-home`，均保留在历史中。
+
+## 来源与合并登记
+
+本版明确采用以下来源。时间均为 Asia/Shanghai。
+
+| 范围 | 来源提交 | 提交身份 |
+| --- | --- | --- |
+| Document 内容、目录、任务页及文档样式 | [`fb210d8`](https://github.com/RoboValue-Benchmark/RoboValue-Benchmark.github.io/commit/fb210d890502220d20bfe45823cc4d0a31df9dac)，2026-10-11 02:17:16 | `liushb9` |
+| Home、Leaderboard、Eval、Community、共享样式、资源、成绩数据及本机接收服务 | [`354bb36`](https://github.com/RoboValue-Benchmark/RoboValue-Benchmark.github.io/commit/354bb36a8188b0eb854eb4e5dbb20476d40ad269)，2026-10-11 07:01:57 | GitHub 账号 `xiaojy36`，Git 署名 `Level-0-Xiaojy` |
+| 共享入口 `src/main.jsx` | 组合上述两份提交：Document 的 Download 路由与锚点逻辑采用远端版本，公开页面入口保留本地版本 | 在合并提交中整合 |
+
+双方共同起点为 `a4ff71d`。合并结果为 [`4008c60`](https://github.com/RoboValue-Benchmark/RoboValue-Benchmark.github.io/commit/4008c60153e8e130b817c651362372363cbf0b83)，记录时间为 2026-10-11 07:02:41；其第一父提交为本地 `354bb36`，第二父提交为文档版本 `fb210d8`。
+
+四个文件出现冲突：`src/docs-adapter.jsx`、`src/docs-content.jsx`、`src/docs-protocol.jsx`、`src/navigation.js`。本地在原文档链接名称中补过空格，远端重写了对应名称、链接或结构，形成重叠修改。处理时保留远端冲突段及所有非冲突内容；其余可兼容的改动由 Git 自动合并。
+
+本次登记前逐项比较确认：
+
+- 所有 `src/docs-*`、文档样式、`src/tasks.jsx` 和 `src/navigation.js` 与 `fb210d8` 一致。
+- 公开页面、共享样式、背景墙、模型图标、全部 `public/` 资源、成绩数据及 `server/` 接收服务与 `354bb36` 一致。
+- `src/main.jsx` 同时保留本地公开页面入口和远端 Document 路由。
+- 本次补充提交仅更新 README 与版本说明，8877 当前使用的代码未再改变。
 
 ## 页面与内容
 
@@ -17,7 +38,7 @@
 - **Eval**：保留 Team Name、Organization、Model Name、Email 四项必填信息，不设置 Evaluation Type。Phone、WeChat、Discord 至少填写一项，允许同时填写多项，切换时保留输入；默认显示 WeChat，电话框提示国家区号。必填星号为红色，前后端均校验输入。微信群与 Discord 在提交前公开展示，保存成功后显示 Application Submitted，并提供 Get Started 链接。
 - **格式调整**：相关页面的小蓝字标题两侧采用短横线，统一链接大小写、箭头及样式，调整字号、标题居中、导航和视频框阴影，以及资源按钮图标与文字对齐。
 - **夜间模式**：Home 的 News、Citation、视频占位框及榜单使用深色样式，保留榜单边框和圆角。Overview 保留原图颜色和白底，并裁切为圆角。Home 与 Leaderboard 的模型图标增加仅在深色模式显示的白色衬底，保持原资源、颜色和尺寸。
-- **Document**：以当前本机 8877 使用的文档为准，该版本已与 GitHub 同步。本次补充提交不修改文档内容、目录或页面代码。
+- **Document**：采用 `liushb9` 的 `fb210d8` 文档版本，包含 Usage 目录、Dataset 的 Overview / Download 拆分及阅读指南等更新。该内容已合入当前本机 8877 使用的代码。本次补充提交仅登记来源，不再修改文档内容、目录或页面代码。
 
 ## 背景墙
 
