@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import sceneData from './data/hero-scenes.json';
 
-// Standard A/B use disjoint task sets. The eight row types repeat on taller screens.
+// Paper task images alternate real-world first, then simulation.
+// Standard A/B share selected tasks; the eight row types repeat on taller screens.
 const ROW_TYPES = sceneData.rows;
 const PIXELS_PER_SECOND = 10;
 
@@ -44,14 +45,16 @@ export function HeroBackground() {
         {Array.from({ length: rowCount }, (_, row) => {
           const rowType = ROW_TYPES[row % ROW_TYPES.length];
           const realWorld = rowType.domain === 'real-world';
+          const crop = sceneData.crop[rowType.domain];
+          const cropHeight = crop.sourceHeight - crop.top - crop.bottom;
           const pool = rowType.scenes;
           const offset = Math.floor(row / ROW_TYPES.length) * 7;
           const scenes = Array.from({ length: Math.max(pool.length, columnCount) }, (_, index) => pool[(index + offset) % pool.length]);
           const duration = scenes.length * tilePitch / PIXELS_PER_SECOND;
-          return <div className={`rv-hero-row${realWorld ? ' rv-hero-row-real' : ''}`} key={row} data-domain={rowType.domain} data-condition={rowType.condition} data-group={rowType.group} style={{ '--row-duration': `${duration}s` }}>
+          return <div className={`rv-hero-row${realWorld ? ' rv-hero-row-real' : ''}`} key={row} data-domain={rowType.domain} data-condition={rowType.condition} data-group={rowType.group} style={{ '--row-duration': `${duration}s`, '--scene-aspect-ratio': `${crop.sourceWidth} / ${cropHeight}`, '--scene-image-height': `${crop.sourceHeight / cropHeight * 100}%`, '--scene-crop-top': `${-crop.top / cropHeight * 100}%` }}>
             {[0, 1].map(copy => <div className="rv-hero-row-group" key={copy}>
               {scenes.map((scene, index) => <div className="rv-hero-scene" key={`${scene}-${index}`}>
-                <img src={scene} alt="" width="640" height="480" decoding="async" loading={index < columnCount ? 'eager' : 'lazy'} fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
+                <img src={scene} alt="" width={crop.sourceWidth} height={crop.sourceHeight} decoding="async" loading={index < columnCount ? 'eager' : 'lazy'} fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
               </div>)}
             </div>)}
           </div>;

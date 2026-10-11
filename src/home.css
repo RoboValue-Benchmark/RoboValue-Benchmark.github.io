@@ -80,8 +80,8 @@
 .rv-hero-row { display: flex; width: max-content; animation: rv-hero-drift var(--row-duration) linear infinite; will-change: transform; }
 .rv-hero-row:nth-child(even) { animation-direction: reverse; }
 .rv-hero-row-group { display: flex; flex: 0 0 auto; gap: 12px; padding-right: 12px; }
-.rv-hero-scene { flex: 0 0 auto; width: clamp(128px, 10.5vw, 164px); aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid #8d77b52e; border-radius: 10px; background: #e8e0f1; box-shadow: 0 3px 9px #60428f12, inset 0 1px 0 #ffffff66; }
-.rv-hero-scene img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.85) contrast(.95); }
+.rv-hero-scene { position: relative; box-sizing: content-box; flex: 0 0 auto; width: clamp(128px, 10.5vw, 164px); aspect-ratio: var(--scene-aspect-ratio, 8 / 5); overflow: hidden; border: 1px solid #8d77b52e; border-radius: 10px; background: #e8e0f1; box-shadow: 0 3px 9px #60428f12, inset 0 1px 0 #ffffff66; }
+.rv-hero-scene img { position: absolute; left: 0; top: var(--scene-crop-top); display: block; width: 100%; height: var(--scene-image-height); max-width: none; filter: saturate(.85) contrast(.95); }
 .rv-hero-wash { position: absolute; inset: 0; background: linear-gradient(165deg, #8654bd24, transparent 46%), linear-gradient(205deg, #397af21c, transparent 50%), linear-gradient(180deg, #ffffff4d 0%, transparent 13%, transparent 84%, #fff 100%); }
 .rv-hero-backdrop.is-paused .rv-hero-row { animation-play-state: paused; }
 .rv-backdrop-toggle { position: absolute; z-index: 2; right: 20px; bottom: 16px; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #d8dcea; border-radius: 12px; background: #ffffffed; color: #4e5563; }

@@ -4,6 +4,16 @@ Official public website for RoboValue. This repository is separate from the anon
 
 ## Marked versions
 
+### 2026-10-11 17:18 (Asia/Shanghai) · xjy · Overview and task-image background
+
+**Tag:** `v2026.10.11-1718-xjy-overview-and-background`
+
+Replace the Home overview with the supplied October 11 figure, rendered as SVG with the existing zoom viewer. Rebuild the animated paper-information background from 105 manuscript task images: real-world rows precede simulation rows, and both use an 8:5 display crop.
+
+This version also includes the pending Home author fixes: the English apostrophe in Shu'ang Yu and Chuankang Li's GitHub profile link, together with the incoming Chang Ge profile link. See [the version notes](docs/releases/2026-10-11-overview-and-background.md) for image sources, crop settings, row selection, validation, and the incoming commits.
+
+The earlier `v2026.10.11-1601-xjy-pre-background-wall` tag remains an optional fallback for the background experiment.
+
 ### 2026-10-11 08:10 (Asia/Shanghai) · xjy · Website refresh
 
 **Tag:** `v2026.10.11-0810-xjy-website-refresh`
@@ -62,7 +72,7 @@ The earlier aligned paper-information version without the animated background is
 
 ## Pages
 
-- `/`: paper and resource information over an animated task-frame background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; selected-track rankings; community access; and a citation placeholder.
+- `/`: paper and resource information over an animated manuscript task-image background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; selected-track rankings; community access; and a citation placeholder.
 - `/doc/`: documentation, evaluation and integration guidance, and all simulation and real-world task pages.
 - `/eval/`: evaluation application form with public WeChat and Discord access. After a successful submission, applicants can open Get Started to prepare their model.
 - `/community/`: public WeChat group invitation and Discord access, without the documentation sidebar.
@@ -71,7 +81,7 @@ The earlier aligned paper-information version without the animated background is
 
 ## Results and sources
 
-The homepage introduction, overview figure, and leaderboard source metadata follow the October 9, 2026 manuscript. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
+The homepage introduction and leaderboard source metadata follow the October 9, 2026 manuscript. The homepage overview figure uses the supplied October 11 PDF. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
 
 Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the full-leaderboard link retains that track. Official project logos take priority over institution fallbacks.
 
