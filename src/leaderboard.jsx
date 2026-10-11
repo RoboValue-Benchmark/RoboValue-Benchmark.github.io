@@ -139,7 +139,7 @@ export function Leaderboard() {
     return { ...current, [field]: { key, asc: current[field]?.key === key ? !current[field].asc : !!METRICS[key].lower } };
   });
   return <main className="leaderboard-main" id="main-content" tabIndex={-1}>
-    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. Evaluation tracks are ranked separately.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/doc/get-started/evaluation/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
+    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. Evaluation tracks are ranked separately.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/eval/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
     <section className="lb-ranking" aria-labelledby="lb-ranking-title">
       <h2 id="lb-ranking-title">{CONDITIONS.aggregate}</h2>
       <TableControls eligible={eligible} view={rankingView} tableId="lb-ranking-table" onTrack={rankingTrack => update({ rankingTrack })} />

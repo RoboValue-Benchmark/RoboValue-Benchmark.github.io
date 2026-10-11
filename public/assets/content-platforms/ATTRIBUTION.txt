@@ -1,0 +1,4 @@
+Platform logo paths: Simple Icons (CC0-1.0)
+Source: https://github.com/simple-icons/simple-icons/tree/develop/icons
+Icons: bilibili, youtube, xiaohongshu, x
+Brand marks belong to their respective owners.

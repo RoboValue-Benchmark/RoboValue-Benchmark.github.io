@@ -13,9 +13,11 @@ LIV — University of Pennsylvania
 Project: https://penn-pal-lab.github.io/LIV/
 Mark: https://www.upenn.edu/themes/custom/penn_global/assets/img/simplified-shield.ico
 
-ProcVLM — project icon
+ProcVLM — Renmin University of China (Home and Leaderboard)
 Project: https://procvlm.github.io/
-Mark: https://procvlm.github.io/assets/images/procvlm_icon.png
+Institution: https://www.ruc.edu.cn/xuexiaobiaozhi1924747550510977025.html
+Mark: https://www.ruc.edu.cn/template/1/out/imgs/VI/1.png
+Original project icon for other model references: https://procvlm.github.io/assets/images/procvlm_icon.png
 
 Robo-Dopamine — project mascot
 Project: https://robo-dopamine.github.io/

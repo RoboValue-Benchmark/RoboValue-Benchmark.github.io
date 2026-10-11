@@ -19,11 +19,28 @@ import { EvaluationProtocol, MetricsReference, MetricGuide, protocolSections } f
 import { DiagnosticTrajectories, DiagnosticCategory, diagnosticSections } from './docs-diagnostics';
 
 function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false, sidebarCollapsed = false, onToggleSidebar }) {
-  const [theme, setTheme] = useState(() => localStorage.getItem('robovalue-theme') ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  const [themePreference, setThemePreference] = useState(() => {
+    try {
+      const saved = localStorage.getItem('robovalue-theme-preference');
+      return saved === 'light' || saved === 'dark' ? saved : 'system';
+    } catch { return 'system'; }
+  });
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  useEffect(() => {
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const update = () => setTheme(themePreference === 'system' ? (systemTheme.matches ? 'dark' : 'light') : themePreference);
+    update();
+    systemTheme.addEventListener('change', update);
+    return () => systemTheme.removeEventListener('change', update);
+  }, [themePreference]);
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem('robovalue-theme', theme);
   }, [theme]);
+  const toggleTheme = () => {
+    const next = theme === 'light' ? 'dark' : 'light';
+    setThemePreference(next);
+    try { localStorage.setItem('robovalue-theme-preference', next); } catch {}
+  };
   const [siteMenuOpen, setSiteMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(window.scrollY > 24);
   useEffect(() => {
@@ -43,7 +60,7 @@ function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false, side
     ['/', 'Home'],
     ['/doc/', 'Document'],
     ['/leaderboard/', 'Leaderboard'],
-    ['/eval/', 'Eval'],
+    ['/eval/', 'Evaluation'],
     ['/community/', 'Community'],
   ];
   const currentPath = window.location.pathname.replace(/\/?$/, '/');
@@ -54,7 +71,7 @@ function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false, side
     {documentation && <button className="sidebar-toggle" aria-label={sidebarCollapsed ? 'Show sidebar' : 'Hide sidebar'} title={sidebarCollapsed ? 'Show sidebar' : 'Hide sidebar'} aria-expanded={!sidebarCollapsed} aria-controls="docs-sidebar" onClick={onToggleSidebar}>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16" /><path d={sidebarCollapsed ? 'm12 9 3 3-3 3' : 'm15 9-3 3 3 3'} /></svg>
     </button>}
-    <button className="theme-toggle" aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'} title={theme === 'light' ? 'Dark mode' : 'Light mode'} onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+    <button className="theme-toggle" aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'} title={theme === 'light' ? 'Dark mode' : 'Light mode'} onClick={toggleTheme}>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{theme === 'light' ? <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" /> : <><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" /></>}</svg>
     </button>
     <div className="header-mobile-controls">

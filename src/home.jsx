@@ -36,6 +36,12 @@ const AUTHORS = [
 ];
 const AFFILIATIONS = INSTITUTIONS.map(([name]) => name);
 const INSTITUTION_LOGOS = INSTITUTIONS.map(([, file]) => file);
+const CONTENT_CHANNELS = [
+  { name: 'Bilibili', icon: 'bilibili', href: null },
+  { name: 'YouTube', icon: 'youtube', href: null },
+  { name: '小红书', icon: 'xiaohongshu', href: null },
+  { name: 'X', icon: 'x', href: null },
+];
 const CONDITIONS = { id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment' };
 const CONDITION_ORDER = Object.keys(CONDITIONS);
 const TASK_SETTINGS = {
@@ -74,8 +80,8 @@ const CAPABILITY_METRICS = {
     ['CSVC', 'Assign comparable gains to the same semantic subtask across valid execution orders.'],
   ],
 };
-function ResourceEntry({ label, icon, logo, href, status, external = false, arrow = false }) {
-  const content = <>{logo ? <img className="rv-entry-logo" src={`/assets/resource-icons/${logo}.svg`} alt="" width="20" height="20" aria-hidden="true" /> : <Icon name={icon} size={20} />}<strong>{label}</strong>{status && <span className="rv-entry-status">{status}</span>}{(external || arrow) && <Icon className="rv-entry-arrow" name={external ? 'external' : 'arrow'} size={14} />}</>;
+function ResourceEntry({ label, icon, logo, href, status, external = false, arrow = false, arrowIcon = 'arrow' }) {
+  const content = <>{logo ? <img className="rv-entry-logo" src={`/assets/resource-icons/${logo}.svg`} alt="" width="20" height="20" aria-hidden="true" /> : <Icon name={icon} size={20} />}<strong>{label}</strong>{status && <span className="rv-entry-status">{status}</span>}{(external || arrow) && <Icon className="rv-entry-arrow" name={external ? 'external' : arrowIcon} size={14} />}</>;
   return href
     ? <a className="rv-entry" data-icon={logo || icon} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{content}</a>
     : <button className="rv-entry rv-entry-pending" data-icon={logo || icon} type="button" disabled>{content}</button>;
@@ -91,13 +97,17 @@ function ResearchDetails() {
           return <span key={name}>{homepage ? <a href={homepage} target="_blank" rel="noopener noreferrer">{name}</a> : name}<sup>{numbers}{role && <span className="rv-author-role">,{role}</span>}</sup></span>;
         })}</div><p className="rv-author-notes"><span className="rv-author-role">*</span> Equal contribution <span className="rv-note-separator">·</span> <span className="rv-author-role">†</span> Project leader <span className="rv-note-separator">·</span> <span className="rv-author-role">‡</span> Corresponding authors</p></dd>
         <dt>Affiliations</dt><dd><div className="rv-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div><div className="rv-institutions" aria-label="Institution logos">{INSTITUTION_LOGOS.map((file, index) => <img key={file} className={file === 'hku.png' ? 'rv-institution-hku' : undefined} src={`/assets/affiliations/${file}`} alt={AFFILIATIONS[index]} width="180" height="48" loading="eager" />)}</div></dd>
+        <dt className="rv-content-label">Share</dt><dd><div className="rv-content-channels" aria-label="Project content">{CONTENT_CHANNELS.map(({ name, icon, href }) => {
+          const Element = href ? 'a' : 'span';
+          return <Element key={icon} className="rv-content-channel" href={href || undefined} target={href ? '_blank' : undefined} rel={href ? 'noopener noreferrer' : undefined}><img src={`/assets/content-platforms/${icon}.svg`} className={`rv-content-logo rv-content-logo--${icon}`} alt="" width="20" height="20" aria-hidden="true" />{name}</Element>;
+        })}</div></dd>
       </dl>
       <div className="rv-paper-entries" aria-label="Project links">
         <div className="rv-release-grid">
           <ResourceEntry label="Report" icon="paper" external />
           <ResourceEntry label="Document" icon="book" href="/doc/" arrow />
           <ResourceEntry label="Code" logo="github" href="https://github.com/RoboValue-Benchmark/RoboValue" external />
-          <ResourceEntry label="Dataset" icon="database" arrow />
+          <ResourceEntry label="Dataset" icon="database" arrow arrowIcon="external" />
         </div>
         <div className="rv-paper-links">
           <ResourceEntry label="Leaderboard" icon="trophy" href="/leaderboard/" arrow />
@@ -183,13 +193,13 @@ function HomeResults() {
   const colors = { understanding: '#366c9a', tracking: '#447d64', diagnosis: '#a56f2d', consistency: '#a45368' };
   const renderScore = (value, key) => <span className={value === highlights[key]?.best ? 'rv-score-best' : value === highlights[key]?.second ? 'rv-score-second' : ''}>{score(value)}</span>;
   return <section className="rv-section rv-results" id="results" aria-labelledby="home-results-title"><div className="rv-container">
-    <div className="rv-results-heading rv-reveal"><div className="rv-centered-heading"><p className="rv-eyebrow"><Icon name="trophy" size={16} />LEADERBOARD</p><h2 id="home-results-title">RoboValue Leaderboard</h2></div><a className="rv-text-link rv-results-page-link" href="/leaderboard/">View Leaderboard<Icon size={18} /></a></div>
+    <div className="rv-results-heading rv-reveal"><div className="rv-centered-heading"><p className="rv-eyebrow"><Icon name="trophy" size={16} />LEADERBOARD</p><h2 id="home-results-title">RoboValue Leaderboard</h2></div></div>
     <div className="rv-preview rv-reveal">
       <div className="rv-preview-top"><div className="rv-small-switch" role="group" aria-label="Homepage evaluation track">{Object.entries(TRACKS).map(([id, label]) => <button type="button" key={id} aria-pressed={track === id} aria-controls="home-results-table" onClick={() => setTrack(id)}>{label}</button>)}</div></div>
       <div className="rv-preview-frame"><div className="rv-preview-scroll" role="region" aria-label={`Homepage overall ranking, ${TRACKS[track]}`} tabIndex={0}><table className="rv-preview-table" id="home-results-table"><caption className="sr-only">All models in the {TRACKS[track]} track, ranked by Overall. Normalized capability scores range from 0 to 100; higher is better.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col" className="rv-preview-overall">Overall</th>{GROUPS.map(group => <th scope="col" key={group.id} className="rv-preview-capability" style={{ '--capability-color': colors[group.id] }} title={group.title}>{CAPABILITY_TABLE_HEADERS[group.id]}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><td className="rv-rank">{row.aggregate.rank}</td><th scope="row"><RankingModel row={row} /></th><td className="rv-preview-overall">{renderScore(row.aggregate.overall, 'overall')}</td>{GROUPS.map(group => <td key={group.id}>{renderScore(row.aggregate[group.id], group.id)}</td>)}</tr>)}</tbody></table></div>{!rows.length && <div className="rv-preview-empty" role="status">{track === 'full' ? 'No results yet.' : error ? <><strong>Results could not be loaded.</strong><button type="button" className="rv-text-link" onClick={retry}>Try Again<Icon size={15} /></button></> : data ? 'No results yet.' : 'Loading results…'}</div>}</div>
       {!!rows.length && <div className="rv-preview-legend"><b>Best</b> · <span className="rv-score-second">Second Best</span></div>}
     </div>
-    <nav className="rv-results-doc-links rv-reveal" aria-label="Evaluation documentation"><a className="rv-text-link" href="/doc/get-started/evaluation/">Participate in Evaluation<Icon size={20} /></a></nav>
+    <nav className="rv-results-doc-links rv-reveal" aria-label="Detailed evaluation results"><a className="rv-text-link" href="/leaderboard/">View Detailed Results<Icon size={20} /></a></nav>
   </div></section>;
 }
 
@@ -210,6 +220,17 @@ function EvaluationFramework() {
     </div>
     <div className="rv-framework-link rv-reveal"><a className="rv-text-link" href="https://robovalue-benchmark.github.io/doc/get-started/protocol/metrics/">Metrics<Icon size={20} /></a></div>
   </div></section>;
+}
+
+function Evaluation() {
+  return <section className="rv-resources rv-evaluation" id="evaluation" aria-labelledby="evaluation-title">
+    <div className="rv-container rv-narrow rv-reveal">
+      <p className="rv-eyebrow"><Icon name="leaderboard" size={16} />EVALUATION</p>
+      <h2 id="evaluation-title">Submit Your Model</h2>
+      <p className="rv-evaluation-description">Submit your team and model details to request an evaluation.</p>
+      <div className="rv-resource-links"><a className="rv-evaluation-action" href="/eval/">Request Evaluation<Icon size={18} /></a></div>
+    </div>
+  </section>;
 }
 
 function Community() {
@@ -238,8 +259,9 @@ export function PublicHome() {
     <TaskGallery domain="real-world" />
     <EvaluationFramework />
     <HomeResults />
+    <Evaluation />
     <Community />
     <Citation />
-    <footer className="rv-footer rv-container"><a href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" width="154" height="51" /></a><p>A benchmark for robotic value models.</p><nav aria-label="Footer"><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a><a href="/community/">Community</a><a href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer">Discord</a></nav></footer>
+    <footer className="rv-footer rv-container"><a href="/" aria-label="RoboValue home"><img src="/assets/robovalue-logo.png" alt="RoboValue" width="154" height="51" /></a><p>A benchmark for robotic value models.</p><nav aria-label="Footer"><a href="/doc/">Document</a><a href="/leaderboard/">Leaderboard</a><a href="/eval/">Evaluation</a><a href="/community/">Community</a></nav></footer>
   </main>;
 }

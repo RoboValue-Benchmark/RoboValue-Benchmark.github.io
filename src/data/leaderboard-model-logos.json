@@ -11,11 +11,12 @@
     "projectURL": "https://penn-pal-lab.github.io/LIV/"
   },
   "ProcVLM": {
-    "src": "/assets/model-logos/procvlm.png",
-    "label": "ProcVLM \u00b7 official project-site icon",
-    "kind": "project",
+    "src": "/assets/model-logos/renmin.png",
+    "label": "Renmin University of China \u00b7 first institution",
+    "kind": "institution",
     "source": "https://procvlm.github.io/",
-    "assetSource": "https://procvlm.github.io/assets/images/procvlm_icon.png",
+    "institutionSource": "https://www.ruc.edu.cn/xuexiaobiaozhi1924747550510977025.html",
+    "assetSource": "https://www.ruc.edu.cn/template/1/out/imgs/VI/1.png",
     "projectURL": "https://procvlm.github.io/"
   },
   "Robo-Dopamine": {
