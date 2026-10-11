@@ -1,10 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import sceneData from './data/hero-scenes.json';
+import { LoadingImage } from './loading-image';
 
 // Paper task images alternate real-world first, then simulation.
 // Standard A/B share selected tasks; the eight row types repeat on taller screens.
 const ROW_TYPES = sceneData.rows;
-const PIXELS_PER_SECOND = 10;
+// CSS pixels per second; paired real/simulation rows share a speed.
+const SPEED_BY_GROUP = {
+  'standard-a': 26,
+  'cross-embodiment': 15,
+  'cross-environment': 36,
+  'standard-b': 20,
+};
 
 export function HeroBackground() {
   const wall = useRef(null);
@@ -50,12 +57,13 @@ export function HeroBackground() {
           const pool = rowType.scenes;
           const offset = Math.floor(row / ROW_TYPES.length) * 7;
           const scenes = Array.from({ length: Math.max(pool.length, columnCount) }, (_, index) => pool[(index + offset) % pool.length]);
-          const duration = scenes.length * tilePitch / PIXELS_PER_SECOND;
+          const speed = SPEED_BY_GROUP[rowType.group] ?? 10;
+          const duration = scenes.length * tilePitch / speed;
           return <div className={`rv-hero-row${realWorld ? ' rv-hero-row-real' : ''}`} key={row} data-domain={rowType.domain} data-condition={rowType.condition} data-group={rowType.group} style={{ '--row-duration': `${duration}s`, '--scene-aspect-ratio': `${crop.sourceWidth} / ${cropHeight}`, '--scene-image-height': `${crop.sourceHeight / cropHeight * 100}%`, '--scene-crop-top': `${-crop.top / cropHeight * 100}%` }}>
             {[0, 1].map(copy => <div className="rv-hero-row-group" key={copy}>
               {scenes.map((scene, index) => <div className="rv-hero-scene" key={`${scene}-${index}`}>
                 <div className="rv-hero-scene-surface">
-                  <img src={scene} alt="" width={crop.sourceWidth} height={crop.sourceHeight} decoding="async" loading={index < columnCount ? 'eager' : 'lazy'} fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
+                  <LoadingImage src={scene} alt="" width={crop.sourceWidth} height={crop.sourceHeight} decoding="async" loading={index < columnCount ? 'eager' : 'lazy'} fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
                 </div>
               </div>)}
             </div>)}

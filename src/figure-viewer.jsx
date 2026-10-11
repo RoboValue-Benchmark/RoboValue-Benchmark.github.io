@@ -1,10 +1,12 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { Icon } from './benchmark';
+import { LoadingImage } from './loading-image';
 import './figure-viewer.css';
 
 const ZOOM_LEVELS = [1, 1.5, 2, 3, 4, 6];
 
-export function ZoomableFigure({ src, alt, caption, title, className = '' }) {
+export function ZoomableFigure({ src, alt, caption, title, className = '', width, height, placeholder = false }) {
+  const Image = placeholder ? LoadingImage : 'img';
   const dialog = useRef(null);
   const viewport = useRef(null);
   const drag = useRef(null);
@@ -91,7 +93,7 @@ export function ZoomableFigure({ src, alt, caption, title, className = '' }) {
 
   return <figure className={`paper-figure ${className}`}>
     <button className="figure-open" onClick={show} aria-label={`Enlarge: ${alt}`}>
-      <img src={src} alt={alt} loading="lazy" onLoad={event => setRatio(event.currentTarget.naturalWidth / event.currentTarget.naturalHeight)} />
+      <Image src={src} alt={alt} width={width} height={height} loading="lazy" onLoad={event => setRatio(event.currentTarget.naturalWidth / event.currentTarget.naturalHeight)} />
       <span className="expand"><Icon name="expand" /> Enlarge figure</span>
     </button>
     {caption && <figcaption>{caption}</figcaption>}
@@ -108,7 +110,7 @@ export function ZoomableFigure({ src, alt, caption, title, className = '' }) {
       </div>
       <div ref={viewport} className={`figure-viewer-viewport${zoom > 1 ? ' is-zoomed' : ''}`} role="region" aria-label="Figure details, scroll or drag to explore when zoomed" tabIndex={0} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={() => { drag.current = null; }} onPointerCancel={() => { drag.current = null; }} onLostPointerCapture={() => { drag.current = null; }}>
         <div className="figure-viewer-canvas" style={{ '--figure-image-width': `${fitWidth * zoom}px`, '--figure-image-height': `${fitWidth * zoom / ratio}px` }}>
-          <img src={src} alt={alt} draggable="false" onLoad={event => setRatio(event.currentTarget.naturalWidth / event.currentTarget.naturalHeight)} />
+          <Image src={src} alt={alt} width={width} height={height} draggable="false" onLoad={event => setRatio(event.currentTarget.naturalWidth / event.currentTarget.naturalHeight)} />
         </div>
       </div>
       {caption && <p className="figure-viewer-caption" id={captionId}>{caption}</p>}

@@ -3,6 +3,7 @@ import { Icon } from './benchmark';
 import { ZoomableFigure } from './figure-viewer';
 import { RankingModel } from './ranking-model';
 import { HeroBackground } from './hero-background';
+import { LoadingImage } from './loading-image';
 import { GROUPS } from './benchmark-metrics';
 import { TRACKS, scoreHighlights } from './leaderboard-utils';
 import { useResults } from './use-results';
@@ -122,7 +123,7 @@ function Introduction() {
       <div className="rv-introduction">
         <p className="rv-reveal">Robotic value models assess task execution from visual observations and language instructions. Their feedback supports data selection, policy learning, action planning, and execution monitoring, reducing the need for task-specific reward design. Errors in these judgments can propagate into both robot learning and execution, making systematic evaluation essential.</p>
         <p className="rv-reveal">Existing evaluations often emphasize task outcomes or correlation with forward progress. High scores can nevertheless hide incorrect intermediate judgments: values may rise during reverse playback, rebound after a failed recovery, or overlook completed subtasks when similar states recur. Such errors can reward unproductive behavior and misguide subsequent actions. A shared evaluation framework is therefore needed to reveal where value feedback succeeds or fails throughout an execution.</p>
-        <ZoomableFigure className="rv-overview-figure rv-reveal" title="Overview of RoboValue" src="/assets/overview-10-11.svg" alt="Overview of RoboValue: simulation and real-world data, shared interfaces, resources, and diagnostic designs across four capability dimensions" caption="Overview of RoboValue: unified evaluation of robotic value models across four complementary dimensions in simulation and real-world settings." />
+        <ZoomableFigure className="rv-overview-figure rv-reveal" title="Overview of RoboValue" src="/assets/overview-10-11.svg" width="2400" height="2295" placeholder alt="Overview of RoboValue: simulation and real-world data, shared interfaces, resources, and diagnostic designs across four capability dimensions" caption="Overview of RoboValue: unified evaluation of robotic value models across four complementary dimensions in simulation and real-world settings." />
         <p className="rv-reveal">We introduce <strong className="rv-brand-name rv-brand-primary">RoboValue</strong>, a fine-grained sim-and-real benchmark for unified evaluation of robotic value models.</p>
         <p className="rv-reveal"><strong className="rv-brand-name">RoboValue-Dataset</strong> provides expert training demonstrations and annotated test trajectories across <strong className="rv-data-emphasis">15 simulation and 20 real-world manipulation tasks</strong>. Contrasts in task instructions, execution history, recovery outcomes, and valid subtask orders expose unreliable value judgments. Separate embodiment and environment shifts test generalization.</p>
         <p className="rv-reveal"><strong className="rv-brand-name">RoboValue-Benchmark</strong> evaluates four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index > 0 && (index === GROUPS.length - 1 ? ', and ' : ', ')}<strong className="rv-capability-name" style={{ '--capability-color': `var(--rv-capability-${group.id}, ${group.color})` }}>{group.title.toLowerCase()}</strong></React.Fragment>)}. Shared interfaces and model-specific adapters enable comparison across heterogeneous models while preserving their native value semantics.</p>
@@ -143,7 +144,7 @@ function News() {
 
 function TaskTile({ item, condition }) {
   return <a className="rv-task-tile" href={taskPath(item)} data-task-id={item.id} aria-label={`${item.title}: ${CONDITIONS[condition]}. View task details.`}>
-    <img src={item.images[condition]} alt={`${item.title}: ${CONDITIONS[condition]}`} loading="lazy" width="640" height="480" />
+    <LoadingImage src={item.images[condition]} alt={`${item.title}: ${CONDITIONS[condition]}`} loading="lazy" width="640" height="480" />
     <span>{item.title}<Icon size={15} /></span>
   </a>;
 }

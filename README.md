@@ -4,6 +4,14 @@ Official public website for RoboValue. This repository is separate from the anon
 
 ## Marked versions
 
+### 2026-10-11 19:44 (Asia/Shanghai) · xjy · Floating background gallery
+
+**Tag:** `v2026.10.11-1944-xjy-floating-gallery-background`
+
+Refine the Home task-image wall into a floating gallery on a light neutral surface. Photo cards have crisp rounded boundaries, thin side depth, and downward shadows that fade toward both ends. Wider spacing and shorter edge fades keep the gallery clear while connecting it smoothly to the page content.
+
+Real-world and simulation rows within each group share a steady speed: Standard A 26, Cross-Embodiment 15, Cross-Environment 36, and Standard B 20 CSS pixels per second. See [the background gallery notes](docs/releases/2026-10-11-floating-gallery-background.md) for the design and motion settings.
+
 ### 2026-10-11 17:18 (Asia/Shanghai) · xjy · Overview and task-image background
 
 **Tag:** `v2026.10.11-1718-xjy-overview-and-background`
