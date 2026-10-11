@@ -18,19 +18,17 @@ export const navigation = [
   { title: 'Home', pages: [{ path: '/doc/', title: 'RoboValue', kind: 'home' }] },
   { title: 'Usage', pages: [
     { path: '/doc/get-started/', title: 'Quick Start', kind: 'start' },
-    { title: 'Dataset', children: [
-      { path: '/doc/get-started/data/', title: 'Overview', kind: 'data' },
+    { path: '/doc/get-started/data/', title: 'Dataset', kind: 'dataset-guide', children: [
+      { path: '/doc/get-started/data/overview/', title: 'Overview', kind: 'data', anchors: ['dataset-splits', 'dataset-test', 'dataset-observations', 'dataset-annotation'] },
       { path: '/doc/get-started/data/download/', title: 'Download', kind: 'data-download', anchors: ['dataset-training'] },
     ] },
+    { path: '/doc/get-started/protocol/evaluation/', title: 'Evaluation Protocol', kind: 'evaluation-protocol', anchors: ['protocol-settings', 'protocol-evaluation', 'dataset-references', 'protocol-coverage', 'protocol-integrity', 'protocol-results'] },
     { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation', children: [
       { path: '/doc/get-started/adapters/', title: 'Submission', kind: 'submission' },
-      { path: '/doc/model-api/', title: 'Integration', kind: 'integration' },
+      { path: '/doc/model-api/', title: 'Adapter Guide', kind: 'integration' },
       { path: '/doc/get-started/evaluation/results/', title: 'Results', kind: 'evaluation-results' },
     ] },
-    { path: '/doc/get-started/protocol/', title: 'Protocol', kind: 'protocol', children: [
-      { path: '/doc/get-started/protocol/evaluation/', title: 'Evaluation Protocol', kind: 'evaluation-protocol', anchors: ['protocol-evaluation', 'protocol-settings', 'dataset-references', 'protocol-coverage', 'protocol-trajectories', 'protocol-inference', 'protocol-integrity', 'protocol-results', 'protocol-provenance'] },
-      { path: '/doc/get-started/protocol/metrics/', title: 'Metrics Reference', kind: 'metrics', anchors: GROUPS.map(group => `protocol-${group.id}`), children: metricPages },
-    ] },
+    { path: '/doc/get-started/protocol/metrics/', title: 'Metric', kind: 'metrics', anchors: GROUPS.map(group => `protocol-${group.id}`), children: metricPages },
   ] },
   { title: 'Simulation Tasks', pages: [
     { path: '/doc/simulation-tasks/', title: 'Overview', kind: 'simulation' },
@@ -44,7 +42,7 @@ export const navigation = [
   ] },
   { title: 'Diagnostic Trajectories', pages: [{ path: '/doc/diagnostic-trajectories/', title: 'Diagnostic Trajectories', kind: 'diagnostics', children: [
     { path: '/doc/diagnostic-trajectories/failure-and-recovery/', title: 'Failure–Recovery', kind: 'diagnostic-category', category: 'diagnostic-failure-recovery', anchors: ['diagnostic-failure-recovery'] },
-    { path: '/doc/diagnostic-trajectories/long-horizon/', title: 'Long-Horizon', kind: 'diagnostic-category', category: 'diagnostic-long-horizon', anchors: ['diagnostic-long-horizon'] },
+    { path: '/doc/diagnostic-trajectories/long-horizon/', title: 'Repetitive Actions', kind: 'diagnostic-category', category: 'diagnostic-long-horizon', anchors: ['diagnostic-long-horizon'] },
     { path: '/doc/diagnostic-trajectories/multi-solution/', title: 'Multi-Solution', kind: 'diagnostic-category', category: 'diagnostic-multi-solution', anchors: ['diagnostic-multi-solution'] },
   ] }] },
 ];
@@ -61,6 +59,7 @@ export const pages = [
   { path: '/data/', title: 'Data', kind: 'data-release', group: 'Data' },
   { path: '/eval/', title: 'Eval', kind: 'evaluation-page', group: 'Eval' },
   ...navigationPages,
+  { path: '/doc/get-started/protocol/', title: 'Protocol', kind: 'protocol', group: 'Usage' },
   { path: '/community/', title: 'Community', kind: 'community', group: 'Community' },
   { path: '/leaderboard/', title: 'Leaderboard', kind: 'leaderboard', group: 'Leaderboard' },
 ];

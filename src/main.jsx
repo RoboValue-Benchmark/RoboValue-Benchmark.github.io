@@ -14,8 +14,8 @@ import { CommunityPage } from './community';
 import { EvaluationPage } from './eval';
 import './public-site.css';
 import './reading-theme.css';
-import { DocumentationOverview, GetStarted, DatasetOverview, DatasetDownload, EvaluationWorkflow, EvaluationResults, SubmitModel, PageOutline, documentationSections } from './docs-content';
-import { ProtocolGuide, EvaluationProtocol, MetricsReference, MetricGuide, protocolSections } from './docs-protocol';
+import { DocumentationOverview, GetStarted, DatasetGuide, DatasetOverview, DatasetDownload, EvaluationWorkflow, EvaluationResults, SubmitModel, PageOutline, documentationSections } from './docs-content';
+import { EvaluationProtocol, MetricsReference, MetricGuide, protocolSections } from './docs-protocol';
 import { DiagnosticTrajectories, DiagnosticCategory, diagnosticSections } from './docs-diagnostics';
 
 function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false, sidebarCollapsed = false, onToggleSidebar }) {
@@ -79,7 +79,7 @@ function App() {
     localStorage.setItem('robovalue-sidebar', sidebarCollapsed ? 'collapsed' : 'expanded');
   }, [sidebarCollapsed]);
   useEffect(() => {
-    if (!['protocol', 'metrics', 'diagnostics', 'data', 'data-download'].includes(page?.kind)) return;
+    if (!['protocol', 'metrics', 'diagnostics', 'dataset-guide', 'data', 'data-download'].includes(page?.kind)) return;
     const followAnchor = () => {
       const child = documentationPages.find(candidate => candidate.path !== page.path && candidate.anchors?.includes(window.location.hash.slice(1)));
       if (child) window.location.replace(child.kind === 'diagnostic-category' ? child.path : `${child.path}${window.location.hash}`);
@@ -97,13 +97,14 @@ function App() {
     if (target) { if (target.tagName === 'DETAILS') target.open = true; target.scrollIntoView(); }
     return () => window.removeEventListener('keydown', close);
   }, [page]);
-  const index = documentationPages.indexOf(page);
+  const index = documentationPages.findIndex(candidate => candidate.path === (page?.kind === 'protocol' ? '/doc/get-started/protocol/evaluation/' : page?.path));
   const title = page?.kind === 'simulation' ? 'Simulation Tasks' : page?.kind === 'real' ? 'Real-World Tasks' : page?.title;
   const outline = page?.kind === 'integration' ? adapterSections : page?.kind === 'diagnostics' ? undefined : page?.kind === 'diagnostic-category' ? diagnosticSections : protocolSections[page?.kind] ?? documentationSections[page?.kind];
   let content = null;
   switch (page?.kind) {
     case 'home': content = <DocumentationOverview />; break;
     case 'start': content = <GetStarted />; break;
+    case 'dataset-guide': content = <DatasetGuide />; break;
     case 'data': content = <DatasetOverview />; break;
     case 'data-download': content = <DatasetDownload />; break;
     case 'evaluation': content = <EvaluationWorkflow />; break;
@@ -116,7 +117,7 @@ function App() {
     case 'task': content = <TaskDetail taskId={page.taskId} />; break;
     case 'diagnostics': content = <DiagnosticTrajectories />; break;
     case 'diagnostic-category': content = <DiagnosticCategory category={page.category} />; break;
-    case 'protocol': content = <ProtocolGuide />; break;
+    case 'protocol':
     case 'evaluation-protocol': content = <EvaluationProtocol />; break;
     case 'metrics': content = <MetricsReference />; break;
     case 'metric': content = <MetricGuide metricKey={page.metricKey} />; break;

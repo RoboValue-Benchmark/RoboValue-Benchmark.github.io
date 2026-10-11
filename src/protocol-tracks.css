@@ -1,0 +1,51 @@
+.doc-protocol-tracks {
+  container: protocol-tracks / inline-size;
+  margin-top: 22px;
+}
+
+.doc-protocol-track-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.doc-protocol-track {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--track-color) 28%, var(--theme-border));
+  border-top: 3px solid var(--track-color);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--track-color) 9%, var(--theme-page));
+}
+
+.doc-protocol-track--zero {
+  --track-color: var(--theme-accent);
+}
+
+.doc-protocol-track--one {
+  --track-color: #387daf;
+}
+
+.doc-protocol-track--full {
+  --track-color: #37856f;
+}
+
+.docs-workspace .doc-main .doc-protocol-track h3 {
+  margin: 0;
+  color: var(--theme-ink);
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.docs-workspace .doc-protocol-track p {
+  margin: 10px 0 0;
+  color: var(--theme-body);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+@container protocol-tracks (max-width: 600px) {
+  .doc-protocol-track-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

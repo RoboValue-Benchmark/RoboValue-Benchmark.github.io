@@ -841,27 +841,27 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the dishcloth and place it below the pump outlet. "
+          "text": "Place the dishcloth below the pump outlet."
         },
         {
           "id": "S2",
-          "text": "Press the pump and dispense soap for the first time. "
+          "text": "Press the pump for the first time."
         },
         {
           "id": "S3",
-          "text": "Press the pump and dispense soap for the second time. "
+          "text": "Press the pump for the second time."
         },
         {
           "id": "S4",
-          "text": "Press the pump and dispense soap for the third time. "
+          "text": "Press the pump for the third time."
         },
         {
           "id": "S5",
-          "text": "Press the pump and dispense soap for the fourth time. "
+          "text": "Press the pump for the fourth time."
         },
         {
           "id": "S6",
-          "text": "Press the pump and dispense soap for the fifth time. "
+          "text": "Press the pump for the fifth time."
         },
         {
           "id": "S7",
@@ -901,43 +901,23 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the cup from the table. "
+          "text": "Place the cup on the left-front coaster."
         },
         {
           "id": "S2",
-          "text": "Place the cup on the left-front coaster. "
+          "text": "Place the teapot on the right-front teapot coaster."
         },
         {
           "id": "S3",
-          "text": "Pick up the teapot from the table. "
+          "text": "Place the lid on the teapot."
         },
         {
           "id": "S4",
-          "text": "Place the teapot on the right-front teapot coaster. "
+          "text": "Place the tea canister on the tea-canister coaster."
         },
         {
           "id": "S5",
-          "text": "Pick up the teapot lid from the table. "
-        },
-        {
-          "id": "S6",
-          "text": "Place the lid on the teapot. "
-        },
-        {
-          "id": "S7",
-          "text": "Pick up the tea canister from the table. "
-        },
-        {
-          "id": "S8",
-          "text": "Place the tea canister on the tea-canister coaster. "
-        },
-        {
-          "id": "S9",
-          "text": "Pick up the tea tongs from the table. "
-        },
-        {
-          "id": "S10",
-          "text": "Place the tea tongs in the bamboo holder tool position."
+          "text": "Place the tea tongs in the bamboo holder."
         }
       ],
       "images": {
@@ -982,42 +962,22 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the first flower from the table. "
+          "text": "Insert the first flower into the vase."
         },
         {
           "id": "S2",
-          "text": "Insert the first flower into the vase. "
+          "text": "Insert the second flower into the vase."
         },
         {
           "id": "S3",
-          "text": "Pick up the second flower from the table. "
+          "text": "Insert the third flower into the vase."
         },
         {
           "id": "S4",
-          "text": "Insert the second flower into the vase. "
+          "text": "Place the reed diffuser bottle on the coaster."
         },
         {
           "id": "S5",
-          "text": "Pick up the third flower from the table. "
-        },
-        {
-          "id": "S6",
-          "text": "Insert the third flower into the vase. "
-        },
-        {
-          "id": "S7",
-          "text": "Pick up the reed diffuser bottle from the table. "
-        },
-        {
-          "id": "S8",
-          "text": "Place the reed diffuser bottle on the coaster. "
-        },
-        {
-          "id": "S9",
-          "text": "Pick up the diffuser reed from the table. "
-        },
-        {
-          "id": "S10",
           "text": "Insert the diffuser reed into the reed diffuser bottle."
         }
       ],
@@ -1063,26 +1023,14 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the first seasoning jar from the table. "
+          "text": "Place the first seasoning jar on the two-tier seasoning rack."
         },
         {
           "id": "S2",
-          "text": "Place the first seasoning jar on the two-tier seasoning rack. "
+          "text": "Place the second seasoning jar on the two-tier seasoning rack."
         },
         {
           "id": "S3",
-          "text": "Pick up the second seasoning jar from the table. "
-        },
-        {
-          "id": "S4",
-          "text": "Place the second seasoning jar on the two-tier seasoning rack. "
-        },
-        {
-          "id": "S5",
-          "text": "Pick up the third seasoning jar from the table. "
-        },
-        {
-          "id": "S6",
           "text": "Place the third seasoning jar on the two-tier seasoning rack."
         }
       ],
@@ -1128,23 +1076,23 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Press the first key in the sequence (2) on the desktop keypad with the right arm. "
+          "text": "Press 2."
         },
         {
           "id": "S2",
-          "text": "Press the second key in the sequence (8) on the desktop keypad with the right arm. "
+          "text": "Press 8."
         },
         {
           "id": "S3",
-          "text": "Press the third key in the sequence (2) on the desktop keypad with the right arm. "
+          "text": "Press 2."
         },
         {
           "id": "S4",
-          "text": "Press the fourth key in the sequence (6) on the desktop keypad with the right arm. "
+          "text": "Press 6."
         },
         {
           "id": "S5",
-          "text": "Press the fifth key in the sequence (8) on the desktop keypad with the right arm."
+          "text": "Press 8."
         }
       ],
       "images": {
@@ -1180,42 +1128,22 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the pen holder from the table. "
+          "text": "Place the first pen in the pen holder."
         },
         {
           "id": "S2",
-          "text": "Pick up the first pen from the table. "
+          "text": "Place the second pen in the pen holder."
         },
         {
           "id": "S3",
-          "text": "Place the first pen in the pen holder. "
+          "text": "Place the third pen in the pen holder."
         },
         {
           "id": "S4",
-          "text": "Pick up the second pen from the table. "
+          "text": "Place the fourth pen in the pen holder."
         },
         {
           "id": "S5",
-          "text": "Place the second pen in the pen holder. "
-        },
-        {
-          "id": "S6",
-          "text": "Pick up the third pen from the table. "
-        },
-        {
-          "id": "S7",
-          "text": "Place the third pen in the pen holder. "
-        },
-        {
-          "id": "S8",
-          "text": "Pick up the fourth pen from the table. "
-        },
-        {
-          "id": "S9",
-          "text": "Place the fourth pen in the pen holder. "
-        },
-        {
-          "id": "S10",
           "text": "Place the pen holder upright on the table."
         }
       ],
@@ -1261,26 +1189,14 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the first plastic plate from the table. "
+          "text": "Place the first plastic plate upright in an empty slot."
         },
         {
           "id": "S2",
-          "text": "Place the first plastic plate upright in an empty slot. "
+          "text": "Place the second plastic plate upright in an empty slot."
         },
         {
           "id": "S3",
-          "text": "Pick up the second plastic plate from the table. "
-        },
-        {
-          "id": "S4",
-          "text": "Place the second plastic plate upright in an empty slot. "
-        },
-        {
-          "id": "S5",
-          "text": "Pick up the third plastic plate from the table. "
-        },
-        {
-          "id": "S6",
           "text": "Place the third plastic plate upright in an empty slot."
         }
       ],
@@ -1326,27 +1242,27 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Open the bottom drawer on the table. "
+          "text": "Open the bottom drawer."
         },
         {
           "id": "S2",
-          "text": "Open the middle drawer on the table. "
+          "text": "Open the middle drawer."
         },
         {
           "id": "S3",
-          "text": "Open the top drawer on the table. "
+          "text": "Open the top drawer."
         },
         {
           "id": "S4",
-          "text": "Close the top drawer on the table. "
+          "text": "Close the top drawer."
         },
         {
           "id": "S5",
-          "text": "Close the middle drawer on the table. "
+          "text": "Close the middle drawer."
         },
         {
           "id": "S6",
-          "text": "Close the bottom drawer on the table."
+          "text": "Close the bottom drawer."
         }
       ],
       "images": {
@@ -1382,30 +1298,22 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Move the white book on the table into the marked area. "
+          "text": "Place the white book in the marked area."
         },
         {
           "id": "S2",
-          "text": "Adjust the white book within the marked area. "
+          "text": "Adjust the white book within the marked area."
         },
         {
           "id": "S3",
-          "text": "Pick up the pen from the table. "
+          "text": "Place the pen in the spine of the gray book."
         },
         {
           "id": "S4",
-          "text": "Place the pen in the spine of the gray book. "
+          "text": "Close the gray book."
         },
         {
           "id": "S5",
-          "text": "Close the gray book on the table. "
-        },
-        {
-          "id": "S6",
-          "text": "Pick up the gray book from the table. "
-        },
-        {
-          "id": "S7",
           "text": "Place the gray book on the white book."
         }
       ],
@@ -1451,51 +1359,31 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Open the upper drawer on the table. "
+          "text": "Open the upper drawer."
         },
         {
           "id": "S2",
-          "text": "Pick up the lipstick cap from the table. "
+          "text": "Place the lipstick cap on the lipstick."
         },
         {
           "id": "S3",
-          "text": "Place the lipstick cap on the lipstick. "
+          "text": "Place the lipstick in the drawer."
         },
         {
           "id": "S4",
-          "text": "Pick up the lipstick from the table. "
+          "text": "Place the pink eyebrow pencil in the drawer."
         },
         {
           "id": "S5",
-          "text": "Place the lipstick in the drawer. "
+          "text": "Close the drawer."
         },
         {
           "id": "S6",
-          "text": "Pick up the pink eyebrow pencil from the table. "
+          "text": "Place the yellow essence bottle in the upper open storage area."
         },
         {
           "id": "S7",
-          "text": "Place the pink eyebrow pencil in the drawer. "
-        },
-        {
-          "id": "S8",
-          "text": "Push the drawer steadily to the closed position. "
-        },
-        {
-          "id": "S9",
-          "text": "Pick up the yellow essence bottle with its base facing downward. "
-        },
-        {
-          "id": "S10",
-          "text": "Place the yellow essence bottle in the upper open storage area. "
-        },
-        {
-          "id": "S11",
-          "text": "Pick up the cleansing oil from the table. "
-        },
-        {
-          "id": "S12",
-          "text": "Place the cleansing oil flat in the upper open storage area."
+          "text": "Place the cleansing oil in the upper open storage area."
         }
       ],
       "images": {
@@ -1540,31 +1428,23 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the pen from the table. "
+          "text": "Place the pen in the pen holder."
         },
         {
           "id": "S2",
-          "text": "Place the pen in the pen holder. "
+          "text": "Place the eraser in the drawer."
         },
         {
           "id": "S3",
-          "text": "Pick up the eraser from the table. "
+          "text": "Close the drawer."
         },
         {
           "id": "S4",
-          "text": "Place the eraser in the drawer. "
+          "text": "Turn off the desk lamp."
         },
         {
           "id": "S5",
-          "text": "Close the open drawer. "
-        },
-        {
-          "id": "S6",
-          "text": "Turn off the desk lamp using its switch. "
-        },
-        {
-          "id": "S7",
-          "text": "Unplug the desk lamp’s charging plug."
+          "text": "Unplug the desk lamp."
         }
       ],
       "images": {
@@ -1609,26 +1489,14 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the wireless mouse from the table. "
+          "text": "Place the wireless mouse in the cardboard box."
         },
         {
           "id": "S2",
-          "text": "Place the wireless mouse at the bottom of the cardboard box. "
+          "text": "Place the wired earphones in the cardboard box."
         },
         {
           "id": "S3",
-          "text": "Pick up the wired earphones from the table. "
-        },
-        {
-          "id": "S4",
-          "text": "Place the wired earphones at the bottom of the cardboard box. "
-        },
-        {
-          "id": "S5",
-          "text": "Pick up the bubble wrap from the table. "
-        },
-        {
-          "id": "S6",
           "text": "Place the bubble wrap over the packed items."
         }
       ],
@@ -1674,30 +1542,18 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the small pot from the table. "
+          "text": "Place the small pot on the induction cooker."
         },
         {
           "id": "S2",
-          "text": "Place the small pot on the induction cooker. "
+          "text": "Adjust the small pot on the induction cooker."
         },
         {
           "id": "S3",
-          "text": "Adjust the pot so that most of it is over the cooking surface and its handle points toward the camera. "
+          "text": "Place the spatula in the basket."
         },
         {
           "id": "S4",
-          "text": "Pick up the spatula from inside the pot. "
-        },
-        {
-          "id": "S5",
-          "text": "Place the spatula in the basket on the table. "
-        },
-        {
-          "id": "S6",
-          "text": "Pick up the pot lid from the table. "
-        },
-        {
-          "id": "S7",
           "text": "Cover the pot with the lid."
         }
       ],
@@ -1743,50 +1599,26 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the pig bun from the table. "
+          "text": "Place the pig bun on the left side of the upper steamer tier."
         },
         {
           "id": "S2",
-          "text": "Place the pig bun on the left side of the upper steamer tier. "
+          "text": "Place the yellow steamed bun on the right side of the upper steamer tier."
         },
         {
           "id": "S3",
-          "text": "Pick up the yellow steamed bun from the table. "
+          "text": "Place the black steamed bun at the front of the upper steamer tier."
         },
         {
           "id": "S4",
-          "text": "Place the yellow steamed bun on the right side of the upper steamer tier. "
+          "text": "Place the empty steamer tier on top."
         },
         {
           "id": "S5",
-          "text": "Pick up the black steamed bun from the table. "
+          "text": "Place the large bun in the center of the top steamer tier."
         },
         {
           "id": "S6",
-          "text": "Place the black steamed bun at the front of the upper steamer tier. "
-        },
-        {
-          "id": "S7",
-          "text": "Pick up the empty steamer tier from the table. "
-        },
-        {
-          "id": "S8",
-          "text": "Place the empty steamer tier on top of the assembled steamer. "
-        },
-        {
-          "id": "S9",
-          "text": "Pick up the large bun from the table. "
-        },
-        {
-          "id": "S10",
-          "text": "Place the large bun in the center of the top steamer tier. "
-        },
-        {
-          "id": "S11",
-          "text": "Pick up the steamer lid from the table. "
-        },
-        {
-          "id": "S12",
           "text": "Cover the steamer with the lid."
         }
       ],
@@ -1884,30 +1716,26 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the seasoning bottle from the table. "
+          "text": "Sprinkle powder over the meat skewers for the first time."
         },
         {
           "id": "S2",
-          "text": "Sprinkle powder over the meat-skewer model for the first time. "
+          "text": "Sprinkle powder over the meat skewers for the second time."
         },
         {
           "id": "S3",
-          "text": "Sprinkle powder over the meat-skewer model for the second time. "
+          "text": "Sprinkle powder over the meat skewers for the third time."
         },
         {
           "id": "S4",
-          "text": "Sprinkle powder over the meat-skewer model for the third time. "
+          "text": "Sprinkle powder over the meat skewers for the fourth time."
         },
         {
           "id": "S5",
-          "text": "Sprinkle powder over the meat-skewer model for the fourth time. "
+          "text": "Sprinkle powder over the meat skewers for the fifth time."
         },
         {
           "id": "S6",
-          "text": "Sprinkle powder over the meat-skewer model for the fifth time. "
-        },
-        {
-          "id": "S7",
           "text": "Place the seasoning bottle on the table."
         }
       ],
@@ -1944,34 +1772,18 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Take the plate out of the tableware container. "
+          "text": "Place the plate on the tablecloth."
         },
         {
           "id": "S2",
-          "text": "Place the plate on the tablecloth. "
+          "text": "Place the bowl in front of the plate."
         },
         {
           "id": "S3",
-          "text": "Take the bowl out of the tableware container. "
+          "text": "Place the fork to the left of the plate."
         },
         {
           "id": "S4",
-          "text": "Place the bowl in front of the plate. "
-        },
-        {
-          "id": "S5",
-          "text": "Take the fork out of the tableware container. "
-        },
-        {
-          "id": "S6",
-          "text": "Place the fork to the left of the plate. "
-        },
-        {
-          "id": "S7",
-          "text": "Take the knife out of the tableware container. "
-        },
-        {
-          "id": "S8",
           "text": "Place the knife to the right of the plate."
         }
       ],
@@ -2017,26 +1829,14 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the red block from the table. "
+          "text": "Place the red block on the yellow drawer."
         },
         {
           "id": "S2",
-          "text": "Place the red block on the yellow drawer. "
+          "text": "Place the yellow block on the white drawer."
         },
         {
           "id": "S3",
-          "text": "Pick up the yellow block from the table. "
-        },
-        {
-          "id": "S4",
-          "text": "Place the yellow block on the white drawer. "
-        },
-        {
-          "id": "S5",
-          "text": "Pick up the blue block from the table. "
-        },
-        {
-          "id": "S6",
           "text": "Place the blue block on the dark-green drawer."
         }
       ],
@@ -2082,30 +1882,26 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the drumstick from the table. "
+          "text": "Strike the center of the drum for the first time."
         },
         {
           "id": "S2",
-          "text": "Strike the center of the drum for the first time. "
+          "text": "Strike the center of the drum for the second time."
         },
         {
           "id": "S3",
-          "text": "Strike the center of the drum for the second time. "
+          "text": "Strike the center of the drum for the third time."
         },
         {
           "id": "S4",
-          "text": "Strike the center of the drum for the third time. "
+          "text": "Strike the center of the drum for the fourth time."
         },
         {
           "id": "S5",
-          "text": "Strike the center of the drum for the fourth time. "
+          "text": "Strike the center of the drum for the fifth time."
         },
         {
           "id": "S6",
-          "text": "Strike the center of the drum for the fifth time. "
-        },
-        {
-          "id": "S7",
           "text": "Place the drumstick on the table."
         }
       ],
@@ -2142,35 +1938,19 @@
       "subtasks": [
         {
           "id": "S1",
-          "text": "Pick up the plate from the table. "
+          "text": "Place the red block onto the plate."
         },
         {
           "id": "S2",
-          "text": "Pick up the red block from the table. "
+          "text": "Place the green block onto the plate."
         },
         {
           "id": "S3",
-          "text": "Place the red block onto the plate. "
+          "text": "Place the blue block onto the plate."
         },
         {
           "id": "S4",
-          "text": "Pick up the green block from the table. "
-        },
-        {
-          "id": "S5",
-          "text": "Place the green block onto the plate. "
-        },
-        {
-          "id": "S6",
-          "text": "Pick up the blue block from the table. "
-        },
-        {
-          "id": "S7",
-          "text": "Place the blue block onto the plate. "
-        },
-        {
-          "id": "S8",
-          "text": "Pour all three colored blocks from the plate into the black box."
+          "text": "Pour all three colored blocks into the black box."
         }
       ],
       "images": {

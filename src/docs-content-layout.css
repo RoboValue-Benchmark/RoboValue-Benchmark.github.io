@@ -1,0 +1,78 @@
+.docs-workspace .doc-project-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.docs-workspace .doc-project-heading > img {
+  display: block;
+  width: min(420px, 88%);
+  height: auto;
+  margin: 0 auto;
+}
+
+.docs-workspace .doc-project-heading .doc-affiliations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 18px 0 36px;
+  padding: 0;
+  border: 0;
+}
+
+.docs-workspace .doc-project-heading .doc-affiliations figure {
+  position: relative;
+  margin: 0;
+}
+
+.docs-workspace .doc-project-heading .doc-affiliations sup {
+  position: absolute;
+  top: -10px;
+  left: -5px;
+  color: var(--theme-muted);
+}
+
+.docs-workspace .doc-project-heading .doc-affiliations img {
+  display: block;
+  width: 86px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.docs-workspace .doc-authors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  margin-top: 24px;
+  line-height: 1.65;
+}
+
+.docs-workspace .doc-authors span {
+  white-space: nowrap;
+}
+
+.docs-workspace .doc-authors sup {
+  margin-left: 3px;
+  color: var(--theme-accent);
+}
+
+.docs-workspace .doc-author-notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 16px;
+  margin: 16px 0 0;
+  color: var(--theme-muted);
+}
+
+.docs-workspace .doc-capability,
+.docs-workspace .doc-overview-metrics a {
+  color: var(--capability-color);
+}
+
+[data-theme="dark"] .docs-workspace .doc-capability,
+[data-theme="dark"] .docs-workspace .doc-overview-metrics a {
+  color: color-mix(in srgb, var(--capability-color), white 35%);
+}

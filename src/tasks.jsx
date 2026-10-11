@@ -24,7 +24,7 @@ const DOMAINS = {
 };
 
 function TaskLinks({ domain }) {
-  return <div className="home-text-links task-links"><a href={`/doc/${domain}-tasks/catalog/`}>Browse all tasks →</a><a href="/doc/get-started/data/">Dataset Overview →</a></div>;
+  return <div className="home-text-links task-links"><a href={`/doc/${domain}-tasks/catalog/`}>Browse all tasks →</a><a href="/doc/get-started/data/overview/">Dataset Overview →</a></div>;
 }
 
 export function TaskOverview({ domain }) {
@@ -37,7 +37,7 @@ export function TaskOverview({ domain }) {
       <dl className="trajectory-types">
         <div><dt>Expert Demonstrations</dt><dd>The robot executes the task fluently and without errors.</dd></div>
         <div><dt>Failure–Recovery</dt><dd>After an execution error, the robot continues without recovery (Error Continuation), successfully recovers (Effective Recovery), or makes an unsuccessful recovery attempt and continues (Ineffective Recovery).</dd></div>
-        <div><dt>Long-Horizon</dt><dd>Repeated actions revisit visually similar states with different execution histories.</dd></div>
+        <div><dt>Repetitive Actions</dt><dd>Repeated actions revisit visually similar states with different execution histories.</dd></div>
         <div><dt>Multi-Solution</dt><dd>Alternative valid subtask orders complete the task while respecting its dependencies.</dd></div>
       </dl>
     </section>
@@ -73,6 +73,5 @@ export function TaskDetail({ taskId }) {
     <section className="task-section"><h2>Subtask Decomposition</h2><p className="task-hint">Subtask labels reproduce the manuscript’s decomposition. For tasks with alternative valid orders, the listed procedure does not impose additional ordering constraints beyond the instruction.</p><ol className="subtask-list">{task.subtasks.map(s => <li key={s.id}><span>{s.id}</span><p>{s.text}</p></li>)}</ol></section>
     <section className="task-section"><h2>Counterfactuals</h2>{task.counterfactual ? <><p>TGA-CF holds the successful trajectory fixed and changes the instruction. The summaries below describe the semantic changes; they are not complete counterfactual prompts. Each category names the primary change, and related semantics may also change.</p><dl className="counterfactual-changes">{Object.entries(task.counterfactual.changes).map(([category, value]) => { const [original, changed] = value.split(' → '); return <div key={category}><dt>{category}</dt><dd><span>{original}</span><span className="change-arrow" aria-label="changed to"> → </span><strong>{changed}</strong></dd></div>; })}</dl></> : <p>This task is omitted from the paired counterfactual instruction set in the manuscript and is reserved for history-dependent progress evaluation.</p>}</section>
     <p className="task-source">Task specifications: Appendix {task.source.appendix}{task.counterfactual ? `. Counterfactual changes: Appendix ${task.domain === 'simulation' ? 'C.3' : 'D.3'}` : ''}.</p>
-    <TaskLinks domain={task.domain} />
   </div>;
 }
