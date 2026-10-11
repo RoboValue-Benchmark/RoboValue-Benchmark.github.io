@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Icon } from './benchmark';
-import { GROUPS, METRICS as BASE_METRICS, CONDITIONS, excludedHighlight, scoreValue } from './benchmark-metrics';
+import { GROUPS, CAPABILITY_TABLE_HEADERS, METRICS as BASE_METRICS, CONDITIONS, excludedHighlight, scoreValue } from './benchmark-metrics';
 import { TRACKS, metricGroups as publishedMetricGroups, readView, resultsCSV, scoreHighlights, sortedRows, viewURL } from './leaderboard-utils';
 import { RankingModel } from './ranking-model';
 import subtaskData from './data/subtask-results.json';
@@ -75,11 +75,11 @@ function ResultsTable({ eligible, view, loading, error, retry, tableId, onSort, 
   const ranked = view.condition === 'aggregate';
   const metricHeader = key => {
     const capability = capabilityFor(key);
-    const label = ranked && capability ? capability.short : METRICS[key].label;
+    const label = ranked && capability ? CAPABILITY_TABLE_HEADERS[capability.id] : METRICS[key].label;
     const ascending = view.sort?.key === key && view.sort.asc;
     return <th key={key} scope="col" className={key === 'overall' ? 'lb-overall-column' : ''} aria-sort={view.sort?.key === key ? ascending ? 'ascending' : 'descending' : 'none'} style={{ '--capability-color': COLORS[capability?.id] }}>
       <button className="lb-sort-button" onClick={() => onSort(key)} disabled={!rows.length} title={`${METRICS[key].name} · ${METRICS[key].lower ? 'Lower' : 'Higher'} is better${key === 'sia' ? ' · Not included in Overall' : ''}`}>
-        <span>{label}</span><span className="lb-direction" aria-hidden="true">{METRICS[key].lower ? '↓' : '↑'}</span>{view.sort?.key === key && <span className="lb-sort-state" aria-hidden="true">{ascending ? '▴' : '▾'}</span>}
+        <span className={ranked && capability ? 'lb-capability-heading' : undefined}>{label}</span><span className="lb-direction" aria-hidden="true">{METRICS[key].lower ? '↓' : '↑'}</span>{view.sort?.key === key && <span className="lb-sort-state" aria-hidden="true">{ascending ? '▴' : '▾'}</span>}
       </button>
     </th>;
   };

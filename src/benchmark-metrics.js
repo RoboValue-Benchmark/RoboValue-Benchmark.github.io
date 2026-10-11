@@ -4,6 +4,12 @@ export const GROUPS = [
   { id: 'diagnosis', short: 'Diagnosis', title: 'Failure and Recovery Reasoning', question: 'Does it recognize a failure?', description: 'Locate execution errors and assess recovery attempts separately from their eventual outcomes.', color: '#9f5731', metrics: ['fpl', 'trr'] },
   { id: 'consistency', short: 'Consistency', title: 'Value Consistency', question: 'Can we rely on its feedback?', description: 'Assess stability along trajectories and consistent subtask gains across valid solutions.', color: '#437858', metrics: ['vs', 'csvc'] },
 ];
+export const CAPABILITY_TABLE_HEADERS = {
+  understanding: 'Task-State\nUnderstanding',
+  tracking: 'Temporal Progress\nMonitoring',
+  diagnosis: 'Failure and\nRecovery Reasoning',
+  consistency: 'Value\nConsistency',
+};
 export const METRICS = {
   sa: { label: 'SA', name: 'Success Accuracy', description: 'Measures the fraction of successful–unsuccessful episode pairs in which the successful episode has a strictly higher terminal value. Terminal values average the final 2% of each episode; ties do not count as wins.' },
   tga_ct: { label: 'TGA-CT', name: 'Task Grounding · Cross-Task', description: 'Measures how often the mean trajectory gain under the correct instruction is strictly greater than under every cross-task negative instruction, holding the visual execution fixed.' },

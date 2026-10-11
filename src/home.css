@@ -266,6 +266,7 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
 .rv-preview-table { width: 100%; min-width: 1000px; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; font-size: 15px; }
 .rv-preview-table th, .rv-preview-table td { padding: 16px 12px; text-align: center; border-bottom: 1px solid var(--rv-preview-row-line); }
 .rv-preview-table thead th { background: var(--rv-preview-header); color: var(--capability-color, var(--rv-preview-muted)); font-size: 13px; font-weight: 600; line-height: 1.5; }
+.rv-preview-table thead .rv-preview-capability { white-space: pre; }
 .rv-preview-table thead th:first-child { width: 56px; min-width: 56px; padding-inline: 8px; }
 .rv-preview-table thead th:nth-child(2), .rv-preview-table tbody th { position: sticky; left: 0; z-index: 1; width: 260px; min-width: 260px; max-width: 260px; text-align: left; }
 .rv-preview-table thead th:nth-child(2) { z-index: 2; color: var(--rv-preview-ink); }

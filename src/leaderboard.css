@@ -63,6 +63,7 @@
 .lb-table .lb-metric-row th { padding-top: 0; padding-bottom: 12px; }
 .lb-sort-button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; width: 100%; min-height: 40px; border: 0; padding: 2px 0; background: none; color: inherit; font-size: inherit; line-height: inherit; font-weight: inherit; }
 .lb-sort-button > span { white-space: nowrap; }
+.lb-sort-button > .lb-capability-heading { white-space: pre; }
 .lb-sort-button:hover:not(:disabled) { color: var(--lb-accent); }
 .lb-sort-button:disabled { cursor: default; }
 .lb-direction { flex-shrink: 0; font-size: 11px; opacity: .65; }
