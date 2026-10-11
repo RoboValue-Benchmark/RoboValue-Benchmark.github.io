@@ -16,14 +16,14 @@ const AUTHORS = [
   ['Shengbang Liu', '1,2,*', 'https://liushb9.github.io/'],
   ['Zhengye Du', '1,2,*', 'https://duzhengye-droid.github.io/'],
   ['Zhilong Wan', '1,2,*', 'https://loongwz.github.io/'],
-  ['Honghao Su', '3,*'],
+  ['Honghao Su', '3,*', 'https://scholar.google.com/citations?user=gAcJUVQAAAAJ'],
   ['Chenxiang Xia', '1', 'https://xcxjasonhsia.github.io/'],
   ['Chang Ge', '4'],
   ['Jinyang Xiao', '4', 'https://xiaojy36.github.io/'],
   ['Nan Wang', '2,†', 'https://bigcileng.github.io/'],
   ['Zhipeng Hu', '1'],
-  ['Huining Yuan', '1', 'https://github.com/HuiningYuan'],
-  ['Shu’ang Yu', '1', 'https://github.com/yushuang200109011'],
+  ['Huining Yuan', '1', 'https://scholar.google.com/citations?user=zmSByPoAAAAJ'],
+  ['Shu’ang Yu', '1', 'https://scholar.google.com/citations?user=wb79fkMAAAAJ'],
   ['Yue Chen', '3,5', 'https://yuechen0614.github.io/'],
   ['Tianxing Chen', '3,6', 'https://tianxingchen.github.io/'],
   ['Chuankang Li', '2'],
@@ -40,7 +40,7 @@ const CONDITION_ORDER = Object.keys(CONDITIONS);
 const TASK_SETTINGS = {
   simulation: {
     id: { robot: 'ARX', scene: 'Standard scene conditions' },
-    emb: { robot: 'Dual-arm UR5e', scene: 'Robot platform changed from ARX' },
+    emb: { robot: 'UR5e', scene: 'Robot platform changed from ARX' },
     env: { robot: 'ARX', scene: 'Varied surface appearance, lighting, and clutter' },
   },
   'real-world': {
