@@ -5,7 +5,7 @@ import { METRICS } from './benchmark-metrics';
 
 const diagnosticGroups = [
   {
-    id: 'diagnostic-failure-recovery', title: 'Failure–Recovery',
+    id: 'diagnostic-failure-recovery', title: 'Failure and Recovery Trajectories',
     description: 'Start from an execution error, then contrast leaving it unresolved, correcting it, and trying to correct it without success.',
     slug: 'failure-and-recovery', question: 'A recovery attempt is not a recovery outcome.',
     pattern: 'An execution error creates three distinct paths: the robot continues without fixing it, makes a successful correction, or tries to recover but leaves the error unresolved. The difference lies in both the response and its outcome—not simply whether the robot moves again.',
@@ -21,7 +21,7 @@ const diagnosticGroups = [
     ],
   },
   {
-    id: 'diagnostic-long-horizon', title: 'Repetitive Actions',
+    id: 'diagnostic-long-horizon', title: 'Long-Horizon Temporal Trajectories',
     description: 'A fifth button press can look like the first. The completed work differs even when the image barely changes.',
     slug: 'long-horizon', question: 'The same-looking state can mean different progress.',
     pattern: 'Pressing a button, striking a drum, or operating drawers can bring the robot back to a familiar-looking state. That state may follow one completed action or several. These successful trajectories revisit similar observations while the amount of completed work changes.',
@@ -59,7 +59,7 @@ export const diagnosticSections = [['trajectory-pattern', 'Trajectory Pattern'],
 export function DiagnosticTrajectories() {
   return <div className="doc-content">
     <p className="doc-lead">Diagnostic trajectories probe unresolved errors, recovery attempts and outcomes, recurring visual states, and alternative valid execution orders. These controlled contrasts reveal what value feedback captures beyond final success.</p>
-    <p>The three collections bring simulation and real-world examples together by the execution pattern they test. All previews use the Standard Version setting.</p>
+    <p>The three collections bring simulation and real-world examples together by the execution pattern they test. All previews use the standard setting.</p>
     <div className="diagnostic-collections">{diagnosticGroups.map(group => <a key={group.id} href={`/doc/diagnostic-trajectories/${group.slug}/`}><h2>{group.title}<span aria-hidden="true">→</span></h2><p>{group.question}</p><span>{group.description}</span></a>)}</div>
   </div>;
 }

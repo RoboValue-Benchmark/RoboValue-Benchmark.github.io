@@ -1,0 +1,166 @@
+.doc-metric-dimension {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.doc-metric-facts {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0 0;
+  padding: 18px 0;
+  border-block: 1px solid var(--theme-border);
+}
+
+.doc-metric-facts dt {
+  color: var(--theme-muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.doc-metric-facts dd {
+  margin: 0;
+  font-size: 15px;
+  color: var(--theme-ink);
+}
+
+.docs-workspace .doc-trajectory-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+}
+
+.docs-workspace .doc-trajectory-types li {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.docs-workspace .doc-trajectory-types a {
+  display: block;
+  padding: 7px 12px;
+  border: 1px solid color-mix(in srgb, var(--capability-color) 25%, var(--theme-border));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--capability-color) 5%, var(--theme-page));
+  color: var(--capability-color);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.docs-workspace .doc-trajectory-types a:hover {
+  border-color: var(--capability-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.docs-workspace .doc-trajectory-types a:focus-visible {
+  outline: 2px solid var(--capability-color);
+  outline-offset: 3px;
+}
+
+.doc-formulas {
+  margin: 24px 0;
+  padding: 4px 20px;
+  border: 1px solid var(--theme-border);
+  border-radius: 12px;
+  background: var(--theme-panel);
+}
+
+.doc-formula {
+  min-width: 0;
+  margin: 0;
+  padding: 20px 0;
+}
+
+.doc-formula + .doc-formula {
+  border-top: 1px solid var(--theme-border);
+}
+
+.doc-equation {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 2px;
+  color: var(--theme-ink);
+}
+
+.doc-equation:focus-visible {
+  outline: 2px solid var(--theme-accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.doc-equation .katex-display {
+  margin: 0;
+}
+
+.doc-equation .katex-display > .katex {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  font-size: 1.08em;
+}
+
+.doc-inline-math .katex {
+  font-size: 1.03em;
+}
+
+.doc-formula figcaption {
+  margin-top: 12px;
+  color: var(--theme-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.docs-workspace .doc-metric-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--theme-border);
+  color: var(--theme-muted);
+  font-size: 14px;
+}
+
+.doc-metric-cards {
+  margin-top: 24px;
+}
+
+.doc-scoring-details {
+  margin-top: 24px;
+  border: 1px solid var(--theme-border);
+  border-radius: 10px;
+  padding: 18px 22px;
+}
+
+.doc-scoring-details summary {
+  color: var(--theme-accent);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.doc-scoring-details p {
+  margin-top: 20px;
+}
+
+.docs-workspace .doc-scoring-details th:first-child,
+.docs-workspace .doc-scoring-details td:first-child {
+  width: 42%;
+}
+
+@media (max-width: 600px) {
+  .doc-metric-facts {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 16px;
+  }
+  .doc-metric-facts > div:first-child {
+    grid-column: 1 / -1;
+  }
+  .doc-formulas {
+    padding-inline: 12px;
+  }
+}

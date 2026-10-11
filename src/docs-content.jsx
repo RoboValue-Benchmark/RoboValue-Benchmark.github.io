@@ -63,7 +63,7 @@ export function EvaluationWorkflow() {
 
 export function SubmitModel() {
   return <div className="doc-content">
-    <p className="doc-lead">This page guides you on how to inform the Robovalue team of your preferred participation format for our evaluations and what information you need to provide to us.</p>
+    <p className="doc-lead">Submit an open-source model or connect a closed-source service for evaluation by the RoboValue team.</p>
     <Section id="submission-participation" title="Participation">
       <dl className="doc-definition-list"><div><dt>Open-Source Models</dt><dd>The RoboValue team handles the adapter, inference setup, and evaluation. You do not need to host an inference service or submit an adapter.</dd></div><div><dt>Closed-Source Models</dt><dd>For integration, provide an inference service and a model-specific adapter. Implement the adapter according to the <a href="/doc/model-api/">Adapter Guide</a> and hand it over to the RoboValue team for review and execution. You do not need to release model weights.</dd></div></dl>
     </Section>
@@ -87,15 +87,15 @@ export function EvaluationResults() {
 
 
 export const documentationSections = {
-  home: [['about-robovalue', 'Get Known about RoboValue'], ['benchmark-overview', 'Overview'], ['overview-metrics', 'Metrics'], ['explore-documentation', 'Explore']],
+  home: [['about-robovalue', 'Overview'], ['overview-metrics', 'Metrics'], ['explore-documentation', 'Explore']],
   start: [
     ['recommended-path', 'Reading Guide'],
     ['evaluation-responsibilities', 'Responsibilities'],
     ['before-participating', 'Before Participating'],
   ],
   data: [
-    ['dataset-splits', 'Training Trajectories'],
-    ['dataset-test', 'Evaluation Trajectories'],
+    ['dataset-splits', 'Training Set'],
+    ['dataset-test', 'Test Set'],
     ['dataset-observations', 'Observations'],
     ['dataset-annotation', 'Annotation'],
   ],
@@ -108,8 +108,8 @@ export const documentationSections = {
   ],
 };
 
-export function Section({ id, title, children }) {
-  return <section className="doc-section" aria-labelledby={`${id}-title`}>
+export function Section({ id, title, capability, children }) {
+  return <section className={`doc-section${capability ? ' doc-capability-section' : ''}`} data-capability={capability} aria-labelledby={`${id}-title`}>
     <h2 id={id}><span id={`${id}-title`}>{title}</span><a className="doc-heading-anchor" href={`#${id}`} aria-label={`Link to ${title}`}>#</a></h2>
     {children}
   </section>;
@@ -141,7 +141,7 @@ export function PageOutline({ sections }) {
     return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update); };
   }, [sections]);
   return <aside className="page-outline" aria-label="Page sections">
-    <nav aria-label="Page sections">{sections.map(([id, title]) => <a key={id} href={`#${id}`} aria-current={activeId === id ? 'location' : undefined}>{title}</a>)}</nav>
+    <nav aria-label="Page sections">{sections.map(([id, title]) => <a key={id} href={`#${id}`} data-capability={GROUPS.find(group => id === `protocol-${group.id}`)?.id} aria-current={activeId === id ? 'location' : undefined}>{title}</a>)}</nav>
     <div className="reading-progress" aria-label={`Reading progress: ${progress}%`}><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="11" /><circle className="reading-progress-value" cx="14" cy="14" r="11" pathLength="100" strokeDasharray={`${progress} 100`} /></svg><span>{progress}%</span></div>
   </aside>;
 }
@@ -150,24 +150,24 @@ export function DocumentationOverview() {
   return <div className="doc-content doc-overview">
     <header className="doc-project-heading">
       <img src="/assets/robovalue-logo.png" alt="RoboValue" width="420" />
-      <div className="doc-affiliations" aria-label="Participating institutions">{INSTITUTIONS.map(([name, file], index) => <figure key={name}><sup>{index + 1}</sup><img src={`/assets/affiliations/${file}`} alt={name} loading="eager" /></figure>)}</div>
       <h1>RoboValue: A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models</h1>
-      <div className="doc-authors" aria-label="Authors">{AUTHORS.map(([name, affiliation]) => <span key={name}>{name}<sup>{affiliation}</sup></span>)}</div>
+      <div className="doc-authors" aria-label="Authors">{AUTHORS.map(([name, affiliation, url]) => <span key={name}>{url ? <a href={url}>{name}</a> : name}<sup>{affiliation}</sup></span>)}</div>
+      <div className="doc-affiliations" aria-label="Participating institutions">{INSTITUTIONS.map(([name, file], index) => <figure key={name}><sup>{index + 1}</sup><img src={`/assets/affiliations/${file}`} alt={name} loading="eager" /></figure>)}</div>
       <p className="doc-author-notes"><span>* Equal contribution</span><span>† Project leader</span><span>‡ Corresponding authors</span></p>
     </header>
-    <Section id="about-robovalue" title="Get Known about RoboValue">
-      <p>General-purpose robotic value models assess task execution from visual observations and task instructions, providing feedback for policy learning, planning, and execution monitoring. Their errors can influence which behaviors are selected, reinforced, or corrected. However, strong outcome discrimination or forward-progress correlation can still conceal errors in intermediate value judgments, while differences in model interfaces and value semantics hinder consistent diagnosis across models.</p>
-      <p><strong>RoboValue is a fine-grained sim-and-real benchmark for unified evaluation of robotic value models.</strong> Its central principle is that value feedback should accurately reflect how well task requirements are being fulfilled throughout execution. RoboValue evaluates four complementary capability dimensions: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index === 0 ? '' : index === GROUPS.length - 1 ? ', and ' : ', '}<strong className="doc-capability" style={{ '--capability-color': group.color }}>{group.title}</strong></React.Fragment>)}.</p>
-      <p><strong>RoboValue-Dataset</strong> combines expert training demonstrations with annotated test trajectories from simulation and real-world manipulation. Diagnostic trajectories and instruction variations probe task grounding, history-dependent progress, recovery outcomes, and consistent subtask credit across valid solutions. These contrasts expose limitations that final outcomes and forward-progress scores alone can overlook.</p>
-      <p><strong>RoboValue-Benchmark</strong> uses shared interfaces and model-specific adapters to compare heterogeneous models while preserving their native value semantics. Evaluation separates standard conditions from shifts in robot embodiment and environment. <strong>RoboValue-Leaderboard</strong> presents overall rankings and capability profiles, supporting continued assessment of the reliability of value feedback.</p>
+    <Section id="about-robovalue" title="Overview">
+      <p>Robotic value models assess task execution from visual observations and language instructions. Their feedback supports data selection, policy learning, action planning, and execution monitoring, reducing the need for task-specific reward design. Errors in these judgments can propagate into both robot learning and execution, making systematic evaluation essential.</p>
+      <p>Existing evaluations often emphasize task outcomes or correlation with forward progress. Strong results can still conceal unreliable intermediate judgments: values may rise during reverse playback, rebound after a failed recovery, or overlook completed subtasks when similar states recur. These errors can reward unproductive behavior and misguide subsequent actions. Evaluation must therefore examine how value feedback responds to task-relevant events throughout an execution.</p>
+      <div id="benchmark-overview"><Figure src="/assets/overview-10-11.svg" alt="RoboValue overview: simulation and real-world tasks, expert and diagnostic trajectories, shared evaluation interfaces, four capability dimensions, and the leaderboard" /></div>
+      <p><strong className="doc-brand-name">RoboValue</strong> is a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. <strong className="doc-brand-name">RoboValue-Dataset</strong> provides 3,500 expert training demonstrations and 2,792 annotated test trajectories across <strong>15 simulation and 20 real-world manipulation tasks</strong>. Diagnostic trajectories and instruction variations test responses to task requirements, execution history, failure and recovery, and alternative valid solutions. Separate embodiment and environment shifts assess generalization.</p>
+      <p><strong className="doc-brand-name">RoboValue-Benchmark</strong> evaluates four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index === 0 ? '' : index === GROUPS.length - 1 ? ', and ' : ', '}<strong className="doc-capability" data-capability={group.id}>{group.title.toLowerCase()}</strong></React.Fragment>)}. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics.</p>
+      <p><strong className="doc-brand-name">RoboValue-Leaderboard</strong> provides overall rankings and capability profiles for three tracks: Zero-Shot, One-Shot, and Full-Shot. Current results cover the first two; Full-Shot will open with the training-data release. The accompanying analyses reveal limitations in instruction grounding, history awareness, recovery reasoning, and subtask credit, helping guide the development of more reliable value feedback for policy learning, action planning, and execution monitoring.</p>
     </Section>
-    <Section id="benchmark-overview" title="Benchmark Overview"><Figure src="/assets/overview-10-09.webp" alt="RoboValue overview: sim-and-real data, shared model interfaces, and four complementary evaluation capabilities" /></Section>
     <Section id="overview-metrics" title="Metrics">
       <div className="doc-table-scroll" tabIndex={0} role="region" aria-label="Evaluation metrics"><table className="doc-overview-metrics"><thead><tr><th scope="col">Capability</th><th scope="col">Metric</th><th scope="col">Evaluation Focus</th></tr></thead><tbody>{OVERVIEW_METRICS.map(([capabilityId, metrics]) => {
           const group = GROUPS.find(group => group.id === capabilityId);
-          return metrics.map(([key, question], index) => <tr key={key} style={{ '--capability-color': group.color }}>{index === 0 && <th scope="rowgroup" className="doc-capability" rowSpan={metrics.length}>{group.title}</th>}<th scope="row"><a href={`/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`}>{key === 'sia' ? 'SIA' : METRICS[key].label}</a></th><td>{question}</td></tr>);
+          return metrics.map(([key, question], index) => <tr key={key} data-capability={group.id}>{index === 0 && <th scope="rowgroup" className="doc-capability" rowSpan={metrics.length}>{group.title}</th>}<th scope="row"><a href={`/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`}>{key === 'sia' ? 'SIA' : METRICS[key].label}</a></th><td>{question}</td></tr>);
         })}</tbody></table></div>
-      <p className="doc-metric-note">Read these tests together. Cycle-VOC probes elapsed-time shortcuts in VOC and Memory-VOC; VS and CSVC assess consistency, not the correctness of progress direction.</p>
     </Section>
     <Section id="explore-documentation" title="Explore"><div className="doc-link-list">{[["/doc/get-started/", 'Usage'], ["/doc/get-started/data/overview/", 'Dataset Overview'], ["/doc/get-started/data/download/", 'Download'], ["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/diagnostic-trajectories/", 'Diagnostic Trajectories']].map(([path, label]) => <a key={path} href={path}>{label}<span aria-hidden="true">→</span></a>)}</div></Section>
   </div>;
@@ -175,28 +175,28 @@ export function DocumentationOverview() {
 
 export function GetStarted() {
   return <div className="doc-content">
-    <p className="doc-lead">This quick start will help you understand what you can know about RoboValue.</p>
+    <p className="doc-lead">Explore the dataset, understand the evaluation, and prepare your model for RoboValue.</p>
     <Section id="recommended-path" title="Reading Guide">
       <ol className="doc-reading-path">
-        <li><a href="/doc/get-started/data/">Dataset</a><p>Gain a preliminary understanding of the training and evaluation trajectories, and learn how to download training data.</p></li>
-        <li><a href="/doc/get-started/protocol/evaluation/">Evaluation Protocol</a><p>Get a brief overview of how we structure the evaluation, how models from different tracks participate, and how to ensure the credibility of evaluation.</p></li>
-        <li><a href="/doc/get-started/evaluation/">Evaluation Workflow</a><p>Learn how to participate in the evaluation, what participants should provide, and where the evaluation result will be shown.</p></li>
-        <li><a href="/doc/get-started/protocol/metrics/">Metrics</a><p>Understand the four capability dimensions, scoring rules and meanings of the metrics, helping you to better comprehend the evaluation result.</p></li>
+        <li><a href="/doc/get-started/data/">Dataset</a><p>Explore the training and test sets, trajectory types, and training-data access.</p></li>
+        <li><a href="/doc/get-started/protocol/evaluation/">Evaluation Protocol</a><p>Review the three tracks, evaluation conditions, and score aggregation.</p></li>
+        <li><a href="/doc/get-started/evaluation/">Evaluation Workflow</a><p>Find the submission requirements and integration steps for your model.</p></li>
+        <li><a href="/doc/get-started/protocol/metrics/">Metrics</a><p>Read what each metric measures, its mathematical definition, and how to interpret the result.</p></li>
       </ol>
     </Section>
-    <Section id="evaluation-responsibilities" title="Characters">
-      <p>Participants need to share either a open-source model or closed-source inference service and adapter to participate the evaluation. The RoboValue team will handle integration review, reference for one-shot track, private evaluation, scoring, and then provide results. See <a href="/doc/get-started/evaluation/">Evaluation Workflow</a> for more details.</p>
+    <Section id="evaluation-responsibilities" title="Responsibilities">
+      <p>Participants provide either an open-source model or a closed-source inference service and adapter. The RoboValue team reviews the integration, supplies the One-Shot demonstrations, runs the private evaluation, and reports the scores.</p>
     </Section>
-    <Section id="before-participating" title="Preparation for Participatation">
-      <p>First, complete the form on the Eval page and contact us. Then, choose an evaluation track: Zero-Shot, One-Shot, or Full-Shot. Specify the inputs your model accepts and the types of predictions it produces. Those preparation is important for a reliable evaluation.</p>
-      <p>Read the <a href="/doc/get-started/protocol/evaluation/#dataset-references">reference and fine-tuning policy</a> before preparing your model.</p>
+    <Section id="before-participating" title="Before Participating">
+      <p>Complete the form on the <a href="/eval/">Eval page</a> and specify your model version, supported inputs and outputs, and intended track. Zero-Shot and One-Shot evaluations are currently reported; Full-Shot will open with the training-data release.</p>
+      <p>Review the <a href="/doc/get-started/protocol/evaluation/#dataset-references">demonstration and adaptation policy</a> before preparing your model.</p>
     </Section>
   </div>;
 }
 
 export function DatasetGuide() {
   return <div className="doc-content">
-    <p className="doc-lead">Learn about the features of dataset and how to access training trajectories</p>
+    <p className="doc-lead">Explore RoboValue's training and test sets and learn how to access the training data.</p>
     <div className="doc-reading-cards">
       <a href="/doc/get-started/data/overview/"><span className="doc-reading-card-title">Overview<span aria-hidden="true">→</span></span><p>Training demonstrations, evaluation trajectories, and diagnostic coverage.</p></a>
       <a href="/doc/get-started/data/download/"><span className="doc-reading-card-title">Download<span aria-hidden="true">→</span></span><p>Training-data access for model preparation.</p></a>
@@ -206,23 +206,25 @@ export function DatasetGuide() {
 
 export function DatasetOverview() {
   return <div className="doc-content">
-    <p className="doc-lead">RoboValue covers manipulation tasks in two domains: <strong>Simulation</strong>, using simulated environments, and <strong>Real World</strong>, using physical robots.</p>
-    <p id="dataset-conditions">In both domains, the <strong>Standard (ID)</strong> condition uses each task's default robot embodiment and environment. <strong>Cross-Embodiment (EMB-OOD)</strong> changes the robot platform, while <strong>Cross-Environment (ENV-OOD)</strong> changes the environment.</p>
-    <Section id="dataset-splits" title="Training Trajectories">
-      <p>The whole training dataset are collected under standard conditions and contains only success trajectories. For tasks evaluated with CSVC, it may also include trajectories following different valid solution.</p>
+    <p className="doc-lead">RoboValue covers 15 <strong>Simulation</strong> tasks and 20 <strong>Real-World</strong> tasks, combining expert demonstrations with diagnostic executions.</p>
+    <p id="dataset-conditions">The <strong>Standard</strong> setting uses each task's default robot and environment for in-domain (ID) evaluation. Two out-of-domain (OOD) settings introduce separate shifts: <strong>Cross-Embodiment</strong> changes the robot platform, and <strong>Cross-Environment</strong> changes the visual environment while retaining the standard robot.</p>
+    <Section id="dataset-splits" title="Training Set">
+      <p>The training set contains 3,500 expert demonstrations, with 100 per task, all collected under the standard setting. For tasks with multiple valid solutions, it also provides executions in different valid subtask orders.</p>
+      <p>The One-Shot track uses one demonstration per task from this set. The Full-Shot track will allow training or fine-tuning on the complete set. Training demonstrations do not include subtask boundary annotations.</p>
       <p>See <a href="/doc/get-started/data/download/">Download</a> for training data access.</p>
     </Section>
-    <Section id="dataset-test" title="Evaluation Trajectories">
+    <Section id="dataset-test" title="Test Set">
       <PrivateTestNotice />
-      <p>Evaluation trajectories include both successful executions and diagnostic trajectories designed to probe specific model capabilities. See <a href="/doc/diagnostic-trajectories/">Diagnostic Trajectories</a> for details.</p>
-      <p>For task specifications, you can take a look at <a href="/doc/simulation-tasks/">Simulation Tasks</a> and <a href="/doc/real-world-tasks/">Real-World Tasks</a>.</p>
+      <p>The test set contains 2,792 annotated trajectories, disjoint from the training set. It covers expert demonstrations, failure and recovery trajectories, long-horizon temporal trajectories, and multi-solution trajectories across the evaluation settings. Coverage depends on the task and metric; <a href="/doc/diagnostic-trajectories/">Diagnostic Trajectories</a> illustrates the execution patterns.</p>
+      <p>Task instructions, subtasks, and visual examples are listed under <a href="/doc/simulation-tasks/">Simulation Tasks</a> and <a href="/doc/real-world-tasks/">Real-World Tasks</a>.</p>
     </Section>
 
     <Section id="dataset-observations" title="Observations">
-      <p><strong>Visual observations.</strong> Each trajectory records synchronized RGB-D observations from three cameras: one head camera and two wrist cameras on each wrist.</p>
-      <p><strong>Robot states.</strong> Robot states are recorded alongside the camera observations. The available state fields may vary between simulation and real-world data and across robot embodiments. However EPOS is available in all settings.</p>
+      <p><strong>Visual observations.</strong> Each trajectory records synchronized RGB-D observations from three cameras: one head-mounted camera and one camera on each wrist.</p>
+      <p><strong>Robot states and actions.</strong> Recordings include robot joint positions, end-effector poses, and gripper states, together with action targets. The field layout depends on the simulation or real-world platform; end-effector poses describe the position and orientation of each arm's end effector.</p>
     </Section>
     <Section id="dataset-annotation" title="Annotation">
+      <p>The following annotations are provided for test-set evaluation and are not supplied as model inputs.</p>
       <p><strong>Subtask boundaries.</strong> For successful trajectories, including <a href="/doc/diagnostic-trajectories/multi-solution/">multi-solution trajectories</a>, we annotate the start and end of each subtask. These annotations provide ground truth for identifying the active subtask in <a href="/doc/get-started/protocol/metrics/sia/">SIA</a> and define the boundaries used to compare subtask value gains across valid solutions in <a href="/doc/get-started/protocol/metrics/csvc/">CSVC</a>.</p>
       <p><strong>Failure stages.</strong> For <a href="/doc/diagnostic-trajectories/failure-and-recovery/">failure and recovery trajectories</a>, we annotate the start and end of the initial failure stage, along with the endpoint of the subtask in which the failure occurs. These timestamps provide ground truth for failure localization in <a href="/doc/get-started/protocol/metrics/fpl/">FPL</a> and define the failure and continued-error intervals evaluated by <a href="/doc/get-started/protocol/metrics/trr/">TRR</a>.</p>
       <p><strong>Recovery outcomes.</strong> For <a href="/doc/diagnostic-trajectories/failure-and-recovery/">Effective Recovery and Ineffective Recovery trajectories</a>, we also annotate when the recovery outcome becomes observable. This timestamp separates the recovery attempt from its outcome, allowing <a href="/doc/get-started/protocol/metrics/trr/">TRR</a> to assess whether value trends distinguish a recovery attempt from its success or failure.</p>
@@ -232,10 +234,10 @@ export function DatasetOverview() {
 
 export function DatasetDownload() {
   return <div className="doc-content">
-    <p className="doc-lead">Here is a link to access the training trajectories used for model preparation.</p>
+    <p className="doc-lead">The training set will be released on Hugging Face. The private test set is reserved for organizer-run evaluation.</p>
     <Section id="dataset-training" title="Training Data">
-      <p>Each simulation and real-world task has 100 expert training trajectories, collected under standard in-domain conditions.</p>
-      <p>The training set contains only successful trajectories, with annotations limited to subtask boundaries.</p>
+      <p>The training set contains 3,500 expert demonstrations: 100 for each of the 15 simulation and 20 real-world tasks, collected under the standard in-domain (ID) setting.</p>
+      <p>These demonstrations support the One-Shot and Full-Shot tracks. They do not include subtask boundary annotations.</p>
       <div className="doc-download-panel"><div><strong>Training data on Hugging Face</strong><p>The download link will be added here when available.</p></div><TrainingDownloadLink /></div>
     </Section>
 

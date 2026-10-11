@@ -20,7 +20,7 @@ export const adapterSections = [
   ['adapter-service', 'Service'],
   ['adapter-interfaces', 'Interface'],
   ['adapter-example', 'Examples'],
-  ['adapter-handoff', 'Handoff'],
+  ['adapter-handoff', 'Submit Your Adapter'],
 ];
 
 const pythonTokens = /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:class|def|from|import|return|for|in|if|else|True|False|None)\b)|(?<type>\b(?:ValueQuery|CompareQuery|SubtaskQuery|Sequence|Image|list|float|str)\b)|(?<function>\b[a-zA-Z_]\w*(?=\())|(?<number>\b\d+(?:\.\d+)?\b)|(?<punctuation>[()[\]{}:.,])/g;
@@ -56,7 +56,7 @@ function CodeBlock({ title, code }) {
 
 export function ServiceAdapter() {
   return <div className="doc-content">
-    <p className="doc-lead">If you choose close-source method to participate, you will need an adapter to convert the queries into model's input and to translate its output into specified interface. The document below will guide you how to do this. </p>
+    <p className="doc-lead">For a closed-source model, an adapter connects your inference service to RoboValue. It prepares the observations and instructions your model requires, then maps its predictions to the supported benchmark interfaces.</p>
     <Section id="adapter-service" title="Service">
       <p>If you prefer to keep your inference code and model weights private, run the model on your own infrastructure and provide an inference endpoint that the RoboValue team can call. The service can keep its native request and response format; the adapter converts RoboValue queries into service requests and maps the responses to the adapter interface.</p>
     </Section>
@@ -85,8 +85,8 @@ export function ServiceAdapter() {
         <div><dt><a href={`${sourceRoot}/src/vmbmk/adapters/robodopamine.py`}>Robo-Dopamine</a></dt><dd>Shows how to prepare the supplied <a href="/doc/get-started/protocol/evaluation/#dataset-references">One-Shot reference</a> from <code>reference_data</code> and use native comparisons to build scalar progress predictions.</dd></div>
       </dl>
     </Section>
-    <Section id="adapter-handoff" title="Handoff">
-      <p>Include the adapter dependencies, native service input/output specification, and a runnable synthetic example. The <a href={`${sourceRoot}/tests/adapters/test_mock_service.py`}>mock tests</a> show how to check ordered outputs without private test observations. Follow <a href="/doc/get-started/adapters/#submission-contact">Submission</a> to submit your adapter for review.</p>
+    <Section id="adapter-handoff" title="Submit Your Adapter">
+      <p>Submit your adapter with its dependencies, a description of your service's input and output formats, and a runnable synthetic example. The <a href={`${sourceRoot}/tests/adapters/test_mock_service.py`}>mock tests</a> show how to check output order without private test observations. See <a href="/doc/get-started/adapters/#submission-contact">Submission</a> for how to share the code with the RoboValue team.</p>
     </Section>
   </div>;
 }

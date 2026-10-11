@@ -36,22 +36,22 @@ export function TaskOverview({ domain }) {
     <section className="task-section"><h2>Trajectory Design</h2><p>The test split complements expert demonstrations with diagnostic execution patterns, grouped below. Coverage varies by task; training demonstrations are collected separately under standard conditions.</p>
       <dl className="trajectory-types">
         <div><dt>Expert Demonstrations</dt><dd>The robot executes the task fluently and without errors.</dd></div>
-        <div><dt>Failure–Recovery</dt><dd>After an execution error, the robot continues without recovery (Error Continuation), successfully recovers (Effective Recovery), or makes an unsuccessful recovery attempt and continues (Ineffective Recovery).</dd></div>
-        <div><dt>Repetitive Actions</dt><dd>Repeated actions revisit visually similar states with different execution histories.</dd></div>
-        <div><dt>Multi-Solution</dt><dd>Alternative valid subtask orders complete the task while respecting its dependencies.</dd></div>
+        <div><dt>Failure and Recovery Trajectories</dt><dd>After an execution error, the robot continues without recovery (Error Continuation), successfully recovers (Effective Recovery), or makes an unsuccessful recovery attempt and continues (Ineffective Recovery).</dd></div>
+        <div><dt>Long-Horizon Temporal Trajectories</dt><dd>Repeated actions or multi-stage procedures revisit visually similar states with different amounts of completed work.</dd></div>
+        <div><dt>Multi-Solution Trajectories</dt><dd>Alternative valid subtask orders complete the task while respecting its dependencies.</dd></div>
       </dl>
     </section>
-    <section className="task-section"><h2>Evaluation Conditions</h2><p>These conditions follow the same evaluation protocol. Each distribution shift varies either the embodiment or the environment relative to the standard setting.</p>
-      <dl className="condition-descriptions"><div><dt>Standard Version</dt><dd>{info.standard}</dd></div><div><dt>Cross-Embodiment (EMB-OOD)</dt><dd>{info.embodiment}</dd></div><div><dt>Cross-Environment (ENV-OOD)</dt><dd>{info.environment}</dd></div></dl>
+    <section className="task-section"><h2>Evaluation Conditions</h2><p>The standard setting provides in-domain (ID) evaluation. Cross-embodiment and cross-environment settings test out-of-domain (OOD) generalization by varying one factor at a time under the same evaluation protocol.</p>
+      <dl className="condition-descriptions"><div><dt>Standard</dt><dd>{info.standard}</dd></div><div><dt>Cross-Embodiment</dt><dd>{info.embodiment}</dd></div><div><dt>Cross-Environment</dt><dd>{info.environment}</dd></div></dl>
     </section>
     <section className="task-section" id="manipulation-skills"><h2>Manipulation Skills</h2><Figure src={`/assets/tasks/${domain}-skills.webp`} alt={`${info.name} manipulation skills`} /></section>
-    <section className="task-section"><h2>Task Specifications</h2><p>Each task page includes its instruction, scene and procedure, subtask decomposition, and videos under each evaluation condition. Counterfactual changes are provided for the tasks covered by that evaluation.</p><a className="inline-link" href={`/doc/${domain}-tasks/catalog/`}>View the task catalog →</a></section>
+    <section className="task-section"><h2>Task Specifications</h2><p>Each task page includes its instruction, scene, procedure, subtask breakdown, and videos under each evaluation condition. Counterfactual instruction changes are provided for tasks included in that evaluation.</p><a className="inline-link" href={`/doc/${domain}-tasks/catalog/`}>View the task catalog →</a></section>
   </div>;
 }
 
 export function TaskCatalog({ domain }) {
   const list = tasks.filter(t => t.domain === domain);
-  return <div className="task-content"><p className="doc-lead">Select a {domain === 'simulation' ? 'simulation' : 'real-world'} task to view its instruction, subtask decomposition, and evaluation examples.</p>
+  return <div className="task-content"><p className="doc-lead">Select a {domain === 'simulation' ? 'simulation' : 'real-world'} task to view its instruction, subtask breakdown, and evaluation examples.</p>
     <div className="task-catalog">{list.map(t => <a className="task-card" href={taskPath(t)} key={t.id}><img src={t.images.id} alt={`${t.title}, standard setting`} width="640" height="480" loading="lazy" /><div><h2>{t.title}</h2><p>{t.instruction}</p><span>View task →</span></div></a>)}</div>
   </div>;
 }
@@ -68,9 +68,9 @@ export function TaskDetail({ taskId }) {
   const videoDirectory = task.domain === 'real-world' ? `real-world/${task.slug}` : task.slug;
   return <div className="task-content">
     <section className="task-section first"><h2>Instruction</h2><blockquote className="task-instruction">{task.instruction}</blockquote></section>
-    <section className="task-section"><h2>Videos</h2><VideoGallery title={task.title} videos={[['id', 'Standard Version'], ['emb', 'Cross-Embodiment (EMB-OOD)'], ['env', 'Cross-Environment (ENV-OOD)']].map(([key, label]) => ({ src: `/assets/tasks/videos/${videoDirectory}/${key}.mp4`, label }))} /></section>
+    <section className="task-section"><h2>Videos</h2><VideoGallery title={task.title} videos={[['id', 'Standard'], ['emb', 'Cross-Embodiment'], ['env', 'Cross-Environment']].map(([key, label]) => ({ src: `/assets/tasks/videos/${videoDirectory}/${key}.mp4`, label }))} /></section>
     <section className="task-section"><h2>Procedure</h2><dl className="task-specification"><div><dt>Scene</dt><dd>{task.scene}</dd></div><div><dt>Procedure</dt><dd>{task.procedure}</dd></div>{task.order && <div><dt>Order and Variations</dt><dd>{task.order}</dd></div>}</dl></section>
-    <section className="task-section"><h2>Subtask Decomposition</h2><p className="task-hint">Subtask labels reproduce the manuscript’s decomposition. For tasks with alternative valid orders, the listed procedure does not impose additional ordering constraints beyond the instruction.</p><ol className="subtask-list">{task.subtasks.map(s => <li key={s.id}><span>{s.id}</span><p>{s.text}</p></li>)}</ol></section>
+    <section className="task-section"><h2>Subtask</h2><p className="task-hint">The labels below identify the semantic subtasks used in the manuscript. Their listed order does not impose constraints beyond the task instruction; tasks with multiple valid solutions may admit other orders.</p><ol className="subtask-list">{task.subtasks.map(s => <li key={s.id}><span>{s.id}</span><p>{s.text}</p></li>)}</ol></section>
     <section className="task-section"><h2>Counterfactuals</h2>{task.counterfactual ? <><p>TGA-CF holds the successful trajectory fixed and changes the instruction. The summaries below describe the semantic changes; they are not complete counterfactual prompts. Each category names the primary change, and related semantics may also change.</p><dl className="counterfactual-changes">{Object.entries(task.counterfactual.changes).map(([category, value]) => { const [original, changed] = value.split(' → '); return <div key={category}><dt>{category}</dt><dd><span>{original}</span><span className="change-arrow" aria-label="changed to"> → </span><strong>{changed}</strong></dd></div>; })}</dl></> : <p>This task is omitted from the paired counterfactual instruction set in the manuscript and is reserved for history-dependent progress evaluation.</p>}</section>
     <p className="task-source">Task specifications: Appendix {task.source.appendix}{task.counterfactual ? `. Counterfactual changes: Appendix ${task.domain === 'simulation' ? 'C.3' : 'D.3'}` : ''}.</p>
   </div>;
