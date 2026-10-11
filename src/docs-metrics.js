@@ -5,6 +5,16 @@ const tgaFormulas = [
   { tex: tex`\mathrm{TGA}=\frac{1}{|\mathcal E^+|}\sum_{e\in\mathcal E^+}\mathbf 1\!\left[\Delta_e(l)>\max_{l'\in\mathcal N}\Delta_e(l')\right]`, description: 'The correct instruction must yield a greater gain than every negative instruction.' },
 ];
 
+// Names and assignments follow Appendix A, tab:metric-trajectory-design.
+export const trajectoryTypes = {
+  expert: { label: 'Expert Demonstrations', href: '/doc/get-started/data/overview/#dataset-test' },
+  error_continuation: { label: 'Error Continuation', href: '/doc/diagnostic-trajectories/failure-and-recovery/#trajectory-pattern' },
+  effective_recovery: { label: 'Effective Recovery', href: '/doc/diagnostic-trajectories/failure-and-recovery/#trajectory-pattern' },
+  ineffective_recovery: { label: 'Ineffective Recovery', href: '/doc/diagnostic-trajectories/failure-and-recovery/#trajectory-pattern' },
+  long_horizon: { label: 'Long-Horizon Temporal Trajectories', href: '/doc/diagnostic-trajectories/long-horizon/' },
+  multi_solution: { label: 'Multi-Solution Trajectories', href: '/doc/diagnostic-trajectories/multi-solution/' },
+};
+
 export const dimensionDocumentation = {
   understanding: {
     purpose: 'Relate observed behavior to the intended goal and the subtasks required to achieve it.',
@@ -27,8 +37,9 @@ export const dimensionDocumentation = {
 export const metricDocumentation = {
   sa: {
     name: 'Success Accuracy', input: 'Scalar values', range: '[0, 1]',
+    trajectories: ['expert', 'error_continuation', 'effective_recovery', 'ineffective_recovery'],
     purpose: 'Tests whether terminal values distinguish complete goal satisfaction from partial or failed execution. This capability supports selecting successful demonstrations and deriving outcome-based rewards.',
-    cohort: 'Expert Demonstrations and all three branches of Failure and Recovery Trajectories. Successful and unsuccessful episodes are paired within the same task and evaluation setting.',
+    cohort: 'Expert executions and effective recoveries provide successful outcomes; error continuations and ineffective recoveries provide unsuccessful outcomes. Successful and unsuccessful episodes are paired within the same task and evaluation setting.',
     preparation: ['For each episode e, average predictions over the final 2% of its duration to obtain the terminal score zₑ. Let ℰ⁺ and ℰ⁻ denote the successful and unsuccessful episodes.'],
     formulas: [{ tex: tex`\mathrm{SA}=\frac{\sum_{e\in\mathcal E^+}\sum_{e'\in\mathcal E^-}\mathbf 1[z_e>z_{e'}]}{|\mathcal E^+|\,|\mathcal E^-|}`, description: 'Fraction of successful–unsuccessful pairs ranked correctly.' }],
     details: ['A pair receives credit only if the successful episode has a strictly higher terminal score; ties receive zero. No shared absolute success threshold is required.'],
@@ -36,8 +47,9 @@ export const metricDocumentation = {
   },
   tga_ct: {
     name: 'Task Grounding Accuracy — Cross-Task', input: 'Pairwise comparisons', range: '[0, 1]',
+    trajectories: ['expert'],
     purpose: 'Tests whether value judgments depend on the language-specified goal. Reliable cross-task grounding enables one evaluator to provide relevant feedback across tasks and helps retrieve demonstrations for a requested goal.',
-    cohort: 'Expert Demonstrations evaluated under the correct instruction and instructions from other tasks, with the visual execution held fixed.',
+    cohort: 'Each successful demonstration is evaluated under its correct instruction and instructions from other tasks. The visual execution remains fixed across these queries.',
     preparation: ['Sample state pairs from the first and last 2% of each successful episode and average their signed comparisons under each instruction. Here l is the correct instruction, ℕ contains instructions from other tasks, and ℰ⁺ contains the evaluated successful episodes.'],
     formulas: tgaFormulas,
     details: ['Scoring uses a strict top-1 comparison: a tie with any negative instruction receives zero. The same trajectory and query pairs are used for every instruction.'],
@@ -45,8 +57,9 @@ export const metricDocumentation = {
   },
   tga_cf: {
     name: 'Task Grounding Accuracy — Counterfactual', input: 'Pairwise comparisons', range: '[0, 1]',
+    trajectories: ['expert'],
     purpose: 'Tests whether value judgments reflect the specific object, action, placement, and constraint requirements of an instruction. This guards against rewarding behavior that resembles the requested task but fulfills a different goal.',
-    cohort: 'Expert Demonstrations evaluated under the correct instruction and four counterfactual variants. Each variant changes a task requirement while the visual execution remains fixed.',
+    cohort: 'Each successful demonstration is evaluated under its correct instruction and four counterfactual variants. Each variant changes a task requirement while the visual execution remains fixed.',
     preparation: ['Use the same start–end sampling and strict top-1 gain comparison as TGA-CT. Here ℕ contains the counterfactual instructions, l is the original instruction, and ℰ⁺ contains the evaluated successful episodes.'],
     formulas: tgaFormulas,
     details: ['The correct instruction must yield a greater mean gain than every counterfactual; ties receive zero. The four change types are objects, actions, placement, and constraints.'],
@@ -54,8 +67,9 @@ export const metricDocumentation = {
   },
   sia: {
     name: 'Subtask Identification Accuracy', input: 'Subtask descriptions', range: '[0, 1]',
+    trajectories: ['expert'],
     purpose: 'Tests whether a model recognizes the active semantic subtask. This connects observed behavior to the current intermediate objective, supporting stage-specific feedback and contextual failure diagnosis.',
-    cohort: 'Expert Demonstrations with annotated subtask intervals. Queries are sampled inside each interval, away from its boundaries.',
+    cohort: 'Annotated subtask intervals identify the active subtask in each successful demonstration. Queries are sampled inside each interval, away from its boundaries.',
     preparation: ['The model generates a free-form subtask description without seeing the candidate labels. A separate DeepSeek-V4-Pro judge compares it with the task’s candidate subtasks and assigns probability qᵢ to the ground-truth subtask for query i.'],
     formulas: [{ tex: tex`\mathrm{SIA}=\exp\!\left(\frac{1}{N}\sum_{i=1}^{N}\log q_i\right)`, description: 'Geometric mean of the ground-truth subtask probabilities over N queries.' }],
     details: ['Compute the geometric mean within each task, then apply the shared task and domain aggregation. SIA is reported separately and does not contribute to the current overall leaderboard score.'],
@@ -63,8 +77,9 @@ export const metricDocumentation = {
   },
   voc: {
     name: 'Value-Order Correlation', input: 'Scalar value sequences', range: '[−1, 1]',
+    trajectories: ['expert'],
     purpose: 'Tests whether intermediate values preserve the progress order of a successful execution. Correct ordering supports dense reward construction and temporal credit assignment without requiring a calibrated completion percentage.',
-    cohort: 'Expert Demonstrations, using the forward portion of the shared forward–reverse evaluation. Failure branches and alternative-solution episodes are excluded from this cohort.',
+    cohort: 'The forward portion of each successful demonstration supplies the progress reference, using the shared forward–reverse evaluation. Failure branches and alternative-solution episodes are excluded from this cohort.',
     preparation: ['For N predictions vᵢ sampled at timestamps tᵢ in a successful trajectory of duration T, compute Spearman rank correlation ρₛ with normalized time. Temporal order serves as a proxy for progress.'],
     formulas: [{ tex: tex`\mathrm{VOC}=\rho_{\mathrm S}\!\left((v_i)_{i=1}^{N},(t_i/T)_{i=1}^{N}\right)`, description: 'Rank correlation between predicted value and forward progress order.' }],
     details: ['Constant predictions receive zero. Rank correlation permits nonlinear value scales and changes in execution speed.'],
@@ -72,8 +87,9 @@ export const metricDocumentation = {
   },
   cycle_voc: {
     name: 'Cycle-VOC', input: 'Scalar value sequences', range: '[−1, 1]',
+    trajectories: ['expert'],
     purpose: 'Tests whether predicted progress responds to changes in task state when elapsed time continues to increase. Reversing the recorded sequence exposes temporal shortcuts that successful forward execution alone cannot reveal.',
-    cohort: 'Expert Demonstrations replayed forward and then backward as one continuous sequence, with a single shared turning point.',
+    cohort: 'Each successful demonstration is replayed forward and then backward as one continuous sequence, with a single shared turning point.',
     preparation: ['For models that use history, the reverse half retains the preceding forward context. Let ρfwd be Spearman correlation with increasing progress order and ρrev correlation with decreasing progress order in the reverse half. Both scored halves include the turning point.'],
     formulas: [{ tex: tex`\mathrm{Cycle\text{-}VOC}=\frac{\rho_{\mathrm{fwd}}+\rho_{\mathrm{rev}}}{2}`, description: 'Mean agreement with forward and reverse progress orders.' }],
     details: ['A constant prediction sequence receives zero for that half. The two halves are evaluated without resetting the model’s history. VROC, used in the leaderboard aggregation, denotes the reverse-half correlation ρrev.'],
@@ -81,8 +97,9 @@ export const metricDocumentation = {
   },
   memory_voc: {
     name: 'Memory-VOC', input: 'Scalar value sequences', range: '[−1, 1]',
+    trajectories: ['long_horizon'],
     purpose: 'Tests progress estimation when the current image is ambiguous because a similar state has appeared before. Tracking completed repetitions or subtasks is useful for long-horizon reward assignment and execution monitoring.',
-    cohort: 'Long-Horizon Temporal Trajectories containing recurring or visually similar states reached after different amounts of completed work.',
+    cohort: 'Repeated actions and recurring visual states produce similar observations after different amounts of completed work. These trajectories make progress ambiguous without the relevant execution history.',
     preparation: ['Apply the VOC scoring rule to these successful, history-dependent trajectories. Predictions vᵢ use the temporal context available through each model’s interface; tᵢ is the sampled timestamp and T the trajectory duration.'],
     formulas: [{ tex: tex`\mathrm{Memory\text{-}VOC}=\rho_{\mathrm S}\!\left((v_i)_{i=1}^{N},(t_i/T)_{i=1}^{N}\right)`, description: 'Progress-order correlation on trajectories with recurring visual states.' }],
     details: ['Constant predictions receive zero. The scoring rule matches VOC; the diagnostic trajectory design changes.'],
@@ -90,8 +107,9 @@ export const metricDocumentation = {
   },
   fpl: {
     name: 'Failure-Point Localization', input: 'Scalar value sequences', range: '[0, 1]', lower: true,
+    trajectories: ['error_continuation'],
     purpose: 'Tests whether a model’s strongest value decline locates the onset of an execution error. Accurate localization helps retain useful stages of partially successful trajectories and direct negative feedback toward the actual failure.',
-    cohort: 'Error Continuation trajectories containing a single annotated execution error, so the target failure event is unambiguous.',
+    cohort: 'Each trajectory contains a single annotated execution error, so the target failure event is unambiguous. The robot continues with the remaining task without correcting that error.',
     preparation: ['Sample values at 5 Hz, including the final frame. A ZigZag filter suppresses small reversals using a threshold of 0.2 times the largest earlier-to-later value drop. The peak preceding the largest retained decline defines the predicted onset t̂.', 'Let tᴳᵀ be the annotated onset and T the final-frame timestamp. If no decline is detected, assign the maximum possible temporal error within that trajectory.'],
     formulas: [{ tex: tex`\mathrm{FPL}=\frac{1}{T}\begin{cases}|\hat t-t^{\mathrm{GT}}|,&\text{decline detected},\\[4pt]\max(t^{\mathrm{GT}},T-t^{\mathrm{GT}}),&\text{otherwise}.\end{cases}`, description: 'Failure-onset localization error normalized by trajectory duration.' }],
     details: ['For equal declines, select the shortest interval, then the earliest start. Flat peaks use their last point and flat troughs their first; unfinished terminal declines are retained.'],
@@ -99,8 +117,9 @@ export const metricDocumentation = {
   },
   trr: {
     name: 'Trajectory Recovery Reasoning', input: 'Scalar value sequences', range: '[0, 1]',
+    trajectories: ['error_continuation', 'effective_recovery', 'ineffective_recovery'],
     purpose: 'Tests whether value trends distinguish an initial error, corrective progress, and the eventual recovery outcome. This supports recovery-policy feedback and monitoring without equating a correction attempt with success.',
-    cohort: 'Matched Error Continuation, Effective Recovery, and Ineffective Recovery trajectories sharing an initial failure scenario. Published results cover the standard setting.',
+    cohort: 'Matched trajectories share an initial failure scenario and then diverge into the three branches. Their annotated stages distinguish the initial error, continued error, recovery attempts, and recovery outcomes. Published results cover the standard setting.',
     preparation: ['Evaluate each branch on its own trajectory. Annotated stages are initial failure (f), continued error (c), recovery attempt (r), and outcome (o). Within a stage s, vᵢ is the predicted value and wᵢ is the duration represented by sample i.'],
     formulas: [
       { tex: tex`D_s=\frac{\sum_{i<j}w_iw_j(v_j-v_i)}{\sum_{i<j}w_iw_j|v_j-v_i|}`, description: 'Time-weighted direction of value change over all ordered pairs in a stage.' },
@@ -111,8 +130,9 @@ export const metricDocumentation = {
   },
   vs: {
     name: 'Value Stability', input: 'Scalar value sequences', range: '[0, 1]',
+    trajectories: ['expert'],
     purpose: 'Tests whether local value feedback is stable while continuing to provide informative updates. Spurious fluctuations can create misleading local rewards, while a flat curve provides no distinction between intermediate states.',
-    cohort: 'Expert Demonstrations sampled in the forward direction at 5 Hz. Failure branches and alternative-solution episodes are excluded from this cohort.',
+    cohort: 'Successful demonstrations are sampled in the forward direction at 5 Hz to examine local fluctuations and flat intervals in the value curve. Failure branches and alternative-solution episodes are excluded from this cohort.',
     preparation: ['For N predictions vᵢ at timestamps tᵢ, form a processed sequence ṽᵢ by replacing the first and last three predictions with their respective means. The efficiency ratio ER uses this sequence; non-flat time coverage C uses the raw values and timestamps.'],
     formulas: [
       { tex: tex`\mathrm{ER}=\frac{|\tilde v_N-\tilde v_1|}{\sum_{i=1}^{N-1}|\tilde v_{i+1}-\tilde v_i|}`, description: 'Net value change relative to total variation.' },
@@ -124,8 +144,9 @@ export const metricDocumentation = {
   },
   csvc: {
     name: 'Cross-Solution Value Consistency', input: 'Pairwise comparisons', range: '[−1, 1]',
+    trajectories: ['expert', 'multi_solution'],
     purpose: 'Tests whether the same semantic subtask receives comparable value gains across valid execution orders. Consistent local credit helps avoid weighting equivalent training segments differently merely because of their position in an execution.',
-    cohort: 'Expert Demonstrations and Multi-Solution Trajectories with matched semantic subtasks. Published results cover the standard setting.',
+    cohort: 'Successful executions of the same task cover different valid subtask orders. Annotated boundaries align the same semantic subtask across those solutions. Published results cover the standard setting.',
     preparation: ['For subtask a in solution q, take the median signed comparison over m state pairs near its annotated start and end. Use four pairs normally and three for a small number of very short subtasks. Match subtasks by meaning, not by their temporal positions.', 'Let 𝒜 be the evaluated semantic subtasks and 𝒮ₐ the valid solutions containing subtask a. Repetitions of the standard solution contribute a single median profile, with the same weight as each alternative solution.'],
     formulas: [
       { tex: tex`c_{q,a}=\operatorname{median}_{1\leq j\leq m}c(A_j^-,A_j^+;l),\qquad \widetilde c_a=\operatorname{median}_{q\in\mathcal S_a}c_{q,a}`, description: 'Subtask gain within a solution and its median across solutions.' },

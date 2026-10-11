@@ -141,7 +141,7 @@ export function PageOutline({ sections }) {
     return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update); };
   }, [sections]);
   return <aside className="page-outline" aria-label="Page sections">
-    <nav aria-label="Page sections">{sections.map(([id, title]) => <a key={id} href={`#${id}`} aria-current={activeId === id ? 'location' : undefined}>{title}</a>)}</nav>
+    <nav aria-label="Page sections">{sections.map(([id, title]) => <a key={id} href={`#${id}`} data-capability={GROUPS.find(group => id === `protocol-${group.id}`)?.id} aria-current={activeId === id ? 'location' : undefined}>{title}</a>)}</nav>
     <div className="reading-progress" aria-label={`Reading progress: ${progress}%`}><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="11" /><circle className="reading-progress-value" cx="14" cy="14" r="11" pathLength="100" strokeDasharray={`${progress} 100`} /></svg><span>{progress}%</span></div>
   </aside>;
 }

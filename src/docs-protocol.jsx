@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { GROUPS } from './benchmark-metrics';
-import { metricDocumentation, dimensionDocumentation } from './docs-metrics';
+import { metricDocumentation, dimensionDocumentation, trajectoryTypes } from './docs-metrics';
 import { metricPages, metricDimensionPages } from './navigation';
 import { Section } from './docs-content';
 import { MathExpression } from './docs-math';
@@ -133,7 +133,10 @@ export function MetricGuide({ metricKey }) {
       <div><dt>Raw Score</dt><dd>{metric.range}</dd></div>
       <div><dt>Direction</dt><dd>{metric.lower ? 'Lower is better' : 'Higher is better'}</dd></div>
     </dl>
-    <Section id={`metric-${metricKey}-data`} title="Evaluation Data"><p>{metric.cohort}</p></Section>
+    <Section id={`metric-${metricKey}-data`} title="Evaluation Data">
+      <ul className="doc-trajectory-types" aria-label="Trajectory types used">{metric.trajectories.map(key => <li key={key}><a href={trajectoryTypes[key].href}>{trajectoryTypes[key].label}</a></li>)}</ul>
+      <p>{metric.cohort}</p>
+    </Section>
     <Section id={`metric-${metricKey}`} title="Scoring">
       {metric.preparation.map((text, index) => <p key={index}>{text}</p>)}
       <div className="doc-formulas">{metric.formulas.map(({ tex, description }, index) => <figure className="doc-formula" key={index}>

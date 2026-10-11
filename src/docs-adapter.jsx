@@ -20,7 +20,7 @@ export const adapterSections = [
   ['adapter-service', 'Service'],
   ['adapter-interfaces', 'Interface'],
   ['adapter-example', 'Examples'],
-  ['adapter-handoff', 'Handoff'],
+  ['adapter-handoff', 'Submit Your Adapter'],
 ];
 
 const pythonTokens = /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:class|def|from|import|return|for|in|if|else|True|False|None)\b)|(?<type>\b(?:ValueQuery|CompareQuery|SubtaskQuery|Sequence|Image|list|float|str)\b)|(?<function>\b[a-zA-Z_]\w*(?=\())|(?<number>\b\d+(?:\.\d+)?\b)|(?<punctuation>[()[\]{}:.,])/g;
@@ -85,8 +85,8 @@ export function ServiceAdapter() {
         <div><dt><a href={`${sourceRoot}/src/vmbmk/adapters/robodopamine.py`}>Robo-Dopamine</a></dt><dd>Shows how to prepare the supplied <a href="/doc/get-started/protocol/evaluation/#dataset-references">One-Shot reference</a> from <code>reference_data</code> and use native comparisons to build scalar progress predictions.</dd></div>
       </dl>
     </Section>
-    <Section id="adapter-handoff" title="Handoff">
-      <p>Include the adapter dependencies, native service input/output specification, and a runnable synthetic example. The <a href={`${sourceRoot}/tests/adapters/test_mock_service.py`}>mock tests</a> show how to check ordered outputs without private test observations. Follow <a href="/doc/get-started/adapters/#submission-contact">Submission</a> to submit your adapter for review.</p>
+    <Section id="adapter-handoff" title="Submit Your Adapter">
+      <p>Submit your adapter with its dependencies, a description of your service's input and output formats, and a runnable synthetic example. The <a href={`${sourceRoot}/tests/adapters/test_mock_service.py`}>mock tests</a> show how to check output order without private test observations. See <a href="/doc/get-started/adapters/#submission-contact">Submission</a> for how to share the code with the RoboValue team.</p>
     </Section>
   </div>;
 }
