@@ -54,7 +54,9 @@ export function HeroBackground() {
           return <div className={`rv-hero-row${realWorld ? ' rv-hero-row-real' : ''}`} key={row} data-domain={rowType.domain} data-condition={rowType.condition} data-group={rowType.group} style={{ '--row-duration': `${duration}s`, '--scene-aspect-ratio': `${crop.sourceWidth} / ${cropHeight}`, '--scene-image-height': `${crop.sourceHeight / cropHeight * 100}%`, '--scene-crop-top': `${-crop.top / cropHeight * 100}%` }}>
             {[0, 1].map(copy => <div className="rv-hero-row-group" key={copy}>
               {scenes.map((scene, index) => <div className="rv-hero-scene" key={`${scene}-${index}`}>
-                <img src={scene} alt="" width={crop.sourceWidth} height={crop.sourceHeight} decoding="async" loading={index < columnCount ? 'eager' : 'lazy'} fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
+                <div className="rv-hero-scene-surface">
+                  <img src={scene} alt="" width={crop.sourceWidth} height={crop.sourceHeight} decoding="async" loading={index < columnCount ? 'eager' : 'lazy'} fetchPriority={row === 0 && index < 3 && copy === 0 ? 'high' : 'low'} />
+                </div>
               </div>)}
             </div>)}
           </div>;

@@ -21,7 +21,7 @@ const AUTHORS = [
   ['Chang Ge', '4', 'https://gechang27.github.io/'],
   ['Jinyang Xiao', '4', 'https://xiaojy36.github.io/'],
   ['Nan Wang', '2,†', 'https://bigcileng.github.io/'],
-  ['Zhipeng Hu', '1'],
+  ['Zhipeng Hu', '1', 'https://huzp22.github.io/'],
   ['Huining Yuan', '1', 'https://scholar.google.com/citations?user=zmSByPoAAAAJ'],
   ["Shu'ang Yu", '1', 'https://scholar.google.com/citations?user=wb79fkMAAAAJ'],
   ['Yue Chen', '3,5', 'https://yuechen0614.github.io/'],
@@ -74,7 +74,7 @@ const CAPABILITY_METRICS = {
   ],
 };
 function ResourceEntry({ label, icon, logo, href, status, external = false, arrow = false }) {
-  const content = <>{logo ? <img className="rv-entry-logo" src={`/assets/resource-icons/${logo}.svg`} alt="" width="20" height="20" aria-hidden="true" /> : <Icon name={icon} size={20} />}<strong>{label}</strong>{status && <span className="rv-entry-status">{status}</span>}{(external || (href && arrow)) && <Icon className="rv-entry-arrow" name={external ? 'external' : 'arrow'} size={14} />}</>;
+  const content = <>{logo ? <img className="rv-entry-logo" src={`/assets/resource-icons/${logo}.svg`} alt="" width="20" height="20" aria-hidden="true" /> : <Icon name={icon} size={20} />}<strong>{label}</strong>{status && <span className="rv-entry-status">{status}</span>}{(external || arrow) && <Icon className="rv-entry-arrow" name={external ? 'external' : 'arrow'} size={14} />}</>;
   return href
     ? <a className="rv-entry" data-icon={logo || icon} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{content}</a>
     : <button className="rv-entry rv-entry-pending" data-icon={logo || icon} type="button" disabled>{content}</button>;
@@ -96,7 +96,7 @@ function ResearchDetails() {
           <ResourceEntry label="Report" icon="paper" external />
           <ResourceEntry label="Document" icon="book" href="/doc/" arrow />
           <ResourceEntry label="Code" logo="github" href="https://github.com/RoboValue-Benchmark/RoboValue" external />
-          <ResourceEntry label="Dataset" icon="database" />
+          <ResourceEntry label="Dataset" icon="database" arrow />
         </div>
         <div className="rv-paper-links">
           <ResourceEntry label="Leaderboard" icon="trophy" href="/leaderboard/" arrow />
