@@ -9,9 +9,7 @@
   outline: none;
 }
 .eval-heading { margin-bottom: 38px; text-align: center; }
-.eval-eyebrow { display: flex; align-items: center; justify-content: center; gap: 12px; color: #6554dc; font-size: 15px; font-weight: 650; line-height: 1.5; letter-spacing: 2px; text-transform: uppercase; }
-.eval-eyebrow::before, .eval-eyebrow::after { content: ''; width: 23px; height: 2px; background: linear-gradient(90deg, #397aff, #8950dc); }
-.eval-heading h1 { margin: 16px 0; color: var(--theme-ink); font-size: clamp(32px, 3.5vw, 44px); font-weight: 650; line-height: 1.2; letter-spacing: -1.1px; }
+.eval-heading h1 { margin: 0 0 16px; color: var(--theme-ink); font-size: clamp(32px, 3.5vw, 44px); font-weight: 650; line-height: 1.2; letter-spacing: -1.1px; }
 .eval-lede { color: var(--theme-body); font-size: 17px; line-height: 1.7; }
 .eval-layout { display: grid; grid-template-columns: minmax(0, 1fr) 330px; align-items: start; gap: 28px; }
 .eval-application { min-width: 0; padding: 32px; border: 1px solid var(--theme-border); border-radius: 16px; background: var(--theme-page); }
@@ -53,7 +51,6 @@
 .eval-submit:hover:not(:disabled), .eval-primary-link:hover { filter: brightness(1.06); }
 .eval-submit:disabled { opacity: .7; cursor: wait; }
 .eval-submit svg, .eval-primary-link svg, .eval-community-link svg { flex-shrink: 0; }
-.eval-form-footer > p { margin-top: 14px; color: var(--theme-muted); font-size: 14px; line-height: 1.6; }
 .eval-community { min-width: 0; padding: 26px; border: 1px solid #e0d9ef; border-radius: 16px; background: linear-gradient(145deg, #f7f9ff, #f7f3fd); }
 .eval-community h2 { font-size: 21px; }
 .eval-community-intro { margin-top: 10px; color: var(--theme-body); font-size: 15px; line-height: 1.7; }
@@ -73,7 +70,6 @@
 .eval-success h2:focus { outline: none; }
 .eval-success p { margin-top: 14px; color: var(--theme-body); font-size: 17px; line-height: 1.75; }
 .eval-primary-link { margin-top: 28px; }
-[data-theme="dark"] .eval-eyebrow { color: #b3a1ff; }
 [data-theme="dark"] .eval-required, [data-theme="dark"] .eval-form-heading p > span { color: #ff8795; }
 [data-theme="dark"] .eval-field > input { border-color: #51465f; background: #211e29; }
 [data-theme="dark"] .eval-field > input::placeholder { color: #9e95aa; }
@@ -110,7 +106,6 @@
 @media (max-width: 480px) {
   .eval-page { padding-inline: 18px; }
   .eval-heading h1 { font-size: 31px; letter-spacing: -.7px; }
-  .eval-eyebrow { font-size: 14px; }
   .eval-lede { font-size: 16px; }
   .eval-intro-break { display: none; }
   .eval-application, .eval-community { padding: 24px 20px; }

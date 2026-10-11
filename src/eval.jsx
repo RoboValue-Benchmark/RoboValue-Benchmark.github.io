@@ -161,7 +161,6 @@ export function EvaluationPage() {
 
   return <main className="eval-page" id="main-content" tabIndex={-1}>
     <header className="eval-heading">
-      <p className="eval-eyebrow">Evaluation</p>
       <h1>Apply for Evaluation</h1>
       <p className="eval-lede">Register your team and model for evaluation on RoboValue.<br className="eval-intro-break" /> We’ll contact you to coordinate the next steps.</p>
     </header>
@@ -210,7 +209,6 @@ export function EvaluationPage() {
             {submitError && <p className="eval-submit-error" role="alert">{submitError}</p>}
             <div className="eval-form-footer">
               <button className="eval-submit" type="submit" disabled={submitting}>{submitting ? 'Submitting…' : 'Submit Application'}{!submitting && <Icon size={20} />}</button>
-              <p>We’ll use these details to coordinate your evaluation.</p>
             </div>
           </form>
         </>}
