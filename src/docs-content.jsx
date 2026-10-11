@@ -63,7 +63,7 @@ export function EvaluationWorkflow() {
 
 export function SubmitModel() {
   return <div className="doc-content">
-    <p className="doc-lead">Submit an open-source model or connect a closed-source service for evaluation by the RoboValue team.</p>
+    <p className="doc-lead">This page explains how to participate in RoboValue evaluation and specifies the information and materials required for open-source and closed-source submissions.</p>
     <Section id="submission-participation" title="Participation">
       <dl className="doc-definition-list"><div><dt>Open-Source Models</dt><dd>The RoboValue team handles the adapter, inference setup, and evaluation. You do not need to host an inference service or submit an adapter.</dd></div><div><dt>Closed-Source Models</dt><dd>For integration, provide an inference service and a model-specific adapter. Implement the adapter according to the <a href="/doc/model-api/">Adapter Guide</a> and hand it over to the RoboValue team for review and execution. You do not need to release model weights.</dd></div></dl>
     </Section>
@@ -71,7 +71,7 @@ export function SubmitModel() {
       <p>For both open-source and closed-source models, you must specify the model or checkpoint version, preprocessing or prompt revision, and evaluation track: Zero-Shot, One-Shot, or Full-Shot (see <a href="/doc/get-started/protocol/evaluation/">Evaluation Protocol</a>). Describe the observations your model requires and its supported prediction methods, including the meaning, units, and direction of its outputs. Keep the model version and inference setup fixed throughout evaluation.</p>
     </Section>
     <Section id="submission-contact" title="Submission">
-      <p>For open-source models, simply share links to your inference codebase and checkpoint repository with the RoboValue team. For closed-source models, submit your adapter source code as a pull request to the <a href="https://github.com/RoboValue-Benchmark/RoboValue">main RoboValue repository</a> for our review. Share service access details and credentials privately, not in the pull request.</p>
+      <p>To initiate an evaluation, complete the application form on the <a href="/eval/">Eval page</a> and provide your contact details, model information, and selected evaluation track. For an open-source submission, provide links to the inference codebase and model checkpoint repository; the RoboValue team is responsible for adapter implementation, inference setup, and evaluation. For a closed-source submission, provide access to an inference service and submit the adapter source code as a pull request to the <a href="https://github.com/RoboValue-Benchmark/RoboValue">main RoboValue repository</a> for review before evaluation. Model weights are not required to be disclosed. Service access details and credentials must be shared privately with the team and must not be included in the pull request.</p>
     </Section>
     <Section id="submission-next" title="Adapter Guide">
       <p>For closed-source models, see the <a href="/doc/model-api/">next page</a> for instructions on writing your adapter.</p>
@@ -94,6 +94,8 @@ export const documentationSections = {
     ['before-participating', 'Before Participating'],
   ],
   data: [
+    ['dataset-domains', 'Domains'],
+    ['dataset-conditions', 'Conditions'],
     ['dataset-splits', 'Training Set'],
     ['dataset-test', 'Test Set'],
     ['dataset-observations', 'Observations'],
@@ -206,8 +208,21 @@ export function DatasetGuide() {
 
 export function DatasetOverview() {
   return <div className="doc-content">
-    <p className="doc-lead">RoboValue covers 15 <strong>Simulation</strong> tasks and 20 <strong>Real-World</strong> tasks, combining expert demonstrations with diagnostic executions.</p>
-    <p id="dataset-conditions">The <strong>Standard</strong> setting uses each task's default robot and environment for in-domain (ID) evaluation. Two out-of-domain (OOD) settings introduce separate shifts: <strong>Cross-Embodiment</strong> changes the robot platform, and <strong>Cross-Environment</strong> changes the visual environment while retaining the standard robot.</p>
+    <p className="doc-lead">RoboValue combines expert demonstrations with diagnostic trajectories across simulation and real-world manipulation.</p>
+    <Section id="dataset-domains" title="Domains">
+      <dl className="doc-definition-list">
+        <div><dt>Simulation</dt><dd>The simulation domain includes 15 tasks adapted from RoboDojo, with 1,231 test trajectories collected in Isaac Sim.</dd></div>
+        <div><dt>Real-World</dt><dd>The real-world domain includes 20 tasks, with 1,561 test trajectories collected on AgiBot Genie02 and ARX.</dd></div>
+      </dl>
+    </Section>
+    <Section id="dataset-conditions" title="Conditions">
+      <p>The standard setting provides an in-domain (ID) baseline. Two out-of-domain (OOD) settings vary embodiment and environment separately while keeping task goals unchanged.</p>
+      <dl className="doc-definition-list">
+        <div><dt>Standard</dt><dd>The task's default robot embodiment and environment.</dd></div>
+        <div><dt>Cross-Embodiment</dt><dd>A different robot platform performs the same task.</dd></div>
+        <div><dt>Cross-Environment</dt><dd>The standard robot performs the task with changes in visual appearance, lighting, or clutter.</dd></div>
+      </dl>
+    </Section>
     <Section id="dataset-splits" title="Training Set">
       <p>The training set contains 3,500 expert demonstrations, with 100 per task, all collected under the standard setting. For tasks with multiple valid solutions, it also provides executions in different valid subtask orders.</p>
       <p>The One-Shot track uses one demonstration per task from this set. The Full-Shot track will allow training or fine-tuning on the complete set. Training demonstrations do not include subtask boundary annotations.</p>
@@ -215,10 +230,9 @@ export function DatasetOverview() {
     </Section>
     <Section id="dataset-test" title="Test Set">
       <PrivateTestNotice />
-      <p>The test set contains 2,792 annotated trajectories, disjoint from the training set. It covers expert demonstrations, failure and recovery trajectories, long-horizon temporal trajectories, and multi-solution trajectories across the evaluation settings. Coverage depends on the task and metric; <a href="/doc/diagnostic-trajectories/">Diagnostic Trajectories</a> illustrates the execution patterns.</p>
+      <p>The test set contains 2,792 annotated trajectories, disjoint from the training set. In addition to expert demonstrations, it includes a range of purpose-designed <a href="/doc/diagnostic-trajectories/">diagnostic trajectories</a>.</p>
       <p>Task instructions, subtasks, and visual examples are listed under <a href="/doc/simulation-tasks/">Simulation Tasks</a> and <a href="/doc/real-world-tasks/">Real-World Tasks</a>.</p>
     </Section>
-
     <Section id="dataset-observations" title="Observations">
       <p><strong>Visual observations.</strong> Each trajectory records synchronized RGB-D observations from three cameras: one head-mounted camera and one camera on each wrist.</p>
       <p><strong>Robot states and actions.</strong> Recordings include robot joint positions, end-effector poses, and gripper states, together with action targets. The field layout depends on the simulation or real-world platform; end-effector poses describe the position and orientation of each arm's end effector.</p>
