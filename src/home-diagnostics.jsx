@@ -36,7 +36,7 @@ function TrackingExample() {
 }
 
 function RecoveryExample() {
-  return <div className="rv-diagnostic-pair"><Figure className="rv-sheet-crop rv-sheet-recovery" src="/assets/tasks/real-world-diagnostics.webp" alt="Real-world flower-arranging examples of effective recovery, ineffective recovery, and error continuation" caption="Three responses to an execution error · Real world" /><div className="rv-recovery-stages"><p className="rv-small-label">EXPECTED STAGE-WISE TRENDS</p>{[
+  return <div className="rv-diagnostic-pair"><Figure className="rv-sheet-crop rv-sheet-recovery" src="/assets/tasks/real-world-diagnostics.webp" alt="Real-world flower-arranging examples of effective recovery, ineffective recovery, and error continuation" caption="Three responses to an execution error · Real-world" /><div className="rv-recovery-stages"><p className="rv-small-label">EXPECTED STAGE-WISE TRENDS</p>{[
     ['Effective recovery', 'Failure ↓', 'Attempt ↑', 'Outcome ↑', 'effective'],
     ['Ineffective recovery', 'Failure ↓', 'Attempt ↑', 'Outcome ↓', 'ineffective'],
     ['Error continuation', 'Failure ↓', 'Continued error → / ↓', null, 'continuation'],
@@ -44,7 +44,7 @@ function RecoveryExample() {
 }
 
 function ConsistencyExample() {
-  return <div className="rv-diagnostic-pair"><Figure className="rv-sheet-crop rv-sheet-solutions" src="/assets/tasks/real-world-diagnostics.webp" alt="Three valid desktop-workstation execution orders, with pen, eraser, drawer, and lamp subtasks" caption="Alternative valid executions · Real world" /><div className="rv-consistency-explanation"><p className="rv-small-label">SEMANTIC SUBTASK CREDIT</p><h4>Match the achievement,<br />even when its position changes.</h4><p>CSVC compares the value gains for the same semantic subtask across valid solutions. Each solution still respects the task’s dependencies.</p><div className="rv-gain-example"><span>Expected consistency</span><strong>ΔV<sub>A</sub>(Pen) ≈ ΔV<sub>B</sub>(Pen)</strong></div><p className="rv-stage-note">VS additionally assesses stable, informative trends. Interpret consistency alongside progress tracking.</p></div></div>;
+  return <div className="rv-diagnostic-pair"><Figure className="rv-sheet-crop rv-sheet-solutions" src="/assets/tasks/real-world-diagnostics.webp" alt="Three valid desktop-workstation execution orders, with pen, eraser, drawer, and lamp subtasks" caption="Alternative valid executions · Real-world" /><div className="rv-consistency-explanation"><p className="rv-small-label">SEMANTIC SUBTASK CREDIT</p><h4>Match the achievement,<br />even when its position changes.</h4><p>CSVC compares the value gains for the same semantic subtask across valid solutions. Each solution still respects the task’s dependencies.</p><div className="rv-gain-example"><span>Expected consistency</span><strong>ΔV<sub>A</sub>(Pen) ≈ ΔV<sub>B</sub>(Pen)</strong></div><p className="rv-stage-note">VS additionally assesses stable, informative trends. Interpret consistency alongside progress tracking.</p></div></div>;
 }
 
 export function HomeDiagnostics() {

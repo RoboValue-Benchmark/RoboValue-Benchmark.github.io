@@ -41,15 +41,15 @@ function mergeSubtaskResults(rows) {
       [condition, { ...row.conditions?.[condition], sia: row.conditions?.[condition]?.sia ?? sia }]
     )) } };
   });
-  let order = Math.max(-1, ...rows.map(row => row.order)) + 1;
   for (const subtask of remaining.values()) {
-    merged.push({
+    const nextModel = merged.findIndex(row => row.name.localeCompare(subtask.name, 'en') > 0);
+    merged.splice(nextModel < 0 ? merged.length : nextModel, 0, {
       id: `${subtask.name.toLowerCase()}-${subtask.setting}-sia`, name: subtask.name,
-      setting: subtask.setting, order: order++,
+      setting: subtask.setting,
       conditions: Object.fromEntries(Object.entries(subtask.conditions).map(([condition, sia]) => [condition, { sia }])),
     });
   }
-  return merged;
+  return merged.map((row, order) => ({ ...row, order }));
 }
 
 function saveCSV(csv, filename) {
@@ -99,7 +99,6 @@ function ResultsTable({ eligible, view, loading, error, retry, tableId, onSort, 
         </table>
       </div>{!rows.length && <div className="lb-empty" role="status">{view.track === 'full' ? 'No results yet.' : error ? <>Results could not be loaded. <button onClick={retry}>Try Again</button></> : loading ? 'Loading results…' : 'No results yet.'}</div>}</div>
       {!!rows.length && <div className="lb-table-legend"><span><b>Best</b> · <span className="lb-second">Second Best</span></span>{view.sort && <button onClick={onReset}>Reset {ranked ? 'Ranking' : 'Order'}</button>}</div>}
-      {view.track === 'zero' && <p className="lb-result-note">‡ TOPReward uses Qwen3-VL-8B.</p>}
   </>;
 }
 
@@ -140,7 +139,7 @@ export function Leaderboard() {
     return { ...current, [field]: { key, asc: current[field]?.key === key ? !current[field].asc : !!METRICS[key].lower } };
   });
   return <main className="leaderboard-main" id="main-content" tabIndex={-1}>
-    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and the real&nbsp;world. Evaluation tracks are ranked separately.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/doc/get-started/evaluation/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
+    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. Evaluation tracks are ranked separately.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/doc/get-started/evaluation/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
     <section className="lb-ranking" aria-labelledby="lb-ranking-title">
       <h2 id="lb-ranking-title">{CONDITIONS.aggregate}</h2>
       <TableControls eligible={eligible} view={rankingView} tableId="lb-ranking-table" onTrack={rankingTrack => update({ rankingTrack })} />

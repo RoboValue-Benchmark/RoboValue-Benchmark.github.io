@@ -37,7 +37,15 @@ export function viewURL(view, location) {
   return url;
 }
 
-export const modelName = row => row.preview ? row.name.replace('Robo-Dopamine-', 'Robo-Dopamine 2.0-') + ' Preview' : row.name;
+export const modelNameParts = row => ({
+  name: row.preview ? row.name.replace('Robo-Dopamine-', 'Robo-Dopamine 2.0-') : row.name,
+  qualifier: row.preview ? '(Preview)' : row.name === 'TOPReward' ? '(Qwen3-VL-8B)' : '',
+});
+
+export const modelName = row => {
+  const { name, qualifier } = modelNameParts(row);
+  return qualifier ? `${name} ${qualifier}` : name;
+};
 
 export function sortedRows(rows, view) {
   const query = view.query.toLowerCase().trim();
