@@ -7,7 +7,7 @@ export const protocolSections = {
     ['protocol-conditions', 'Evaluation Conditions'],
     ['protocol-evaluation', 'Evaluation Procedure'],
     ['protocol-integrity', 'Evaluation Integrity'],
-    ['protocol-results', 'Score Aggregation and Reporting'],
+    ['protocol-results', 'Scoring'],
   ],
   metrics: [
     ...GROUPS.map(group => [`protocol-${group.id}`, group.title]),

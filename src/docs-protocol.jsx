@@ -61,20 +61,20 @@ export function EvaluationProtocol() {
       <p>Training and adaptation follow the data restrictions of the selected track. The private test trajectories and their annotations are excluded from training, demonstration selection, and model inputs. The team reviews adapters to verify observation construction, reference use, and output mappings.</p>
       <p>The model version, preprocessing, prompts, and inference procedure remain fixed throughout evaluation. Results record demonstration use, adaptation, and unsupported interfaces; inference failures are recorded explicitly.</p>
     </Section>
-    <Section id="protocol-results" title="Score Aggregation and Reporting">
-      <p>Results are reported separately by track, domain, and evaluation condition. For each metric and condition, we first average task scores within each of the simulation and real-world domains. The reported combined score is the arithmetic mean of these two domain averages, so the domains receive equal weight regardless of their task counts.</p>
+    <Section id="protocol-results" title="Scoring">
+      <p>Metric results are reported separately by track, domain, and evaluation condition. For each metric and condition, task scores are averaged within simulation and within the real-world domain. The combined score is the mean of these two averages, giving both domains equal weight.</p>
       <p>The <a href="/leaderboard/">leaderboard</a> combines normalized metric scores into four capability scores, then averages those scores for the overall ranking. Missing or unsupported measurements remain N/A in metric-level results and contribute zero after normalization to the aggregate, without redistributing their weights.</p>
       <details className="doc-scoring-details" id="leaderboard-scoring">
-        <summary>Leaderboard Calculation</summary>
+        <summary>Leaderboard Details</summary>
         <p>For metric values displayed ×100, normalize VOC, Memory-VOC, VROC, and CSVC by (x + 100) / 2, and FPL by 100 − x. Other percentage scores remain unchanged.</p>
         <p>For metrics with all three conditions, average the two out-of-domain scores, then average that result with the in-domain score. The effective weights are ½ for Standard and ¼ for each shifted condition. TRR and CSVC use Standard scores. VROC uses an equal average of its reverse-half correlations across all three conditions.</p>
         <div className="doc-table-scroll" role="region" aria-label="Capability score weights" tabIndex={0}><table className="doc-contract-table">
           <thead><tr><th>Capability</th><th>Combination of Normalized Scores</th></tr></thead>
           <tbody>
-            <tr><td>Task-State Understanding</td><td>½ SA + ¼ TGA-CT + ¼ TGA-CF</td></tr>
-            <tr><td>Temporal Progress Monitoring</td><td>¼ VOC + ¼ Memory-VOC + ½ VROC</td></tr>
-            <tr><td>Failure and Recovery Reasoning</td><td>½ FPL + ½ TRR</td></tr>
-            <tr><td>Value Consistency</td><td>½ VS + ½ CSVC</td></tr>
+            <tr data-capability="understanding"><td className="doc-capability">Task-State Understanding</td><td>½ SA + ¼ TGA-CT + ¼ TGA-CF</td></tr>
+            <tr data-capability="tracking"><td className="doc-capability">Temporal Progress Monitoring</td><td>¼ VOC + ¼ Memory-VOC + ½ VROC</td></tr>
+            <tr data-capability="diagnosis"><td className="doc-capability">Failure and Recovery Reasoning</td><td>½ FPL + ½ TRR</td></tr>
+            <tr data-capability="consistency"><td className="doc-capability">Value Consistency</td><td>½ VS + ½ CSVC</td></tr>
           </tbody>
         </table></div>
         <p>SIA is reported separately. Cycle-VOC is not added again because its forward and reverse components are already represented. Overall scores are computed before rounding.</p>
@@ -84,7 +84,7 @@ export function EvaluationProtocol() {
 }
 
 function MetricCards({ dimension }) {
-  return <div className="doc-reading-cards doc-metric-cards">
+  return <div className="doc-reading-cards doc-metric-cards" data-capability={dimension}>
     {metricPages.filter(page => page.dimension === dimension).map(page => <a key={page.path} href={page.path}>
       <span className="doc-reading-card-title">{page.title}<span aria-hidden="true">→</span></span>
       <p>{metricDocumentation[page.metricKey].purpose.split('. ')[0]}.</p>
@@ -95,7 +95,7 @@ function MetricCards({ dimension }) {
 export function MetricsReference() {
   return <div className="doc-content">
     <p className="doc-lead">RoboValue evaluates four complementary capabilities through 11 metrics. Explore each dimension to see how its tests relate, then open a metric for its evaluation data, formula, and interpretation.</p>
-    {GROUPS.map(group => <Section key={group.id} id={`protocol-${group.id}`} title={group.title}>
+    {GROUPS.map(group => <Section key={group.id} id={`protocol-${group.id}`} title={group.title} capability={group.id}>
       <p>{dimensionDocumentation[group.id].purpose}</p>
       <MetricCards dimension={group.id} />
       <a className="inline-link" href={metricDimensionPages.find(page => page.dimension === group.id).path}>How these metrics relate →</a>
@@ -125,7 +125,7 @@ export function MetricDimension({ dimension }) {
 export function MetricGuide({ metricKey }) {
   const metric = metricDocumentation[metricKey];
   const dimension = metricDimensionPages.find(page => page.children.some(child => child.metricKey === metricKey));
-  return <div className="doc-content doc-metric-guide">
+  return <div className="doc-content doc-metric-guide" data-capability={dimension.dimension}>
     <p className="doc-metric-dimension"><a href={dimension.path}>{dimension.title}</a></p>
     <p className="doc-lead"><strong>{metric.name}.</strong> {metric.purpose}</p>
     <dl className="doc-metric-facts">

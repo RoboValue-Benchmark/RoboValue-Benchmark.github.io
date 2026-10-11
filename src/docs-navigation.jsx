@@ -11,12 +11,12 @@ function filteredPages(entries, filter, groupTitle) {
 }
 
 function PageLink({ entry, path }) {
-  return <a href={entry.path} className={`nav-page ${entry.kind === 'task' ? 'nav-task' : ''}`} aria-current={entry.path === path ? 'page' : undefined}>{entry.path === '/doc/' ? 'Overview' : entry.title}</a>;
+  return <a href={entry.path} className={`nav-page ${entry.kind === 'task' ? 'nav-task' : ''}`} data-capability={entry.dimension} aria-current={entry.path === path ? 'page' : undefined}>{entry.path === '/doc/' ? 'Overview' : entry.title}</a>;
 }
 
 function PageTree({ entries, path, filter, activePaths }) {
   return entries.map(entry => entry.children ? <details key={`${entry.path ?? entry.title}-${!!filter}`} className="nav-group nav-branch" open={!!filter || activePaths.has(entry.path) || entry.children.some(child => activePaths.has(child.path))}>
-    <summary><span>{entry.path ? <a href={entry.path} aria-current={entry.path === path ? 'page' : undefined}>{entry.title}</a> : entry.title}</span></summary>
+    <summary><span>{entry.path ? <a href={entry.path} data-capability={entry.dimension} aria-current={entry.path === path ? 'page' : undefined}>{entry.title}</a> : entry.title}</span></summary>
     <div className="nav-subpages"><PageTree entries={entry.children} path={path} filter={filter} activePaths={activePaths} /></div>
   </details> : <PageLink key={entry.path} entry={entry} path={path} />);
 }

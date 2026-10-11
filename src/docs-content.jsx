@@ -87,7 +87,7 @@ export function EvaluationResults() {
 
 
 export const documentationSections = {
-  home: [['about-robovalue', 'RoboValue at a Glance'], ['overview-metrics', 'Metrics'], ['explore-documentation', 'Explore']],
+  home: [['about-robovalue', 'Overview'], ['overview-metrics', 'Metrics'], ['explore-documentation', 'Explore']],
   start: [
     ['recommended-path', 'Reading Guide'],
     ['evaluation-responsibilities', 'Responsibilities'],
@@ -108,8 +108,8 @@ export const documentationSections = {
   ],
 };
 
-export function Section({ id, title, children }) {
-  return <section className="doc-section" aria-labelledby={`${id}-title`}>
+export function Section({ id, title, capability, children }) {
+  return <section className={`doc-section${capability ? ' doc-capability-section' : ''}`} data-capability={capability} aria-labelledby={`${id}-title`}>
     <h2 id={id}><span id={`${id}-title`}>{title}</span><a className="doc-heading-anchor" href={`#${id}`} aria-label={`Link to ${title}`}>#</a></h2>
     {children}
   </section>;
@@ -155,17 +155,18 @@ export function DocumentationOverview() {
       <div className="doc-affiliations" aria-label="Participating institutions">{INSTITUTIONS.map(([name, file], index) => <figure key={name}><sup>{index + 1}</sup><img src={`/assets/affiliations/${file}`} alt={name} loading="eager" /></figure>)}</div>
       <p className="doc-author-notes"><span>* Equal contribution</span><span>† Project leader</span><span>‡ Corresponding authors</span></p>
     </header>
-    <Section id="about-robovalue" title="RoboValue at a Glance">
-      <p>Robotic value models assess task execution from visual observations and instructions, providing feedback for policy learning, data selection, planning, and execution monitoring. Reliable feedback must reflect the task requirements throughout an execution. Correct final judgments and high forward-progress correlation can still conceal instruction mismatches, missed errors, or misleading intermediate scores.</p>
-      <p><strong>RoboValue evaluates the reliability of robotic value models through a shared sim-and-real protocol.</strong> It examines four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index === 0 ? '' : index === GROUPS.length - 1 ? ', and ' : ', '}<strong className="doc-capability" style={{ '--capability-color': group.color }}>{group.title}</strong></React.Fragment>)}.</p>
-      <p><strong>RoboValue-Dataset</strong> covers 15 simulation and 20 real-world tasks, with 3,500 expert training demonstrations and 2,792 annotated test trajectories. Expert demonstrations, diagnostic trajectories, and instruction variations expose how predictions respond to task requirements, execution history, errors, and alternative valid solutions.</p>
-      <p><strong>RoboValue-Benchmark</strong> connects different model interfaces to common metrics and assesses generalization through separate changes in robot embodiment and environment. <strong>RoboValue-Leaderboard</strong> combines overall rankings with capability profiles. Zero-Shot and One-Shot results are available; the Full-Shot track will support training or fine-tuning on the complete training set.</p>
+    <Section id="about-robovalue" title="Overview">
+      <p>Robotic value models assess task execution from visual observations and language instructions. Their feedback supports data selection, policy learning, action planning, and execution monitoring, reducing the need for task-specific reward design. Errors in these judgments can propagate into both robot learning and execution, making systematic evaluation essential.</p>
+      <p>Existing evaluations often emphasize task outcomes or correlation with forward progress. Strong results can still conceal unreliable intermediate judgments: values may rise during reverse playback, rebound after a failed recovery, or overlook completed subtasks when similar states recur. These errors can reward unproductive behavior and misguide subsequent actions. Evaluation must therefore examine how value feedback responds to task-relevant events throughout an execution.</p>
       <div id="benchmark-overview"><Figure src="/assets/overview-10-11.svg" alt="RoboValue overview: simulation and real-world tasks, expert and diagnostic trajectories, shared evaluation interfaces, four capability dimensions, and the leaderboard" /></div>
+      <p><strong className="doc-brand-name">RoboValue</strong> is a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. <strong className="doc-brand-name">RoboValue-Dataset</strong> provides 3,500 expert training demonstrations and 2,792 annotated test trajectories across <strong>15 simulation and 20 real-world manipulation tasks</strong>. Diagnostic trajectories and instruction variations test responses to task requirements, execution history, failure and recovery, and alternative valid solutions. Separate embodiment and environment shifts assess generalization.</p>
+      <p><strong className="doc-brand-name">RoboValue-Benchmark</strong> evaluates four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index === 0 ? '' : index === GROUPS.length - 1 ? ', and ' : ', '}<strong className="doc-capability" data-capability={group.id}>{group.title.toLowerCase()}</strong></React.Fragment>)}. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics.</p>
+      <p><strong className="doc-brand-name">RoboValue-Leaderboard</strong> provides overall rankings and capability profiles for three tracks: Zero-Shot, One-Shot, and Full-Shot. Current results cover the first two; Full-Shot will open with the training-data release. The accompanying analyses reveal limitations in instruction grounding, history awareness, recovery reasoning, and subtask credit, helping guide the development of more reliable value feedback for policy learning, action planning, and execution monitoring.</p>
     </Section>
     <Section id="overview-metrics" title="Metrics">
       <div className="doc-table-scroll" tabIndex={0} role="region" aria-label="Evaluation metrics"><table className="doc-overview-metrics"><thead><tr><th scope="col">Capability</th><th scope="col">Metric</th><th scope="col">Evaluation Focus</th></tr></thead><tbody>{OVERVIEW_METRICS.map(([capabilityId, metrics]) => {
           const group = GROUPS.find(group => group.id === capabilityId);
-          return metrics.map(([key, question], index) => <tr key={key} style={{ '--capability-color': group.color }}>{index === 0 && <th scope="rowgroup" className="doc-capability" rowSpan={metrics.length}>{group.title}</th>}<th scope="row"><a href={`/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`}>{key === 'sia' ? 'SIA' : METRICS[key].label}</a></th><td>{question}</td></tr>);
+          return metrics.map(([key, question], index) => <tr key={key} data-capability={group.id}>{index === 0 && <th scope="rowgroup" className="doc-capability" rowSpan={metrics.length}>{group.title}</th>}<th scope="row"><a href={`/doc/get-started/protocol/metrics/${key.replaceAll('_', '-')}/`}>{key === 'sia' ? 'SIA' : METRICS[key].label}</a></th><td>{question}</td></tr>);
         })}</tbody></table></div>
     </Section>
     <Section id="explore-documentation" title="Explore"><div className="doc-link-list">{[["/doc/get-started/", 'Usage'], ["/doc/get-started/data/overview/", 'Dataset Overview'], ["/doc/get-started/data/download/", 'Download'], ["/doc/get-started/evaluation/", 'Evaluation Workflow'], ["/doc/diagnostic-trajectories/", 'Diagnostic Trajectories']].map(([path, label]) => <a key={path} href={path}>{label}<span aria-hidden="true">→</span></a>)}</div></Section>

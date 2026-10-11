@@ -1,4 +1,40 @@
+.docs-workspace {
+  --doc-brand-blue: #0067ef;
+  --doc-brand-gradient: linear-gradient(105deg, #0067ef 0%, #6636f0 55%, #9e20dc 100%);
+  /* Match the manuscript and project homepage, within Document only. */
+  --doc-capability-understanding: #366c9a;
+  --doc-capability-tracking: #447d64;
+  --doc-capability-diagnosis: #a56f2d;
+  --doc-capability-consistency: #a45368;
+}
+
+[data-theme="dark"] .docs-workspace {
+  --doc-brand-blue: #79b8ff;
+  --doc-brand-gradient: linear-gradient(105deg, #79b8ff 0%, #b399ff 55%, #df9df6 100%);
+  --doc-capability-understanding: #91bfe3;
+  --doc-capability-tracking: #98c6ab;
+  --doc-capability-diagnosis: #dcb575;
+  --doc-capability-consistency: #dca4b5;
+}
+
+.docs-workspace [data-capability="understanding"] {
+  --capability-color: var(--doc-capability-understanding);
+}
+
+.docs-workspace [data-capability="tracking"] {
+  --capability-color: var(--doc-capability-tracking);
+}
+
+.docs-workspace [data-capability="diagnosis"] {
+  --capability-color: var(--doc-capability-diagnosis);
+}
+
+.docs-workspace [data-capability="consistency"] {
+  --capability-color: var(--doc-capability-consistency);
+}
+
 .docs-workspace .doc-project-heading {
+  container-type: inline-size;
   text-align: center;
   margin-bottom: 48px;
 }
@@ -7,36 +43,39 @@
   display: block;
   width: min(420px, 88%);
   height: auto;
-  margin: 0 auto;
+  margin: 0 auto 24px;
 }
 
 .docs-workspace .doc-project-heading .doc-affiliations {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   align-items: center;
-  gap: 18px;
-  margin: 28px 0 18px;
+  gap: 24px;
+  width: 100%;
+  margin: 36px 0 22px;
   padding: 0;
   border: 0;
 }
 
 .docs-workspace .doc-project-heading .doc-affiliations figure {
   position: relative;
+  min-width: 0;
   margin: 0;
+  padding-inline: 6px;
 }
 
 .docs-workspace .doc-project-heading .doc-affiliations sup {
   position: absolute;
   top: -10px;
-  left: -5px;
+  left: 0;
   color: var(--theme-muted);
 }
 
 .docs-workspace .doc-project-heading .doc-affiliations img {
   display: block;
-  width: 86px;
-  height: 30px;
+  width: 100%;
+  max-width: 150px;
+  height: 42px;
   object-fit: contain;
 }
 
@@ -45,6 +84,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px 16px;
+  width: 100%;
   margin-top: 24px;
   line-height: 1.65;
 }
@@ -61,10 +101,6 @@
 .docs-workspace .doc-authors a:hover {
   color: var(--theme-accent);
   text-decoration: underline;
-}
-
-.docs-workspace .doc-project-heading > img {
-  margin-bottom: 24px;
 }
 
 .docs-workspace .nav-single > .nav-branch > summary {
@@ -93,12 +129,47 @@
   color: var(--theme-muted);
 }
 
-.docs-workspace .doc-capability,
-.docs-workspace .doc-overview-metrics a {
+.docs-workspace .doc-content .doc-capability,
+.docs-workspace .doc-overview-metrics a,
+.docs-workspace .doc-main .doc-capability-section > h2,
+.docs-workspace .doc-capability-section > .inline-link,
+.docs-workspace .doc-content .doc-metric-cards .doc-reading-card-title,
+.docs-workspace .doc-content .doc-metric-cards .doc-reading-card-title > span,
+.docs-workspace .doc-metric-dimension a,
+.docs-workspace .docs-sidebar a[data-capability] {
   color: var(--capability-color);
 }
 
-[data-theme="dark"] .docs-workspace .doc-capability,
-[data-theme="dark"] .docs-workspace .doc-overview-metrics a {
-  color: color-mix(in srgb, var(--capability-color), white 35%);
+.docs-workspace .doc-content .doc-brand-name {
+  color: var(--doc-brand-blue);
+  font-weight: 650;
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .docs-workspace .doc-content .doc-brand-name {
+    background-image: var(--doc-brand-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+@media (forced-colors: active) {
+  .docs-workspace .doc-content .doc-brand-name {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+@container (max-width: 640px) {
+  .docs-workspace .doc-project-heading .doc-affiliations {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px 24px;
+  }
+}
+
+@container (max-width: 340px) {
+  .docs-workspace .doc-project-heading .doc-affiliations {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
