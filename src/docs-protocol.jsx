@@ -1,88 +1,147 @@
-import React from 'react';
-import { GROUPS, METRICS } from './benchmark-metrics';
-import { metricDocumentation } from './docs-metrics';
-import { metricPages } from './navigation';
+import React, { useEffect } from 'react';
+import { GROUPS } from './benchmark-metrics';
+import { metricDocumentation, dimensionDocumentation } from './docs-metrics';
+import { metricPages, metricDimensionPages } from './navigation';
 import { Section } from './docs-content';
+import { MathExpression } from './docs-math';
 import './protocol-tracks.css';
+import './docs-metrics.css';
 
-export const protocolSections = {
-  'evaluation-protocol': [
-    ['protocol-settings', 'Tracks'],
-    ['protocol-evaluation', 'Evaluation'],
-    ['protocol-integrity', 'Evaluation Integrity'],
-    ['protocol-results', 'Results'],
-  ],
-  metrics: [
-    ...GROUPS.map(group => [`protocol-${group.id}`, group.short]),
-  ],
-};
+export default function ProtocolContent({ page }) {
+  useEffect(() => {
+    // Deep links must scroll after this lazily loaded content has mounted.
+    const target = document.getElementById(window.location.hash.slice(1));
+    if (target?.tagName === 'DETAILS') target.open = true;
+    target?.scrollIntoView();
+  }, [page.path]);
+  switch (page.kind) {
+    case 'metrics': return <MetricsReference />;
+    case 'metric-dimension': return <MetricDimension dimension={page.dimension} />;
+    case 'metric': return <MetricGuide metricKey={page.metricKey} />;
+    default: return <EvaluationProtocol />;
+  }
+}
 
 export function EvaluationProtocol() {
   return <div className="doc-content">
-    <p className="doc-lead">To ensure the fairness and credibility of the result of evaluation, the document below will explain how RoboValue evaluates models in detail, if there are any doubt about the process, please contact us.</p>
-    <Section id="protocol-settings" title="Tracks">
-      <p> Overall, there are three tracks, categorized by the number of references used. To ensure fairness, each track has its independent leaderboard.</p>
-      <div className="doc-protocol-tracks">
-        <div className="doc-protocol-track-grid">
-          <article className="doc-protocol-track doc-protocol-track--zero" aria-labelledby="protocol-zero-shot">
-            <h3 id="protocol-zero-shot">Zero-Shot</h3>
-            <p>Evaluate the model directly, without using reference or task-specific adaptation.</p>
-          </article>
-          <article className="doc-protocol-track doc-protocol-track--one" aria-labelledby="protocol-one-shot">
-            <h3 id="protocol-one-shot">One-Shot</h3>
-            <p>Evaluate the model using only one reference trajectory per task.</p>
-          </article>
-          <article className="doc-protocol-track doc-protocol-track--full" aria-labelledby="protocol-full-shot">
-            <h3 id="protocol-full-shot">Full-Shot</h3>
-            <p>Fine-tune on all 100 training trajectories for each task before evaluation.</p>
-          </article>
-        </div>
-      </div>
+    <p className="doc-lead">RoboValue compares models through shared prediction interfaces, controlled evaluation conditions, and common scoring rules. Model-specific adapters preserve each model's input requirements and native value semantics.</p>
+    <Section id="protocol-settings" title="Evaluation Tracks">
+      <p>The three tracks differ in access to task-specific demonstrations and have separate leaderboards.</p>
+      <div className="doc-protocol-tracks"><div className="doc-protocol-track-grid">
+        <article className="doc-protocol-track doc-protocol-track--zero" aria-labelledby="protocol-zero-shot">
+          <h3 id="protocol-zero-shot">Zero-Shot</h3>
+          <p>Use a released checkpoint without task-specific demonstrations or adaptation.</p>
+        </article>
+        <article className="doc-protocol-track doc-protocol-track--one" aria-labelledby="protocol-one-shot">
+          <h3 id="protocol-one-shot">One-Shot</h3>
+          <p>Use one expert demonstration per task for inference-time conditioning or task-specific adaptation.</p>
+        </article>
+        <article className="doc-protocol-track doc-protocol-track--full" aria-labelledby="protocol-full-shot">
+          <h3 id="protocol-full-shot">Full-Shot</h3>
+          <p>Train or fine-tune on the complete training set of 100 expert demonstrations per task.</p>
+        </article>
+      </div></div>
+      <p>Published results cover Zero-Shot and One-Shot evaluation. Full-Shot will open with the training-data release.</p>
+      <p id="dataset-references">For One-Shot, the RoboValue team selects one demonstration from each task's standard-scenario training data and keeps it fixed across test trajectories and evaluation conditions. Its use depends on the model: some models receive demonstration frames during inference, while ProcVLM uses the single demonstration for task-specific LoRA adaptation. Test trajectories are never used as references or adaptation data.</p>
     </Section>
-    <Section id="protocol-evaluation" title="Evaluation">
-      <p>The RoboValue team evaluates models on private test trajectories. We first check whether each model's adapter supports scalar values, pairwise comparisons, or subtask descriptions, then determine which metrics can be evaluated. For each metric, RoboValue constructs queries with the its relevent trajectory and task instructions. The adapter converts these queries into the inputs required by the model, including observation frames, temporal context, and reference information when needed. It then invokes either the local model(open-source) or the submitted inference service(close-source). The team will then computes metric scores from the returned predictions according to scoring rules of the metrics. All tracks use the same test trajectories, scoring rules, and aggregation method.</p>
-      <p id="dataset-references">Zero-Shot and Full-Shot follow the same inference workflow, with no reference trajectories supplied during evaluation. Zero-Shot uses the existing model, whereas Full-Shot uses the model fine-tuned on the released training dataset. For One-Shot, the RoboValue team selects one successful reference trajectory for each task in advance. This trajectory is collected under Standard conditions and follows the task's standard execution solution. The reference remains fixed throughout evaluation, so participants do not need to select or supply their own demonstrations.</p>
-      <p id="protocol-coverage">The published TRR and CSVC results cover only the Standard condition. See <a href="/doc/get-started/data/overview/#dataset-conditions">Dataset Overview</a> for the condition definitions.</p>
+    <Section id="protocol-conditions" title="Evaluation Conditions">
+      <p>The standard setting measures in-domain (ID) performance. Two out-of-domain (OOD) settings assess separate changes in embodiment and environment, preserving task goals and the evaluation protocol.</p>
+      <dl className="doc-definition-list">
+        <div><dt>Standard</dt><dd>The task's default robot embodiment and environment.</dd></div>
+        <div><dt>Cross-Embodiment</dt><dd>A different robot platform performs the same task.</dd></div>
+        <div><dt>Cross-Environment</dt><dd>The standard robot operates with changes in visual appearance, lighting, and clutter.</dd></div>
+      </dl>
+      <p id="protocol-coverage">No additional adaptation is performed for the shifted conditions. Published TRR and CSVC results cover the standard setting only.</p>
+    </Section>
+    <Section id="protocol-evaluation" title="Evaluation Procedure">
+      <p>The RoboValue team runs evaluation on the private test set. Each adapter exposes the supported interfaces: scalar values, directional state comparisons, and subtask descriptions. For each metric, the benchmark constructs queries from the required trajectories and instructions. The adapter prepares the model's visual context and any permitted demonstration inputs, then calls the local model or submitted inference service.</p>
+      <p>Scores are computed from the returned predictions using the metric definitions. Higher scalar values indicate more favorable task assessments, while their numerical scales and meanings remain model-dependent. Pairwise queries use native comparison outputs when available and value differences otherwise. All tracks share the same test trajectories, scoring rules, and aggregation method.</p>
     </Section>
     <Section id="protocol-integrity" title="Evaluation Integrity">
-      <p>Training and adaptation must follow the data restrictions of the selected track. The RoboValue team ensures that private test trajectories and their labels are not released as training data and that test trajectories are not used as references. Before evaluation, we review each submitted adapter to check that it prepares the model's required observation context and reference inputs, preserves native output semantics, and excludes test annotations from model inputs and prediction logic, helping guard against cheating and deliberate attempts to game the evaluation. To keep results comparable, the model version and inference procedure remain fixed throughout evaluation, including preprocessing, prompt construction, and observation context preparation. Reference use and any task adaptation are documented with the results. Inference failures are recorded as errors rather than replaced with fabricated predictions.</p>
+      <p>Training and adaptation follow the data restrictions of the selected track. The private test trajectories and their annotations are excluded from training, demonstration selection, and model inputs. The team reviews adapters to verify observation construction, reference use, and output mappings.</p>
+      <p>The model version, preprocessing, prompts, and inference procedure remain fixed throughout evaluation. Results record demonstration use, adaptation, and unsupported interfaces; inference failures are recorded explicitly.</p>
     </Section>
-    <Section id="protocol-results" title="Results">
-      <p>After evaluation, we report results separately for each track, domain, and condition. Missing or unsupported metric coverage is marked as N/A.</p>
-      <p>To obtain the overall leaderboard score, we first average task scores within each condition and domain, giving simulation and real-world domains equal weight in the overall score. We then combine these scores using the metric score normalization, weights, and missing metric rules defined in the <a href="/leaderboard/#scoring">scoring guide</a>.</p>
+    <Section id="protocol-results" title="Score Aggregation and Reporting">
+      <p>Results are reported separately by track, domain, and evaluation condition. For each metric and condition, we first average task scores within each of the simulation and real-world domains. The reported combined score is the arithmetic mean of these two domain averages, so the domains receive equal weight regardless of their task counts.</p>
+      <p>The <a href="/leaderboard/">leaderboard</a> combines normalized metric scores into four capability scores, then averages those scores for the overall ranking. Missing or unsupported measurements remain N/A in metric-level results and contribute zero after normalization to the aggregate, without redistributing their weights.</p>
+      <details className="doc-scoring-details" id="leaderboard-scoring">
+        <summary>Leaderboard Calculation</summary>
+        <p>For metric values displayed ×100, normalize VOC, Memory-VOC, VROC, and CSVC by (x + 100) / 2, and FPL by 100 − x. Other percentage scores remain unchanged.</p>
+        <p>For metrics with all three conditions, average the two out-of-domain scores, then average that result with the in-domain score. The effective weights are ½ for Standard and ¼ for each shifted condition. TRR and CSVC use Standard scores. VROC uses an equal average of its reverse-half correlations across all three conditions.</p>
+        <div className="doc-table-scroll" role="region" aria-label="Capability score weights" tabIndex={0}><table className="doc-contract-table">
+          <thead><tr><th>Capability</th><th>Combination of Normalized Scores</th></tr></thead>
+          <tbody>
+            <tr><td>Task-State Understanding</td><td>½ SA + ¼ TGA-CT + ¼ TGA-CF</td></tr>
+            <tr><td>Temporal Progress Monitoring</td><td>¼ VOC + ¼ Memory-VOC + ½ VROC</td></tr>
+            <tr><td>Failure and Recovery Reasoning</td><td>½ FPL + ½ TRR</td></tr>
+            <tr><td>Value Consistency</td><td>½ VS + ½ CSVC</td></tr>
+          </tbody>
+        </table></div>
+        <p>SIA is reported separately. Cycle-VOC is not added again because its forward and reverse components are already represented. Overall scores are computed before rounding.</p>
+      </details>
     </Section>
+  </div>;
+}
+
+function MetricCards({ dimension }) {
+  return <div className="doc-reading-cards doc-metric-cards">
+    {metricPages.filter(page => page.dimension === dimension).map(page => <a key={page.path} href={page.path}>
+      <span className="doc-reading-card-title">{page.title}<span aria-hidden="true">→</span></span>
+      <p>{metricDocumentation[page.metricKey].purpose.split('. ')[0]}.</p>
+    </a>)}
   </div>;
 }
 
 export function MetricsReference() {
   return <div className="doc-content">
-    <p className="doc-lead">Choose a metric to read its coverage, scoring rule, and interpretation. Each metric has its own page, grouped by the capability it diagnoses.</p>
-    {GROUPS.map(group => <Section key={group.id} id={`protocol-${group.id}`} title={group.short}>
-      <p><strong>{group.title}.</strong> {group.description}</p>
-      <div className="doc-reading-cards">
-        {metricPages.filter(page => page.dimension === group.id).map(page => <a key={page.path} href={page.path}>
-          <span className="doc-reading-card-title">{page.title}<span aria-hidden="true">→</span></span>
-          <p>{page.metricKey === 'sia' ? 'Subtask Identification Accuracy' : METRICS[page.metricKey].name}</p>
-        </a>)}
-      </div>
+    <p className="doc-lead">RoboValue evaluates four complementary capabilities through 11 metrics. Explore each dimension to see how its tests relate, then open a metric for its evaluation data, formula, and interpretation.</p>
+    {GROUPS.map(group => <Section key={group.id} id={`protocol-${group.id}`} title={group.title}>
+      <p>{dimensionDocumentation[group.id].purpose}</p>
+      <MetricCards dimension={group.id} />
+      <a className="inline-link" href={metricDimensionPages.find(page => page.dimension === group.id).path}>How these metrics relate →</a>
     </Section>)}
+    <Section id="metric-notation" title="Shared Notation">
+      <p>A query <MathExpression>A</MathExpression> contains the current observation and any model-specific context. The task instruction is <MathExpression>l</MathExpression>. The three shared interfaces are:</p>
+      <dl className="doc-definition-list">
+        <div><dt><MathExpression>{'v(A;l)'}</MathExpression></dt><dd>A scalar execution value, oriented so that larger values indicate more favorable assessments.</dd></div>
+        <div><dt><MathExpression>{'c(A_1,A_2;l)'}</MathExpression></dt><dd>A signed comparison; a positive value favors the second state. Models without a native comparison use the difference between their scalar values.</dd></div>
+        <div><dt><MathExpression>{'s(A;l)'}</MathExpression></dt><dd>A free-form description of the active subtask.</dd></div>
+      </dl>
+      <p>Along a trajectory, <MathExpression>{'v_i=v(A_{t_i};l)'}</MathExpression> is the value at timestamp <MathExpression>{'t_i'}</MathExpression>. The indicator <MathExpression>{'\\mathbf 1[\\cdot]'}</MathExpression> equals one when its condition holds and zero otherwise. The formulas use raw metric scores; result tables display them multiplied by 100. FPL is an error measure, so lower values are better.</p>
+    </Section>
+  </div>;
+}
+
+export function MetricDimension({ dimension }) {
+  const definition = dimensionDocumentation[dimension];
+  return <div className="doc-content">
+    <p className="doc-lead">{definition.purpose}</p>
+    <p>{definition.relationship}</p>
+    <MetricCards dimension={dimension} />
+    <p className="doc-metric-footer"><a href="/doc/get-started/protocol/metrics/#metric-notation">Shared interfaces and notation</a></p>
   </div>;
 }
 
 export function MetricGuide({ metricKey }) {
-  if (metricKey === 'sia') return <div className="doc-content">
-    <Section id="metric-sia" title="Scoring ↑">
-      <p><strong>Subtask Identification Accuracy (SIA)</strong> evaluates whether a generated description matches the annotated active subtask. Queries are sampled within annotated subtask intervals, away from boundaries. The model describes the current subtask without being given the candidate labels.</p>
-      <p>A separate LLM judge compares each description with the task’s candidate subtasks and retains the probability assigned to the ground-truth subtask. Aggregate those probabilities geometrically within each task, then follow the recorded task/domain protocol. Do not replace this with an arithmetic mean of query probabilities, hard-label accuracy, or one global geometric mean across all tasks.</p>
-      <p>SIA is reported separately and contributes no weight to the current aggregate leaderboard. Read its coverage and setting alongside the reported probability score.</p>
+  const metric = metricDocumentation[metricKey];
+  const dimension = metricDimensionPages.find(page => page.children.some(child => child.metricKey === metricKey));
+  return <div className="doc-content doc-metric-guide">
+    <p className="doc-metric-dimension"><a href={dimension.path}>{dimension.title}</a></p>
+    <p className="doc-lead"><strong>{metric.name}.</strong> {metric.purpose}</p>
+    <dl className="doc-metric-facts">
+      <div><dt>Interface</dt><dd>{metric.input}</dd></div>
+      <div><dt>Raw Score</dt><dd>{metric.range}</dd></div>
+      <div><dt>Direction</dt><dd>{metric.lower ? 'Lower is better' : 'Higher is better'}</dd></div>
+    </dl>
+    <Section id={`metric-${metricKey}-data`} title="Evaluation Data"><p>{metric.cohort}</p></Section>
+    <Section id={`metric-${metricKey}`} title="Scoring">
+      {metric.preparation.map((text, index) => <p key={index}>{text}</p>)}
+      <div className="doc-formulas">{metric.formulas.map(({ tex, description }, index) => <figure className="doc-formula" key={index}>
+        <MathExpression display>{tex}</MathExpression><figcaption>{description}</figcaption>
+      </figure>)}</div>
+      {metric.details.map((text, index) => <p key={index}>{text}</p>)}
     </Section>
-  </div>;
-  const metric = METRICS[metricKey];
-  const contract = metricDocumentation[metricKey];
-  return <div className="doc-content">
-    <p className="doc-lead"><strong>{metric.name}.</strong> {contract.purpose}</p>
-    <Section id={`metric-${metricKey}`} title={`Scoring ${metric.lower ? '↓' : '↑'}`}>
-      <dl className="doc-contract-rules"><div><dt>Coverage</dt><dd>{contract.cohort}</dd></div><div><dt>Scoring Rule</dt><dd>{contract.rules}</dd></div><div><dt>Interpretation</dt><dd>{contract.interpretation}</dd></div></dl>
-    </Section>
+    <Section id={`metric-${metricKey}-interpretation`} title="Interpretation"><p>{metric.interpretation}</p></Section>
+    <p className="doc-metric-footer">Formulas use raw scores; result tables display scores ×100. See <a href="/doc/get-started/protocol/metrics/#metric-notation">shared notation</a> and <a href="/doc/get-started/protocol/evaluation/#protocol-results">score aggregation</a>.</p>
   </div>;
 }

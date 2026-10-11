@@ -56,7 +56,7 @@ function CodeBlock({ title, code }) {
 
 export function ServiceAdapter() {
   return <div className="doc-content">
-    <p className="doc-lead">If you choose close-source method to participate, you will need an adapter to convert the queries into model's input and to translate its output into specified interface. The document below will guide you how to do this. </p>
+    <p className="doc-lead">For a closed-source model, an adapter connects your inference service to RoboValue. It prepares the observations and instructions your model requires, then maps its predictions to the supported benchmark interfaces.</p>
     <Section id="adapter-service" title="Service">
       <p>If you prefer to keep your inference code and model weights private, run the model on your own infrastructure and provide an inference endpoint that the RoboValue team can call. The service can keep its native request and response format; the adapter converts RoboValue queries into service requests and maps the responses to the adapter interface.</p>
     </Section>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { documentationPages, pages } from './navigation';
+import { documentationPages, pages, protocolSections } from './navigation';
 import { DocumentationNavigation } from './docs-navigation';
 import { Icon } from './benchmark';
 import { Leaderboard } from './leaderboard';
@@ -15,8 +15,10 @@ import { EvaluationPage } from './eval';
 import './public-site.css';
 import './reading-theme.css';
 import { DocumentationOverview, GetStarted, DatasetGuide, DatasetOverview, DatasetDownload, EvaluationWorkflow, EvaluationResults, SubmitModel, PageOutline, documentationSections } from './docs-content';
-import { EvaluationProtocol, MetricsReference, MetricGuide, protocolSections } from './docs-protocol';
 import { DiagnosticTrajectories, DiagnosticCategory, diagnosticSections } from './docs-diagnostics';
+
+// Load the formula renderer only when reading protocol or metric documentation.
+const ProtocolContent = lazy(() => import('./docs-protocol'));
 
 function SiteHeader({ menuOpen = false, setMenuOpen, documentation = false, sidebarCollapsed = false, onToggleSidebar }) {
   const [theme, setTheme] = useState(() => localStorage.getItem('robovalue-theme') ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
@@ -118,9 +120,10 @@ function App() {
     case 'diagnostics': content = <DiagnosticTrajectories />; break;
     case 'diagnostic-category': content = <DiagnosticCategory category={page.category} />; break;
     case 'protocol':
-    case 'evaluation-protocol': content = <EvaluationProtocol />; break;
-    case 'metrics': content = <MetricsReference />; break;
-    case 'metric': content = <MetricGuide metricKey={page.metricKey} />; break;
+    case 'evaluation-protocol':
+    case 'metrics':
+    case 'metric-dimension':
+    case 'metric': content = <Suspense fallback={<p role="status">Loading documentation…</p>}><ProtocolContent page={page} /></Suspense>; break;
   }
   if (page?.kind === 'landing') return <Landing />;
   if (page?.kind === 'community') return <div className="docs-app community-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><CommunityPage /></div>;
