@@ -14,7 +14,7 @@ const AUTHORS = [
   ['Jinyang Xiao', '4', 'https://xiaojy36.github.io/'],
   ['Nan Wang', '2,†', 'https://bigcileng.github.io/'],
   ['Zhipeng Hu', '1'],
-  ['Huining Yuan', '1', 'https://scholar.google.com/citations?user=zmSByPoAAAAJ'],
+  ['Huining Yuan', '1', 'https://huiningyuan.github.io/'],
   ['Shu’ang Yu', '1', 'https://scholar.google.com/citations?user=wb79fkMAAAAJ'],
   ['Yue Chen', '3,5', 'https://yuechen0614.github.io/'],
   ['Tianxing Chen', '3,6', 'https://tianxingchen.github.io/'],
