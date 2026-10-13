@@ -24,7 +24,7 @@ export default function ProtocolContent({ page }) {
 
 export function EvaluationProtocol() {
   return <div className="doc-content">
-    <p className="doc-lead">RoboValue compares models through shared prediction interfaces, controlled evaluation conditions, and common scoring rules. Model-specific adapters preserve each model's input requirements and native value semantics.</p>
+    <p className="doc-lead">The RoboValue team evaluates submitted models under a standardized protocol designed to support fair comparisons and reliable results. This page sets out the evaluation requirements and procedures.</p>
     <Section id="protocol-settings" title="Evaluation Tracks">
       <p>The three tracks differ in access to task-specific demonstrations and have separate leaderboards.</p>
       <div className="doc-protocol-tracks"><div className="doc-protocol-track-grid">
@@ -42,27 +42,17 @@ export function EvaluationProtocol() {
         </article>
       </div></div>
       <p>Published results cover Zero-Shot and One-Shot evaluation. Full-Shot will open with the training-data release.</p>
-      <p id="dataset-references">For One-Shot, the RoboValue team selects one demonstration from each task's standard-scenario training data and keeps it fixed across test trajectories and evaluation conditions. Its use depends on the model: some models receive demonstration frames during inference, while ProcVLM uses the single demonstration for task-specific LoRA adaptation. Test trajectories are never used as references or adaptation data.</p>
-    </Section>
-    <Section id="protocol-conditions" title="Evaluation Conditions">
-      <p>The standard setting measures in-domain (ID) performance. Two out-of-domain (OOD) settings assess separate changes in embodiment and environment, preserving task goals and the evaluation protocol.</p>
-      <dl className="doc-definition-list">
-        <div><dt>Standard</dt><dd>The task's default robot embodiment and environment.</dd></div>
-        <div><dt>Cross-Embodiment</dt><dd>A different robot platform performs the same task.</dd></div>
-        <div><dt>Cross-Environment</dt><dd>The standard robot operates with changes in visual appearance, lighting, and clutter.</dd></div>
-      </dl>
-      <p id="protocol-coverage">No additional adaptation is performed for the shifted conditions. Published TRR and CSVC results cover the standard setting only.</p>
+      <p id="dataset-references">For One-Shot, the RoboValue team preselects one expert demonstration from each task's standard-scenario training set. It follows the task's default execution strategy and remains fixed across test trajectories and evaluation conditions. Participants do not need to provide their own references. Private test trajectories are never used as reference demonstrations or adaptation data.</p>
     </Section>
     <Section id="protocol-evaluation" title="Evaluation Procedure">
-      <p>The RoboValue team runs evaluation on the private test set. Each adapter exposes the supported interfaces: scalar values, directional state comparisons, and subtask descriptions. For each metric, the benchmark constructs queries from the required trajectories and instructions. The adapter prepares the model's visual context and any permitted demonstration inputs, then calls the local model or submitted inference service.</p>
-      <p>Scores are computed from the returned predictions using the metric definitions. Higher scalar values indicate more favorable task assessments, while their numerical scales and meanings remain model-dependent. Pairwise queries use native comparison outputs when available and value differences otherwise. All tracks share the same test trajectories, scoring rules, and aggregation method.</p>
+      <p>The RoboValue team evaluates each model on private test trajectories. We first review the model's adapter to determine which prediction interfaces it supports, including scalar values, pairwise comparisons, and subtask descriptions, and identify the metrics that can be evaluated. For each metric, the benchmark constructs queries using the trajectory observations and task instructions required by that metric. The adapter translates each query into the model's required inputs, including observation frames, temporal context, and reference information when needed. It then invokes either the local model for an open-source submission or the submitted inference service for a closed-source submission. The team computes metric scores from the returned predictions according to the scoring rules for each metric.</p>
+      <p>Zero-Shot and Full-Shot follow the same inference workflow, with no reference demonstration supplied during evaluation. Zero-Shot uses the submitted model without task-specific adaptation, whereas Full-Shot uses a model trained or fine-tuned on the released training set. One-Shot uses the fixed reference demonstration described above.</p>
     </Section>
     <Section id="protocol-integrity" title="Evaluation Integrity">
-      <p>Training and adaptation follow the data restrictions of the selected track. The private test trajectories and their annotations are excluded from training, demonstration selection, and model inputs. The team reviews adapters to verify observation construction, reference use, and output mappings.</p>
-      <p>The model version, preprocessing, prompts, and inference procedure remain fixed throughout evaluation. Results record demonstration use, adaptation, and unsupported interfaces; inference failures are recorded explicitly.</p>
+      <p>Training and adaptation must follow the data restrictions of the selected track. Private test trajectories and their ground-truth annotations are neither released as training data nor used as references. Before evaluation, the RoboValue team reviews each adapter to verify that it correctly prepares the model's observation context and reference inputs, preserves native output semantics, and does not introduce scoring annotations into model inputs or prediction logic. The model version and inference configuration, including camera views, preprocessing, prompts, and temporal context, are recorded and kept fixed throughout evaluation.</p>
     </Section>
     <Section id="protocol-results" title="Scoring">
-      <p>Metric results are reported separately by track, domain, and evaluation condition. For each metric and condition, task scores are averaged within simulation and within the real-world domain. The combined score is the mean of these two averages, giving both domains equal weight.</p>
+      <p id="protocol-coverage">Metric results are reported separately by track, domain, and evaluation condition. Published TRR and CSVC results cover the standard setting only. For each metric and condition, task scores are averaged within simulation and within the real-world domain. The combined score is the mean of these two averages, giving both domains equal weight.</p>
       <p>The <a href="/leaderboard/">leaderboard</a> combines normalized metric scores into four capability scores, then averages those scores for the overall ranking. Missing or unsupported measurements remain N/A in metric-level results and contribute zero after normalization to the aggregate, without redistributing their weights.</p>
       <details className="doc-scoring-details" id="leaderboard-scoring">
         <summary>Leaderboard Details</summary>

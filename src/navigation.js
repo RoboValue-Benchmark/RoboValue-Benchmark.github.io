@@ -4,7 +4,6 @@ import { GROUPS, METRICS } from './benchmark-metrics.js';
 export const protocolSections = {
   'evaluation-protocol': [
     ['protocol-settings', 'Evaluation Tracks'],
-    ['protocol-conditions', 'Evaluation Conditions'],
     ['protocol-evaluation', 'Evaluation Procedure'],
     ['protocol-integrity', 'Evaluation Integrity'],
     ['protocol-results', 'Scoring'],
@@ -39,10 +38,10 @@ export const navigation = [
   { title: 'Usage', pages: [
     { path: '/doc/get-started/', title: 'Quick Start', kind: 'start' },
     { path: '/doc/get-started/data/', title: 'Dataset', kind: 'dataset-guide', children: [
-      { path: '/doc/get-started/data/overview/', title: 'Overview', kind: 'data', anchors: ['dataset-splits', 'dataset-test', 'dataset-observations', 'dataset-annotation'] },
+      { path: '/doc/get-started/data/overview/', title: 'Overview', kind: 'data', anchors: ['dataset-domains', 'dataset-conditions', 'dataset-splits', 'dataset-test', 'dataset-observations', 'dataset-annotation'] },
       { path: '/doc/get-started/data/download/', title: 'Download', kind: 'data-download', anchors: ['dataset-training'] },
     ] },
-    { path: '/doc/get-started/protocol/evaluation/', title: 'Evaluation Protocol', kind: 'evaluation-protocol', anchors: ['protocol-settings', 'protocol-conditions', 'protocol-evaluation', 'dataset-references', 'protocol-coverage', 'protocol-integrity', 'protocol-results'] },
+    { path: '/doc/get-started/protocol/evaluation/', title: 'Evaluation Protocol', kind: 'evaluation-protocol', anchors: ['protocol-settings', 'protocol-evaluation', 'dataset-references', 'protocol-integrity', 'protocol-results', 'protocol-coverage'] },
     { path: '/doc/get-started/evaluation/', title: 'Evaluation Workflow', kind: 'evaluation', children: [
       { path: '/doc/get-started/adapters/', title: 'Submission', kind: 'submission' },
       { path: '/doc/model-api/', title: 'Adapter Guide', kind: 'integration' },
