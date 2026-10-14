@@ -50,7 +50,9 @@ export const modelName = row => {
 export function sortedRows(rows, view) {
   const query = view.query.toLowerCase().trim();
   const filtered = rows.filter(row => `${row.name} ${modelName(row)}`.toLowerCase().includes(query));
-  if (!view.sort) return filtered.sort((a, b) => view.condition === 'aggregate' ? a.aggregate.rank - b.aggregate.rank : a.order - b.order);
+  if (!view.sort) return filtered.sort((a, b) =>
+    (a.aggregate?.rank ?? Infinity) - (b.aggregate?.rank ?? Infinity) || a.order - b.order
+  );
   return filtered.sort((a, b) => {
     const av = scoreValue(a, view.condition, view.sort.key), bv = scoreValue(b, view.condition, view.sort.key);
     if (av == null) return bv == null ? a.order - b.order : 1;
