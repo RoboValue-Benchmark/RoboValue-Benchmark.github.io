@@ -10,15 +10,15 @@ const AUTHORS = [
   ['Zhilong Wan', '1,2,*', 'https://loongwz.github.io/'],
   ['Honghao Su', '3,*', 'https://scholar.google.com/citations?user=gAcJUVQAAAAJ'],
   ['Chenxiang Xia', '1', 'https://xcxjasonhsia.github.io/'],
-  ['Chang Ge', '4'],
+  ['Chang Ge', '4', 'https://gechang27.github.io/'],
   ['Jinyang Xiao', '4', 'https://xiaojy36.github.io/'],
   ['Nan Wang', '2,†', 'https://bigcileng.github.io/'],
-  ['Zhipeng Hu', '1'],
+  ['Zhipeng Hu', '1', 'https://huzp22.github.io/'],
   ['Huining Yuan', '1', 'https://huiningyuan.github.io/'],
   ['Shu’ang Yu', '1', 'https://scholar.google.com/citations?user=wb79fkMAAAAJ'],
   ['Yue Chen', '3,5', 'https://yuechen0614.github.io/'],
   ['Tianxing Chen', '3,6', 'https://tianxingchen.github.io/'],
-  ['Chuankang Li', '2'],
+  ['Chuankang Li', '2', 'https://github.com/lck1201'],
   ['Maoqing Yao', '2', 'https://openreview.net/profile?id=~Maoqing_Yao1'],
   ['Wenbo Ding', '1,3', 'https://ssr-group.net/'],
   ['Yu Wang', '1', 'https://nicsefc.ee.tsinghua.edu.cn/people/YuWang'],
@@ -160,7 +160,7 @@ export function DocumentationOverview() {
     <Section id="about-robovalue" title="Overview">
       <p>Robotic value models assess task execution from visual observations and language instructions. Their feedback supports data selection, policy learning, action planning, and execution monitoring, reducing the need for task-specific reward design. Errors in these judgments can propagate into both robot learning and execution, making systematic evaluation essential.</p>
       <p>Existing evaluations often emphasize task outcomes or correlation with forward progress. Strong results can still conceal unreliable intermediate judgments: values may rise during reverse playback, rebound after a failed recovery, or overlook completed subtasks when similar states recur. These errors can reward unproductive behavior and misguide subsequent actions. Evaluation must therefore examine how value feedback responds to task-relevant events throughout an execution.</p>
-      <div id="benchmark-overview"><Figure src="/assets/overview-10-13.png" alt="RoboValue overview: simulation and real-world tasks, expert and diagnostic trajectories, shared evaluation interfaces, four capability dimensions, and the leaderboard" /></div>
+      <div id="benchmark-overview"><Figure src="/assets/overview-10-13.svg" alt="RoboValue overview: simulation and real-world tasks, expert and diagnostic trajectories, shared evaluation interfaces, four capability dimensions, and the leaderboard" /></div>
       <p><strong className="doc-brand-name">RoboValue</strong> is a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. <strong className="doc-brand-name">RoboValue-Dataset</strong> provides 3,500 expert training demonstrations and 2,792 annotated test trajectories across <strong>15 simulation and 20 real-world manipulation tasks</strong>. Diagnostic trajectories and instruction variations test responses to task requirements, execution history, failure and recovery, and alternative valid solutions. Separate embodiment and environment shifts assess generalization.</p>
       <p><strong className="doc-brand-name">RoboValue-Benchmark</strong> evaluates four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index === 0 ? '' : index === GROUPS.length - 1 ? ', and ' : ', '}<strong className="doc-capability" data-capability={group.id}>{group.title.toLowerCase()}</strong></React.Fragment>)}. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics.</p>
       <p><strong className="doc-brand-name">RoboValue-Leaderboard</strong> provides overall rankings and capability profiles for three tracks: Zero-Shot, One-Shot, and Full-Shot. Current results cover the first two; Full-Shot will open with the training-data release. The accompanying analyses reveal limitations in instruction grounding, history awareness, recovery reasoning, and subtask credit, helping guide the development of more reliable value feedback for policy learning, action planning, and execution monitoring.</p>

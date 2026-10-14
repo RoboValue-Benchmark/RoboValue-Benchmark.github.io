@@ -4,15 +4,15 @@ import { DISCORD_INVITE } from './community';
 import './eval.css';
 
 const BASIC_FIELDS = [
-  { name: 'teamName', label: 'Team Name', maxLength: 120, autoComplete: 'off' },
-  { name: 'organization', label: 'Organization', maxLength: 160, autoComplete: 'organization' },
+  { name: 'teamName', label: 'Team Name', maxLength: 120, placeholder: 'Team name', autoComplete: 'off' },
+  { name: 'organization', label: 'Organization', maxLength: 160, placeholder: 'Organization', autoComplete: 'organization' },
   { name: 'modelName', label: 'Model Name', maxLength: 160, placeholder: 'Model name and version', autoComplete: 'off' },
-  { name: 'email', label: 'Email', type: 'email', maxLength: 254, autoComplete: 'email' },
+  { name: 'email', label: 'Email', type: 'email', maxLength: 254, placeholder: 'Email address', autoComplete: 'email' },
 ];
 const CONTACT_METHODS = {
-  phone: { label: 'Phone', fieldLabel: 'Phone Number', type: 'tel', maxLength: 40, autoComplete: 'tel', placeholder: 'Country code + phone number' },
-  wechat: { label: 'WeChat', fieldLabel: 'WeChat ID', maxLength: 64, autoComplete: 'off' },
-  discord: { label: 'Discord', fieldLabel: 'Discord Username', maxLength: 32, autoComplete: 'off' },
+  phone: { fieldLabel: 'Phone Number', type: 'tel', maxLength: 40, autoComplete: 'tel', placeholder: 'Phone' },
+  wechat: { fieldLabel: 'WeChat ID', maxLength: 64, autoComplete: 'off', placeholder: 'WeChat ID' },
+  discord: { fieldLabel: 'Discord Username', maxLength: 32, autoComplete: 'off', placeholder: 'Username' },
 };
 
 function validateApplication(values) {
@@ -35,27 +35,78 @@ function validateApplication(values) {
 function EvaluationCommunity() {
   return <aside className="eval-community" aria-labelledby="eval-community-heading">
     <h2 id="eval-community-heading">Evaluation Community</h2>
-    <p className="eval-community-intro">Join us to discuss model integration and the next steps for evaluation.</p>
-    <section className="eval-channel" aria-labelledby="eval-wechat-heading">
-      <h3 id="eval-wechat-heading">WeChat</h3>
-      <p>Scan to join the RoboValue evaluation group.</p>
+    <p className="eval-community-intro">Join our WeChat or Discord groups to connect with the evaluation team and other participants.</p>
+    <div className="eval-community-reminder">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7h.01" /></svg>
+      <p>Please use the same <strong>Team Name</strong> provided in your application when joining.</p>
+    </div>
+    <section className="eval-channel eval-wechat" aria-labelledby="eval-wechat-heading">
+      <h3 id="eval-wechat-heading">WeChat Group</h3>
       <a className="eval-qr" href="/assets/evaluation-wechat.png" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
         <img src="/assets/evaluation-wechat.png" width="540" height="830" alt="RoboValue evaluation WeChat group QR code, valid before October 18" />
       </a>
+      <p>Scan to join</p>
     </section>
     <section className="eval-channel eval-discord" aria-labelledby="eval-discord-heading">
-      <h3 id="eval-discord-heading">Discord</h3>
-      <p>Connect with the team and other participants.</p>
+      <h3 id="eval-discord-heading">Discord Community</h3>
       <a className="eval-community-link" href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer">Join Discord<Icon size={20} /></a>
     </section>
-    <p className="eval-community-note">Introduce your team when you join.</p>
   </aside>;
+}
+
+function EvaluationSuccess({ successRef }) {
+  return <div className="eval-success">
+    <header className="eval-success-summary">
+      <span className="eval-success-icon" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></svg>
+      </span>
+      <h2 ref={successRef} tabIndex={-1} id="eval-success-heading">Application Submitted!</h2>
+      <p>Thank you for your interest in RoboValue. Our team will contact you using the details provided in your application to coordinate the next steps.</p>
+    </header>
+
+    <section className="eval-next-steps" aria-labelledby="eval-next-steps-heading">
+      <h3 id="eval-next-steps-heading">Next Steps</h3>
+      <div className="eval-success-community">
+        <span className="eval-community-symbol"><Icon name="users" size={26} /></span>
+        <div>
+          <h4>Join the Evaluation Community</h4>
+          <p>You're also welcome to join our evaluation community on WeChat or Discord.</p>
+        </div>
+      </div>
+      <div className="eval-team-note" role="note">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7h.01" /></svg>
+        <div><p>Please identify your team when joining.</p><p>Use the same team name provided in your application.</p></div>
+      </div>
+      <div className="eval-success-channels">
+        <section className="eval-success-channel" aria-labelledby="eval-success-wechat-heading">
+          <a className="eval-qr" href="/assets/evaluation-wechat.png" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
+            <img src="/assets/evaluation-wechat.png" width="540" height="830" alt="RoboValue evaluation WeChat group QR code, valid before October 18" />
+          </a>
+          <h4 id="eval-success-wechat-heading">WeChat</h4>
+          <p>Scan to join</p>
+        </section>
+        <section className="eval-success-channel" aria-labelledby="eval-success-discord-heading">
+          <span className="eval-discord-symbol" aria-hidden="true">
+            <svg width="42" height="34" viewBox="0 0 24 20" fill="currentColor">
+              <path d="M19.7 2.6a18 18 0 0 0-4.2-1.3l-.6 1.2a16 16 0 0 0-5.8 0l-.6-1.2a18 18 0 0 0-4.2 1.3C1.7 6.4.9 10.1 1.3 13.8a18 18 0 0 0 5.2 2.6l1.1-1.8-1.6-.8.4-.3a15 15 0 0 0 11.2 0l.4.3-1.6.8 1.1 1.8a18 18 0 0 0 5.2-2.6c.4-3.7-.4-7.4-3-11.2Z" />
+              <ellipse cx="8" cy="9.6" rx="1.5" ry="1.8" className="eval-discord-eye" /><ellipse cx="16" cy="9.6" rx="1.5" ry="1.8" className="eval-discord-eye" />
+            </svg>
+          </span>
+          <h4 id="eval-success-discord-heading">Discord</h4>
+          <a className="eval-success-join" href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer">Join community</a>
+        </section>
+      </div>
+    </section>
+
+    <footer className="eval-success-footer">
+      <a className="eval-document-link" href="/doc/get-started/evaluation/"><Icon name="book" size={22} /><span>View Evaluation Workflow</span><Icon name="external" size={18} /></a>
+    </footer>
+  </div>;
 }
 
 export function EvaluationPage() {
   const [values, setValues] = useState({ teamName: '', organization: '', modelName: '', email: '' });
   const [contacts, setContacts] = useState({ phone: '', wechat: '', discord: '' });
-  const [contactMethod, setContactMethod] = useState('wechat');
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -65,32 +116,11 @@ export function EvaluationPage() {
   const successRef = useRef(null);
   const submittingRef = useRef(false);
   const requestRef = useRef(null);
-  const contactFocusRef = useRef(null);
 
   useEffect(() => () => requestRef.current?.abort(), []);
   useEffect(() => {
     if (application) successRef.current?.focus();
   }, [application]);
-  useEffect(() => {
-    if (contactFocusRef.current) {
-      formRef.current?.querySelector(`[name="${contactFocusRef.current}"]`)?.focus();
-      contactFocusRef.current = null;
-    }
-  }, [contactMethod, errors]);
-
-  function moveContactTab(event, method) {
-    const methods = Object.keys(CONTACT_METHODS);
-    const current = methods.indexOf(method);
-    let next;
-    if (event.key === 'ArrowRight') next = methods[(current + 1) % methods.length];
-    else if (event.key === 'ArrowLeft') next = methods[(current + methods.length - 1) % methods.length];
-    else if (event.key === 'Home') next = methods[0];
-    else if (event.key === 'End') next = methods.at(-1);
-    else return;
-    event.preventDefault();
-    setContactMethod(next);
-    formRef.current?.querySelector(`#eval-contact-tab-${next}`)?.focus();
-  }
 
   function checkField(name, nextValues = values, nextContacts = contacts) {
     const validationErrors = validateApplication({ ...nextValues, contacts: nextContacts });
@@ -122,13 +152,8 @@ export function EvaluationPage() {
     setSubmitError('');
     if (Object.keys(validationErrors).length) {
       const firstError = Object.keys(validationErrors)[0];
-      if (firstError === 'contacts' || Object.hasOwn(CONTACT_METHODS, firstError)) {
-        const method = firstError === 'contacts' ? contactMethod : firstError;
-        contactFocusRef.current = method;
-        setContactMethod(method);
-      } else {
-        formRef.current.querySelector(`[name="${firstError}"]:not(:disabled)`)?.focus();
-      }
+      const fieldName = firstError === 'contacts' ? 'phone' : firstError;
+      formRef.current?.querySelector(`[name="${fieldName}"]:not(:disabled)`)?.focus();
       return;
     }
     submittingRef.current = true;
@@ -159,43 +184,40 @@ export function EvaluationPage() {
     }
   }
 
-  return <main className="eval-page" id="main-content" tabIndex={-1}>
-    <header className="eval-heading">
-      <h1>Apply for Evaluation</h1>
-      <p className="eval-lede">Register your team and model for evaluation on RoboValue.<br className="eval-intro-break" /> We’ll contact you to coordinate the next steps.</p>
-    </header>
+  function renderBasicField(field) {
+    return <div className={`eval-field${field.name === 'modelName' ? ' eval-field-wide' : ''}`} key={field.name}>
+      <label htmlFor={`eval-${field.name}`}>{field.label}<span className="eval-required" aria-hidden="true">*</span></label>
+      <input id={`eval-${field.name}`} name={field.name} type={field.type || 'text'} value={values[field.name]} onChange={event => changeField(field.name, event.target.value)} onBlur={() => checkField(field.name)} required maxLength={field.maxLength} autoComplete={field.autoComplete} placeholder={field.placeholder} aria-invalid={!!errors[field.name]} aria-describedby={errors[field.name] ? `eval-${field.name}-error` : undefined} />
+      {errors[field.name] && <p className="eval-field-error" id={`eval-${field.name}-error`}>{errors[field.name]}</p>}
+    </div>;
+  }
 
-    <div className="eval-layout">
+  return <main className={`eval-page${application ? ' is-submitted' : ''}`} id="main-content" tabIndex={-1}>
+    {!application && <header className="eval-heading">
+      <h1>Apply for Evaluation</h1>
+      <p className="eval-lede">Submit your team and model details to request an evaluation.<br className="eval-intro-break" /> Our team will contact you to coordinate the next steps.</p>
+    </header>}
+
+    <div className={`eval-layout${application ? ' is-submitted' : ''}`}>
       <section className={`eval-application${application ? ' is-submitted' : ''}`} aria-labelledby={application ? 'eval-success-heading' : 'eval-form-heading'}>
-        {application ? <div className="eval-success">
-          <span className="eval-success-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 4 4L19 6" /></svg></span>
-          <h2 ref={successRef} tabIndex={-1} id="eval-success-heading">Application Submitted</h2>
-          <p>Thank you for your interest in RoboValue. We’ll contact you using the details provided.</p>
-          <p>In the meantime, read Get Started to prepare your model for evaluation.</p>
-          <a className="eval-primary-link" href="/doc/get-started/">Get Started<Icon size={20} /></a>
-        </div> : <>
-          <div className="eval-form-heading"><h2 id="eval-form-heading">Application Details</h2><p><span aria-hidden="true">*</span> Required fields</p></div>
+        {application ? <EvaluationSuccess successRef={successRef} /> : <>
+          <div className="eval-form-heading"><h2 id="eval-form-heading">Application Details</h2><p><span aria-hidden="true">*</span> Required</p></div>
           <form ref={formRef} className="eval-form" onSubmit={submitApplication} noValidate aria-busy={submitting}>
             <fieldset className="eval-form-fields" disabled={submitting}>
-              <legend className="sr-only">Team and model information</legend>
-              <div className="eval-field-grid">
-                {BASIC_FIELDS.map(field => <div className="eval-field" key={field.name}>
-                  <label htmlFor={`eval-${field.name}`}>{field.label}<span className="eval-required" aria-hidden="true">*</span></label>
-                  <input id={`eval-${field.name}`} name={field.name} type={field.type || 'text'} value={values[field.name]} onChange={event => changeField(field.name, event.target.value)} onBlur={() => checkField(field.name)} required maxLength={field.maxLength} autoComplete={field.autoComplete} placeholder={field.placeholder} aria-invalid={!!errors[field.name]} aria-describedby={errors[field.name] ? `eval-${field.name}-error` : undefined} />
-                  {errors[field.name] && <p className="eval-field-error" id={`eval-${field.name}-error`}>{errors[field.name]}</p>}
-                </div>)}
-              </div>
-              <div className="eval-contact-group">
+              <legend className="sr-only">Application information</legend>
+              <section className="eval-form-section" aria-labelledby="eval-team-heading">
+                <h3 id="eval-team-heading">Team &amp; Model</h3>
+                <div className="eval-field-grid">
+                  {BASIC_FIELDS.filter(field => field.name !== 'email').map(renderBasicField)}
+                </div>
+              </section>
+              <section className="eval-contact-group eval-form-section" aria-labelledby="eval-contact-heading">
+                <h3 id="eval-contact-heading">Contact Information</h3>
+                {renderBasicField(BASIC_FIELDS.find(field => field.name === 'email'))}
                 <fieldset className="eval-contact-method" aria-describedby={errors.contacts ? 'eval-contacts-error' : undefined}>
-                  <legend><span>Contact Details<span className="eval-required" aria-hidden="true">*</span></span><span className="eval-choice-hint">At least one</span></legend>
-                  <div className="eval-contact-tabs" role="tablist" aria-label="Contact method">
-                    {Object.entries(CONTACT_METHODS).map(([key, method]) => <button key={key} type="button" role="tab" id={`eval-contact-tab-${key}`} aria-controls={`eval-contact-panel-${key}`} aria-selected={contactMethod === key} tabIndex={contactMethod === key ? 0 : -1} className={`eval-contact-tab${contactMethod === key ? ' is-active' : ''}${errors[key] ? ' has-error' : ''}`} onClick={() => setContactMethod(key)} onKeyDown={event => moveContactTab(event, key)}>
-                      {method.label}
-                      {errors[key] ? <span className="eval-contact-status is-error" aria-label="Needs correction">!</span> : contacts[key].trim() ? <svg className="eval-contact-status" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" role="img" aria-label="Filled"><path d="m3 8 3 3 7-7" /></svg> : null}
-                    </button>)}
-                  </div>
-                  <div className="eval-contact-panels">
-                    {Object.entries(CONTACT_METHODS).map(([key, method]) => <div className="eval-contact-panel eval-field" key={key} role="tabpanel" id={`eval-contact-panel-${key}`} aria-labelledby={`eval-contact-tab-${key}`} hidden={contactMethod !== key}>
+                  <legend>Please provide at least one additional contact method.</legend>
+                  <div className="eval-contact-grid">
+                    {Object.entries(CONTACT_METHODS).map(([key, method]) => <div className="eval-field" key={key}>
                       <label htmlFor={`eval-contact-${key}`}>{method.fieldLabel}</label>
                       <input id={`eval-contact-${key}`} name={key} type={method.type || 'text'} value={contacts[key]} placeholder={method.placeholder} onChange={event => changeContact(key, event.target.value)} onBlur={() => checkField(key)} maxLength={method.maxLength} autoComplete={method.autoComplete} autoCapitalize="none" spellCheck={false} aria-invalid={!!errors[key] || !!errors.contacts} aria-describedby={[errors[key] && `eval-${key}-error`, errors.contacts && 'eval-contacts-error'].filter(Boolean).join(' ') || undefined} />
                       {errors[key] && <p className="eval-field-error" id={`eval-${key}-error`}>{errors[key]}</p>}
@@ -203,7 +225,7 @@ export function EvaluationPage() {
                   </div>
                   {errors.contacts && <p className="eval-field-error" id="eval-contacts-error">{errors.contacts}</p>}
                 </fieldset>
-              </div>
+              </section>
             </fieldset>
             {attemptedSubmit && Object.values(errors).some(Boolean) && <p className="eval-validation-summary" role="alert">Please check the highlighted fields before submitting.</p>}
             {submitError && <p className="eval-submit-error" role="alert">{submitError}</p>}
@@ -213,7 +235,7 @@ export function EvaluationPage() {
           </form>
         </>}
       </section>
-      <EvaluationCommunity />
+      {!application && <EvaluationCommunity />}
     </div>
   </main>;
 }

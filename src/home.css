@@ -90,7 +90,7 @@
 .rv-hero-scene::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: linear-gradient(135deg, #bdc0c7, #838995); transform: translate(.5px, 1.5px); box-shadow: 0 2px 3px -2px rgb(21 27 36 / 18%); }
 .rv-hero-scene::after { content: ''; position: absolute; left: -1px; right: -1px; bottom: -12px; height: 16px; z-index: -2; pointer-events: none; background: radial-gradient(ellipse 50% 50% at center, rgb(21 27 36 / 28%), rgb(21 27 36 / 14%) 44%, rgb(21 27 36 / 0%) 100%); }
 .rv-hero-scene-surface { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; background: #e2e3e7; }
-.rv-hero-scene img { position: absolute; left: 0; top: var(--scene-crop-top); display: block; width: 100%; height: var(--scene-image-height); max-width: none; filter: saturate(.9); }
+.rv-hero-scene img { position: absolute; left: 0; top: var(--scene-crop-top); display: block; width: 100%; height: var(--scene-image-height); max-width: none; }
 .rv-hero-scene-surface::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px #13182018; }
 .rv-hero-wash { position: absolute; inset: 0; background: linear-gradient(180deg, #ffffff00 calc(100% - var(--rv-hero-fade)), #fff 100%); }
 .rv-hero-backdrop.is-paused .rv-hero-row { animation-play-state: paused; }
