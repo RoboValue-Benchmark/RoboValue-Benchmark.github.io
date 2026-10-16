@@ -89,7 +89,7 @@ The earlier aligned paper-information version without the animated background is
 
 ## Results and sources
 
-The homepage introduction and leaderboard source metadata follow the October 9, 2026 manuscript. The homepage overview figure uses the supplied October 11 PDF. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
+The homepage introduction and leaderboard source metadata follow the October 9, 2026 manuscript. Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving the embedded source image without recompression. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
 
 Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the full-leaderboard link retains that track. Official project logos take priority over institution fallbacks.
 
