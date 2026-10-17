@@ -26,5 +26,5 @@ export const AGGREGATE_COLUMNS = ['overall', 'understanding', 'tracking', 'diagn
 METRICS.overall = { label: 'Overall', name: 'Overall score', description: 'Mean of the four capability scores, computed before rounding.' };
 for (const group of GROUPS) METRICS[group.id] = { label: group.short, name: group.title, description: group.title + ' aggregate score from Table 1.' };
 export const scoreValue = (row, condition, key) => condition === 'aggregate' ? row.aggregate?.[key] : row.conditions?.[condition]?.[key];
-export const excludedHighlight = (row, key) => row.name === 'TOPReward' && ['voc', 'memory_voc'].includes(key);
+export const excludedHighlight = (row, key) => /^TOPReward-(8|32)B$/.test(row.name) && ['voc', 'memory_voc'].includes(key);
 export const CONDITIONS = { aggregate: 'Leaderboard', id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment' };

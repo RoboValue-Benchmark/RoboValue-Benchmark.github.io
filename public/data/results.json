@@ -1,12 +1,19 @@
 {
-  "source": "RoboValue manuscript, Tables 2, 3 and 4",
-  "sourceFile": "10-09_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf",
-  "sourceVersion": "2026-10-09",
-  "sourcePageCount": 91,
-  "sourceSha256": "b1a02bec176fc7b86d34d5c81f0238d991b30c8f8385a5dc1dfa7f48adefa036",
+  "source": "RoboValue manuscript LaTeX tables: RoboValue Leaderboard, Main Results and Generalization Results",
+  "sourceVersion": "2026-10-17",
+  "sourceFiles": [
+    {
+      "path": "RoboValue_paper/sec/5_1RoboValueLeaderboard.tex",
+      "sha256": "4e27a93770cb3ebdac4a320712143aa4420bf16902650c345e68bd3ba328a4ae"
+    },
+    {
+      "path": "RoboValue_paper/sec/5_Experiment.tex",
+      "sha256": "23c0db2530d8d10f4744046b20d003a81e4355ced8dff56148c04861db2dd29f"
+    }
+  ],
   "scale": 100,
   "modelFamilies": 9,
-  "modelVariants": 15,
+  "modelVariants": 16,
   "rows": [
     {
       "name": "LIV",
@@ -49,7 +56,7 @@
         }
       },
       "aggregate": {
-        "rank": 7,
+        "rank": 8,
         "understanding": 31.92,
         "tracking": 53.51,
         "diagnosis": 46.16,
@@ -98,7 +105,7 @@
         }
       },
       "aggregate": {
-        "rank": 5,
+        "rank": 6,
         "understanding": 40.31,
         "tracking": 67.65,
         "diagnosis": 42.57,
@@ -147,7 +154,7 @@
         }
       },
       "aggregate": {
-        "rank": 6,
+        "rank": 7,
         "understanding": 39.55,
         "tracking": 61.1,
         "diagnosis": 48.4,
@@ -245,7 +252,7 @@
         }
       },
       "aggregate": {
-        "rank": 10,
+        "rank": 11,
         "understanding": 24.5,
         "tracking": 71.5,
         "diagnosis": 34.83,
@@ -294,7 +301,7 @@
         }
       },
       "aggregate": {
-        "rank": 9,
+        "rank": 10,
         "understanding": 25.9,
         "tracking": 71.48,
         "diagnosis": 34.32,
@@ -401,10 +408,10 @@
       }
     },
     {
-      "name": "TOPReward",
+      "name": "TOPReward-8B",
       "preview": false,
       "setting": "zero",
-      "id": "topreward-zero",
+      "id": "topreward-8b-zero",
       "order": 8,
       "conditions": {
         "id": {
@@ -441,7 +448,7 @@
         }
       },
       "aggregate": {
-        "rank": 4,
+        "rank": 5,
         "understanding": 48.09,
         "tracking": 57.02,
         "diagnosis": 39.66,
@@ -450,11 +457,60 @@
       }
     },
     {
+      "name": "TOPReward-32B",
+      "preview": false,
+      "setting": "zero",
+      "id": "topreward-32b-zero",
+      "order": 9,
+      "conditions": {
+        "id": {
+          "sa": 52.99,
+          "tga_ct": 40.42,
+          "tga_cf": 25.9,
+          "voc": 90.17,
+          "cycle_voc": 19.47,
+          "memory_voc": 95.61,
+          "fpl": 34.12,
+          "trr": 16.19,
+          "vs": 10.36,
+          "csvc": 29.21
+        },
+        "emb": {
+          "sa": 65.83,
+          "tga_ct": 61.54,
+          "tga_cf": 22.55,
+          "voc": 92.02,
+          "cycle_voc": 44.51,
+          "memory_voc": 95.92,
+          "fpl": 29.93,
+          "vs": 12.69
+        },
+        "env": {
+          "sa": 59.34,
+          "tga_ct": 44.18,
+          "tga_cf": 28.1,
+          "voc": 93.08,
+          "cycle_voc": 28.1,
+          "memory_voc": 96.46,
+          "fpl": 35.78,
+          "vs": 12.53
+        }
+      },
+      "aggregate": {
+        "rank": 4,
+        "understanding": 46.96,
+        "tracking": 65.81,
+        "diagnosis": 41.35,
+        "consistency": 38.04,
+        "overall": 48.04
+      }
+    },
+    {
       "name": "VLAC-2B",
       "preview": false,
       "setting": "zero",
       "id": "vlac-2b-zero",
-      "order": 9,
+      "order": 10,
       "conditions": {
         "id": {
           "sa": 33.75,
@@ -490,7 +546,7 @@
         }
       },
       "aggregate": {
-        "rank": 11,
+        "rank": 12,
         "understanding": 26.6,
         "tracking": 55.48,
         "diagnosis": 31.38,
@@ -503,7 +559,7 @@
       "preview": false,
       "setting": "zero",
       "id": "vlac-8b-zero",
-      "order": 10,
+      "order": 11,
       "conditions": {
         "id": {
           "sa": 41.04,
@@ -539,7 +595,7 @@
         }
       },
       "aggregate": {
-        "rank": 8,
+        "rank": 9,
         "understanding": 36.19,
         "tracking": 61.16,
         "diagnosis": 30.14,
@@ -552,7 +608,7 @@
       "preview": false,
       "setting": "one",
       "id": "procvlm-2b-one",
-      "order": 11,
+      "order": 12,
       "conditions": {
         "id": {
           "sa": 83.07,
@@ -601,7 +657,7 @@
       "preview": false,
       "setting": "one",
       "id": "robo-dopamine-3b-one",
-      "order": 12,
+      "order": 13,
       "conditions": {
         "id": {
           "sa": 73.77,
@@ -650,7 +706,7 @@
       "preview": true,
       "setting": "one",
       "id": "robo-dopamine-4b-preview-one",
-      "order": 13,
+      "order": 14,
       "conditions": {
         "id": {
           "sa": 87.16,
@@ -699,7 +755,7 @@
       "preview": false,
       "setting": "one",
       "id": "robo-dopamine-8b-one",
-      "order": 14,
+      "order": 15,
       "conditions": {
         "id": {
           "sa": 80.09,
@@ -748,7 +804,7 @@
       "preview": true,
       "setting": "one",
       "id": "robo-dopamine-8b-preview-one",
-      "order": 15,
+      "order": 16,
       "conditions": {
         "id": {
           "sa": 86.36,
@@ -797,7 +853,7 @@
       "preview": false,
       "setting": "one",
       "id": "vlac-2b-one",
-      "order": 16,
+      "order": 17,
       "conditions": {
         "id": {
           "sa": 64.54,
@@ -846,7 +902,7 @@
       "preview": false,
       "setting": "one",
       "id": "vlac-8b-one",
-      "order": 17,
+      "order": 18,
       "conditions": {
         "id": {
           "sa": 63.71,

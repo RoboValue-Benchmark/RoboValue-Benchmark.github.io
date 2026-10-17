@@ -89,11 +89,18 @@ The earlier aligned paper-information version without the animated background is
 
 ## Results and sources
 
-The homepage introduction and leaderboard source metadata follow the October 9, 2026 manuscript. Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving the embedded source image without recompression. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` reproduces Tables 2–4; the numerical results are unchanged from the preceding manuscript snapshot. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
+The homepage introduction follows the October 9, 2026 manuscript. Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving the embedded source image without recompression. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` follows the October 17 manuscript LaTeX tables (RoboValue Leaderboard, Main Results and Generalization Results), including TOPReward-8B and TOPReward-32B: 12 Zero-Shot and 7 One-Shot configurations. Source paths and SHA-256 hashes are stored with the data. Existing model scores are unchanged; Zero-Shot ranks account for the added 32B variant. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
+
+To reproduce or verify the leaderboard and detailed results from the local manuscript sources:
+
+```bash
+python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-17
+python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-17 --check
+```
 
 Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the full-leaderboard link retains that track. Official project logos take priority over institution fallbacks.
 
-Leaderboard condition, track, and sorting are reflected in the URL. Sorting preserves each model's overall rank within its track. Best and second-best marks use all eligible models, including ties. FPL defaults to ascending order; TOPReward's VOC and Memory-VOC are excluded from best/second-best marking, following the manuscript. RoboReward's unmeasured VS and CSVC count as zero in aggregate scoring and remain unreported in raw metric views. CSV exports contain the displayed rows, track, condition, and overall ranks where applicable.
+Leaderboard condition, track, and sorting are reflected in the URL. Sorting preserves each model's overall rank within its track. Best and second-best marks use all eligible models, including ties. FPL defaults to ascending order; both TOPReward variants' VOC and Memory-VOC are excluded from best/second-best marking, following the manuscript. RoboReward's unmeasured VS and CSVC count as zero in aggregate scoring and remain unreported in raw metric views. CSV exports contain the displayed rows, track, condition, and overall ranks where applicable.
 
 ## Local development
 

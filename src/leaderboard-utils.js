@@ -39,7 +39,7 @@ export function viewURL(view, location) {
 
 export const modelNameParts = row => ({
   name: row.preview ? row.name.replace('Robo-Dopamine-', 'Robo-Dopamine 2.0-') : row.name,
-  qualifier: row.preview ? '(Preview)' : row.name === 'TOPReward' ? '(Qwen3-VL-8B)' : '',
+  qualifier: row.preview ? '(Preview)' : /^TOPReward-(8|32)B$/.test(row.name) ? `(Qwen3-VL-${row.name.split('-')[1]})` : '',
 });
 
 export const modelName = row => {
