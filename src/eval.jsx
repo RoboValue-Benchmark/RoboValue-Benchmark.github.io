@@ -42,8 +42,8 @@ function EvaluationCommunity() {
     </div>
     <section className="eval-channel eval-wechat" aria-labelledby="eval-wechat-heading">
       <h3 id="eval-wechat-heading">WeChat Group</h3>
-      <a className="eval-qr" href="/assets/evaluation-wechat.png" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
-        <img src="/assets/evaluation-wechat.png" width="540" height="830" alt="RoboValue evaluation WeChat group QR code, valid before October 18" />
+      <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261020" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
+        <img src="/assets/evaluation-wechat.png?v=20261020" width="540" height="830" alt="RoboValue evaluation WeChat group QR code, valid before October 27" />
       </a>
       <p>Scan to join</p>
     </section>
@@ -79,8 +79,8 @@ function EvaluationSuccess({ successRef }) {
       </div>
       <div className="eval-success-channels">
         <section className="eval-success-channel" aria-labelledby="eval-success-wechat-heading">
-          <a className="eval-qr" href="/assets/evaluation-wechat.png" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
-            <img src="/assets/evaluation-wechat.png" width="540" height="830" alt="RoboValue evaluation WeChat group QR code, valid before October 18" />
+          <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261020" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
+            <img src="/assets/evaluation-wechat.png?v=20261020" width="540" height="830" alt="RoboValue evaluation WeChat group QR code, valid before October 27" />
           </a>
           <h4 id="eval-success-wechat-heading">WeChat</h4>
           <p>Scan to join</p>
