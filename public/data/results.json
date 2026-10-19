@@ -1,14 +1,14 @@
 {
   "source": "RoboValue manuscript LaTeX tables: RoboValue Leaderboard, Main Results and Generalization Results",
-  "sourceVersion": "2026-10-17",
+  "sourceVersion": "2026-10-19",
   "sourceFiles": [
     {
       "path": "RoboValue_paper/sec/5_1RoboValueLeaderboard.tex",
-      "sha256": "4e27a93770cb3ebdac4a320712143aa4420bf16902650c345e68bd3ba328a4ae"
+      "sha256": "4fde5852df531ee919e0bbdec96ab921222edd64253c4d511033c676b24680fd"
     },
     {
       "path": "RoboValue_paper/sec/5_Experiment.tex",
-      "sha256": "23c0db2530d8d10f4744046b20d003a81e4355ced8dff56148c04861db2dd29f"
+      "sha256": "143f1431c4e383bc10a7e1f827fec1e6e57cc73b8401850deaccb6a8678debef"
     }
   ],
   "scale": 100,
@@ -29,7 +29,7 @@
           "voc": 8.33,
           "cycle_voc": 8.33,
           "memory_voc": 1.5,
-          "fpl": 31.39,
+          "fpl": 31.19,
           "trr": 24.25,
           "vs": 3.36,
           "csvc": -8.47
@@ -59,9 +59,9 @@
         "rank": 8,
         "understanding": 31.92,
         "tracking": 53.51,
-        "diagnosis": 46.16,
+        "diagnosis": 46.21,
         "consistency": 24.39,
-        "overall": 39.0
+        "overall": 39.01
       }
     },
     {
@@ -78,7 +78,7 @@
           "voc": 51.1,
           "cycle_voc": 47.41,
           "memory_voc": 9.73,
-          "fpl": 36.14,
+          "fpl": 35.93,
           "trr": 21.55,
           "vs": 5.25,
           "csvc": 4.6
@@ -108,9 +108,9 @@
         "rank": 6,
         "understanding": 40.31,
         "tracking": 67.65,
-        "diagnosis": 42.57,
+        "diagnosis": 42.63,
         "consistency": 28.46,
-        "overall": 44.75
+        "overall": 44.76
       }
     },
     {
@@ -127,7 +127,7 @@
           "voc": 20.44,
           "cycle_voc": 36.95,
           "memory_voc": -25.23,
-          "fpl": 34.64,
+          "fpl": 35.66,
           "trr": 33.8,
           "vs": 3.34,
           "csvc": -0.3
@@ -157,9 +157,9 @@
         "rank": 7,
         "understanding": 39.55,
         "tracking": 61.1,
-        "diagnosis": 48.4,
+        "diagnosis": 48.15,
         "consistency": 26.88,
-        "overall": 43.98
+        "overall": 43.92
       }
     },
     {
@@ -176,7 +176,7 @@
           "voc": 86.05,
           "cycle_voc": 89.43,
           "memory_voc": 2.36,
-          "fpl": 29.8,
+          "fpl": 29.76,
           "trr": 24.83,
           "vs": 18.17,
           "csvc": 32.41
@@ -225,7 +225,7 @@
           "voc": 82.76,
           "cycle_voc": 44.23,
           "memory_voc": 81.46,
-          "fpl": 32.17,
+          "fpl": 32.61,
           "trr": 3.07,
           "vs": null,
           "csvc": null
@@ -255,9 +255,9 @@
         "rank": 11,
         "understanding": 24.5,
         "tracking": 71.5,
-        "diagnosis": 34.83,
+        "diagnosis": 34.72,
         "consistency": 0.0,
-        "overall": 32.71
+        "overall": 32.68
       }
     },
     {
@@ -274,7 +274,7 @@
           "voc": 83.4,
           "cycle_voc": 43.0,
           "memory_voc": 81.77,
-          "fpl": 31.3,
+          "fpl": 31.9,
           "trr": 2.6,
           "vs": null,
           "csvc": null
@@ -304,9 +304,9 @@
         "rank": 10,
         "understanding": 25.9,
         "tracking": 71.48,
-        "diagnosis": 34.32,
+        "diagnosis": 34.17,
         "consistency": 0.0,
-        "overall": 32.92
+        "overall": 32.89
       }
     },
     {
@@ -323,7 +323,7 @@
           "voc": 73.19,
           "cycle_voc": 81.74,
           "memory_voc": -23.89,
-          "fpl": 39.95,
+          "fpl": 41.29,
           "trr": 23.18,
           "vs": 9.88,
           "csvc": 24.95
@@ -353,9 +353,9 @@
         "rank": 2,
         "understanding": 75.54,
         "tracking": 78.64,
-        "diagnosis": 40.63,
+        "diagnosis": 40.29,
         "consistency": 36.0,
-        "overall": 57.7
+        "overall": 57.62
       }
     },
     {
@@ -372,7 +372,7 @@
           "voc": 73.52,
           "cycle_voc": 83.06,
           "memory_voc": -24.7,
-          "fpl": 39.79,
+          "fpl": 40.85,
           "trr": 26.61,
           "vs": 8.97,
           "csvc": 13.25
@@ -402,9 +402,9 @@
         "rank": 3,
         "understanding": 70.98,
         "tracking": 78.78,
-        "diagnosis": 42.66,
+        "diagnosis": 42.39,
         "consistency": 32.59,
-        "overall": 56.25
+        "overall": 56.19
       }
     },
     {
@@ -421,7 +421,7 @@
           "voc": 94.29,
           "cycle_voc": 13.5,
           "memory_voc": 95.51,
-          "fpl": 30.73,
+          "fpl": 30.79,
           "trr": 12.85,
           "vs": 15.06,
           "csvc": 45.45
@@ -451,9 +451,9 @@
         "rank": 5,
         "understanding": 48.09,
         "tracking": 57.02,
-        "diagnosis": 39.66,
+        "diagnosis": 39.64,
         "consistency": 43.65,
-        "overall": 47.11
+        "overall": 47.1
       }
     },
     {
@@ -470,7 +470,7 @@
           "voc": 90.17,
           "cycle_voc": 19.47,
           "memory_voc": 95.61,
-          "fpl": 34.12,
+          "fpl": 34.31,
           "trr": 16.19,
           "vs": 10.36,
           "csvc": 29.21
@@ -500,9 +500,9 @@
         "rank": 4,
         "understanding": 46.96,
         "tracking": 65.81,
-        "diagnosis": 41.35,
+        "diagnosis": 41.3,
         "consistency": 38.04,
-        "overall": 48.04
+        "overall": 48.03
       }
     },
     {
@@ -519,7 +519,7 @@
           "voc": 9.13,
           "cycle_voc": 9.72,
           "memory_voc": 5.73,
-          "fpl": 47.46,
+          "fpl": 47.68,
           "trr": 8.95,
           "vs": 4.15,
           "csvc": -83.77
@@ -549,9 +549,9 @@
         "rank": 12,
         "understanding": 26.6,
         "tracking": 55.48,
-        "diagnosis": 31.38,
+        "diagnosis": 31.33,
         "consistency": 6.39,
-        "overall": 29.96
+        "overall": 29.95
       }
     },
     {
@@ -568,7 +568,7 @@
           "voc": 28.53,
           "cycle_voc": 26.12,
           "memory_voc": 21.7,
-          "fpl": 45.48,
+          "fpl": 45.8,
           "trr": 5.24,
           "vs": 6.54,
           "csvc": -84.0
@@ -598,9 +598,9 @@
         "rank": 9,
         "understanding": 36.19,
         "tracking": 61.16,
-        "diagnosis": 30.14,
+        "diagnosis": 30.06,
         "consistency": 7.43,
-        "overall": 33.73
+        "overall": 33.71
       }
     },
     {
@@ -617,7 +617,7 @@
           "voc": 91.4,
           "cycle_voc": 91.24,
           "memory_voc": 23.96,
-          "fpl": 33.94,
+          "fpl": 32.23,
           "trr": 21.05,
           "vs": 18.08,
           "csvc": 19.9
@@ -647,9 +647,9 @@
         "rank": 2,
         "understanding": 65.43,
         "tracking": 84.56,
-        "diagnosis": 43.7,
+        "diagnosis": 44.12,
         "consistency": 37.59,
-        "overall": 57.82
+        "overall": 57.93
       }
     },
     {
@@ -666,7 +666,7 @@
           "voc": 76.3,
           "cycle_voc": 76.4,
           "memory_voc": 16.69,
-          "fpl": 34.32,
+          "fpl": 33.7,
           "trr": 32.02,
           "vs": 12.56,
           "csvc": 17.65
@@ -696,9 +696,9 @@
         "rank": 6,
         "understanding": 39.68,
         "tracking": 79.99,
-        "diagnosis": 49.39,
+        "diagnosis": 49.54,
         "consistency": 34.84,
-        "overall": 50.97
+        "overall": 51.01
       }
     },
     {
@@ -715,7 +715,7 @@
           "voc": 94.47,
           "cycle_voc": 94.43,
           "memory_voc": 13.73,
-          "fpl": 27.34,
+          "fpl": 26.19,
           "trr": 33.54,
           "vs": 30.69,
           "csvc": 35.4
@@ -745,9 +745,9 @@
         "rank": 3,
         "understanding": 43.76,
         "tracking": 85.94,
-        "diagnosis": 52.32,
+        "diagnosis": 52.61,
         "consistency": 48.06,
-        "overall": 57.52
+        "overall": 57.59
       }
     },
     {
@@ -764,7 +764,7 @@
           "voc": 88.17,
           "cycle_voc": 87.19,
           "memory_voc": 11.28,
-          "fpl": 32.86,
+          "fpl": 31.71,
           "trr": 36.55,
           "vs": 19.08,
           "csvc": 20.51
@@ -794,9 +794,9 @@
         "rank": 4,
         "understanding": 40.95,
         "tracking": 82.93,
-        "diagnosis": 52.22,
+        "diagnosis": 52.51,
         "consistency": 37.95,
-        "overall": 53.51
+        "overall": 53.58
       }
     },
     {
@@ -813,7 +813,7 @@
           "voc": 93.05,
           "cycle_voc": 93.74,
           "memory_voc": 18.84,
-          "fpl": 29.3,
+          "fpl": 28.4,
           "trr": 38.75,
           "vs": 30.53,
           "csvc": 39.48
@@ -843,9 +843,9 @@
         "rank": 1,
         "understanding": 43.23,
         "tracking": 86.23,
-        "diagnosis": 54.57,
+        "diagnosis": 54.8,
         "consistency": 49.05,
-        "overall": 58.27
+        "overall": 58.33
       }
     },
     {
@@ -862,7 +862,7 @@
           "voc": 67.57,
           "cycle_voc": 60.24,
           "memory_voc": 10.5,
-          "fpl": 29.59,
+          "fpl": 30.56,
           "trr": 21.0,
           "vs": 22.34,
           "csvc": 29.55
@@ -892,9 +892,9 @@
         "rank": 7,
         "understanding": 37.02,
         "tracking": 73.29,
-        "diagnosis": 45.71,
+        "diagnosis": 45.47,
         "consistency": 42.41,
-        "overall": 49.61
+        "overall": 49.55
       }
     },
     {
@@ -911,7 +911,7 @@
           "voc": 74.54,
           "cycle_voc": 63.57,
           "memory_voc": 51.12,
-          "fpl": 28.63,
+          "fpl": 28.93,
           "trr": 15.35,
           "vs": 25.46,
           "csvc": 30.26
@@ -941,9 +941,9 @@
         "rank": 5,
         "understanding": 45.02,
         "tracking": 78.1,
-        "diagnosis": 42.99,
+        "diagnosis": 42.92,
         "consistency": 44.52,
-        "overall": 52.66
+        "overall": 52.64
       }
     }
   ]

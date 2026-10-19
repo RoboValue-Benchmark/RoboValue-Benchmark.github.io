@@ -45,6 +45,11 @@ def read_rows(table):
             'cells': [cell.strip() for cell in cells.split('&')],
         })
     assert rows, 'No model rows found in the source table'
+    model_labels = re.findall(
+        r'^\s*([A-Za-z][A-Za-z0-9_. -]*)(?:\$\^\{[^}]+\}\$)?\s*&', table, re.MULTILINE,
+    )
+    assert [name.strip() for name in model_labels] == [row['name'] for row in rows], \
+        'Source model rows were not fully recognized; update the parser before publishing.'
     return rows
 
 

@@ -107,9 +107,9 @@ export const metricDocumentation = {
   },
   fpl: {
     name: 'Failure-Point Localization', input: 'Scalar value sequences', range: '[0, 1]', lower: true,
-    trajectories: ['error_continuation'],
+    trajectories: ['error_continuation', 'effective_recovery'],
     purpose: 'Tests whether a model’s strongest value decline locates the onset of an execution error. Accurate localization helps retain useful stages of partially successful trajectories and direct negative feedback toward the actual failure.',
-    cohort: 'Each trajectory contains a single annotated execution error, so the target failure event is unambiguous. The robot continues with the remaining task without correcting that error.',
+    cohort: 'Error Continuation and Effective Recovery trajectories each contain a single annotated execution error, so the target failure onset is unambiguous.',
     preparation: ['Sample values at 5 Hz, including the final frame. A ZigZag filter suppresses small reversals using a threshold of 0.2 times the largest earlier-to-later value drop. The peak preceding the largest retained decline defines the predicted onset t̂.', 'Let tᴳᵀ be the annotated onset and T the final-frame timestamp. If no decline is detected, assign the maximum possible temporal error within that trajectory.'],
     formulas: [{ tex: tex`\mathrm{FPL}=\frac{1}{T}\begin{cases}|\hat t-t^{\mathrm{GT}}|,&\text{decline detected},\\[4pt]\max(t^{\mathrm{GT}},T-t^{\mathrm{GT}}),&\text{otherwise}.\end{cases}`, description: 'Failure-onset localization error normalized by trajectory duration.' }],
     details: ['For equal declines, select the shortest interval, then the earliest start. Flat peaks use their last point and flat troughs their first; unfinished terminal declines are retained.'],

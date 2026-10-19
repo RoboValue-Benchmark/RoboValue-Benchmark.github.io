@@ -89,13 +89,13 @@ The earlier aligned paper-information version without the animated background is
 
 ## Results and sources
 
-The homepage introduction follows the October 9, 2026 manuscript. Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving the embedded source image without recompression. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` follows the October 17 manuscript LaTeX tables (RoboValue Leaderboard, Main Results and Generalization Results), including TOPReward-8B and TOPReward-32B: 12 Zero-Shot and 7 One-Shot configurations. Source paths and SHA-256 hashes are stored with the data. Existing model scores are unchanged; Zero-Shot ranks account for the added 32B variant. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
+The homepage introduction follows the October 9, 2026 manuscript. Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving the embedded source image without recompression. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` follows the October 19 manuscript LaTeX tables (RoboValue Leaderboard, Main Results and Generalization Results), including TOPReward-8B and TOPReward-32B: 12 Zero-Shot and 7 One-Shot configurations. Source paths and SHA-256 hashes are stored with the data. The latest update changes Standard FPL for all 19 configurations and the displayed Diagnosis and Overall scores for 18; ranks, other metrics, shifted-condition results and SIA are unchanged. The FPL guide covers both Error Continuation and Effective Recovery trajectories. See [the October 19 results update](docs/releases/2026-10-19-manuscript-results.md) for every changed value and the verification scope. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
 
 To reproduce or verify the leaderboard and detailed results from the local manuscript sources:
 
 ```bash
-python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-17
-python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-17 --check
+python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-19
+python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-19 --check
 ```
 
 Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the full-leaderboard link retains that track. Official project logos take priority over institution fallbacks.
