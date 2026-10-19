@@ -45,7 +45,7 @@ export function EvaluationFailure({ headingRef, details, onBack }) {
         </svg>
       </span>
       <h1 ref={headingRef} tabIndex={-1} id="eval-failure-heading">Sorry, something went wrong on our end</h1>
-      <p>We couldn’t submit your application at this time, and we apologize for the inconvenience. You can still arrange your evaluation with the RoboValue team through our WeChat group or Discord server.</p>
+      <p>We apologize for the inconvenience. Your application could not be submitted at this time. Please contact the RoboValue team through our WeChat group or Discord server, and we’ll help arrange your evaluation.</p>
     </header>
 
     <section className="eval-next-steps" aria-labelledby="eval-failure-next-steps-heading">
