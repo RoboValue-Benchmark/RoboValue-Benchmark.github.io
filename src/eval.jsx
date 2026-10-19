@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from './benchmark';
 import { DISCORD_INVITE } from './community';
+import { prepareSubmissionAttempt } from './eval-request.mjs';
+import { EvaluationFailure } from './eval-failure';
 import './eval.css';
+
+// Opt in after the receiver is ready. Static hosting defaults to the contact fallback.
+const ONLINE_SUBMISSION_ENABLED = import.meta.env.VITE_EVAL_SUBMISSION_MODE === 'api';
 
 const BASIC_FIELDS = [
   { name: 'teamName', label: 'Team Name', maxLength: 120, placeholder: 'Team name', autoComplete: 'off' },
@@ -108,19 +113,27 @@ export function EvaluationPage() {
   const [values, setValues] = useState({ teamName: '', organization: '', modelName: '', email: '' });
   const [contacts, setContacts] = useState({ phone: '', wechat: '', discord: '' });
   const [errors, setErrors] = useState({});
-  const [submitError, setSubmitError] = useState('');
+  const [submissionFailed, setSubmissionFailed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const [application, setApplication] = useState(null);
   const formRef = useRef(null);
   const successRef = useRef(null);
+  const failureRef = useRef(null);
+  const returningToFormRef = useRef(false);
   const submittingRef = useRef(false);
   const requestRef = useRef(null);
+  const submissionAttemptRef = useRef(null);
 
   useEffect(() => () => requestRef.current?.abort(), []);
   useEffect(() => {
     if (application) successRef.current?.focus();
-  }, [application]);
+    else if (submissionFailed) failureRef.current?.focus();
+    else if (returningToFormRef.current) {
+      formRef.current?.querySelector('[name="teamName"]')?.focus();
+      returningToFormRef.current = false;
+    }
+  }, [application, submissionFailed]);
 
   function checkField(name, nextValues = values, nextContacts = contacts) {
     const validationErrors = validateApplication({ ...nextValues, contacts: nextContacts });
@@ -128,18 +141,18 @@ export function EvaluationPage() {
   }
 
   function changeField(name, value) {
+    if (value !== values[name]) submissionAttemptRef.current = null;
     const nextValues = { ...values, [name]: value };
     setValues(nextValues);
     if (errors[name]) checkField(name, nextValues);
-    setSubmitError('');
   }
 
   function changeContact(method, value) {
+    if (value !== contacts[method]) submissionAttemptRef.current = null;
     const nextContacts = { ...contacts, [method]: value };
     setContacts(nextContacts);
     const validationErrors = validateApplication({ ...values, contacts: nextContacts });
     setErrors(current => ({ ...current, contacts: current.contacts ? validationErrors.contacts : undefined, [method]: current[method] ? validationErrors[method] : undefined }));
-    setSubmitError('');
   }
 
   async function submitApplication(event) {
@@ -149,11 +162,14 @@ export function EvaluationPage() {
     const validationErrors = validateApplication(payload);
     setAttemptedSubmit(true);
     setErrors(validationErrors);
-    setSubmitError('');
     if (Object.keys(validationErrors).length) {
       const firstError = Object.keys(validationErrors)[0];
       const fieldName = firstError === 'contacts' ? 'phone' : firstError;
       formRef.current?.querySelector(`[name="${fieldName}"]:not(:disabled)`)?.focus();
+      return;
+    }
+    if (!ONLINE_SUBMISSION_ENABLED) {
+      setSubmissionFailed(true);
       return;
     }
     submittingRef.current = true;
@@ -162,20 +178,24 @@ export function EvaluationPage() {
     requestRef.current = controller;
     const timeout = window.setTimeout(() => controller.abort(), 20000);
     try {
+      const attempt = prepareSubmissionAttempt(payload, submissionAttemptRef.current);
+      submissionAttemptRef.current = attempt;
       const response = await fetch(import.meta.env.VITE_EVAL_API_URL?.trim() || '/api/evaluation-applications', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json', 'Idempotency-Key': attempt.key },
+        body: attempt.body,
         signal: controller.signal,
       });
       const result = await response.json().catch(() => null);
-      if (!response.ok) throw new Error(typeof result?.error === 'string' ? result.error : 'Your application could not be submitted. Please try again.');
+      if (response.status === 503 && result?.code === 'SUBMISSIONS_PAUSED') {
+        throw new Error('Application intake is temporarily paused. Please try again later, or join the evaluation community.');
+      }
+      if (!response.ok) throw new Error(typeof result?.error === 'string' ? result.error : 'Your application could not be submitted. Please try again, or contact us through the community.');
       if (typeof result?.applicationId !== 'string' || typeof result?.submittedAt !== 'string') throw new Error('Your submission could not be confirmed. Please try again.');
+      submissionAttemptRef.current = null;
       setApplication(result);
-    } catch (error) {
-      setSubmitError(error.name === 'AbortError' || error instanceof TypeError
-        ? 'Your submission could not be confirmed. Your details are still here; please try again.'
-        : error.message);
+    } catch {
+      setSubmissionFailed(true);
     } finally {
       window.clearTimeout(timeout);
       submittingRef.current = false;
@@ -183,6 +203,21 @@ export function EvaluationPage() {
       setSubmitting(false);
     }
   }
+
+  function returnToForm() {
+    returningToFormRef.current = true;
+    setSubmissionFailed(false);
+  }
+
+  const resultClass = application ? ' is-submitted' : submissionFailed ? ' is-failed' : '';
+  const applicationDetails = [
+    'RoboValue Evaluation Request',
+    '',
+    ...BASIC_FIELDS.map(field => `${field.label}: ${values[field.name].trim()}`),
+    ...Object.entries(CONTACT_METHODS)
+      .filter(([key]) => contacts[key].trim())
+      .map(([key, method]) => `${method.fieldLabel}: ${contacts[key].trim()}`),
+  ].join('\n');
 
   function renderBasicField(field) {
     return <div className={`eval-field${field.name === 'modelName' ? ' eval-field-wide' : ''}`} key={field.name}>
@@ -192,15 +227,15 @@ export function EvaluationPage() {
     </div>;
   }
 
-  return <main className={`eval-page${application ? ' is-submitted' : ''}`} id="main-content" tabIndex={-1}>
-    {!application && <header className="eval-heading">
+  return <main className={`eval-page${resultClass}`} id="main-content" tabIndex={-1}>
+    {!resultClass && <header className="eval-heading">
       <h1>Apply for Evaluation</h1>
       <p className="eval-lede">Submit your team and model details to request an evaluation.<br className="eval-intro-break" /> Our team will contact you to coordinate the next steps.</p>
     </header>}
 
-    <div className={`eval-layout${application ? ' is-submitted' : ''}`}>
-      <section className={`eval-application${application ? ' is-submitted' : ''}`} aria-labelledby={application ? 'eval-success-heading' : 'eval-form-heading'}>
-        {application ? <EvaluationSuccess successRef={successRef} /> : <>
+    <div className={`eval-layout${resultClass}`}>
+      <section className={`eval-application${resultClass}`} aria-labelledby={application ? 'eval-success-heading' : submissionFailed ? 'eval-failure-heading' : 'eval-form-heading'}>
+        {application ? <EvaluationSuccess successRef={successRef} /> : submissionFailed ? <EvaluationFailure headingRef={failureRef} details={applicationDetails} onBack={returnToForm} /> : <>
           <div className="eval-form-heading"><h2 id="eval-form-heading">Application Details</h2><p><span aria-hidden="true">*</span> Required</p></div>
           <form ref={formRef} className="eval-form" onSubmit={submitApplication} noValidate aria-busy={submitting}>
             <fieldset className="eval-form-fields" disabled={submitting}>
@@ -228,14 +263,13 @@ export function EvaluationPage() {
               </section>
             </fieldset>
             {attemptedSubmit && Object.values(errors).some(Boolean) && <p className="eval-validation-summary" role="alert">Please check the highlighted fields before submitting.</p>}
-            {submitError && <p className="eval-submit-error" role="alert">{submitError}</p>}
             <div className="eval-form-footer">
               <button className="eval-submit" type="submit" disabled={submitting}>{submitting ? 'Submitting…' : 'Submit Application'}{!submitting && <Icon size={20} />}</button>
             </div>
           </form>
         </>}
       </section>
-      {!application && <EvaluationCommunity />}
+      {!resultClass && <EvaluationCommunity />}
     </div>
   </main>;
 }
