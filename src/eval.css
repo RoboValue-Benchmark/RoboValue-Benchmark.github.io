@@ -55,9 +55,10 @@
 .eval-channel { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--theme-border); }
 .eval-channel h3 { color: var(--theme-ink); font-size: 20px; font-weight: 600; line-height: 1.5; }
 .eval-channel > p { margin-top: 12px; color: var(--theme-body); font-size: 16px; line-height: 1.6; }
-.eval-wechat > p { text-align: center; }
-.eval-wechat-groups { display: grid; gap: 24px; margin-top: 18px; }
-.eval-wechat-groups h4 { margin: 0; color: var(--theme-ink); font-size: 17px; font-weight: 550; line-height: 1.5; text-align: center; }
+.eval-wechat-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.eval-wechat-groups > section { min-width: 0; }
+.eval-wechat-groups h4 { margin: 0; color: var(--theme-ink); font-size: 14px; font-weight: 600; line-height: 1.5; text-align: center; }
+.eval-wechat-groups > section:first-child h4 { color: var(--theme-accent); }
 .eval-qr { position: relative; display: block; width: min(180px, 100%); aspect-ratio: 1; margin: 16px auto 0; overflow: hidden; border: 1px solid var(--theme-border); border-radius: 8px; background: #fff; }
 /* Display the QR area with its quiet zone; the link opens the untouched 540×830 invitation. */
 .eval-qr img { position: absolute; left: -17.5%; top: -70%; display: block; width: 135%; max-width: none; height: auto; }

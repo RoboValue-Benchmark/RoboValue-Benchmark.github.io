@@ -61,7 +61,6 @@ function EvaluationCommunity() {
           </a>
         </section>
       </div>
-      <p>Scan to join</p>
     </section>
     <section className="eval-channel eval-discord" aria-labelledby="eval-discord-heading">
       <h3 id="eval-discord-heading">Discord Community</h3>
