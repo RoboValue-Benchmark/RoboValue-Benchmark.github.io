@@ -97,7 +97,7 @@ function ResultsTable({ eligible, view, loading, error, retry, tableId, onSort, 
             {columns.map(key => <td key={key} className={key === 'overall' ? 'lb-overall-column' : ''}><Score value={scoreValue(row, view.condition, key)} highlight={highlights[key]} excluded={excludedHighlight(row, key)} overall={key === 'overall'} /></td>)}
           </tr>)}</tbody>
         </table>
-      </div>{!rows.length && <div className="lb-empty" role="status">{view.track === 'full' ? 'No results yet.' : error ? <>Results could not be loaded. <button onClick={retry}>Try Again</button></> : loading ? 'Loading results…' : 'No results yet.'}</div>}</div>
+      </div>{!rows.length && <div className="lb-empty" role="status">{view.track === 'full' ? 'Full-Shot evaluation results are not reported in this release.' : error ? <>Results could not be loaded. <button onClick={retry}>Try Again</button></> : loading ? 'Loading results…' : 'No results yet.'}</div>}</div>
       {!!rows.length && <div className="lb-table-legend"><span><b>Best</b> · <span className="lb-second">Second Best</span></span>{view.sort && <button onClick={onReset}>Reset {ranked ? 'Ranking' : 'Order'}</button>}</div>}
   </>;
 }
@@ -139,7 +139,7 @@ export function Leaderboard() {
     return { ...current, [field]: { key, asc: current[field]?.key === key ? !current[field].asc : !!METRICS[key].lower } };
   });
   return <main className="leaderboard-main" id="main-content" tabIndex={-1}>
-    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. Evaluation tracks are ranked separately.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/eval/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
+    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. The current release reports separate Zero-Shot and One-Shot rankings.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/eval/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
     <section className="lb-ranking" aria-labelledby="lb-ranking-title">
       <h2 id="lb-ranking-title">{CONDITIONS.aggregate}</h2>
       <TableControls eligible={eligible} view={rankingView} tableId="lb-ranking-table" onTrack={rankingTrack => update({ rankingTrack })} />

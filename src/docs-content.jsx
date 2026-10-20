@@ -68,7 +68,7 @@ export function SubmitModel() {
       <dl className="doc-definition-list"><div><dt>Open-Source Models</dt><dd>The RoboValue team handles the adapter, inference setup, and evaluation. You do not need to host an inference service or submit an adapter.</dd></div><div><dt>Closed-Source Models</dt><dd>For integration, provide an inference service and a model-specific adapter. Implement the adapter according to the <a href="/doc/model-api/">Adapter Guide</a> and hand it over to the RoboValue team for review and execution. You do not need to release model weights.</dd></div></dl>
     </Section>
     <Section id="submission-context" title="Model Details">
-      <p>For both open-source and closed-source models, you must specify the model or checkpoint version, preprocessing or prompt revision, and evaluation track: Zero-Shot, One-Shot, or Full-Shot (see <a href="/doc/get-started/protocol/evaluation/">Evaluation Protocol</a>). Describe the observations your model requires and its supported prediction methods, including the meaning, units, and direction of its outputs. Keep the model version and inference setup fixed throughout evaluation.</p>
+      <p>For both open-source and closed-source models, you must specify the model or checkpoint version, preprocessing or prompt revision, and evaluation setting (see <a href="/doc/get-started/protocol/evaluation/">Evaluation Protocol</a>). The paper and current leaderboard report Zero-Shot and One-Shot evaluations. Describe the observations your model requires and its supported prediction methods, including the meaning, units, and direction of its outputs. Keep the model version and inference setup fixed throughout evaluation.</p>
     </Section>
     <Section id="submission-contact" title="Submission">
       <p>To initiate an evaluation, complete the application form on the <a href="/eval/">Eval page</a> and provide your contact details, model information, and selected evaluation track. For an open-source submission, provide links to the inference codebase and model checkpoint repository; the RoboValue team is responsible for adapter implementation, inference setup, and evaluation. For a closed-source submission, provide access to an inference service and submit the adapter source code as a pull request to the <a href="https://github.com/RoboValue-Benchmark/RoboValue">main RoboValue repository</a> for review before evaluation. Model weights are not required to be disclosed. Service access details and credentials must be shared privately with the team and must not be included in the pull request.</p>
@@ -81,7 +81,7 @@ export function SubmitModel() {
 
 export function EvaluationResults() {
   return <div className="doc-content">
-    <p className="doc-lead">Evaluation results will be published on the <a href="/leaderboard/">Leaderboard</a>. New results will also be announced in the News section of the <a href="https://github.com/RoboValue-Benchmark/RoboValue#readme">main repository's README</a> and shared in our <a href="/community/">community groups</a>.</p>
+    <p className="doc-lead">Zero-Shot and One-Shot evaluation results are available on the <a href="/leaderboard/">Leaderboard</a>. New results will also be announced in the News section of the <a href="https://github.com/RoboValue-Benchmark/RoboValue#readme">main repository's README</a> and shared in our <a href="/community/">community groups</a>.</p>
   </div>;
 }
 
@@ -163,7 +163,7 @@ export function DocumentationOverview() {
       <div id="benchmark-overview"><Figure src="/assets/overview-10-16.svg" alt="RoboValue overview: simulation and real-world tasks, expert and diagnostic trajectories, shared evaluation interfaces, four capability dimensions, and the leaderboard" /></div>
       <p><strong className="doc-brand-name">RoboValue</strong> is a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. <strong className="doc-brand-name">RoboValue-Dataset</strong> provides 3,500 expert training demonstrations and 2,792 annotated test trajectories across <strong>15 simulation and 20 real-world manipulation tasks</strong>. Diagnostic trajectories and instruction variations test responses to task requirements, execution history, failure and recovery, and alternative valid solutions. Separate embodiment and environment shifts assess generalization.</p>
       <p><strong className="doc-brand-name">RoboValue-Benchmark</strong> evaluates four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index === 0 ? '' : index === GROUPS.length - 1 ? ', and ' : ', '}<strong className="doc-capability" data-capability={group.id}>{group.title.toLowerCase()}</strong></React.Fragment>)}. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics.</p>
-      <p><strong className="doc-brand-name">RoboValue-Leaderboard</strong> provides overall rankings and capability profiles for three tracks: Zero-Shot, One-Shot, and Full-Shot. Current results cover the first two; Full-Shot evaluation is planned. The accompanying analyses reveal limitations in instruction grounding, history awareness, recovery reasoning, and subtask credit, helping guide the development of more reliable value feedback for policy learning, action planning, and execution monitoring.</p>
+      <p><strong className="doc-brand-name">RoboValue-Leaderboard</strong> provides overall rankings and capability profiles for Zero-Shot and One-Shot. This release does not report Full-Shot evaluation results. The accompanying analyses reveal limitations in instruction grounding, history awareness, recovery reasoning, and subtask credit, helping guide the development of more reliable value feedback for policy learning, action planning, and execution monitoring.</p>
     </Section>
     <Section id="overview-metrics" title="Metrics">
       <div className="doc-table-scroll" tabIndex={0} role="region" aria-label="Evaluation metrics"><table className="doc-overview-metrics"><thead><tr><th scope="col">Capability</th><th scope="col">Metric</th><th scope="col">Evaluation Focus</th></tr></thead><tbody>{OVERVIEW_METRICS.map(([capabilityId, metrics]) => {
@@ -181,7 +181,7 @@ export function GetStarted() {
     <Section id="recommended-path" title="Reading Guide">
       <ol className="doc-reading-path">
         <li><a href="/doc/get-started/data/">Dataset</a><p>Explore the training and test sets, trajectory types, and training-data access.</p></li>
-        <li><a href="/doc/get-started/protocol/evaluation/">Evaluation Protocol</a><p>Review the three tracks, evaluation conditions, and score aggregation.</p></li>
+        <li><a href="/doc/get-started/protocol/evaluation/">Evaluation Protocol</a><p>Review the evaluation settings, conditions, and score aggregation.</p></li>
         <li><a href="/doc/get-started/evaluation/">Evaluation Workflow</a><p>Find the submission requirements and integration steps for your model.</p></li>
         <li><a href="/doc/get-started/protocol/metrics/">Metrics</a><p>Read what each metric measures, its mathematical definition, and how to interpret the result.</p></li>
       </ol>
@@ -190,7 +190,7 @@ export function GetStarted() {
       <p>Participants provide either an open-source model or a closed-source inference service and adapter. The RoboValue team reviews the integration, supplies the One-Shot demonstrations, runs the private evaluation, and reports the scores.</p>
     </Section>
     <Section id="before-participating" title="Before Participating">
-      <p>Complete the form on the <a href="/eval/">Eval page</a> and specify your model version, supported inputs and outputs, and intended track. Zero-Shot and One-Shot evaluations are currently reported; Full-Shot evaluation is planned.</p>
+      <p>Complete the form on the <a href="/eval/">Eval page</a> and specify your model version, supported inputs and outputs, and intended track. The paper and current leaderboard report Zero-Shot and One-Shot evaluations. This release does not report Full-Shot evaluation results.</p>
       <p>Review the <a href="/doc/get-started/protocol/evaluation/#dataset-references">demonstration and adaptation policy</a> before preparing your model.</p>
     </Section>
   </div>;
@@ -224,8 +224,8 @@ export function DatasetOverview() {
       </dl>
     </Section>
     <Section id="dataset-splits" title="Training Set">
-      <p>The training set contains 3,500 expert demonstrations, with 100 per task, all collected under the standard setting. For tasks with multiple valid solutions, it also provides executions in different valid subtask orders.</p>
-      <p>The public repository also provides one One-Shot reference episode per task. Full-Shot data supports training or fine-tuning on all 100 demonstrations per task; Full-Shot evaluation is planned. Training demonstrations do not include subtask boundary annotations.</p>
+      <p>The training set contains 3,500 expert demonstrations, with 100 per task, all collected under the standard setting. For tasks with multiple valid solutions, it also provides executions in different valid subtask orders. All simulation and real-world Full-Shot and One-Shot training subsets are publicly available.</p>
+      <p>The public repository also provides one One-Shot reference episode per task. Full-Shot data supports training or fine-tuning on all 100 demonstrations per task. Training demonstrations do not include subtask boundary annotations.</p>
       <p>See <a href="/doc/get-started/data/download/">Download</a> for training data access.</p>
     </Section>
     <Section id="dataset-test" title="Test Set">
@@ -248,7 +248,7 @@ export function DatasetOverview() {
 
 export function DatasetDownload() {
   return <div className="doc-content">
-    <p className="doc-lead">The training data is available on Hugging Face. The private test set is reserved for organizer-run evaluation.</p>
+    <p className="doc-lead">All four training subsets are publicly available on Hugging Face. The paper and current leaderboard report Zero-Shot and One-Shot evaluations. The private test set is reserved for organizer-run evaluation.</p>
     <Section id="dataset-training" title="Training Data">
       <p>The training set contains 3,500 expert demonstrations: 100 for each of the 15 simulation and 20 real-world tasks, collected under the standard in-domain (ID) setting.</p>
       <p>The public repository also provides 35 One-Shot reference episodes, one for each task. The four simulation and real-world subsets use LeRobot v3.0 and do not include subtask boundary annotations.</p>

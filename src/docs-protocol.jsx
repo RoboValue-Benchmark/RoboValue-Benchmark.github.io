@@ -26,7 +26,7 @@ export function EvaluationProtocol() {
   return <div className="doc-content">
     <p className="doc-lead">The RoboValue team evaluates submitted models under a standardized protocol designed to support fair comparisons and reliable results. This page sets out the evaluation requirements and procedures.</p>
     <Section id="protocol-settings" title="Evaluation Tracks">
-      <p>The three tracks differ in access to task-specific demonstrations and have separate leaderboards.</p>
+      <p>The settings below describe how task-specific demonstrations are used. This release reports separate Zero-Shot and One-Shot evaluations.</p>
       <div className="doc-protocol-tracks"><div className="doc-protocol-track-grid">
         <article className="doc-protocol-track doc-protocol-track--zero" aria-labelledby="protocol-zero-shot">
           <h3 id="protocol-zero-shot">Zero-Shot</h3>
@@ -41,12 +41,12 @@ export function EvaluationProtocol() {
           <p>Train or fine-tune on the complete training set of 100 expert demonstrations per task.</p>
         </article>
       </div></div>
-      <p>Published results cover Zero-Shot and One-Shot evaluation. Full-Shot evaluation is planned.</p>
+      <p>The paper and current leaderboard report Zero-Shot and One-Shot evaluations. This release does not report Full-Shot evaluation results. All four training subsets are publicly available; see the <a href="/doc/get-started/data/download/">training-data download guide</a>.</p>
       <p id="dataset-references">For One-Shot, the RoboValue team preselects one expert demonstration from each task's standard-scenario training set. It follows the task's default execution strategy and remains fixed across test trajectories and evaluation conditions. Participants do not need to provide their own references. Private test trajectories are never used as reference demonstrations or adaptation data.</p>
     </Section>
     <Section id="protocol-evaluation" title="Evaluation Procedure">
       <p>The RoboValue team evaluates each model on private test trajectories. We first review the model's adapter to determine which prediction interfaces it supports, including scalar values, pairwise comparisons, and subtask descriptions, and identify the metrics that can be evaluated. For each metric, the benchmark constructs queries using the trajectory observations and task instructions required by that metric. The adapter translates each query into the model's required inputs, including observation frames, temporal context, and reference information when needed. It then invokes either the local model for an open-source submission or the submitted inference service for a closed-source submission. The team computes metric scores from the returned predictions according to the scoring rules for each metric.</p>
-      <p>Zero-Shot and Full-Shot follow the same inference workflow, with no reference demonstration supplied during evaluation. Zero-Shot uses the submitted model without task-specific adaptation, whereas Full-Shot uses a model trained or fine-tuned on the released training set. One-Shot uses the fixed reference demonstration described above.</p>
+      <p>In the reported evaluations, Zero-Shot uses the submitted model without task-specific adaptation or reference demonstrations. One-Shot uses the fixed reference demonstration described above. Full-Shot describes training or fine-tuning on the complete released training set; this release does not report evaluation results for that setting.</p>
     </Section>
     <Section id="protocol-integrity" title="Evaluation Integrity">
       <p>Training and adaptation must follow the data restrictions of the selected track. Private test trajectories and their ground-truth annotations are neither released as training data nor used as references. Before evaluation, the RoboValue team reviews each adapter to verify that it correctly prepares the model's observation context and reference inputs, preserves native output semantics, and does not introduce scoring annotations into model inputs or prediction logic. The model version and inference configuration, including camera views, preprocessing, prompts, and temporal context, are recorded and kept fixed throughout evaluation.</p>
