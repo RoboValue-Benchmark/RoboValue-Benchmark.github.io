@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from './benchmark';
 import { DISCORD_INVITE } from './community';
 import { prepareSubmissionAttempt } from './eval-request.mjs';
+import { sendApplication } from './eval-transport.mjs';
 import { EvaluationFailure } from './eval-failure';
 import './eval.css';
 
@@ -184,7 +185,7 @@ export function EvaluationPage() {
       setPreviewSubmitted(true);
       return;
     }
-    if (SUBMISSION_MODE !== 'api') {
+    if (!['api', 'cloudbase'].includes(SUBMISSION_MODE)) {
       setSubmissionFailed(true);
       return;
     }
@@ -196,18 +197,13 @@ export function EvaluationPage() {
     try {
       const attempt = prepareSubmissionAttempt(payload, submissionAttemptRef.current);
       submissionAttemptRef.current = attempt;
-      const response = await fetch(import.meta.env.VITE_EVAL_API_URL?.trim() || '/api/evaluation-applications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Idempotency-Key': attempt.key },
-        body: attempt.body,
+      const result = await sendApplication(attempt, {
+        mode: SUBMISSION_MODE,
+        endpoint: import.meta.env.VITE_EVAL_API_URL,
+        cloudbaseEnv: import.meta.env.VITE_EVAL_CLOUDBASE_ENV,
+        publishableKey: import.meta.env.VITE_EVAL_CLOUDBASE_PUBLISHABLE_KEY,
         signal: controller.signal,
       });
-      const result = await response.json().catch(() => null);
-      if (response.status === 503 && result?.code === 'SUBMISSIONS_PAUSED') {
-        throw new Error('Application intake is temporarily paused. Please try again later, or join the evaluation community.');
-      }
-      if (!response.ok) throw new Error(typeof result?.error === 'string' ? result.error : 'Your application could not be submitted. Please try again, or contact us through the community.');
-      if (typeof result?.applicationId !== 'string' || typeof result?.submittedAt !== 'string') throw new Error('Your submission could not be confirmed. Please try again.');
       submissionAttemptRef.current = null;
       setApplication(result);
     } catch {

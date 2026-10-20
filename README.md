@@ -82,7 +82,7 @@ The earlier aligned paper-information version without the animated background is
 
 - `/`: paper and resource information over an animated manuscript task-image background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; selected-track rankings; community access; and a citation placeholder.
 - `/doc/`: documentation, evaluation and integration guidance, and all simulation and real-world task pages.
-- `/eval/`: evaluation application form with public WeChat and Discord access. Currently, valid submissions show the original success page in temporary frontend-only preview mode; applications are not sent or saved. API-backed submission and the contact fallback remain configurable.
+- `/eval/`: evaluation application form with public WeChat and Discord access. Production builds use CloudBase submissions and a saved server receipt. Local development retains the temporary frontend-only success preview; applications in that mode are not sent or saved. The contact fallback remains configurable.
 - `/community/`: public WeChat group invitation and Discord access, without the documentation sidebar.
 - `/data/`: standalone dataset page, currently showing Coming soon.
 - `/leaderboard/`: a separate Overall Ranking table and Standard (ID), Cross-Embodiment, and Cross-Environment results. Ranking and results have independent Zero-Shot, One-Shot, and empty Full-Shot controls; detailed results include SIA. Scores are sortable and exportable as CSV, with evaluation-workflow and protocol links.
@@ -138,5 +138,11 @@ npm run build
 ```
 
 The build generates real HTML entry files with page-specific titles, Open Graph titles, and canonical URLs so direct links and refreshes work on GitHub Pages. The GitHub Actions workflow deploys `dist/` when changes are pushed to `main`.
+
+Production builds read `eval-public-config.json`, which must contain exactly `keyType: "publish_key"`, `env: "robovalue-eval-d6gvbrl7g1fa30d73"`, and `publishableKey` set to this environment's verified **Publishable Key**. This file is intentionally public: it is committed with the website and its values are included in visitors' JavaScript. Never put an administrative API Key, Tencent Cloud credentials, SMTP authorization code, or IP-hashing secret in it. The release process must verify the key's actual CloudBase type; the local build validates its declared type and format.
+
+Vite's standard production `define` configuration fixes the submission mode to `cloudbase`. A missing or malformed public configuration stops `npm run build`; it cannot silently produce the frontend-only preview. No GitHub Actions variable or additional authorization scope is required. The existing deployment workflow is unchanged. `.env` loading is disabled. Local `npm run dev` retains the preview behavior described above unless a mode is explicitly provided in the process environment.
+
+CloudBase mode sends a native HTTPS request to `https://robovalue-eval-d6gvbrl7g1fa30d73.api.tcloudbasegateway.com/v1/functions/robovalue-submit`; no custom domain or embedded replacement form is used. The backend must be enabled, `robovalue-benchmark.github.io` must be an enabled safety origin, and the verified access policy must permit only the public submit endpoint while keeping the database and notification worker private. The existing success page appears only after a matching saved receipt. Public configuration changes require a new build and deployment.
 
 Code links point to the official repository at `https://github.com/RoboValue-Benchmark/RoboValue`. The homepage Report button opens `https://arxiv.org/pdf/2610.26663`; the Dataset button links to the published Hugging Face training data. The shared navigation is Home, Document, Leaderboard, Eval, and Community; the existing `/data/` placeholder remains accessible by its URL.
