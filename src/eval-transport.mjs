@@ -1,4 +1,13 @@
-const GENERIC_FAILURE = 'Your application could not be submitted. Please try again, or contact us through the community.';
+export class SubmissionError extends Error {
+  constructor(kind, extra = {}) { super('Submission was not confirmed.'); this.kind = kind; Object.assign(this, extra); }
+}
+
+function rejected(result) {
+  if (result?.statusCode === 429 && result.code === 'RATE_LIMITED') throw new SubmissionError('limit', { limitType: result.limitType, retryAfterSeconds: result.retryAfterSeconds });
+  if (result?.statusCode === 503 && result.code === 'NOT_ENABLED') throw new SubmissionError('unavailable');
+  throw new SubmissionError('unconfirmed');
+}
+
 const UNCONFIRMED = 'Your submission could not be confirmed. Please try again.';
 
 function submissionRequest(attempt, configuration) {
@@ -31,7 +40,7 @@ export async function sendApplication(attempt, configuration, fetchRequest = glo
     signal: configuration.signal, credentials: 'omit', redirect: 'error',
   });
   const envelope = await response.json().catch(() => null);
-  if (!response.ok) throw new Error(GENERIC_FAILURE);
+  if (!response.ok && response.status !== 429 && response.status !== 503) throw new SubmissionError('unconfirmed');
   let result = envelope;
   if (configuration.mode === 'cloudbase') {
     // Native HTTP responses may contain the function JSON directly or wrap it
@@ -45,8 +54,9 @@ export async function sendApplication(attempt, configuration, fetchRequest = glo
       try { result = JSON.parse(result); } catch { throw new Error(UNCONFIRMED); }
     }
     if (!result || typeof result !== 'object' || Array.isArray(result)) throw new Error(UNCONFIRMED);
-    if (![200, 201].includes(result?.statusCode)) throw new Error(GENERIC_FAILURE);
+    if (![200, 201].includes(result?.statusCode)) rejected(result);
   }
+  if (!response.ok) throw new SubmissionError('unconfirmed');
   if (result?.applicationId !== attempt.key
       || typeof result.submittedAt !== 'string'
       || !Number.isFinite(Date.parse(result.submittedAt))) {

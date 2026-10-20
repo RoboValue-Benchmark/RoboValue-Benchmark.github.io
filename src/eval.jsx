@@ -3,7 +3,7 @@ import { Icon } from './benchmark';
 import { DISCORD_INVITE } from './community';
 import { prepareSubmissionAttempt } from './eval-request.mjs';
 import { sendApplication } from './eval-transport.mjs';
-import { EvaluationFailure } from './eval-failure';
+import { submissionNotice, describeSubmissionNotice } from './eval-status.mjs';
 import './eval.css';
 
 // Temporary frontend-only success display; enable "api" after the receiver is ready.
@@ -124,15 +124,15 @@ export function EvaluationPage() {
   const [values, setValues] = useState({ teamName: '', organization: '', modelName: '', email: '' });
   const [contacts, setContacts] = useState({ phone: '', wechat: '', discord: '' });
   const [errors, setErrors] = useState({});
-  const [submissionFailed, setSubmissionFailed] = useState(false);
+  const [notice, setNotice] = useState(null);
+  const [currentTime, setCurrentTime] = useState(Date.now);
   const [submitting, setSubmitting] = useState(false);
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const [application, setApplication] = useState(null);
   const [previewSubmitted, setPreviewSubmitted] = useState(false);
   const formRef = useRef(null);
   const successRef = useRef(null);
-  const failureRef = useRef(null);
-  const returningToFormRef = useRef(false);
+  const noticeRef = useRef(null);
   const submittingRef = useRef(false);
   const requestRef = useRef(null);
   const submissionAttemptRef = useRef(null);
@@ -141,12 +141,16 @@ export function EvaluationPage() {
   useEffect(() => () => requestRef.current?.abort(), []);
   useEffect(() => {
     if (showSuccess) successRef.current?.focus();
-    else if (submissionFailed) failureRef.current?.focus();
-    else if (returningToFormRef.current) {
-      formRef.current?.querySelector('[name="teamName"]')?.focus();
-      returningToFormRef.current = false;
-    }
-  }, [showSuccess, submissionFailed]);
+  }, [showSuccess]);
+  useEffect(() => {
+    if (notice && !submitting) noticeRef.current?.focus();
+  }, [notice, submitting]);
+  useEffect(() => {
+    if (!notice?.retryAt) return;
+    const timer = window.setInterval(() => setCurrentTime(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, [notice]);
+  const displayNotice = describeSubmissionNotice(notice, currentTime);
 
   function checkField(name, nextValues = values, nextContacts = contacts) {
     const validationErrors = validateApplication({ ...nextValues, contacts: nextContacts });
@@ -170,7 +174,7 @@ export function EvaluationPage() {
 
   async function submitApplication(event) {
     event.preventDefault();
-    if (submittingRef.current) return;
+    if (submittingRef.current || describeSubmissionNotice(notice, Date.now()).waiting) return;
     const payload = { ...values, contacts };
     const validationErrors = validateApplication(payload);
     setAttemptedSubmit(true);
@@ -186,11 +190,12 @@ export function EvaluationPage() {
       return;
     }
     if (!['api', 'cloudbase'].includes(SUBMISSION_MODE)) {
-      setSubmissionFailed(true);
+      setNotice(submissionNotice({ kind: 'unavailable' }));
       return;
     }
     submittingRef.current = true;
     setSubmitting(true);
+    setNotice(null);
     const controller = new AbortController();
     requestRef.current = controller;
     const timeout = window.setTimeout(() => controller.abort(), 20000);
@@ -206,8 +211,10 @@ export function EvaluationPage() {
       });
       submissionAttemptRef.current = null;
       setApplication(result);
-    } catch {
-      setSubmissionFailed(true);
+    } catch (error) {
+      const time = Date.now();
+      setCurrentTime(time);
+      setNotice(submissionNotice(error, time));
     } finally {
       window.clearTimeout(timeout);
       submittingRef.current = false;
@@ -216,20 +223,7 @@ export function EvaluationPage() {
     }
   }
 
-  function returnToForm() {
-    returningToFormRef.current = true;
-    setSubmissionFailed(false);
-  }
-
-  const resultClass = showSuccess ? ' is-submitted' : submissionFailed ? ' is-failed' : '';
-  const applicationDetails = [
-    'RoboValue Evaluation Request',
-    '',
-    ...BASIC_FIELDS.map(field => `${field.label}: ${values[field.name].trim()}`),
-    ...Object.entries(CONTACT_METHODS)
-      .filter(([key]) => contacts[key].trim())
-      .map(([key, method]) => `${method.fieldLabel}: ${contacts[key].trim()}`),
-  ].join('\n');
+  const resultClass = showSuccess ? ' is-submitted' : '';
 
   function renderBasicField(field) {
     return <div className={`eval-field${field.name === 'modelName' ? ' eval-field-wide' : ''}`} key={field.name}>
@@ -246,8 +240,8 @@ export function EvaluationPage() {
     </header>}
 
     <div className={`eval-layout${resultClass}`}>
-      <section className={`eval-application${resultClass}`} aria-labelledby={showSuccess ? 'eval-success-heading' : submissionFailed ? 'eval-failure-heading' : 'eval-form-heading'}>
-        {showSuccess ? <EvaluationSuccess successRef={successRef} /> : submissionFailed ? <EvaluationFailure headingRef={failureRef} details={applicationDetails} onBack={returnToForm} /> : <>
+      <section className={`eval-application${resultClass}`} aria-labelledby={showSuccess ? 'eval-success-heading' : 'eval-form-heading'}>
+        {showSuccess ? <EvaluationSuccess successRef={successRef} /> : <>
           <div className="eval-form-heading"><h2 id="eval-form-heading">Application Details</h2><p><span aria-hidden="true">*</span> Required</p></div>
           <form ref={formRef} className="eval-form" onSubmit={submitApplication} noValidate aria-busy={submitting}>
             <fieldset className="eval-form-fields" disabled={submitting}>
@@ -275,8 +269,16 @@ export function EvaluationPage() {
               </section>
             </fieldset>
             {attemptedSubmit && Object.values(errors).some(Boolean) && <p className="eval-validation-summary" role="alert">Please check the highlighted fields before submitting.</p>}
-            <div className="eval-form-footer">
-              <button className="eval-submit" type="submit" disabled={submitting}>{submitting ? 'Submitting…' : 'Submit Application'}{!submitting && <Icon size={20} />}</button>
+            <div className={`eval-form-footer${displayNotice.waiting ? ' is-waiting' : ''}`}>
+              <button className={`eval-submit${submitting ? ' is-loading' : ''}`} type="submit" disabled={submitting || displayNotice.waiting} aria-describedby={notice ? 'eval-submission-status' : undefined}>
+                {submitting && <span className="eval-submit-spinner" aria-hidden="true" />}
+                {submitting ? 'Submitting…' : displayNotice.button}
+                {!submitting && !notice && <Icon size={20} />}
+              </button>
+              {notice && !submitting && <>
+                <p className="eval-submission-status" id="eval-submission-status" ref={noticeRef} tabIndex={-1} role="status">{displayNotice.message}</p>
+                <p className="eval-submission-help"><span className="eval-help-icon" aria-hidden="true">i</span><span>Still unable to submit? Scan a QR code <span className="eval-help-desktop">on the right</span><span className="eval-help-mobile">below</span> to join our community and contact the team.</span></p>
+              </>}
             </div>
           </form>
         </>}
