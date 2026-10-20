@@ -41,6 +41,7 @@ const CONTENT_CHANNELS = [
   { name: 'YouTube', icon: 'youtube', href: null },
   { name: '小红书', icon: 'xiaohongshu', href: null },
   { name: 'X', icon: 'x', href: null },
+  { name: '具身智能之心', icon: 'embodied-heart', image: 'embodied-heart.png', href: 'https://mp.weixin.qq.com/s/mwxJNB9CZdt97M39rcwHkw' },
 ];
 const CONDITIONS = { id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment' };
 const CONDITION_ORDER = Object.keys(CONDITIONS);
@@ -97,9 +98,9 @@ function ResearchDetails() {
           return <span key={name}>{homepage ? <a href={homepage} target="_blank" rel="noopener noreferrer">{name}</a> : name}<sup>{numbers}{role && <span className="rv-author-role">,{role}</span>}</sup></span>;
         })}</div><p className="rv-author-notes"><span className="rv-author-role">*</span> Equal contribution <span className="rv-note-separator">·</span> <span className="rv-author-role">†</span> Project leader <span className="rv-note-separator">·</span> <span className="rv-author-role">‡</span> Corresponding authors</p></dd>
         <dt>Affiliations</dt><dd><div className="rv-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div><div className="rv-institutions" aria-label="Institution logos">{INSTITUTION_LOGOS.map((file, index) => <img key={file} className={file === 'hku.png' ? 'rv-institution-hku' : undefined} src={`/assets/affiliations/${file}`} alt={AFFILIATIONS[index]} width="180" height="48" loading="eager" />)}</div></dd>
-        <dt className="rv-content-label">Share</dt><dd><div className="rv-content-channels" aria-label="Project content">{CONTENT_CHANNELS.map(({ name, icon, href }) => {
+        <dt className="rv-content-label">Share</dt><dd><div className="rv-content-channels" aria-label="Project content">{CONTENT_CHANNELS.map(({ name, icon, image, href }) => {
           const Element = href ? 'a' : 'span';
-          return <Element key={icon} className="rv-content-channel" href={href || undefined} target={href ? '_blank' : undefined} rel={href ? 'noopener noreferrer' : undefined}><img src={`/assets/content-platforms/${icon}.svg`} className={`rv-content-logo rv-content-logo--${icon}`} alt="" width="20" height="20" aria-hidden="true" />{name}</Element>;
+          return <Element key={icon} className="rv-content-channel" href={href || undefined} target={href ? '_blank' : undefined} rel={href ? 'noopener noreferrer' : undefined}><img src={`/assets/content-platforms/${image || `${icon}.svg`}`} className={`rv-content-logo rv-content-logo--${icon}`} alt="" width="20" height="20" aria-hidden="true" />{name}</Element>;
         })}</div></dd>
       </dl>
       <div className="rv-paper-entries" aria-label="Project links">

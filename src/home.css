@@ -118,14 +118,18 @@
 .rv-institutions img { display: block; width: 100%; height: 39px; object-fit: contain; mix-blend-mode: multiply; }
 .rv-content-channels { display: flex; flex-wrap: wrap; align-items: center; row-gap: 8px; }
 .rv-paper-details .rv-content-label { padding-top: 0; line-height: 20px; }
-.rv-content-channel { display: inline-flex; align-items: center; gap: 7px; padding-inline: 11px; border-left: 1px solid #9a96ae40; color: #6d707a; font-size: 13px; font-weight: 400; line-height: 20px; text-decoration: none; white-space: nowrap; }
+.rv-content-channel { display: inline-flex; align-items: center; gap: 7px; padding-inline: 11px; border-left: 1px solid #9e94b3; color: #6d707a; font-size: 13px; font-weight: 400; line-height: 20px; text-decoration: none; white-space: nowrap; }
 .rv-content-channel:first-child { padding-left: 0; border-left: 0; }
 .rv-content-channel:last-child { padding-right: 0; }
 .rv-content-logo { display: block; flex: 0 0 16px; width: 16px; height: 16px; object-fit: contain; }
+.rv-content-logo--embodied-heart { flex-basis: 20px; width: 20px; height: 20px; }
+@media (max-width: 480px) {
+  .rv-content-channel:last-child { flex-basis: 100%; padding-left: 0; border-left: 0; }
+}
 .rv-content-channels a:hover { color: var(--rv-heading-color); text-decoration: underline; text-underline-offset: 3px; }
 .rv-content-channels a:focus-visible { outline: 2px solid var(--rv-heading-color); outline-offset: 4px; border-radius: 2px; }
 [data-theme="dark"] .rv-content-logo--x { filter: brightness(0) invert(1); }
-[data-theme="dark"] .rv-content-channel { color: #b4afbd; border-color: #92879e55; }
+[data-theme="dark"] .rv-content-channel { color: #b4afbd; border-color: #897a9e; }
 .rv-paper-entries { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 32px 0 0; }
 .rv-release-grid, .rv-paper-links { display: contents; }
 .rv-entry { --entry-accent: #34373e; display: inline-flex; align-items: center; justify-content: center; gap: 9px; height: 48px; min-height: 48px; padding: 11px; border: 1px solid #9d9cd6a6; border-radius: 12px; background: linear-gradient(120deg, #ecf2ffb3, #f0e7fba6); box-shadow: inset 0 1px 0 #ffffffb3, 0 3px 12px #4b3b7f14; color: var(--rv-ink); font-size: 14px; line-height: 1.5; white-space: nowrap; transition: background .2s, border-color .2s, box-shadow .2s; }
