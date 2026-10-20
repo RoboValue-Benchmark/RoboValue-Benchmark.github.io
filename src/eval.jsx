@@ -5,8 +5,8 @@ import { prepareSubmissionAttempt } from './eval-request.mjs';
 import { EvaluationFailure } from './eval-failure';
 import './eval.css';
 
-// Opt in after the receiver is ready. Static hosting defaults to the contact fallback.
-const ONLINE_SUBMISSION_ENABLED = import.meta.env.VITE_EVAL_SUBMISSION_MODE === 'api';
+// Temporary frontend-only success display; enable "api" after the receiver is ready.
+const SUBMISSION_MODE = import.meta.env.VITE_EVAL_SUBMISSION_MODE || 'preview';
 
 const BASIC_FIELDS = [
   { name: 'teamName', label: 'Team Name', maxLength: 120, placeholder: 'Team name', autoComplete: 'off' },
@@ -117,6 +117,7 @@ export function EvaluationPage() {
   const [submitting, setSubmitting] = useState(false);
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const [application, setApplication] = useState(null);
+  const [previewSubmitted, setPreviewSubmitted] = useState(false);
   const formRef = useRef(null);
   const successRef = useRef(null);
   const failureRef = useRef(null);
@@ -124,16 +125,17 @@ export function EvaluationPage() {
   const submittingRef = useRef(false);
   const requestRef = useRef(null);
   const submissionAttemptRef = useRef(null);
+  const showSuccess = Boolean(application) || previewSubmitted;
 
   useEffect(() => () => requestRef.current?.abort(), []);
   useEffect(() => {
-    if (application) successRef.current?.focus();
+    if (showSuccess) successRef.current?.focus();
     else if (submissionFailed) failureRef.current?.focus();
     else if (returningToFormRef.current) {
       formRef.current?.querySelector('[name="teamName"]')?.focus();
       returningToFormRef.current = false;
     }
-  }, [application, submissionFailed]);
+  }, [showSuccess, submissionFailed]);
 
   function checkField(name, nextValues = values, nextContacts = contacts) {
     const validationErrors = validateApplication({ ...nextValues, contacts: nextContacts });
@@ -168,7 +170,11 @@ export function EvaluationPage() {
       formRef.current?.querySelector(`[name="${fieldName}"]:not(:disabled)`)?.focus();
       return;
     }
-    if (!ONLINE_SUBMISSION_ENABLED) {
+    if (SUBMISSION_MODE === 'preview') {
+      setPreviewSubmitted(true);
+      return;
+    }
+    if (SUBMISSION_MODE !== 'api') {
       setSubmissionFailed(true);
       return;
     }
@@ -209,7 +215,7 @@ export function EvaluationPage() {
     setSubmissionFailed(false);
   }
 
-  const resultClass = application ? ' is-submitted' : submissionFailed ? ' is-failed' : '';
+  const resultClass = showSuccess ? ' is-submitted' : submissionFailed ? ' is-failed' : '';
   const applicationDetails = [
     'RoboValue Evaluation Request',
     '',
@@ -234,8 +240,8 @@ export function EvaluationPage() {
     </header>}
 
     <div className={`eval-layout${resultClass}`}>
-      <section className={`eval-application${resultClass}`} aria-labelledby={application ? 'eval-success-heading' : submissionFailed ? 'eval-failure-heading' : 'eval-form-heading'}>
-        {application ? <EvaluationSuccess successRef={successRef} /> : submissionFailed ? <EvaluationFailure headingRef={failureRef} details={applicationDetails} onBack={returnToForm} /> : <>
+      <section className={`eval-application${resultClass}`} aria-labelledby={showSuccess ? 'eval-success-heading' : submissionFailed ? 'eval-failure-heading' : 'eval-form-heading'}>
+        {showSuccess ? <EvaluationSuccess successRef={successRef} /> : submissionFailed ? <EvaluationFailure headingRef={failureRef} details={applicationDetails} onBack={returnToForm} /> : <>
           <div className="eval-form-heading"><h2 id="eval-form-heading">Application Details</h2><p><span aria-hidden="true">*</span> Required</p></div>
           <form ref={formRef} className="eval-form" onSubmit={submitApplication} noValidate aria-busy={submitting}>
             <fieldset className="eval-form-fields" disabled={submitting}>

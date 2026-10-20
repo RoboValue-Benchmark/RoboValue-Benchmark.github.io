@@ -82,7 +82,7 @@ The earlier aligned paper-information version without the animated background is
 
 - `/`: paper and resource information over an animated manuscript task-image background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; selected-track rankings; community access; and a citation placeholder.
 - `/doc/`: documentation, evaluation and integration guidance, and all simulation and real-world task pages.
-- `/eval/`: evaluation application form with public WeChat and Discord access. Currently, valid submissions show a contact fallback with copyable application details. The original success page and Evaluation Workflow link remain available when API submissions are enabled.
+- `/eval/`: evaluation application form with public WeChat and Discord access. Currently, valid submissions show the original success page in temporary frontend-only preview mode; applications are not sent or saved. API-backed submission and the contact fallback remain configurable.
 - `/community/`: public WeChat group invitation and Discord access, without the documentation sidebar.
 - `/data/`: standalone dataset page, currently showing Coming soon.
 - `/leaderboard/`: a separate Overall Ranking table and Standard (ID), Cross-Embodiment, and Cross-Environment results. Ranking and results have independent Zero-Shot, One-Shot, and empty Full-Shot controls; detailed results include SIA. Scores are sortable and exportable as CSV, with evaluation-workflow and protocol links.
@@ -109,9 +109,11 @@ npm ci
 npm run dev -- --port 8877
 ```
 
-Eval currently defaults to **contact fallback mode** (`VITE_EVAL_SUBMISSION_MODE` unset or `unavailable`). The form and validation remain unchanged; after a valid submit, the page shows the failure message, evaluation WeChat QR, Discord invitation, and **Copy application details**. This mode sends no application request and stores no form details in browser storage. **Back to form** retains the current page's input; reloading the page clears it. Clipboard denial exposes a selectable text fallback.
+Eval currently defaults to **frontend-only success preview mode** (`VITE_EVAL_SUBMISSION_MODE` unset or `preview`). Normal form validation runs first; valid submissions display the original **Application Submitted!** page and Evaluation Workflow link. This mode sends no application request, creates no server receipt, saves no application, and triggers no notification. Displaying the success page does not confirm backend delivery. Form values remain only in page memory and are cleared on reload.
 
-The original **Application Submitted!** page and API submission logic are retained. When the receiver is ready, explicitly set `VITE_EVAL_SUBMISSION_MODE=api` and, for production, `VITE_EVAL_API_URL` to the verified HTTPS endpoint. These are build-time settings: rebuild and redeploy after changing them. API mode shows success only after a valid receipt; failed requests show the new failure page. Retrying unchanged details retains the idempotency key.
+Set `VITE_EVAL_SUBMISSION_MODE=unavailable` to display the contact fallback instead: failure message, evaluation WeChat QR, Discord invitation, and **Copy application details**. **Back to form** retains the current page's input. Clipboard denial exposes a selectable text fallback. Unknown mode values also use this fallback.
+
+The API submission logic is retained. When the receiver is ready, explicitly set `VITE_EVAL_SUBMISSION_MODE=api` and, for production, `VITE_EVAL_API_URL` to the verified HTTPS endpoint. These are build-time settings: rebuild and redeploy after changing them. API mode shows success only after a valid receipt; failed requests show the failure page. Retrying unchanged details retains the idempotency key.
 
 For local API-mode development, start the frontend with:
 
