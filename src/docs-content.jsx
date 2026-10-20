@@ -125,7 +125,7 @@ function PrivateTestNotice() {
 }
 
 function TrainingDownloadLink() {
-  return <button type="button" disabled title="Hugging Face download link to be added">Training data download · Hugging Face</button>;
+  return <a href="https://huggingface.co/datasets/wzlllong/value-model-benchmark-training-data#download-and-reading">Training data download · Hugging Face</a>;
 }
 
 export function PageOutline({ sections }) {
@@ -163,7 +163,7 @@ export function DocumentationOverview() {
       <div id="benchmark-overview"><Figure src="/assets/overview-10-16.svg" alt="RoboValue overview: simulation and real-world tasks, expert and diagnostic trajectories, shared evaluation interfaces, four capability dimensions, and the leaderboard" /></div>
       <p><strong className="doc-brand-name">RoboValue</strong> is a fine-grained sim-and-real benchmark for unified evaluation of robotic value models. <strong className="doc-brand-name">RoboValue-Dataset</strong> provides 3,500 expert training demonstrations and 2,792 annotated test trajectories across <strong>15 simulation and 20 real-world manipulation tasks</strong>. Diagnostic trajectories and instruction variations test responses to task requirements, execution history, failure and recovery, and alternative valid solutions. Separate embodiment and environment shifts assess generalization.</p>
       <p><strong className="doc-brand-name">RoboValue-Benchmark</strong> evaluates four complementary capabilities: {GROUPS.map((group, index) => <React.Fragment key={group.id}>{index === 0 ? '' : index === GROUPS.length - 1 ? ', and ' : ', '}<strong className="doc-capability" data-capability={group.id}>{group.title.toLowerCase()}</strong></React.Fragment>)}. Shared interfaces and model-specific adapters enable comparisons across heterogeneous models while preserving their native value semantics.</p>
-      <p><strong className="doc-brand-name">RoboValue-Leaderboard</strong> provides overall rankings and capability profiles for three tracks: Zero-Shot, One-Shot, and Full-Shot. Current results cover the first two; Full-Shot will open with the training-data release. The accompanying analyses reveal limitations in instruction grounding, history awareness, recovery reasoning, and subtask credit, helping guide the development of more reliable value feedback for policy learning, action planning, and execution monitoring.</p>
+      <p><strong className="doc-brand-name">RoboValue-Leaderboard</strong> provides overall rankings and capability profiles for three tracks: Zero-Shot, One-Shot, and Full-Shot. Current results cover the first two; Full-Shot evaluation is planned. The accompanying analyses reveal limitations in instruction grounding, history awareness, recovery reasoning, and subtask credit, helping guide the development of more reliable value feedback for policy learning, action planning, and execution monitoring.</p>
     </Section>
     <Section id="overview-metrics" title="Metrics">
       <div className="doc-table-scroll" tabIndex={0} role="region" aria-label="Evaluation metrics"><table className="doc-overview-metrics"><thead><tr><th scope="col">Capability</th><th scope="col">Metric</th><th scope="col">Evaluation Focus</th></tr></thead><tbody>{OVERVIEW_METRICS.map(([capabilityId, metrics]) => {
@@ -190,7 +190,7 @@ export function GetStarted() {
       <p>Participants provide either an open-source model or a closed-source inference service and adapter. The RoboValue team reviews the integration, supplies the One-Shot demonstrations, runs the private evaluation, and reports the scores.</p>
     </Section>
     <Section id="before-participating" title="Before Participating">
-      <p>Complete the form on the <a href="/eval/">Eval page</a> and specify your model version, supported inputs and outputs, and intended track. Zero-Shot and One-Shot evaluations are currently reported; Full-Shot will open with the training-data release.</p>
+      <p>Complete the form on the <a href="/eval/">Eval page</a> and specify your model version, supported inputs and outputs, and intended track. Zero-Shot and One-Shot evaluations are currently reported; Full-Shot evaluation is planned.</p>
       <p>Review the <a href="/doc/get-started/protocol/evaluation/#dataset-references">demonstration and adaptation policy</a> before preparing your model.</p>
     </Section>
   </div>;
@@ -225,7 +225,7 @@ export function DatasetOverview() {
     </Section>
     <Section id="dataset-splits" title="Training Set">
       <p>The training set contains 3,500 expert demonstrations, with 100 per task, all collected under the standard setting. For tasks with multiple valid solutions, it also provides executions in different valid subtask orders.</p>
-      <p>The One-Shot track uses one demonstration per task from this set. The Full-Shot track will allow training or fine-tuning on the complete set. Training demonstrations do not include subtask boundary annotations.</p>
+      <p>The public repository also provides one One-Shot reference episode per task. Full-Shot data supports training or fine-tuning on all 100 demonstrations per task; Full-Shot evaluation is planned. Training demonstrations do not include subtask boundary annotations.</p>
       <p>See <a href="/doc/get-started/data/download/">Download</a> for training data access.</p>
     </Section>
     <Section id="dataset-test" title="Test Set">
@@ -234,7 +234,7 @@ export function DatasetOverview() {
       <p>Task instructions, subtasks, and visual examples are listed under <a href="/doc/simulation-tasks/">Simulation Tasks</a> and <a href="/doc/real-world-tasks/">Real-World Tasks</a>.</p>
     </Section>
     <Section id="dataset-observations" title="Observations">
-      <p><strong>Visual observations.</strong> Each trajectory records synchronized RGB-D observations from three cameras: one head-mounted camera and one camera on each wrist.</p>
+      <p><strong>Visual observations.</strong> Each trajectory provides three synchronized camera views: a high or head view and one view from each wrist. Public training files contain RGB MP4 streams.</p>
       <p><strong>Robot states and actions.</strong> Recordings include robot joint positions, end-effector poses, and gripper states, together with action targets. The field layout depends on the simulation or real-world platform; end-effector poses describe the position and orientation of each arm's end effector.</p>
     </Section>
     <Section id="dataset-annotation" title="Annotation">
@@ -248,11 +248,11 @@ export function DatasetOverview() {
 
 export function DatasetDownload() {
   return <div className="doc-content">
-    <p className="doc-lead">The training set will be released on Hugging Face. The private test set is reserved for organizer-run evaluation.</p>
+    <p className="doc-lead">The training data is available on Hugging Face. The private test set is reserved for organizer-run evaluation.</p>
     <Section id="dataset-training" title="Training Data">
       <p>The training set contains 3,500 expert demonstrations: 100 for each of the 15 simulation and 20 real-world tasks, collected under the standard in-domain (ID) setting.</p>
-      <p>These demonstrations support the One-Shot and Full-Shot tracks. They do not include subtask boundary annotations.</p>
-      <div className="doc-download-panel"><div><strong>Training data on Hugging Face</strong><p>The download link will be added here when available.</p></div><TrainingDownloadLink /></div>
+      <p>The public repository also provides 35 One-Shot reference episodes, one for each task. The four simulation and real-world subsets use LeRobot v3.0 and do not include subtask boundary annotations.</p>
+      <div className="doc-download-panel"><div><strong>Training data on Hugging Face</strong><p>The dataset card includes download and reading examples for all four subsets.</p></div><TrainingDownloadLink /></div>
     </Section>
 
   </div>;

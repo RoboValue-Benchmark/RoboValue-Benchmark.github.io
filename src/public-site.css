@@ -10,6 +10,8 @@
 .public-data-page, .public-eval-page { width: min(960px, calc(100% - 80px)); min-height: 100svh; margin: 0 auto; padding: 142px 0 72px; color: #202124; font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif; outline: none; }
 .public-data-page h1, .public-eval-page h1 { margin: 0; font-size: 36px; line-height: 1.35; font-weight: 600; }
 .public-data-page p { margin-top: 20px; font-size: 16px; color: #5f6368; }
+.public-data-page a { color: var(--theme-accent); text-decoration: underline; text-underline-offset: 3px; }
+[data-theme="dark"] .public-data-page, [data-theme="dark"] .public-data-page p { color: var(--theme-body); }
 .public-header {
   position: fixed;
   z-index: 80;

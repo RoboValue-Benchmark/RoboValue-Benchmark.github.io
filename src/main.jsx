@@ -145,7 +145,7 @@ function App() {
   if (page?.kind === 'landing') return <Landing />;
   if (page?.kind === 'community') return <div className="docs-app community-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><CommunityPage /></div>;
   if (page?.kind === 'evaluation-page') return <div className="docs-app eval-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><EvaluationPage /></div>;
-  if (page?.kind === 'data-release') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main className="public-data-page" id="main-content" tabIndex={-1}><h1>Data</h1><p>Coming soon.</p></main></div>;
+  if (page?.kind === 'data-release') return <div className="docs-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main className="public-data-page" id="main-content" tabIndex={-1}><h1>Data</h1><p>The public training data contains 3,500 Full-Shot demonstrations and 35 One-Shot reference episodes in LeRobot v3.0 format.</p><p><a href="https://huggingface.co/datasets/wzlllong/value-model-benchmark-training-data">Training data on Hugging Face</a> · <a href="/doc/get-started/data/download/">Download and reading guide</a></p></main></div>;
   if (page?.kind === 'leaderboard') return <div className="docs-app leaderboard-app"><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><Leaderboard /></div>;
   return <div className={`docs-app docs-workspace ${sidebarCollapsed ? 'is-sidebar-collapsed' : ''}`}>
     <a className="skip-link" href="#main-content">Skip to content</a>

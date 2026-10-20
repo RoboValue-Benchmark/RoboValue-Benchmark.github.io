@@ -380,18 +380,27 @@
 .doc-download-panel p {
   margin-top: 6px;
   font-size: 15px;
-  color: #82718f;
+  color: var(--theme-body);
 }
 
-.doc-download-panel button {
+.doc-content .doc-download-panel a {
   flex-shrink: 0;
   padding: 9px 12px;
   border: 1px solid #ded4e9;
   border-radius: 7px;
   background: #f3eff8;
   font-size: 13px;
-  color: #8a7b97;
+  color: var(--doc-accent);
+  font-weight: 600;
   opacity: 1;
+  text-decoration: none;
+}
+
+.doc-content .doc-download-panel a:hover,
+.doc-content .doc-download-panel a:focus-visible {
+  border-color: var(--doc-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .doc-track-grid {

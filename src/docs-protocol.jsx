@@ -41,7 +41,7 @@ export function EvaluationProtocol() {
           <p>Train or fine-tune on the complete training set of 100 expert demonstrations per task.</p>
         </article>
       </div></div>
-      <p>Published results cover Zero-Shot and One-Shot evaluation. Full-Shot will open with the training-data release.</p>
+      <p>Published results cover Zero-Shot and One-Shot evaluation. Full-Shot evaluation is planned.</p>
       <p id="dataset-references">For One-Shot, the RoboValue team preselects one expert demonstration from each task's standard-scenario training set. It follows the task's default execution strategy and remains fixed across test trajectories and evaluation conditions. Participants do not need to provide their own references. Private test trajectories are never used as reference demonstrations or adaptation data.</p>
     </Section>
     <Section id="protocol-evaluation" title="Evaluation Procedure">

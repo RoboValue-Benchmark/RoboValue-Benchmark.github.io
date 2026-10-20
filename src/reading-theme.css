@@ -98,6 +98,7 @@
 [data-theme="dark"] .docs-sidebar, [data-theme="dark"] .nav-filter { border-color: var(--theme-border); }
 [data-theme="dark"] .docs-workspace .doc-tag-row span, [data-theme="dark"] .docs-workspace .doc-download-panel button { background: var(--theme-page); border-color: var(--theme-border); color: var(--theme-muted); }
 [data-theme="dark"] .docs-workspace .doc-download-panel p, [data-theme="dark"] .docs-workspace .doc-reading-path p { color: var(--theme-body); }
+[data-theme="dark"] .docs-workspace .doc-download-panel a { background: var(--theme-page); border-color: var(--theme-border); color: var(--theme-accent); }
 [data-theme="dark"] .docs-workspace .nav-group > div { border-color: var(--theme-border); }
 [data-theme="dark"] .docs-sidebar { scrollbar-color: var(--theme-border) transparent; }
 [data-theme="dark"] .doc-affiliations img { background: #fff; padding: 6px; border-radius: 4px; height: 50px; }
