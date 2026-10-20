@@ -593,7 +593,7 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
 .rv-news-item time { display: inline-flex; align-items: baseline; gap: 3px; padding-top: 3px; color: #8f54c7; font-size: 14px; font-weight: 550; font-variant-numeric: tabular-nums; letter-spacing: .025em; }
 .rv-news-item time span { margin-inline: 2px; opacity: .65; }
 .rv-home .rv-news-item p { margin: 0; color: var(--rv-ink); font: inherit; font-weight: 400; line-height: 1.8; text-wrap: pretty; }
-.rv-news-item strong { font-size: inherit; font-weight: 600; }
+.rv-news-item strong { color: var(--rv-body); font-size: inherit; font-weight: 500; }
 .rv-news-item a { color: var(--rv-accent); font-size: inherit; font-weight: 500; text-decoration: none; text-underline-offset: 4px; }
 .rv-news-item a:hover { text-decoration: underline; }
 .rv-news-item a:focus-visible { outline: 2px solid var(--rv-heading-color); outline-offset: 4px; border-radius: 2px; }
