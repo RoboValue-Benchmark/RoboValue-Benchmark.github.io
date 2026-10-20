@@ -104,7 +104,7 @@ function ResearchDetails() {
       </dl>
       <div className="rv-paper-entries" aria-label="Project links">
         <div className="rv-release-grid">
-          <ResourceEntry label="Report" icon="paper" external />
+          <ResourceEntry label="Report" icon="paper" href="https://arxiv.org/pdf/2610.26663" external />
           <ResourceEntry label="Document" icon="book" href="/doc/" arrow />
           <ResourceEntry label="Code" logo="github" href="https://github.com/RoboValue-Benchmark/RoboValue" external />
           <ResourceEntry label="Dataset" icon="database" href="https://huggingface.co/datasets/wzlllong/value-model-benchmark-training-data" external />

@@ -139,4 +139,4 @@ npm run build
 
 The build generates real HTML entry files with page-specific titles, Open Graph titles, and canonical URLs so direct links and refreshes work on GitHub Pages. The GitHub Actions workflow deploys `dist/` when changes are pushed to `main`.
 
-Code links point to the official repository at `https://github.com/RoboValue-Benchmark/RoboValue`. The homepage Report (arXiv) and Dataset buttons remain disabled until their destinations are available. The shared navigation is Home, Document, Leaderboard, Eval, and Community; the existing `/data/` placeholder remains accessible by its URL.
+Code links point to the official repository at `https://github.com/RoboValue-Benchmark/RoboValue`. The homepage Report button opens `https://arxiv.org/pdf/2610.26663`; the Dataset button links to the published Hugging Face training data. The shared navigation is Home, Document, Leaderboard, Eval, and Community; the existing `/data/` placeholder remains accessible by its URL.
