@@ -57,12 +57,12 @@
 .eval-channel > p { margin-top: 12px; color: var(--theme-body); font-size: 16px; line-height: 1.6; }
 .eval-wechat-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
 .eval-wechat-groups > section { min-width: 0; }
-.eval-wechat-groups h4 { margin: 0; color: var(--theme-ink); font-size: 14px; font-weight: 600; line-height: 1.5; text-align: center; }
+.eval-wechat-groups h4 { margin: 12px 0 0; color: var(--theme-ink); font-size: 14px; font-weight: 600; line-height: 1.5; text-align: center; }
 .eval-wechat-groups > section:first-child h4 { color: var(--theme-accent); }
 .eval-qr { position: relative; display: block; width: min(180px, 100%); aspect-ratio: 1; margin: 16px auto 0; overflow: hidden; border: 1px solid var(--theme-border); border-radius: 8px; background: #fff; }
 /* Display the QR area with its quiet zone; the link opens the untouched 540×830 invitation. */
 .eval-qr img { position: absolute; left: -17.5%; top: -70%; display: block; width: 135%; max-width: none; height: auto; }
-.eval-community .eval-qr { width: min(180px, 100%); margin-top: 16px; }
+.eval-community .eval-qr { width: min(180px, 100%); margin-top: 0; }
 .eval-community-link { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; margin-top: 16px; padding: 11px 18px; border-radius: 9px; background: linear-gradient(115deg, #e9edff, #eee3fc); color: #5c51bd; font-size: 16px; font-weight: 550; line-height: 1.5; text-decoration: none; }
 .eval-community-link:hover { background: linear-gradient(115deg, #e0e6fd, #e8dbfa); }
 .eval-page.is-submitted, .eval-page.is-failed { padding-top: 112px; }

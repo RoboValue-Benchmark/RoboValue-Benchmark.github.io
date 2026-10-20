@@ -49,16 +49,16 @@ function EvaluationCommunity() {
       <h3 id="eval-wechat-heading">WeChat Groups</h3>
       <div className="eval-wechat-groups">
         <section aria-labelledby="eval-wechat-evaluation-heading">
-          <h4 id="eval-wechat-evaluation-heading">Evaluation Group</h4>
           <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261020" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
             <img src="/assets/evaluation-wechat.png?v=20261020" width="540" height="830" alt="RoboValue evaluation WeChat group QR code, valid before October 27" />
           </a>
+          <h4 id="eval-wechat-evaluation-heading">Evaluation only</h4>
         </section>
         <section aria-labelledby="eval-wechat-discussion-heading">
-          <h4 id="eval-wechat-discussion-heading">Discussion Group</h4>
           <a className="eval-qr" href="/assets/community-wechat.png?v=20261020" target="_blank" rel="noopener noreferrer" aria-label="Open the discussion WeChat QR code at full size">
             <img src="/assets/community-wechat.png?v=20261020" width="540" height="830" alt="RoboValue discussion WeChat group QR code" />
           </a>
+          <h4 id="eval-wechat-discussion-heading">Discussion</h4>
         </section>
       </div>
     </section>
