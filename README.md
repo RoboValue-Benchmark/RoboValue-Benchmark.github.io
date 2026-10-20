@@ -2,6 +2,10 @@
 
 Official public website for RoboValue. This repository is separate from the anonymous review website.
 
+## Evaluation application backend
+
+See [the backend design and operations guide](docs/evaluation-backend/README.md) for the saved-receipt contract, private data schema, independent notification worker, five-minute mail windows, admission limits, failure handling, security boundaries, verification, and reuse. The guide records the accepted CloudBase v4.1 behavior; it does not contain credentials or live applicant data.
+
 ## Marked versions
 
 ### 2026-10-11 19:44 (Asia/Shanghai) · xjy · Floating background gallery
@@ -80,16 +84,16 @@ The earlier aligned paper-information version without the animated background is
 
 ## Pages
 
-- `/`: paper and resource information over an animated manuscript task-image background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; selected-track rankings; community access; and a citation placeholder.
+- `/`: paper and resource information over an animated manuscript task-image background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; selected-track rankings; community access; and a copyable BibTeX citation.
 - `/doc/`: documentation, evaluation and integration guidance, and all simulation and real-world task pages.
 - `/eval/`: evaluation application form with public WeChat and Discord access. Production builds use CloudBase submissions and a saved server receipt. Local development retains the temporary frontend-only success preview; applications in that mode are not sent or saved. The contact fallback remains configurable.
 - `/community/`: public WeChat group invitation and Discord access, without the documentation sidebar.
 - `/data/`: standalone dataset page, currently showing Coming soon.
-- `/leaderboard/`: a separate Overall Ranking table and Standard (ID), Cross-Embodiment, and Cross-Environment results. Ranking and results have independent Zero-Shot, One-Shot, and empty Full-Shot controls; detailed results include SIA. Scores are sortable and exportable as CSV, with evaluation-workflow and protocol links.
+- `/leaderboard/`: Overall Ranking and Results each show separate Zero-Shot, One-Shot, and Full-Shot tables from top to bottom. Each Results table independently switches between Standard, Cross-Embodiment, and Cross-Environment. Sorting and CSV export apply to the corresponding table; Full-Shot retains an empty state. Detailed results include SIA.
 
 ## Results and sources
 
-The homepage introduction follows the October 9, 2026 manuscript. Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving the embedded source image without recompression. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` follows the October 19 manuscript LaTeX tables (RoboValue Leaderboard, Main Results and Generalization Results), including TOPReward-8B and TOPReward-32B: 12 Zero-Shot and 7 One-Shot configurations. Source paths and SHA-256 hashes are stored with the data. The latest update changes Standard FPL for all 19 configurations and the displayed Diagnosis and Overall scores for 18; ranks, other metrics, shifted-condition results and SIA are unchanged. The FPL guide covers both Error Continuation and Effective Recovery trajectories. See [the October 19 results update](docs/releases/2026-10-19-manuscript-results.md) for every changed value and the verification scope. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot controls are present with no results yet.
+The homepage introduction follows the October 9, 2026 manuscript. Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving the embedded source image without recompression. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` follows the October 19 manuscript LaTeX tables (RoboValue Leaderboard, Main Results and Generalization Results), including TOPReward-8B and TOPReward-32B: 12 Zero-Shot and 7 One-Shot configurations. Source paths and SHA-256 hashes are stored with the data. The latest update changes Standard FPL for all 19 configurations and the displayed Diagnosis and Overall scores for 18; ranks, other metrics, shifted-condition results and SIA are unchanged. The FPL guide covers both Error Continuation and Effective Recovery trajectories. See [the October 19 results update](docs/releases/2026-10-19-manuscript-results.md) for every changed value and the verification scope. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot tables are present with no results yet.
 
 To reproduce or verify the leaderboard and detailed results from the local manuscript sources:
 
@@ -98,9 +102,9 @@ python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-
 python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-19 --check
 ```
 
-Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the full-leaderboard link retains that track. Official project logos take priority over institution fallbacks.
+Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the dedicated leaderboard displays all three tracks. Official project logos take priority over institution fallbacks.
 
-Leaderboard condition, track, and sorting are reflected in the URL. Sorting preserves each model's overall rank within its track. Best and second-best marks use all eligible models, including ties. FPL defaults to ascending order; both TOPReward variants' VOC and Memory-VOC are excluded from best/second-best marking, following the manuscript. RoboReward's unmeasured VS and CSVC count as zero in aggregate scoring and remain unreported in raw metric views. CSV exports contain the displayed rows, track, condition, and overall ranks where applicable.
+Each leaderboard table has independent condition and sorting state reflected in the URL. Existing single-table links remain readable. Sorting preserves each model's overall rank within its track. Best and second-best marks use all eligible models, including ties. FPL defaults to ascending order; both TOPReward variants' VOC and Memory-VOC are excluded from best/second-best marking, following the manuscript. RoboReward's unmeasured VS and CSVC count as zero in aggregate scoring and remain unreported in raw metric views. CSV exports contain the displayed rows, track, condition, and overall ranks where applicable.
 
 ## Local development
 
@@ -111,9 +115,9 @@ npm run dev -- --port 8877
 
 Eval currently defaults to **frontend-only success preview mode** (`VITE_EVAL_SUBMISSION_MODE` unset or `preview`). Normal form validation runs first; valid submissions display the original **Application Submitted!** page and Evaluation Workflow link. This mode sends no application request, creates no server receipt, saves no application, and triggers no notification. Displaying the success page does not confirm backend delivery. Form values remain only in page memory and are cleared on reload.
 
-Set `VITE_EVAL_SUBMISSION_MODE=unavailable` to display the contact fallback instead: failure message, evaluation WeChat QR, Discord invitation, and **Copy application details**. **Back to form** retains the current page's input. Clipboard denial exposes a selectable text fallback. Unknown mode values also use this fallback.
+Set `VITE_EVAL_SUBMISSION_MODE=unavailable` to preview an inline unavailable status while retaining the form and its input. The community QR codes remain beside the form. Unknown mode values also show the unavailable status.
 
-The API submission logic is retained. When the receiver is ready, explicitly set `VITE_EVAL_SUBMISSION_MODE=api` and, for production, `VITE_EVAL_API_URL` to the verified HTTPS endpoint. These are build-time settings: rebuild and redeploy after changing them. API mode shows success only after a valid receipt; failed requests show the failure page. Retrying unchanged details retains the idempotency key.
+The API submission logic is retained. When the receiver is ready, explicitly set `VITE_EVAL_SUBMISSION_MODE=api` and, for production, `VITE_EVAL_API_URL` to the verified HTTPS endpoint. These are build-time settings: rebuild and redeploy after changing them. API mode shows success only after a valid receipt; failed requests retain the form and show an inline status and community-contact hint. Retrying unchanged details retains the idempotency key.
 
 For local API-mode development, start the frontend with:
 
@@ -129,7 +133,7 @@ npm run eval:server
 
 In API mode, the local development server forwards `/api/evaluation-applications` to the receiver on `127.0.0.1:8878`. Each application is saved as a private JSON file in `../robovalue-eval-submissions/submissions/`, outside this repository. The adjacent `../robovalue-eval-submissions/README.md` documents the fields, storage, and operating instructions. The page shows **Application Submitted** only after the server confirms that the record was saved. This does not send automatic messages to applicants.
 
-Run the receiver checks with `npm run test:eval` (isolated temporary storage), and the frontend retry checks with `node --test src/eval-request.test.mjs`. GitHub Pages only hosts the frontend: public submissions will require a separately configured HTTPS receiver or gateway. `VITE_EVAL_API_URL` specifies that endpoint when API mode is enabled; it must not point to a visitor's `localhost`.
+Run the receiver checks with `npm run test:eval` (isolated temporary storage), and the frontend retry checks with `node --test src/eval-request.test.mjs`. GitHub Pages hosts the frontend; current production submissions use the CloudBase native HTTPS function interface described below. `VITE_EVAL_API_URL` specifies that endpoint when API mode is enabled; it must not point to a visitor's `localhost`.
 
 ## Build and deployment
 

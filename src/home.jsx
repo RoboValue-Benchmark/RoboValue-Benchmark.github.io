@@ -12,6 +12,7 @@ import taskData from './data/tasks.json';
 import './home.css';
 import { INSTITUTIONS } from './project-info';
 import { DISCORD_INVITE } from './community';
+import { BIBTEX } from './citation';
 
 const AUTHORS = [
   ['Shengbang Liu', '1,2,*', 'https://liushb9.github.io/'],
@@ -37,11 +38,11 @@ const AUTHORS = [
 const AFFILIATIONS = INSTITUTIONS.map(([name]) => name);
 const INSTITUTION_LOGOS = INSTITUTIONS.map(([, file]) => file);
 const CONTENT_CHANNELS = [
+  { name: '具身智能之心', icon: 'embodied-heart', image: 'embodied-heart.png', href: 'https://mp.weixin.qq.com/s/mwxJNB9CZdt97M39rcwHkw' },
   { name: 'Bilibili', icon: 'bilibili', href: null },
   { name: 'YouTube', icon: 'youtube', href: null },
   { name: '小红书', icon: 'xiaohongshu', href: null },
   { name: 'X', icon: 'x', href: null },
-  { name: '具身智能之心', icon: 'embodied-heart', image: 'embodied-heart.png', href: 'https://mp.weixin.qq.com/s/mwxJNB9CZdt97M39rcwHkw' },
 ];
 const CONDITIONS = { id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment' };
 const CONDITION_ORDER = Object.keys(CONDITIONS);
@@ -100,7 +101,7 @@ function ResearchDetails() {
         <dt>Affiliations</dt><dd><div className="rv-affiliations" aria-label="Affiliations">{AFFILIATIONS.map((name, index) => <span key={name}><sup>{index + 1}</sup>{name}</span>)}</div><div className="rv-institutions" aria-label="Institution logos">{INSTITUTION_LOGOS.map((file, index) => <img key={file} className={file === 'hku.png' ? 'rv-institution-hku' : undefined} src={`/assets/affiliations/${file}`} alt={AFFILIATIONS[index]} width="180" height="48" loading="eager" />)}</div></dd>
         <dt className="rv-content-label">Share</dt><dd><div className="rv-content-channels" aria-label="Project content">{CONTENT_CHANNELS.map(({ name, icon, image, href }) => {
           const Element = href ? 'a' : 'span';
-          return <Element key={icon} className="rv-content-channel" href={href || undefined} target={href ? '_blank' : undefined} rel={href ? 'noopener noreferrer' : undefined}><img src={`/assets/content-platforms/${image || `${icon}.svg`}`} className={`rv-content-logo rv-content-logo--${icon}`} alt="" width="20" height="20" aria-hidden="true" />{name}</Element>;
+          return <Element key={icon} className={`rv-content-channel${icon === 'embodied-heart' ? ' rv-content-channel--feature' : ''}`} href={href || undefined} target={href ? '_blank' : undefined} rel={href ? 'noopener noreferrer' : undefined}><img src={`/assets/content-platforms/${image || `${icon}.svg`}`} className={`rv-content-logo rv-content-logo--${icon}`} alt="" width="20" height="20" aria-hidden="true" />{name}</Element>;
         })}</div></dd>
       </dl>
       <div className="rv-paper-entries" aria-label="Project links">
@@ -145,10 +146,20 @@ function Introduction() {
 }
 
 function News() {
+  // Keep each entry as one sentence; newest dates come first.
+  const items = [
+    { id: 'embodied-heart-feature', date: '2026-10', content: <>RoboValue was featured by <strong>具身智能之心</strong> — <a href="https://mp.weixin.qq.com/s/mwxJNB9CZdt97M39rcwHkw" target="_blank" rel="noopener noreferrer" lang="zh">具身赛道当下的盲点：哪些经验被保留、哪些行为需要被强化依然无法标准评测</a>.</> },
+    { id: 'arxiv-release', date: '2026-10', content: <>Our paper <a href="https://arxiv.org/pdf/2610.26663" target="_blank" rel="noopener noreferrer">RoboValue: A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models</a> is available on arXiv.</> },
+  ].sort((a, b) => b.date.localeCompare(a.date));
   return <section className="rv-news-section" id="news" aria-labelledby="news-title">
     <div className="rv-container rv-narrow rv-reveal">
       <div className="rv-centered-heading"><h2 className="rv-eyebrow" id="news-title"><Icon name="paper" size={16} />NEWS</h2></div>
-      <div className="rv-news-placeholder"><p>Updates coming soon.</p></div>
+      <div className="rv-news-panel" tabIndex={0} role="region" aria-label="News updates, newest first"><ol className="rv-news-list">
+        {items.map(item => <li className="rv-news-item" key={item.id}>
+          <time dateTime={item.date}>{item.date.split('-').map((part, index) => <React.Fragment key={index}>{index > 0 && <span>/</span>}{part}</React.Fragment>)}</time>
+          <p>{item.content}</p>
+        </li>)}
+      </ol></div>
     </div>
   </section>;
 }
@@ -246,7 +257,23 @@ function Community() {
 }
 
 function Citation() {
-  return <section className="rv-citation" id="citation" aria-labelledby="citation-title"><div className="rv-container rv-narrow rv-reveal"><div className="rv-centered-heading"><p className="rv-eyebrow"><Icon name="book" size={16} />CITATION</p><h2 id="citation-title">Cite Our Work</h2></div><div className="rv-citation-placeholder"><p>Citation details will be added when the public paper is released.</p></div></div></section>;
+  const [copyState, setCopyState] = useState('');
+  const copyCitation = async () => {
+    try {
+      await navigator.clipboard.writeText(BIBTEX);
+      setCopyState('Copied');
+    } catch {
+      setCopyState('Select the citation below to copy.');
+    }
+  };
+  return <section className="rv-citation" id="citation" aria-labelledby="citation-title"><div className="rv-container rv-narrow rv-reveal">
+    <div className="rv-centered-heading"><p className="rv-eyebrow"><Icon name="book" size={16} />CITATION</p><h2 id="citation-title">Cite Our Work</h2></div>
+    <div className="rv-citation-block">
+      <div className="rv-citation-tools"><span>BibTeX</span><button type="button" onClick={copyCitation}>{copyState === 'Copied' ? 'Copied' : 'Copy BibTeX'}</button></div>
+      <pre tabIndex={0} aria-label="RoboValue BibTeX citation"><code>{BIBTEX}</code></pre>
+    </div>
+    <p className="rv-citation-copy-status" role="status">{copyState}</p>
+  </div></section>;
 }
 
 export function PublicHome() {

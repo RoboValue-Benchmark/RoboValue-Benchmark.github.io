@@ -30,15 +30,6 @@
 .lb-ranking h2, .lb-results h2 { font-size: 27px; line-height: 1.3; font-weight: 650; letter-spacing: -.5px; }
 .lb-results { margin-top: 54px; padding-top: 38px; border-top: 1px solid var(--lb-line); }
 .lb-results > h2 { margin-bottom: 14px; }
-.lb-condition-tabs { display: flex; gap: 36px; border-bottom: 1px solid var(--lb-line); overflow-x: auto; scrollbar-width: thin; }
-.lb-condition-tabs button { position: relative; flex-shrink: 0; min-height: 54px; padding: 12px 0 17px; border: 0; background: none; color: var(--lb-muted); font-size: 16px; font-weight: 550; white-space: nowrap; }
-.lb-condition-tabs button[aria-pressed="true"] { color: var(--lb-accent); }
-.lb-condition-tabs button[aria-pressed="true"]::after { content: ''; position: absolute; inset: auto 0 0; height: 2px; background: var(--lb-brand); }
-.lb-condition-tabs button:hover { color: var(--lb-accent); }
-.lb-controls { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin: 20px 0 22px; }
-.lb-track-switch { display: inline-flex; gap: 3px; padding: 4px; border: 1px solid var(--lb-line); border-radius: 9px; background: var(--lb-highlight); }
-.lb-track-switch button { min-height: 37px; padding: 8px 20px; border: 0; border-radius: 6px; background: none; color: var(--lb-muted); font-size: 14px; font-weight: 600; white-space: nowrap; }
-.lb-track-switch button[aria-pressed="true"] { color: var(--lb-accent); background: var(--lb-surface); box-shadow: 0 1px 4px #38325412; }
 .lb-download { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; border: 0; padding: 8px 0 8px 12px; background: none; color: var(--lb-muted); font-size: 13px; }
 .lb-download:hover { color: var(--lb-accent); }
 .lb-download:disabled { opacity: .5; }
@@ -81,8 +72,6 @@
 .lb-empty { padding: 48px 20px; border-top: 1px solid var(--lb-line); background: var(--lb-surface); color: var(--lb-muted); text-align: center; }
 @media (max-width: 1000px) {
   .leaderboard-main { padding-inline: 28px; }
-  .lb-condition-tabs { gap: 28px; }
-  .lb-condition-tabs button { font-size: 14px; }
 }
 @media (max-width: 760px) {
   .leaderboard-main { padding: 108px 20px 45px; }
@@ -91,10 +80,6 @@
   .lb-heading p { margin-top: 12px; font-size: 14px; }
   .lb-ranking h2, .lb-results h2 { font-size: 23px; }
   .lb-results { margin-top: 38px; padding-top: 30px; }
-  .lb-condition-tabs { gap: 22px; }
-  .lb-condition-tabs button { min-height: 48px; padding: 12px 0; text-align: left; font-size: 14px; }
-  .lb-controls { margin-top: 20px; gap: 12px; }
-  .lb-track-switch button { padding-inline: 12px; font-size: 13px; }
   .lb-table { --model-width: 216px; --rank-width: 42px; font-size: 14px; }
   .lb-table th, .lb-table td { padding-inline: 10px; }
   .lb-table-legend { flex-wrap: wrap; gap: 5px; }
@@ -131,4 +116,39 @@
 }
 @media (max-width: 360px) {
   .lb-table { --model-width: 140px; }
+}
+
+/* Separate track sections share the existing leaderboard palette. */
+.lb-ranking > h2, .lb-results > h2 { margin-bottom: 26px; }
+.lb-track-section + .lb-track-section { margin-top: 44px; }
+.lb-track-heading { display: flex; align-items: center; gap: 20px; margin-bottom: 16px; }
+.lb-track-heading h3 { display: inline-flex; flex-shrink: 0; align-items: center; gap: 12px; margin: 0; color: var(--lb-ink); font-size: 21px; line-height: 1.4; font-weight: 600; letter-spacing: -.25px; }
+.lb-track-accent { display: block; flex: 0 0 4px; width: 4px; height: 21px; border-radius: 3px; background: var(--lb-brand); }
+.lb-track-rule { height: 1px; flex: 1; background: linear-gradient(90deg, var(--lb-line), transparent); }
+.lb-track-heading .lb-download { padding: 6px 0 6px 8px; min-height: 36px; }
+.lb-track-section .lb-condition-tabs { margin: -1px 0 20px; }
+.lb-results { margin-top: 60px; padding-top: 38px; }
+.lb-track-section[data-track="full"] .lb-empty { padding-block: 32px; }
+[data-theme="dark"] .lb-track-accent { background: linear-gradient(160deg, #7b9ff5, #b297ee); }
+@media (max-width: 760px) {
+ .lb-track-heading { gap: 12px; margin-bottom: 14px; }
+ .lb-track-heading h3 { gap: 10px; font-size: 19px; }
+ .lb-track-accent { height: 19px; }
+ .lb-track-section + .lb-track-section { margin-top: 32px; }
+ .lb-ranking > h2, .lb-results > h2 { margin-bottom: 22px; }
+ .lb-results { margin-top: 42px; padding-top: 30px; }
+}
+
+/* Independent condition selectors, with a restrained selected surface. */
+.lb-track-section .lb-condition-tabs { display: inline-flex; align-items: stretch; gap: 4px; max-width: 100%; margin: 0 0 20px; padding: 4px; border: 1px solid var(--lb-line); border-radius: 11px; background: #f8f8fb; overflow: visible; }
+.lb-track-section .lb-condition-tabs button { min-height: 40px; padding: 9px 16px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--lb-muted); font-size: 14px; font-weight: 550; line-height: 1.45; text-align: center; cursor: pointer; }
+.lb-track-section .lb-condition-tabs button[aria-pressed="true"] { color: #6250ba; border-color: #cfc5e9; background: #ede9f8; box-shadow: none; }
+.lb-track-section .lb-condition-tabs button[aria-pressed="true"]::after { content: none; }
+.lb-track-section .lb-condition-tabs button:hover:not([aria-pressed="true"]) { color: var(--lb-accent); background: #f0edf6; }
+[data-theme="dark"] .lb-track-section .lb-condition-tabs { border-color: #494157; background: #211e2c; }
+[data-theme="dark"] .lb-track-section .lb-condition-tabs button[aria-pressed="true"] { color: #cbb8f7; border-color: #685883; background: #352d47; box-shadow: none; }
+[data-theme="dark"] .lb-track-section .lb-condition-tabs button:hover:not([aria-pressed="true"]) { background: #332c43; }
+@media (max-width: 620px) {
+ .lb-track-section .lb-condition-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+ .lb-track-section .lb-condition-tabs button { min-width: 0; min-height: 48px; padding: 8px 5px; white-space: normal; font-size: 12px; }
 }

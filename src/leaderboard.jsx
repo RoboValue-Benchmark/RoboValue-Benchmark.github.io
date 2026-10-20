@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Icon } from './benchmark';
 import { GROUPS, CAPABILITY_TABLE_HEADERS, METRICS as BASE_METRICS, CONDITIONS, excludedHighlight, scoreValue } from './benchmark-metrics';
-import { TRACKS, metricGroups as publishedMetricGroups, readView, resultsCSV, scoreHighlights, sortedRows, viewURL } from './leaderboard-utils';
+import { TRACKS, metricGroups as publishedMetricGroups, resultsCSV, scoreHighlights, sortedRows } from './leaderboard-utils';
 import { RankingModel } from './ranking-model';
 import subtaskData from './data/subtask-results.json';
 import { useResults } from './use-results';
 import './leaderboard.css';
+import { readLeaderboardViews, leaderboardViewsURL } from './leaderboard-state.mjs';
 
 // Local presentation keeps the other pages unchanged.
 const COLORS = { understanding: '#366c9a', tracking: '#447d64', diagnosis: '#a56f2d', consistency: '#a45368' };
@@ -14,19 +15,9 @@ const metricGroups = condition => publishedMetricGroups(condition).map(group =>
   group.id === 'understanding' ? { ...group, metrics: [...group.metrics, 'sia'] } : group
 );
 const format = value => value == null ? '—' : value.toFixed(2);
-const cleanView = search => {
-  const parsed = readView(search);
-  const params = new URLSearchParams(search);
-  const track = Object.hasOwn(TRACKS, params.get('track')) ? params.get('track') : 'zero';
-  const rankingTrack = Object.hasOwn(TRACKS, params.get('ranking-track')) ? params.get('ranking-track') : track;
-  const sortKey = params.get('sort');
-  const sort = metricGroups(parsed.condition).some(group => group.metrics.includes(sortKey))
-    ? { key: sortKey, asc: params.get('direction') === 'asc' } : null;
-  const rankingKey = params.get('ranking-sort');
-  const rankingSort = metricGroups('aggregate')[0].metrics.includes(rankingKey)
-    ? { key: rankingKey, asc: params.get('ranking-direction') === 'asc' }
-    : parsed.condition === 'aggregate' ? sort : null;
-  return { ...parsed, track, rankingTrack, condition: parsed.condition === 'aggregate' ? 'id' : parsed.condition, sort: parsed.condition === 'aggregate' ? null : sort, rankingSort, capability: 'all', query: '', selected: [] };
+const VIEW_COLUMNS = {
+  rankingKeys: metricGroups('aggregate').flatMap(group => group.metrics),
+  resultKeys: Object.fromEntries(['id', 'emb', 'env'].map(condition => [condition, metricGroups(condition).flatMap(group => group.metrics)])),
 };
 const capabilityFor = key => GROUPS.find(group => group.id === key || group.metrics.includes(key) || key === 'sia' && group.id === 'understanding');
 
@@ -97,59 +88,61 @@ function ResultsTable({ eligible, view, loading, error, retry, tableId, onSort, 
             {columns.map(key => <td key={key} className={key === 'overall' ? 'lb-overall-column' : ''}><Score value={scoreValue(row, view.condition, key)} highlight={highlights[key]} excluded={excludedHighlight(row, key)} overall={key === 'overall'} /></td>)}
           </tr>)}</tbody>
         </table>
-      </div>{!rows.length && <div className="lb-empty" role="status">{view.track === 'full' ? 'Full-Shot evaluation results are not reported in this release.' : error ? <>Results could not be loaded. <button onClick={retry}>Try Again</button></> : loading ? 'Loading results…' : 'No results yet.'}</div>}</div>
+      </div>{!rows.length && <div className="lb-empty" role="status">{error ? <>Results could not be loaded. <button onClick={retry}>Try Again</button></> : loading ? 'Loading results…' : 'No results yet.'}</div>}</div>
       {!!rows.length && <div className="lb-table-legend"><span><b>Best</b> · <span className="lb-second">Second Best</span></span>{view.sort && <button onClick={onReset}>Reset {ranked ? 'Ranking' : 'Order'}</button>}</div>}
   </>;
 }
 
-function TableControls({ eligible, view, onTrack, tableId }) {
+function DownloadResults({ eligible, view }) {
   const columns = metricGroups(view.condition).flatMap(group => group.metrics);
-  return <div className="lb-controls">
-    <div className="lb-track-switch" role="group" aria-label={`${CONDITIONS[view.condition]} evaluation track`}>{Object.entries(TRACKS).map(([key, label]) => <button key={key} aria-pressed={view.track === key} aria-controls={tableId} onClick={() => onTrack(key)}>{label}</button>)}</div>
-    <button className="lb-download" aria-label={`Download ${CONDITIONS[view.condition]} results as CSV`} disabled={!eligible.length} onClick={() => saveCSV(resultsCSV(sortedRows(eligible, view), view, columns, METRICS, TRACKS), `robovalue-${view.track}-${view.condition}-results.csv`)}><Icon name="down" size={15} />CSV</button>
-  </div>;
+  return <button className="lb-download" aria-label={`Download ${TRACKS[view.track]} ${CONDITIONS[view.condition]} results as CSV`} disabled={!eligible.length} onClick={() => saveCSV(resultsCSV(sortedRows(eligible, view), view, columns, METRICS, TRACKS), `robovalue-${view.track}-${view.condition}-results.csv`)}><Icon name="down" size={15} />CSV</button>;
+}
+
+function TrackTable({ track, kind, allRows, loading, error, retry, state, onChange }) {
+  const ranked = kind === 'ranking';
+  const { condition = 'id', sort } = state;
+  const eligible = useMemo(() => allRows.filter(row => row.setting === track), [allRows, track]);
+  const view = { track, condition: ranked ? 'aggregate' : condition, sort, query: '', capability: 'all', selected: [] };
+  const tableId = `lb-${kind}-${track}-table`;
+  const headingId = `lb-${kind}-${track}-title`;
+  return <section className="lb-track-section" data-track={track} data-kind={kind} aria-labelledby={headingId}>
+    <div className="lb-track-heading">
+      <h3 id={headingId}><span className="lb-track-accent" aria-hidden="true" />{TRACKS[track]}</h3>
+      <span className="lb-track-rule" aria-hidden="true" />
+      <DownloadResults eligible={eligible} view={view} />
+    </div>
+    {!ranked && <div className="lb-condition-tabs" role="group" aria-label={`${TRACKS[track]} evaluation condition`}>{Object.entries(CONDITIONS).filter(([key]) => key !== 'aggregate').map(([key, label]) => <button key={key} aria-pressed={condition === key} aria-controls={tableId} onClick={() => onChange({ condition: key, sort: null })}>{label}</button>)}</div>}
+    <ResultsTable eligible={eligible} view={view} loading={loading} error={error} retry={retry} tableId={tableId} onSort={key => onChange(current => ({ sort: { key, asc: current.sort?.key === key ? !current.sort.asc : !!METRICS[key].lower } }))} onReset={() => onChange({ sort: null })} />
+  </section>;
 }
 
 export function Leaderboard() {
   const { data, error, retry } = useResults();
-  const [view, setView] = useState(() => cleanView(window.location.search));
+  const [views, setViews] = useState(() => readLeaderboardViews(window.location.search, VIEW_COLUMNS));
   useEffect(() => {
-    const url = viewURL({ ...view, condition: view.condition === 'id' && !view.sort ? 'aggregate' : view.condition }, window.location.href);
-    url.searchParams.delete('ranking-track');
-    if (view.rankingTrack !== view.track) url.searchParams.set('ranking-track', view.rankingTrack);
-    url.searchParams.delete('ranking-sort');
-    url.searchParams.delete('ranking-direction');
-    if (view.rankingSort) {
-      url.searchParams.set('ranking-sort', view.rankingSort.key);
-      url.searchParams.set('ranking-direction', view.rankingSort.asc ? 'asc' : 'desc');
-    }
+    const url = leaderboardViewsURL(views, window.location.href);
     window.history.replaceState(window.history.state, '', url);
-  }, [view]);
+  }, [views]);
   useEffect(() => {
-    const restore = () => setView(cleanView(window.location.search));
+    const restore = () => setViews(readLeaderboardViews(window.location.search, VIEW_COLUMNS));
     window.addEventListener('popstate', restore);
     return () => window.removeEventListener('popstate', restore);
   }, []);
-  const eligible = useMemo(() => (data?.rows || []).filter(row => row.setting === view.rankingTrack), [data, view.rankingTrack]);
-  const resultRows = useMemo(() => data ? mergeSubtaskResults(data.rows).filter(row => row.setting === view.track) : [], [data, view.track]);
-  const rankingView = useMemo(() => ({ ...view, track: view.rankingTrack, condition: 'aggregate', sort: view.rankingSort }), [view]);
-  const update = patch => setView(current => ({ ...current, ...patch }));
-  const sortBy = (key, ranking) => setView(current => {
-    const field = ranking ? 'rankingSort' : 'sort';
-    return { ...current, [field]: { key, asc: current[field]?.key === key ? !current[field].asc : !!METRICS[key].lower } };
-  });
+  const changeView = (kind, track, change) => setViews(current => ({
+    ...current,
+    [kind]: { ...current[kind], [track]: { ...current[kind][track], ...(typeof change === 'function' ? change(current[kind][track]) : change) } },
+  }));
+  const resultRows = useMemo(() => data ? mergeSubtaskResults(data.rows) : [], [data]);
+  const rankingRows = data?.rows || [];
   return <main className="leaderboard-main" id="main-content" tabIndex={-1}>
-    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. The current release reports separate Zero-Shot and One-Shot rankings.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/eval/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
+    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. Evaluation tracks are ranked separately.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/eval/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
     <section className="lb-ranking" aria-labelledby="lb-ranking-title">
-      <h2 id="lb-ranking-title">{CONDITIONS.aggregate}</h2>
-      <TableControls eligible={eligible} view={rankingView} tableId="lb-ranking-table" onTrack={rankingTrack => update({ rankingTrack })} />
-      <ResultsTable eligible={eligible} view={rankingView} loading={!data} error={error} retry={retry} tableId="lb-ranking-table" onSort={key => sortBy(key, true)} onReset={() => update({ rankingSort: null })} />
+      <h2 id="lb-ranking-title">Overall Ranking</h2>
+      {Object.keys(TRACKS).map(track => <TrackTable key={track} track={track} kind="ranking" state={views.ranking[track]} onChange={change => changeView('ranking', track, change)} allRows={rankingRows} loading={!data} error={error} retry={retry} />)}
     </section>
     <section className="lb-results" aria-labelledby="lb-results-title">
       <h2 id="lb-results-title">Results</h2>
-      <div className="lb-condition-tabs" role="group" aria-label="Evaluation condition">{Object.entries(CONDITIONS).filter(([key]) => key !== 'aggregate').map(([key, label]) => <button key={key} aria-pressed={view.condition === key} aria-controls="lb-results-table" onClick={() => update({ condition: key, sort: null })}>{label}</button>)}</div>
-      <TableControls eligible={resultRows} view={view} tableId="lb-results-table" onTrack={track => update({ track })} />
-      <ResultsTable eligible={resultRows} view={view} loading={!data} error={error} retry={retry} tableId="lb-results-table" onSort={key => sortBy(key, false)} onReset={() => update({ sort: null })} />
+      {Object.keys(TRACKS).map(track => <TrackTable key={track} track={track} kind="results" state={views.results[track]} onChange={change => changeView('results', track, change)} allRows={resultRows} loading={!data} error={error} retry={retry} />)}
     </section>
   </main>;
 }
