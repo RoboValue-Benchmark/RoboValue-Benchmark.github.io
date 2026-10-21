@@ -39,9 +39,9 @@ const AFFILIATIONS = INSTITUTIONS.map(([name]) => name);
 const INSTITUTION_LOGOS = INSTITUTIONS.map(([, file]) => file);
 const CONTENT_CHANNELS = [
   { name: '具身智能之心', icon: 'embodied-heart', image: 'embodied-heart.png', href: 'https://mp.weixin.qq.com/s/mwxJNB9CZdt97M39rcwHkw' },
-  { name: 'Bilibili', icon: 'bilibili', href: null },
-  { name: 'YouTube', icon: 'youtube', href: null },
-  { name: '小红书', icon: 'xiaohongshu', href: null },
+  { name: 'Bilibili', icon: 'bilibili', href: 'https://www.bilibili.com/video/BV1JUnz6vEkh' },
+  { name: 'YouTube', icon: 'youtube', href: 'https://youtu.be/kYn_2W0yhbo' },
+  { name: '小红书', icon: 'xiaohongshu', href: 'https://www.xiaohongshu.com/discovery/item/6ad85069000000002c03509c?source=webshare&xhsshare=pc_web&xsec_token=ABx4Cbu_JlT-XApgbpj-UN9FtOSI7z0RNPh2hvD6yvv6U=&xsec_source=pc_share' },
   { name: 'X', icon: 'x', href: null },
 ];
 const CONDITIONS = { id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment' };
@@ -124,7 +124,16 @@ function OverviewVideo() {
   return <section className="rv-video-section" id="video" aria-labelledby="video-title">
     <div className="rv-video-container rv-reveal">
       <div className="rv-video-heading"><h2 className="rv-eyebrow rv-video-eyebrow" id="video-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m10 8 6 4-6 4V8Z" fill="currentColor" stroke="none" /></svg>Overview</h2></div>
-      <div className="rv-video-placeholder"><p>Video coming soon.</p></div>
+      <div className="rv-video-player">
+        <iframe
+          className="rv-video-embed"
+          src="https://www.youtube.com/embed/kYn_2W0yhbo?autoplay=0&mute=1&controls=1&playsinline=1&rel=0"
+          title="RoboValue — Project Video"
+          allow="encrypted-media; picture-in-picture; fullscreen"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      </div>
     </div>
   </section>;
 }
