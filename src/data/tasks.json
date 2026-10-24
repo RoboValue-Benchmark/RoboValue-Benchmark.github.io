@@ -894,7 +894,7 @@
       "domain": "real-world",
       "slug": "arrange-family-tea-set",
       "title": "Arrange Family Tea Set",
-      "instruction": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete the four placement units in any order; within the teapot-and-lid unit, place the teapot first and seat its lid immediately afterward.",
+      "instruction": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete these placements in any order, provided the teapot is placed before its lid.",
       "scene": "A cup, a teapot, and a tea canister sit off their designated coasters on the table. The teapot lid lies beside the teapot, and tea tongs lie outside their holder.",
       "procedure": "Place the cup on the left-front coaster, the teapot on the right-front teapot coaster, the lid on the teapot, the tea canister on the teacanister coaster, and the tea tongs in the bamboo holder tool position.",
       "order": null,
@@ -935,12 +935,12 @@
         "/assets/tasks/real-world/arrange-family-tea-set/step-7.webp"
       ],
       "counterfactual": {
-        "original": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete the four placement units in any order; within the teapot-and-lid unit, place the teapot first and seat its lid immediately afterward.",
+        "original": "Place the teacup on the cat-head mat, the teapot on the yellow mat, the lid on the teapot, the tongs in their holder, and the canister on the round mat. Complete these placements in any order, provided the teapot is placed before its lid.",
         "changes": {
           "Objects": "teacup on cat-head mat; teapot on yellow mat → teacup on yellow mat; teapot on cat-head mat",
           "Actions": "lid on teapot → leave lid off teapot",
           "Placement": "tongs in holder → tongs beside holder",
-          "Constraints": "place teapot immediately before lid → place lid immediately before teapot"
+          "Constraints": "place teapot before lid → place lid before teapot"
         },
         "page": 50
       },
@@ -1352,7 +1352,7 @@
       "domain": "real-world",
       "slug": "organize-cosmetics-storage-box",
       "title": "Organize Cosmetics Storage Box",
-      "instruction": "Open the upper drawer, cap the lipstick, and place the lipstick and eyebrow pencil inside. Close the drawer, then place the serum and cleansing oil in the storage area above, in either order.",
+      "instruction": "Open the upper drawer, cap the lipstick, and place the lipstick and eyebrow pencil inside. Close the drawer once both are inside. Place the serum and cleansing oil in the storage area above, in either order, before or after closing the drawer.",
       "scene": "A storage cabinet stands on the table with its upper drawer closed. A lipstick and its separate cap, a pink eyebrow pencil, a yellow essence bottle, and cleansing oil are placed nearby.",
       "procedure": "Open the upper drawer, cap and store the lipstick, store the eyebrow pencil, and close the drawer. Place the yellow essence bottle in the upper open storage area with its base facing downward, then place the cleansing oil flat in the upper open storage area.",
       "order": null,
@@ -1401,7 +1401,7 @@
         "/assets/tasks/real-world/organize-cosmetics-storage-box/step-7.webp"
       ],
       "counterfactual": {
-        "original": "Open the upper drawer, cap the lipstick, and place the lipstick and eyebrow pencil inside. Close the drawer, then place the serum and cleansing oil in the storage area above, in either order.",
+        "original": "Open the upper drawer, cap the lipstick, and place the lipstick and eyebrow pencil inside. Close the drawer once both are inside. Place the serum and cleansing oil in the storage area above, in either order, before or after closing the drawer.",
         "changes": {
           "Objects": "lipstick → mascara",
           "Actions": "cap lipstick → leave lipstick uncapped",
@@ -1984,13 +1984,61 @@
       "sequencePage": 52
     }
   ],
-  "sourceVersion": "2026-10-07",
-  "sourcePageCount": 90,
+  "sourceVersion": "2026-10-24",
+  "sourcePageCount": 89,
   "catalogSource": {
-    "format": "LaTeX task cards",
-    "files": {
-      "simulation": "RoboValue_Sim_Overleaf/RoboValue_Sim_Compact_content.tex",
-      "real-world": "RoboValue_Real_Overleaf4/RoboValue_Real_Compact_content.tex"
+    "format": "PDF task cards and counterfactual tables",
+    "taskCardPages": [
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ],
+    "counterfactualPages": [
+      37,
+      50
+    ]
+  },
+  "sourceFiles": [
+    {
+      "path": "10-24_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf",
+      "sha256": "6a6bd588e5425be81b3570bdfb334e7598cbe0100c222ec69ec5ff5347fa62dd",
+      "pages": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ]
     }
-  }
+  ]
 }

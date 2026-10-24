@@ -93,14 +93,20 @@ The earlier aligned paper-information version without the animated background is
 
 ## Results and sources
 
-The homepage introduction follows the October 9, 2026 manuscript. Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving the embedded source image without recompression. The homepage benchmark section presents the four capability dimensions and their diagnostic tests from Section 4.3 and Table 1. `public/data/results.json` follows the October 19 manuscript LaTeX tables (RoboValue Leaderboard, Main Results and Generalization Results), including TOPReward-8B and TOPReward-32B: 12 Zero-Shot and 7 One-Shot configurations. Source paths and SHA-256 hashes are stored with the data. The latest update changes Standard FPL for all 19 configurations and the displayed Diagnosis and Overall scores for 18; ranks, other metrics, shifted-condition results and SIA are unchanged. The FPL guide covers both Error Continuation and Effective Recovery trajectories. See [the October 19 results update](docs/releases/2026-10-19-manuscript-results.md) for every changed value and the verification scope. `src/data/subtask-results.json` reproduces Table 6. SIA does not contribute to the overall ranking. Full-Shot tables are present with no results yet.
+Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving its embedded image. The benchmark section presents the four capability dimensions from Section 4.3 and Table 1. Results and task specifications have been checked against the October 24, 2026 manuscript PDF.
 
-To reproduce or verify the leaderboard and detailed results from the local manuscript sources:
+`public/data/results.json` follows Tables 2–4: 12 Zero-Shot and 7 One-Shot configurations, with separate rankings and Standard, Cross-Embodiment, and Cross-Environment results. This update changes 77 numerical entries for One-Shot ProcVLM-2B, VLAC-2B and VLAC-8B; all model identities, Zero-Shot scores and ranks remain unchanged. `src/data/subtask-results.json` follows Table 6, with 15 updated values; SIA remains separate from aggregate scoring. Full-Shot has no results yet. The task catalog follows the updated tea-set and cosmetics-storage instructions, including the tea-set counterfactual constraint. CSVC uses four boundary pairs, permitting repeated pairs for very short subtasks.
+
+The data files record the source PDF filename, SHA-256 and page numbers. See [the October 24 synchronization record](docs/releases/2026-10-24-paper-data-sync.md) for changes and validation, or [the October 19 record](docs/releases/2026-10-19-manuscript-results.md) for the previous update. The original PDF and private audit artifacts are not published with the website.
+
+To reproduce or verify this PDF snapshot, install the manual maintenance tools Poppler (`pdftotext`) and PyMuPDF, then run:
 
 ```bash
-python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-19
-python scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-10-19 --check
+python scripts/sync_paper_pdf.py /path/to/10-24_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf --version 2026-10-24
+python scripts/sync_paper_pdf.py /path/to/10-24_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf --version 2026-10-24 --check
 ```
+
+The parser rejects unexpected page counts, table shapes, model coverage or task layouts. It retains the PDF's displayed scores and checks aggregate consistency within rounding tolerance. The older LaTeX synchronization script remains available for historical snapshots.
 
 Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the dedicated leaderboard displays all three tracks. Official project logos take priority over institution fallbacks.
 

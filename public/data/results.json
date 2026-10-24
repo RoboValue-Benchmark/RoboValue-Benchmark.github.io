@@ -1,14 +1,15 @@
 {
-  "source": "RoboValue manuscript LaTeX tables: RoboValue Leaderboard, Main Results and Generalization Results",
-  "sourceVersion": "2026-10-19",
+  "source": "RoboValue manuscript PDF: Tables 2, 3 and 4",
+  "sourceVersion": "2026-10-24",
   "sourceFiles": [
     {
-      "path": "RoboValue_paper/sec/5_1RoboValueLeaderboard.tex",
-      "sha256": "4fde5852df531ee919e0bbdec96ab921222edd64253c4d511033c676b24680fd"
-    },
-    {
-      "path": "RoboValue_paper/sec/5_Experiment.tex",
-      "sha256": "143f1431c4e383bc10a7e1f827fec1e6e57cc73b8401850deaccb6a8678debef"
+      "path": "10-24_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf",
+      "sha256": "6a6bd588e5425be81b3570bdfb334e7598cbe0100c222ec69ec5ff5347fa62dd",
+      "pages": [
+        13,
+        14,
+        15
+      ]
     }
   ],
   "scale": 100,
@@ -611,45 +612,45 @@
       "order": 12,
       "conditions": {
         "id": {
-          "sa": 83.07,
-          "tga_ct": 59.25,
-          "tga_cf": 51.16,
+          "sa": 83.04,
+          "tga_ct": 59.73,
+          "tga_cf": 51.39,
           "voc": 91.4,
-          "cycle_voc": 91.24,
-          "memory_voc": 23.96,
-          "fpl": 32.23,
-          "trr": 21.05,
-          "vs": 18.08,
-          "csvc": 19.9
+          "cycle_voc": 91.23,
+          "memory_voc": 23.95,
+          "fpl": 32.33,
+          "trr": 21.31,
+          "vs": 18.12,
+          "csvc": 21.9
         },
         "emb": {
-          "sa": 83.77,
-          "tga_ct": 48.82,
-          "tga_cf": 44.65,
-          "voc": 86.66,
-          "cycle_voc": 86.35,
+          "sa": 84.01,
+          "tga_ct": 48.46,
+          "tga_cf": 45.36,
+          "voc": 86.4,
+          "cycle_voc": 86.08,
           "memory_voc": 14.86,
-          "fpl": 32.99,
-          "vs": 12.49
+          "fpl": 32.31,
+          "vs": 12.43
         },
         "env": {
-          "sa": 72.27,
-          "tga_ct": 50.03,
-          "tga_cf": 38.22,
-          "voc": 78.36,
-          "cycle_voc": 77.04,
+          "sa": 72.45,
+          "tga_ct": 50.38,
+          "tga_cf": 39.29,
+          "voc": 77.84,
+          "cycle_voc": 76.48,
           "memory_voc": 21.23,
-          "fpl": 33.76,
-          "vs": 12.24
+          "fpl": 33.32,
+          "vs": 12.3
         }
       },
       "aggregate": {
         "rank": 2,
-        "understanding": 65.43,
-        "tracking": 84.56,
-        "diagnosis": 44.12,
-        "consistency": 37.59,
-        "overall": 57.93
+        "understanding": 65.67,
+        "tracking": 84.47,
+        "diagnosis": 44.37,
+        "consistency": 38.1,
+        "overall": 58.15
       }
     },
     {
@@ -856,45 +857,45 @@
       "order": 17,
       "conditions": {
         "id": {
-          "sa": 64.54,
+          "sa": 64.55,
           "tga_ct": 13.32,
           "tga_cf": 8.99,
-          "voc": 67.57,
-          "cycle_voc": 60.24,
-          "memory_voc": 10.5,
-          "fpl": 30.56,
+          "voc": 67.38,
+          "cycle_voc": 60.11,
+          "memory_voc": 10.49,
+          "fpl": 30.46,
           "trr": 21.0,
-          "vs": 22.34,
-          "csvc": 29.55
+          "vs": 22.27,
+          "csvc": 29.38
         },
         "emb": {
-          "sa": 62.81,
+          "sa": 63.11,
           "tga_ct": 11.26,
           "tga_cf": 15.77,
-          "voc": 66.37,
-          "cycle_voc": 58.45,
+          "voc": 66.77,
+          "cycle_voc": 58.37,
           "memory_voc": 30.27,
-          "fpl": 29.15,
-          "vs": 17.77
+          "fpl": 29.09,
+          "vs": 17.91
         },
         "env": {
-          "sa": 60.1,
+          "sa": 60.4,
           "tga_ct": 13.71,
           "tga_cf": 2.97,
-          "voc": 59.66,
-          "cycle_voc": 56.61,
+          "voc": 59.51,
+          "cycle_voc": 56.49,
           "memory_voc": 14.11,
-          "fpl": 29.99,
-          "vs": 17.7
+          "fpl": 29.68,
+          "vs": 17.66
         }
       },
       "aggregate": {
         "rank": 7,
-        "understanding": 37.02,
-        "tracking": 73.29,
-        "diagnosis": 45.47,
-        "consistency": 42.41,
-        "overall": 49.55
+        "understanding": 37.1,
+        "tracking": 73.23,
+        "diagnosis": 45.54,
+        "consistency": 42.36,
+        "overall": 49.56
       }
     },
     {
@@ -905,45 +906,45 @@
       "order": 18,
       "conditions": {
         "id": {
-          "sa": 63.71,
-          "tga_ct": 34.63,
+          "sa": 63.6,
+          "tga_ct": 34.87,
           "tga_cf": 18.37,
-          "voc": 74.54,
-          "cycle_voc": 63.57,
+          "voc": 74.28,
+          "cycle_voc": 63.4,
           "memory_voc": 51.12,
-          "fpl": 28.93,
-          "trr": 15.35,
-          "vs": 25.46,
-          "csvc": 30.26
+          "fpl": 28.95,
+          "trr": 15.61,
+          "vs": 25.37,
+          "csvc": 30.09
         },
         "emb": {
-          "sa": 70.22,
-          "tga_ct": 28.22,
-          "tga_cf": 21.19,
-          "voc": 80.35,
-          "cycle_voc": 70.12,
-          "memory_voc": 41.96,
-          "fpl": 28.68,
-          "vs": 22.26
+          "sa": 69.15,
+          "tga_ct": 28.21,
+          "tga_cf": 21.18,
+          "voc": 80.37,
+          "cycle_voc": 69.8,
+          "memory_voc": 41.95,
+          "fpl": 28.95,
+          "vs": 22.25
         },
         "env": {
-          "sa": 58.93,
-          "tga_ct": 34.43,
+          "sa": 59.17,
+          "tga_ct": 34.78,
           "tga_cf": 17.34,
-          "voc": 64.94,
-          "cycle_voc": 58.17,
+          "voc": 64.91,
+          "cycle_voc": 58.42,
           "memory_voc": 23.62,
-          "fpl": 31.52,
-          "vs": 22.44
+          "fpl": 31.58,
+          "vs": 22.46
         }
       },
       "aggregate": {
         "rank": 5,
-        "understanding": 45.02,
-        "tracking": 78.1,
-        "diagnosis": 42.92,
-        "consistency": 44.52,
-        "overall": 52.64
+        "understanding": 44.94,
+        "tracking": 78.07,
+        "diagnosis": 43.0,
+        "consistency": 44.45,
+        "overall": 52.62
       }
     }
   ]

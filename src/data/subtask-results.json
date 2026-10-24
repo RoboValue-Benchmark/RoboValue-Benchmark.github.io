@@ -1,6 +1,6 @@
 {
   "source": "Table 6: Subtask Identification Results",
-  "sourceVersion": "2026-10-09",
+  "sourceVersion": "2026-10-24",
   "scale": 100,
   "includedInOverall": false,
   "rows": [
@@ -8,29 +8,29 @@
       "name": "ProcVLM-2B",
       "setting": "zero",
       "conditions": {
-        "id": 23.75,
-        "emb": 21.34,
-        "env": 24.68
+        "id": 23.71,
+        "emb": 21.37,
+        "env": 24.45
       },
-      "overall": 23.26
+      "overall": 23.17
     },
     {
       "name": "RoboFAC-7B",
       "setting": "zero",
       "conditions": {
-        "id": 9.97,
-        "emb": 10.36,
-        "env": 9.94
+        "id": 9.93,
+        "emb": 10.23,
+        "env": 9.92
       },
-      "overall": 10.09
+      "overall": 10.03
     },
     {
       "name": "FailSafe",
       "setting": "zero",
       "conditions": {
-        "id": 10.01,
-        "emb": 9.62,
-        "env": 9.94
+        "id": 10.04,
+        "emb": 9.59,
+        "env": 9.93
       },
       "overall": 9.85
     },
@@ -38,11 +38,20 @@
       "name": "ProcVLM-2B",
       "setting": "one",
       "conditions": {
-        "id": 24.66,
-        "emb": 19.74,
-        "env": 19.15
+        "id": 24.22,
+        "emb": 19.55,
+        "env": 18.05
       },
-      "overall": 21.19
+      "overall": 20.61
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "10-24_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf",
+      "sha256": "6a6bd588e5425be81b3570bdfb334e7598cbe0100c222ec69ec5ff5347fa62dd",
+      "pages": [
+        17
+      ]
     }
   ]
 }
