@@ -54,8 +54,8 @@ export function EvaluationFailure({ headingRef, details, onBack }) {
         <section className="eval-failure-channel" aria-labelledby="eval-failure-wechat-heading">
           <h3 id="eval-failure-wechat-heading">WeChat</h3>
           <p className="eval-failure-channel-note">Evaluation group</p>
-          <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261020" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
-            <img src="/assets/evaluation-wechat.png?v=20261020" width="540" height="830" alt="RoboValue evaluation WeChat group QR code, valid before October 27" />
+          <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261028" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
+            <img src="/assets/evaluation-wechat.png?v=20261028" width="630" height="968" alt="RoboValue evaluation WeChat group QR code, valid before November 4" />
           </a>
           <p className="eval-failure-scan">Scan with WeChat</p>
         </section>
