@@ -42,7 +42,7 @@ const CONTENT_CHANNELS = [
   { name: 'Bilibili', icon: 'bilibili', href: 'https://www.bilibili.com/video/BV1JUnz6vEkh' },
   { name: 'YouTube', icon: 'youtube', href: 'https://youtu.be/kYn_2W0yhbo' },
   { name: '小红书', icon: 'xiaohongshu', href: 'https://www.xiaohongshu.com/discovery/item/6ad85069000000002c03509c?source=webshare&xhsshare=pc_web&xsec_token=ABx4Cbu_JlT-XApgbpj-UN9FtOSI7z0RNPh2hvD6yvv6U=&xsec_source=pc_share' },
-  { name: 'X', icon: 'x', href: null },
+  { name: 'X', icon: 'x', href: 'https://x.com/ShengbangLiu/status/2116532999441494300' },
 ];
 const CONDITIONS = { id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment' };
 const CONDITION_ORDER = Object.keys(CONDITIONS);
