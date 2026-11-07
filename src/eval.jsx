@@ -50,8 +50,8 @@ function EvaluationCommunity() {
       <h3 id="eval-wechat-heading">WeChat Groups</h3>
       <div className="eval-wechat-groups">
         <section aria-labelledby="eval-wechat-evaluation-heading">
-          <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261108" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
-            <img src="/assets/evaluation-wechat.png?v=20261108" width="630" height="968" alt="RoboValue evaluation WeChat group QR code, valid before November 15" />
+          <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261108-white" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
+            <img src="/assets/evaluation-wechat.png?v=20261108-white" width="630" height="968" alt="RoboValue evaluation WeChat group QR code, valid before November 15" />
           </a>
           <h4 id="eval-wechat-evaluation-heading">Evaluation only</h4>
         </section>
@@ -95,8 +95,8 @@ function EvaluationSuccess({ successRef }) {
       </div>
       <div className="eval-success-channels">
         <section className="eval-success-channel" aria-labelledby="eval-success-wechat-heading">
-          <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261108" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
-            <img src="/assets/evaluation-wechat.png?v=20261108" width="630" height="968" alt="RoboValue evaluation WeChat group QR code, valid before November 15" />
+          <a className="eval-qr" href="/assets/evaluation-wechat.png?v=20261108-white" target="_blank" rel="noopener noreferrer" aria-label="Open the evaluation WeChat QR code at full size">
+            <img src="/assets/evaluation-wechat.png?v=20261108-white" width="630" height="968" alt="RoboValue evaluation WeChat group QR code, valid before November 15" />
           </a>
           <h4 id="eval-success-wechat-heading">WeChat</h4>
           <p>Scan to join</p>
