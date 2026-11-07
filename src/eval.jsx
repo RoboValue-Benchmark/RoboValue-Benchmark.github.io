@@ -56,8 +56,8 @@ function EvaluationCommunity() {
           <h4 id="eval-wechat-evaluation-heading">Evaluation only</h4>
         </section>
         <section aria-labelledby="eval-wechat-discussion-heading">
-          <a className="eval-qr" href="/assets/community-wechat.png?v=20261108" target="_blank" rel="noopener noreferrer" aria-label="Open the discussion WeChat QR code at full size">
-            <img src="/assets/community-wechat.png?v=20261108" width="630" height="968" alt="RoboValue discussion WeChat group QR code" />
+          <a className="eval-qr" href="/assets/community-wechat.png?v=20261108-white" target="_blank" rel="noopener noreferrer" aria-label="Open the discussion WeChat QR code at full size">
+            <img src="/assets/community-wechat.png?v=20261108-white" width="630" height="968" alt="RoboValue discussion WeChat group QR code" />
           </a>
           <h4 id="eval-wechat-discussion-heading">Discussion</h4>
         </section>
