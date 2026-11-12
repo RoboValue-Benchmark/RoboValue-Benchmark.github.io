@@ -63,6 +63,21 @@ export function VideoGallery({ videos, title }) {
   </figure>)}</div>;
 }
 
+function SuboptimalTrajectorySection({ trajectories }) {
+  return <section className="task-section suboptimal-trajectories"><h2>Suboptimal Trajectories</h2>
+    <p>For each listed failure preset, collect matched branches from the same task state: continue without correcting the error, recover and complete the task, or attempt recovery unsuccessfully. The event descriptions below specify what is recorded in each branch.</p>
+    <dl className="trajectory-types suboptimal-classes">
+      <div><dt>Failure Continuation</dt><dd>Inject the listed execution error, then continue the task without correcting it.</dd></div>
+      <div><dt>Effective Recovery</dt><dd>Inject the same error, correct it successfully, and continue to a valid task completion.</dd></div>
+      <div><dt>Ineffective Recovery</dt><dd>Inject the same error, attempt the corresponding correction, but leave the failure unresolved before continuing or ending as specified.</dd></div>
+    </dl>
+    <ol className="suboptimal-events">{trajectories.events.map((event, index) => <li key={`${event.failure}-${index}`}>
+      <h3>Failure preset {index + 1}: {event.failure}</h3>
+      <dl><div><dt>Failure continuation</dt><dd>{event.continuation}</dd></div><div><dt>Effective recovery</dt><dd>{event.effectiveRecovery}</dd></div><div><dt>Ineffective recovery</dt><dd>{event.ineffectiveRecovery}</dd></div></dl>
+    </li>)}</ol>
+  </section>;
+}
+
 export function TaskDetail({ taskId }) {
   const task = tasks.find(t => t.id === taskId);
   const videoDirectory = task.domain === 'real-world' ? `real-world/${task.slug}` : task.slug;
@@ -71,6 +86,7 @@ export function TaskDetail({ taskId }) {
     <section className="task-section"><h2>Videos</h2><VideoGallery title={task.title} videos={[['id', 'Standard'], ['emb', 'Cross-Embodiment'], ['env', 'Cross-Environment']].map(([key, label]) => ({ src: `/assets/tasks/videos/${videoDirectory}/${key}.mp4`, label }))} /></section>
     <section className="task-section"><h2>Procedure</h2><dl className="task-specification"><div><dt>Scene</dt><dd>{task.scene}</dd></div><div><dt>Procedure</dt><dd>{task.procedure}</dd></div>{task.order && <div><dt>Order and Variations</dt><dd>{task.order}</dd></div>}</dl></section>
     <section className="task-section"><h2>Subtask</h2><p className="task-hint">The labels below identify the semantic subtasks used in the manuscript. Their listed order does not impose constraints beyond the task instruction; tasks with multiple valid solutions may admit other orders.</p><ol className="subtask-list">{task.subtasks.map(s => <li key={s.id}><span>{s.id}</span><p>{s.text}</p></li>)}</ol></section>
+    {task.suboptimalTrajectories && <SuboptimalTrajectorySection trajectories={task.suboptimalTrajectories} />}
     <section className="task-section"><h2>Counterfactuals</h2>{task.counterfactual ? <><p>TGA-CF holds the successful trajectory fixed and changes the instruction. The summaries below describe the semantic changes; they are not complete counterfactual prompts. Each category names the primary change, and related semantics may also change.</p><dl className="counterfactual-changes">{Object.entries(task.counterfactual.changes).map(([category, value]) => { const [original, changed] = value.split(' → '); return <div key={category}><dt>{category}</dt><dd><span>{original}</span><span className="change-arrow" aria-label="changed to"> → </span><strong>{changed}</strong></dd></div>; })}</dl></> : <p>This task is omitted from the paired counterfactual instruction set in the manuscript and is reserved for history-dependent progress evaluation.</p>}</section>
     <p className="task-source">Task specifications: Appendix {task.source.appendix}{task.counterfactual ? `. Counterfactual changes: Appendix ${task.domain === 'simulation' ? 'C.3' : 'D.3'}` : ''}.</p>
   </div>;
