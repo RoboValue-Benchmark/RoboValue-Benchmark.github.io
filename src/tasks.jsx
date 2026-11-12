@@ -65,16 +65,9 @@ export function VideoGallery({ videos, title }) {
 
 function SuboptimalTrajectorySection({ trajectories }) {
   return <section className="task-section suboptimal-trajectories"><h2>Suboptimal Trajectories</h2>
-    <p className="task-hint">The labels below classify trajectory types and are shared across tasks. The failure scenarios and collection actions listed afterward are specific to this task.</p>
-    <h3 className="suboptimal-label-heading">Trajectory labels</h3>
-    <dl className="trajectory-types suboptimal-classes">
-      <div><dt>Failure Continuation</dt><dd>Inject the listed execution error, then continue the task without correcting it.</dd></div>
-      <div><dt>Effective Recovery</dt><dd>Inject the same error, correct it successfully, and continue to a valid task completion.</dd></div>
-      <div><dt>Ineffective Recovery</dt><dd>Inject the same error, attempt the corresponding correction, but leave the failure unresolved before continuing or ending as specified.</dd></div>
-    </dl>
-    <h3 className="suboptimal-specific-heading">Task-specific failure scenarios and collection</h3>
+    <p>Suboptimal trajectories are complete task executions that contain a predefined error. They are classified by what happens after that error: <strong>Failure Continuation</strong> leaves the error uncorrected and proceeds; <strong>Effective Recovery</strong> corrects the error and completes the task; <strong>Ineffective Recovery</strong> attempts a correction but the error remains or worsens. Each error below is a separate matched scenario, with all three trajectory types collected from that error state.</p>
     <ol className="suboptimal-events">{trajectories.events.map((event, index) => <li key={`${event.failure}-${index}`}>
-      <h4>{event.failure}</h4>
+      <h3>{event.failure}</h3>
       <dl><div><dt>Failure continuation</dt><dd>{event.continuation}</dd></div><div><dt>Effective recovery</dt><dd>{event.effectiveRecovery}</dd></div><div><dt>Ineffective recovery</dt><dd>{event.ineffectiveRecovery}</dd></div></dl>
     </li>)}</ol>
   </section>;

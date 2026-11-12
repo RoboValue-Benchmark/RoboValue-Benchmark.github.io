@@ -38,12 +38,9 @@
 .counterfactual-changes dd>span:first-child{color:var(--doc-muted)}
 .counterfactual-changes strong{color:var(--doc-accent);font-weight:600}
 .change-arrow{padding:0 5px}
-.suboptimal-classes{margin-top:14px}
-.suboptimal-label-heading,.suboptimal-specific-heading{font-size:15px;line-height:1.6;margin:20px 0 0;color:#535a66}
-.suboptimal-specific-heading{padding-top:18px;border-top:1px solid var(--doc-border)}
-.suboptimal-events{list-style:none;padding:0;margin:0}
-.suboptimal-events>li{padding:20px 0;border-bottom:1px solid var(--doc-border)}
-.suboptimal-events h4{font-size:17px;line-height:1.55;margin:0 0 12px;color:#303642}
+.suboptimal-events{list-style:none;padding:0;margin:20px 0 0}
+.suboptimal-events>li{padding:20px 0;border-top:1px solid var(--doc-border)}
+.suboptimal-events h3{font-size:17px;line-height:1.55;margin:0 0 12px;color:#303642}
 .suboptimal-events dl{margin:0}
 .suboptimal-events dl>div{display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;padding:9px 0}
 .suboptimal-events dt{font-size:14px;font-weight:600;line-height:1.65;color:#535a66}
