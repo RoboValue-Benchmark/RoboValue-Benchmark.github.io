@@ -65,7 +65,7 @@ export function VideoGallery({ videos, title }) {
 
 function SuboptimalTrajectorySection({ trajectories }) {
   return <section className="task-section suboptimal-trajectories"><h2>Suboptimal Trajectories</h2>
-    <p>Suboptimal trajectories are complete task executions that contain a predefined error. They are classified by what happens after that error: <strong>Failure Continuation</strong> leaves the error uncorrected and proceeds; <strong>Effective Recovery</strong> corrects the error and completes the task; <strong>Ineffective Recovery</strong> attempts a correction but the error remains or worsens. Each error below is a separate matched scenario, with all three trajectory types collected from that error state.</p>
+    <p className="task-hint">Suboptimal trajectories are complete task executions that contain a predefined error. They are classified by what happens after that error: <strong>Failure Continuation</strong> leaves the error uncorrected and proceeds; <strong>Effective Recovery</strong> corrects the error and completes the task; <strong>Ineffective Recovery</strong> attempts a correction but the error remains or worsens. Each error below is a separate matched scenario, with all three trajectory types collected from that error state.</p>
     <ol className="suboptimal-events">{trajectories.events.map((event, index) => <li key={`${event.failure}-${index}`}>
       <h3>{event.failure}</h3>
       <dl><div><dt>Failure continuation</dt><dd>{event.continuation}</dd></div><div><dt>Effective recovery</dt><dd>{event.effectiveRecovery}</dd></div><div><dt>Ineffective recovery</dt><dd>{event.ineffectiveRecovery}</dd></div></dl>
