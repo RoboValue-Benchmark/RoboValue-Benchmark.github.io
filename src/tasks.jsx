@@ -64,7 +64,7 @@ export function VideoGallery({ videos, title }) {
 }
 
 function SuboptimalTrajectorySection({ trajectories }) {
-  const errorNumbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  const errorNumbers = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
   return <section className="task-section suboptimal-trajectories"><h2>Suboptimal Trajectories</h2>
     <p className="task-hint">Suboptimal trajectories are complete task executions that contain a predefined error. They are classified by what happens after that error: <strong>Failure Continuation</strong> leaves the error uncorrected and proceeds; <strong>Effective Recovery</strong> corrects the error and completes the task; <strong>Ineffective Recovery</strong> attempts a correction but the error remains or worsens. Each error below is a separate matched scenario, with all three trajectory types collected from that error state.</p>
     <ol className="suboptimal-events">{trajectories.events.map((event, index) => <li key={`${event.failure}-${index}`}>
