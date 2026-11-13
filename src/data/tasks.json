@@ -178,7 +178,7 @@
         ]
       },
       "multiSolutionTrajectories": {
-        "description": "The four pens may be inserted in different orders after the holder is picked up; return the filled holder only after all insertions. The SOP samples 20 pen orders, with two trajectories per order (40 ST-2 trajectories)."
+        "description": "The four pens may be inserted in any order after the holder is picked up; return the filled holder only after all four insertions. The task has 20 represented pen orders."
       }
     },
     {
@@ -331,7 +331,7 @@
         ]
       },
       "multiSolutionTrajectories": {
-        "description": "The three mugs may be picked up in different orders, and the left/right arm assignment may also vary. The SOP lists 20 alternative ST-2 trajectories."
+        "description": "The three mugs may be hung in different orders, with different assignments of mugs to the left and right arms. The page presents 20 valid variations."
       }
     },
     {
@@ -797,7 +797,7 @@
         ]
       },
       "multiSolutionTrajectories": {
-        "description": "After positioning the box, the four objects may be packed in different orders; the SOP also varies which arm handles each object. It lists 20 alternative ST-2 trajectories."
+        "description": "After the box is positioned, the four objects may be packed in different orders, with different assignments of objects to the two arms. The page presents 20 valid variations."
       }
     },
     {
@@ -960,7 +960,7 @@
         ]
       },
       "multiSolutionTrajectories": {
-        "description": "The three blocks may be selected in different orders, and arm assignment may vary, while placement must still respect the support dependency: each supporting block must be in place before the next block is stacked on it. The SOP lists 20 alternative ST-2 trajectories."
+        "description": "The three blocks may be selected in different orders and assigned to different arms, while placement must respect support: each lower block must be in place before the block above it. The page presents 20 valid variations."
       }
     },
     {
@@ -1290,7 +1290,7 @@
       },
       "sequencePage": 51,
       "multiSolutionTrajectories": {
-        "description": "The teapot placement must precede placing its lid and stays an unbroken two-step unit. That unit, placing cup A, placing the closed tea canister, and inserting the tea tongs form four reorderable units: 4! = 24 valid orders. The SOP describes 24 successful solutions, including the standard sequence."
+        "description": "The teapot must be placed before its lid, so these actions form a fixed two-step unit. That unit, placing cup A, placing the closed tea canister, and inserting the tea tongs can be arranged in 24 valid orders."
       },
       "suboptimalTrajectories": {
         "events": [
@@ -1376,10 +1376,7 @@
       },
       "sequencePage": 51,
       "multiSolutionTrajectories": {
-        "description": "The three flowers form one consecutive action block and may be inserted in any of 6 orders. That block, placing the diffuser bottle, and inserting the reed may be permuted in 6 orders, giving 36 valid sequences. The SOP collects one trajectory per sequence (36 total, including the standard sequence).",
-        "notes": [
-          "Flower insertions stay consecutive; no bottle or reed action may interrupt the three-flower block. Hand choice and motion-path changes do not count as a new solution."
-        ]
+        "description": "The three flowers form one consecutive action block and may be inserted in any of 6 orders. That block, placing the diffuser bottle, and inserting the reed may be arranged in 6 orders, giving 36 valid sequences. Each sequence is represented once."
       },
       "suboptimalTrajectories": {
         "events": [
@@ -1491,7 +1488,7 @@
         ]
       },
       "multiSolutionTrajectories": {
-        "description": "The three jars may be handled in different orders; the dominant hand and the mapping of jars to the three rack positions may also vary. The SOP specifies 24 solution schemes: the standard scheme plus 23 ST-2 alternatives."
+        "description": "The three jars may be handled in different orders. The dominant hand and the assignment of jars to the three rack positions may also vary, giving 24 represented solution configurations."
       }
     },
     {
@@ -1647,7 +1644,7 @@
         ]
       },
       "multiSolutionTrajectories": {
-        "description": "The four pens may be inserted in different orders, while picking up the holder must come first and returning the filled holder must follow all four insertions. The SOP’s ST-2 sheet samples 20 pen orders, with two trajectories per order (40 trajectories)."
+        "description": "The four pens may be inserted in different orders; picking up the holder comes first, and returning it follows all four insertions. There are 20 represented pen orders, with two trajectories for each order."
       }
     },
     {
@@ -1973,7 +1970,7 @@
         ]
       },
       "multiSolutionTrajectories": {
-        "description": "The lipstick, pink eyebrow pencil, serum, and makeup remover can be arranged in 24 valid orders. Opening the drawer is first; closing it must happen immediately after both the lipstick and eyebrow pencil are inside. The SOP collects the standard order plus 23 ST-2 alternatives."
+        "description": "The lipstick, pink eyebrow pencil, serum, and makeup remover can be arranged in 24 valid orders. Open the drawer first; close it immediately after both the lipstick and eyebrow pencil are inside."
       }
     },
     {
@@ -2037,7 +2034,7 @@
       },
       "sequencePage": 52,
       "multiSolutionTrajectories": {
-        "description": "The four actions are placing the pen (A), storing the eraser and closing the drawer (B), switching off the lamp (C), and unplugging it (D). A, B, and the C→D pair can be reordered, yielding 12 valid action orders; either hand may be the primary hand, for 24 solutions in total. The SOP lists 24 action-order/hand combinations."
+        "description": "The four actions are placing the pen (A), storing the eraser and closing the drawer (B), switching off the lamp (C), and unplugging it (D). A, B, and the C→D pair can be ordered in 12 valid ways. Either hand may be the primary hand, giving 24 action-order and hand combinations."
       },
       "suboptimalTrajectories": {
         "events": [
@@ -2502,7 +2499,7 @@
         ]
       },
       "multiSolutionTrajectories": {
-        "description": "The plate, bowl, fork, and knife placements may be reordered independently; there is no precedence constraint between them. The SOP specifies 24 valid orders: the fixed baseline plus 23 alternatives."
+        "description": "The plate, bowl, fork, and knife placements may be completed in any order, giving 24 valid sequences."
       }
     },
     {

@@ -76,7 +76,7 @@ function SuboptimalTrajectorySection({ trajectories }) {
 
 function MultiSolutionTrajectorySection({ trajectories }) {
   return <section className="task-section multi-solution-trajectories"><h2>Multi-Solution Trajectories</h2>
-    <p className="task-hint">Multi-solution trajectories are successful executions that vary the order of independent task units while preserving required dependencies. The summary below describes which parts may change and how many alternatives the SOP specifies; it does not enumerate every sequence.</p>
+    <p className="task-hint">A task can have multiple valid solutions when independent actions can be completed in different orders while respecting the task constraints.</p>
     <p>{trajectories.description}</p>
     {trajectories.notes?.map((note, index) => <p className="task-hint" key={index}>{note}</p>)}
   </section>;
