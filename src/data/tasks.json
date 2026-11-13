@@ -2065,7 +2065,35 @@
         "appendix": "D.2",
         "page": 46
       },
-      "sequencePage": 52
+      "sequencePage": 52,
+      "suboptimalTrajectories": {
+        "events": [
+          {
+            "failure": "The pan is still held above the cooker but is off-center from the heating ring.",
+            "continuation": "Release it while still off-center, then try to take out the spatula and end.",
+            "effectiveRecovery": "Keep holding it, lift and center it on the heating ring, then continue and finish successfully.",
+            "ineffectiveRecovery": "Make only a small adjustment; it remains visibly off-center. Release it, then try to take out the spatula and end."
+          },
+          {
+            "failure": "The pan is centered on the heating ring, but its handle points in the wrong direction while still held.",
+            "continuation": "Release the pan without correcting its handle direction, then try to take out the spatula and end.",
+            "effectiveRecovery": "Keep holding and rotate the pan until its handle points in the task-specified direction, then finish the remaining steps.",
+            "ineffectiveRecovery": "Rotate it only slightly so the handle still points the wrong way, then release and end."
+          },
+          {
+            "failure": "The spatula slips from the gripper back into the pan, with its handle across the rim.",
+            "continuation": "Do not retrieve the spatula; place the lid on the pan, where the spatula prevents it from closing, then reset and end.",
+            "effectiveRecovery": "Pick up the spatula, put it in the basket, then close the lid fully and finish successfully.",
+            "ineffectiveRecovery": "Attempt to pick up the spatula but miss; leave it across the rim, then place the lid so it cannot close fully and end."
+          },
+          {
+            "failure": "The spatula is in the basket, but the lid is held off-center with only one side resting on the pan rim.",
+            "continuation": "Release the tilted lid; let it remain tilted or fall, then reset and end.",
+            "effectiveRecovery": "Lift and center the lid over the pan, lower it until it rests fully on the rim, then finish successfully.",
+            "ineffectiveRecovery": "Lift and move the lid slightly but leave it off-center, then release it tilted and end."
+          }
+        ]
+      }
     },
     {
       "id": "real-world/prepare-breakfast",
