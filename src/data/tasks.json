@@ -59,19 +59,19 @@
       "suboptimalTrajectories": {
         "events": [
           {
-            "failure": "the first, largest number is grasped incorrectly.",
+            "failure": "The first, largest number is grasped incorrectly.",
             "continuation": "Place the wrong number on the first pad, then place the remaining three numbers in descending order.",
             "effectiveRecovery": "Return the wrongly grasped number and pick/place the correct largest number.",
             "ineffectiveRecovery": "Return the wrongly grasped number, then pick/place a different incorrect number."
           },
           {
-            "failure": "the second-largest number is grasped incorrectly.",
+            "failure": "The second-largest number is grasped incorrectly.",
             "continuation": "Place the wrong number on the second pad, then place the remaining two numbers in descending order.",
             "effectiveRecovery": "Return the wrongly grasped number and pick/place the correct second-largest number.",
             "ineffectiveRecovery": "Return the wrongly grasped number, then pick/place a different incorrect number."
           },
           {
-            "failure": "the third-largest number is grasped incorrectly.",
+            "failure": "The third-largest number is grasped incorrectly.",
             "continuation": "Place the wrong number on the third pad, then place the final number on the fourth pad.",
             "effectiveRecovery": "Return the wrongly grasped number and pick/place the correct third-largest number.",
             "ineffectiveRecovery": "Return the wrongly grasped number, then pick/place a different incorrect number."
@@ -146,31 +146,31 @@
       "suboptimalTrajectories": {
         "events": [
           {
-            "failure": "the pen holder is dropped while being grasped.",
+            "failure": "The pen holder is dropped while being grasped.",
             "continuation": "Continue with a fake placement of one pen at the holder and end.",
             "effectiveRecovery": "Pick up the holder again and complete the task.",
             "ineffectiveRecovery": "Try to pick up the holder again but fail, then fake-place one pen and end."
           },
           {
-            "failure": "the second pen is dropped during grasp/transfer.",
+            "failure": "The second pen is dropped during grasp/transfer.",
             "continuation": "Continue with a fake insertion at the holder and end.",
             "effectiveRecovery": "Pick up the pen again and insert it successfully.",
             "ineffectiveRecovery": "Try to pick up the pen again but fail, then fake-insert and end."
           },
           {
-            "failure": "the second pen is misaligned with the holder opening.",
+            "failure": "The second pen is misaligned with the holder opening.",
             "continuation": "Continue the insertion motion outside the holder and end.",
             "effectiveRecovery": "Lift and realign the pen with the opening, then complete the task.",
             "ineffectiveRecovery": "Lift the pen but move it farther from the opening, then continue the failed insertion and end."
           },
           {
-            "failure": "the fourth pen is dropped during grasp/transfer.",
+            "failure": "The fourth pen is dropped during grasp/transfer.",
             "continuation": "Continue with a fake insertion at the holder and end.",
             "effectiveRecovery": "Pick up the pen again and insert it successfully.",
             "ineffectiveRecovery": "Try to pick up the pen again but fail, then fake-insert and end."
           },
           {
-            "failure": "the fourth pen is misaligned with the holder opening.",
+            "failure": "The fourth pen is misaligned with the holder opening.",
             "continuation": "Continue the insertion motion outside the holder and end.",
             "effectiveRecovery": "Lift and realign the pen with the opening, then complete the task.",
             "ineffectiveRecovery": "Lift the pen but move it farther from the opening, then continue the failed insertion and end."
@@ -233,19 +233,19 @@
       "suboptimalTrajectories": {
         "events": [
           {
-            "failure": "the left sleeve is dropped because it is not grasped securely.",
+            "failure": "The left sleeve is dropped because it is not grasped securely.",
             "continuation": "Continue with a fake folding motion.",
             "effectiveRecovery": "Regrasp the left sleeve and complete the task.",
             "ineffectiveRecovery": "Try to regrasp the left sleeve but fail, then continue with a fake fold."
           },
           {
-            "failure": "the right sleeve is dropped because it is not grasped securely.",
+            "failure": "The right sleeve is dropped because it is not grasped securely.",
             "continuation": "Continue with a fake folding motion.",
             "effectiveRecovery": "Regrasp the right sleeve and complete the task.",
             "ineffectiveRecovery": "Try to regrasp the right sleeve but fail, then continue with a fake fold."
           },
           {
-            "failure": "the garment is dropped before it is folded in half.",
+            "failure": "The garment is dropped before it is folded in half.",
             "continuation": "Continue with a fake folding motion.",
             "effectiveRecovery": "Regrasp the garment and complete the fold.",
             "ineffectiveRecovery": "Try to regrasp the garment but fail, then continue with a fake fold."
@@ -308,19 +308,19 @@
       "suboptimalTrajectories": {
         "events": [
           {
-            "failure": "the first mug handle is not aligned with the rack and the mug is released.",
+            "failure": "The first mug handle is not aligned with the rack and the mug is released.",
             "continuation": "Release the misaligned mug so it falls, then end.",
             "effectiveRecovery": "Pick the mug up again, align its handle, and hang it.",
             "ineffectiveRecovery": "Try to pick the mug up again but fail, then continue with a fake placement and end."
           },
           {
-            "failure": "the second mug handle is not aligned with the rack and the mug is released.",
+            "failure": "The second mug handle is not aligned with the rack and the mug is released.",
             "continuation": "Release the misaligned mug so it falls, then end.",
             "effectiveRecovery": "Pick the mug up again, align its handle, and hang it.",
             "ineffectiveRecovery": "Try to pick the mug up again but fail, then continue with a fake placement and end."
           },
           {
-            "failure": "the third mug handle is not aligned with the rack and the mug is released.",
+            "failure": "The third mug handle is not aligned with the rack and the mug is released.",
             "continuation": "Release the misaligned mug so it falls, then end.",
             "effectiveRecovery": "Pick the mug up again, align its handle, and hang it.",
             "ineffectiveRecovery": "Try to pick the mug up again but fail, then continue with a fake placement and end."
@@ -543,25 +543,25 @@
       "suboptimalTrajectories": {
         "events": [
           {
-            "failure": "the alarm clock is dropped because it is not grasped securely.",
+            "failure": "The alarm clock is dropped because it is not grasped securely.",
             "continuation": "Continue with a fake placement on the cabinet.",
             "effectiveRecovery": "Pick the alarm clock up again and complete the task.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then continue with a fake placement and end."
           },
           {
-            "failure": "the figure is dropped because it is not grasped securely.",
+            "failure": "The figure is dropped because it is not grasped securely.",
             "continuation": "Continue with a fake placement in front of the screen.",
             "effectiveRecovery": "Pick the figure up again and complete the task.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then continue with a fake placement."
           },
           {
-            "failure": "the mouse is dropped because it is not grasped securely.",
+            "failure": "The mouse is dropped because it is not grasped securely.",
             "continuation": "Continue with a fake placement on the black mat.",
             "effectiveRecovery": "Pick the mouse up again and complete the task.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then continue with a fake placement and end."
           },
           {
-            "failure": "the keyboard is pushed clearly in the wrong direction.",
+            "failure": "The keyboard is pushed clearly in the wrong direction.",
             "continuation": "Continue the incorrect push and end in failure.",
             "effectiveRecovery": "Push it again in the correct direction and complete the placement.",
             "ineffectiveRecovery": "Attempt to correct the push direction, but leave the keyboard misplaced."
@@ -759,31 +759,31 @@
       "suboptimalTrajectories": {
         "events": [
           {
-            "failure": "the box is dropped because it is not grasped securely.",
+            "failure": "The box is dropped because it is not grasped securely.",
             "continuation": "Continue with a fake placement of the box in front; fake-place the later objects there as well.",
             "effectiveRecovery": "Pick the box up again and complete the task.",
             "ineffectiveRecovery": "Try to pick the box up again but fail, then continue fake-placing the later objects in front."
           },
           {
-            "failure": "the shoe is dropped during grasp/transfer.",
+            "failure": "The shoe is dropped during grasp/transfer.",
             "continuation": "Do not recover it; continue to the next item.",
             "effectiveRecovery": "Pick up the shoe and place it in the box.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then continue with a fake placement and end."
           },
           {
-            "failure": "the hammer is dropped during grasp/transfer.",
+            "failure": "The hammer is dropped during grasp/transfer.",
             "continuation": "Do not recover it; continue to the next item.",
             "effectiveRecovery": "Pick up the hammer and place it in the box.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then continue with a fake placement and end."
           },
           {
-            "failure": "the toothbrush is dropped during grasp/transfer.",
+            "failure": "The toothbrush is dropped during grasp/transfer.",
             "continuation": "Do not recover it; continue to the next item.",
             "effectiveRecovery": "Pick up the toothbrush and place it in the box.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then continue with a fake placement and end."
           },
           {
-            "failure": "the toy car is dropped during grasp/transfer.",
+            "failure": "The toy car is dropped during grasp/transfer.",
             "continuation": "Do not recover it; continue to the next item/end.",
             "effectiveRecovery": "Pick up the toy car and place it in the box.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then continue with a fake placement and end."
@@ -1535,37 +1535,37 @@
       "suboptimalTrajectories": {
         "events": [
           {
-            "failure": "the pen holder is dropped during grasp.",
+            "failure": "The pen holder is dropped during grasp.",
             "continuation": "Continue by taking one pen from the table, fake-place it, and end.",
             "effectiveRecovery": "Pick up the holder again and complete the task.",
             "ineffectiveRecovery": "Return but fail to pick up the holder; fake-place one pen and end."
           },
           {
-            "failure": "the second pen is dropped during grasp/transfer.",
+            "failure": "The second pen is dropped during grasp/transfer.",
             "continuation": "Continue with a fake insertion at the holder and end.",
             "effectiveRecovery": "Pick the pen up again and complete the insertion.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then fake-insert and end."
           },
           {
-            "failure": "the second pen is misaligned with the holder.",
+            "failure": "The second pen is misaligned with the holder.",
             "continuation": "Continue an incorrect insertion motion outside the holder and end.",
             "effectiveRecovery": "Lift and realign the pen with the holder, then complete the task.",
             "ineffectiveRecovery": "Lift the pen but move it farther from the holder, then continue the incorrect insertion and end."
           },
           {
-            "failure": "the fourth pen is dropped during grasp/transfer.",
+            "failure": "The fourth pen is dropped during grasp/transfer.",
             "continuation": "Continue with a fake insertion at the holder and end.",
             "effectiveRecovery": "Pick the pen up again and complete the insertion.",
             "ineffectiveRecovery": "Try to pick it up again but fail, then fake-insert and end."
           },
           {
-            "failure": "the fourth pen is misaligned with the holder.",
+            "failure": "The fourth pen is misaligned with the holder.",
             "continuation": "Continue an incorrect insertion motion outside the holder and end.",
             "effectiveRecovery": "Lift and realign the pen with the holder, then complete the task.",
             "ineffectiveRecovery": "Lift the pen but move it farther from the holder, then continue the incorrect insertion and end."
           },
           {
-            "failure": "the holder is placed at an excessive angle and falls over.",
+            "failure": "The holder is placed at an excessive angle and falls over.",
             "continuation": "Leave the fallen holder and end.",
             "effectiveRecovery": "Lift the holder, correct its angle, and complete the placement.",
             "ineffectiveRecovery": "Lift it but adjust the angle further in the wrong direction, then release it so it falls again."

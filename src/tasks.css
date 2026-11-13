@@ -41,7 +41,7 @@
 .suboptimal-events{list-style:none;padding:0;margin:20px 0 0}
 .suboptimal-events>li{padding:14px 0;border-top:1px solid var(--doc-border)}
 .suboptimal-events h3{display:flex;align-items:baseline;gap:12px;font-size:16px;font-weight:400;line-height:1.6;margin:0 0 8px;color:#454c58}
-.suboptimal-events h3::before{content:"";display:inline-block;flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:var(--doc-accent);transform:translateY(-2px)}
+.suboptimal-error-number{flex:0 0 auto;color:var(--doc-muted);font-size:12px;font-weight:500;white-space:nowrap}
 .suboptimal-events dl{margin:0}
 .suboptimal-events dl>div{display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;padding:9px 0}
 .suboptimal-events dt{font-size:12px;font-weight:500;line-height:1.6;color:var(--doc-muted)}
