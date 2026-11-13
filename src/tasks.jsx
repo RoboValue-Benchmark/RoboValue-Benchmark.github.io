@@ -74,6 +74,14 @@ function SuboptimalTrajectorySection({ trajectories }) {
   </section>;
 }
 
+function MultiSolutionTrajectorySection({ trajectories }) {
+  return <section className="task-section multi-solution-trajectories"><h2>Multi-Solution Trajectories</h2>
+    <p className="task-hint">Multi-solution trajectories are successful executions that vary the order of independent task units while preserving required dependencies. The summary below describes which parts may change and how many alternatives the SOP specifies; it does not enumerate every sequence.</p>
+    <p>{trajectories.description}</p>
+    {trajectories.notes?.map((note, index) => <p className="task-hint" key={index}>{note}</p>)}
+  </section>;
+}
+
 export function TaskDetail({ taskId }) {
   const task = tasks.find(t => t.id === taskId);
   const videoDirectory = task.domain === 'real-world' ? `real-world/${task.slug}` : task.slug;
@@ -82,6 +90,7 @@ export function TaskDetail({ taskId }) {
     <section className="task-section"><h2>Videos</h2><VideoGallery title={task.title} videos={[['id', 'Standard'], ['emb', 'Cross-Embodiment'], ['env', 'Cross-Environment']].map(([key, label]) => ({ src: `/assets/tasks/videos/${videoDirectory}/${key}.mp4`, label }))} /></section>
     <section className="task-section"><h2>Procedure</h2><dl className="task-specification"><div><dt>Scene</dt><dd>{task.scene}</dd></div><div><dt>Procedure</dt><dd>{task.procedure}</dd></div>{task.order && <div><dt>Order and Variations</dt><dd>{task.order}</dd></div>}</dl></section>
     <section className="task-section"><h2>Subtask</h2><p className="task-hint">The labels below identify the semantic subtasks used in the manuscript. Their listed order does not impose constraints beyond the task instruction; tasks with multiple valid solutions may admit other orders.</p><ol className="subtask-list">{task.subtasks.map(s => <li key={s.id}><span>{s.id}</span><p>{s.text}</p></li>)}</ol></section>
+    {task.multiSolutionTrajectories && <MultiSolutionTrajectorySection trajectories={task.multiSolutionTrajectories} />}
     {task.suboptimalTrajectories && <SuboptimalTrajectorySection trajectories={task.suboptimalTrajectories} />}
     <section className="task-section"><h2>Counterfactuals</h2>{task.counterfactual ? <><p className="task-hint">TGA-CF holds the successful trajectory fixed and changes the instruction. The summaries below describe the semantic changes; they are not complete counterfactual prompts. Each category names the primary change, and related semantics may also change.</p><dl className="counterfactual-changes">{Object.entries(task.counterfactual.changes).map(([category, value]) => { const [original, changed] = value.split(' → '); return <div key={category}><dt>{category}</dt><dd><span>{original}</span><span className="change-arrow" aria-label="changed to"> → </span><strong>{changed}</strong></dd></div>; })}</dl></> : <p className="task-hint">This task is omitted from the paired counterfactual instruction set in the manuscript and is reserved for history-dependent progress evaluation.</p>}</section>
     <p className="task-source">Task specifications: Appendix {task.source.appendix}{task.counterfactual ? `. Counterfactual changes: Appendix ${task.domain === 'simulation' ? 'C.3' : 'D.3'}` : ''}.</p>

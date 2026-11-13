@@ -176,6 +176,9 @@
             "ineffectiveRecovery": "Lift the pen but move it farther from the opening, then continue the failed insertion and end."
           }
         ]
+      },
+      "multiSolutionTrajectories": {
+        "description": "The four pens may be inserted in different orders after the holder is picked up; return the filled holder only after all insertions. The SOP samples 20 pen orders, with two trajectories per order (40 ST-2 trajectories)."
       }
     },
     {
@@ -326,6 +329,9 @@
             "ineffectiveRecovery": "Try to pick the mug up again but fail, then continue with a fake placement and end."
           }
         ]
+      },
+      "multiSolutionTrajectories": {
+        "description": "The three mugs may be picked up in different orders, and the left/right arm assignment may also vary. The SOP lists 20 alternative ST-2 trajectories."
       }
     },
     {
@@ -789,6 +795,9 @@
             "ineffectiveRecovery": "Try to pick it up again but fail, then continue with a fake placement and end."
           }
         ]
+      },
+      "multiSolutionTrajectories": {
+        "description": "After positioning the box, the four objects may be packed in different orders; the SOP also varies which arm handles each object. It lists 20 alternative ST-2 trajectories."
       }
     },
     {
@@ -949,6 +958,9 @@
             "ineffectiveRecovery": "Attempt an adjustment but leave the overlap insufficient, so the top block collapses."
           }
         ]
+      },
+      "multiSolutionTrajectories": {
+        "description": "The three blocks may be selected in different orders, and arm assignment may vary, while placement must still respect the support dependency: each supporting block must be in place before the next block is stacked on it. The SOP lists 20 alternative ST-2 trajectories."
       }
     },
     {
@@ -1276,7 +1288,32 @@
         "appendix": "D.2",
         "page": 40
       },
-      "sequencePage": 51
+      "sequencePage": 51,
+      "multiSolutionTrajectories": {
+        "description": "The teapot placement must precede placing its lid and stays an unbroken two-step unit. That unit, placing cup A, placing the closed tea canister, and inserting the tea tongs form four reorderable units: 4! = 24 valid orders. The SOP describes 24 successful solutions, including the standard sequence."
+      },
+      "suboptimalTrajectories": {
+        "events": [
+          {
+            "failure": "The lid slips from the gripper while being carried from the left-side start area toward teapot B.",
+            "continuation": "Leave the lid and continue with the tea canister and tongs.",
+            "effectiveRecovery": "Pick up the lid again and place it correctly on teapot B, then continue.",
+            "ineffectiveRecovery": "Retry the transfer but drop the lid again, then continue."
+          },
+          {
+            "failure": "The tea tongs are placed horizontally in the bamboo holder instead of upright with the gripping end up.",
+            "continuation": "Leave the tongs horizontal and end.",
+            "effectiveRecovery": "Remove and rotate the tongs, then insert them upright with the gripping end up.",
+            "ineffectiveRecovery": "Attempt reinsertion but leave the tongs horizontal."
+          },
+          {
+            "failure": "Teapot B lands partly outside its coaster, so its base is not fully within the valid target area.",
+            "continuation": "Leave the teapot out of position and complete the lid, canister, and tongs steps.",
+            "effectiveRecovery": "Regrasp and place teapot B upright fully within its coaster, then continue.",
+            "ineffectiveRecovery": "Attempt to reposition it, but leave it partly outside the coaster, tilted, or with the wrong opening orientation."
+          }
+        ]
+      }
     },
     {
       "id": "real-world/arrange-flowers-and-reed-diffuser",
@@ -1337,7 +1374,41 @@
         "appendix": "D.2",
         "page": 41
       },
-      "sequencePage": 51
+      "sequencePage": 51,
+      "multiSolutionTrajectories": {
+        "description": "The three flowers form one consecutive action block and may be inserted in any of 6 orders. That block, placing the diffuser bottle, and inserting the reed may be permuted in 6 orders, giving 36 valid sequences. The SOP collects one trajectory per sequence (36 total, including the standard sequence).",
+        "notes": [
+          "Flower insertions stay consecutive; no bottle or reed action may interrupt the three-flower block. Hand choice and motion-path changes do not count as a new solution."
+        ]
+      },
+      "suboptimalTrajectories": {
+        "events": [
+          {
+            "failure": "The first grasp misses the sunflower stem; the empty gripper reaches the vase while the sunflower remains at its start position.",
+            "continuation": "Leave the sunflower and complete the remaining flowers, diffuser bottle, and reed.",
+            "effectiveRecovery": "Return to the sunflower, grasp the stem, insert it into the vase, and finish the task.",
+            "ineffectiveRecovery": "Retry but miss the sunflower again, then complete the remaining actions."
+          },
+          {
+            "failure": "The pink rose misses the vase opening and falls in the marked area in front of the vase.",
+            "continuation": "Leave the rose there and complete the lily, bottle, and reed actions.",
+            "effectiveRecovery": "Pick up the fallen rose, align its stem with the opening, and insert it before continuing.",
+            "ineffectiveRecovery": "Retry the insertion but drop the rose in the same marked area again, then continue."
+          },
+          {
+            "failure": "The diffuser bottle is placed upright entirely outside the coaster, with a visible gap.",
+            "continuation": "Leave the bottle outside the coaster, insert the reed, and end.",
+            "effectiveRecovery": "Move the bottle upright onto the coaster, then insert the reed.",
+            "ineffectiveRecovery": "Attempt to reposition it, but leave its base entirely outside the coaster; then insert the reed."
+          },
+          {
+            "failure": "The reed misses the bottle opening and falls in the marked area beside the bottle.",
+            "continuation": "Leave the reed beside the bottle and end.",
+            "effectiveRecovery": "Pick up the reed, align it with the bottle opening, and insert it.",
+            "ineffectiveRecovery": "Retry but miss the opening again, leaving the reed in the same marked area."
+          }
+        ]
+      }
     },
     {
       "id": "real-world/arrange-seasoning-jars",
@@ -1418,6 +1489,9 @@
             "ineffectiveRecovery": "Try to correct jar 2 but release it lying down again, then place jar 3."
           }
         ]
+      },
+      "multiSolutionTrajectories": {
+        "description": "The three jars may be handled in different orders; the dominant hand and the mapping of jars to the three rack positions may also vary. The SOP specifies 24 solution schemes: the standard scheme plus 23 ST-2 alternatives."
       }
     },
     {
@@ -1571,6 +1645,9 @@
             "ineffectiveRecovery": "Lift it but adjust the angle further in the wrong direction, then release it so it falls again."
           }
         ]
+      },
+      "multiSolutionTrajectories": {
+        "description": "The four pens may be inserted in different orders, while picking up the holder must come first and returning the filled holder must follow all four insertions. The SOP’s ST-2 sheet samples 20 pen orders, with two trajectories per order (40 trajectories)."
       }
     },
     {
@@ -1894,6 +1971,9 @@
             "ineffectiveRecovery": "Attempt a correction but leave it in the wrong slot."
           }
         ]
+      },
+      "multiSolutionTrajectories": {
+        "description": "The lipstick, pink eyebrow pencil, serum, and makeup remover can be arranged in 24 valid orders. Opening the drawer is first; closing it must happen immediately after both the lipstick and eyebrow pencil are inside. The SOP collects the standard order plus 23 ST-2 alternatives."
       }
     },
     {
@@ -1955,7 +2035,32 @@
         "appendix": "D.2",
         "page": 45
       },
-      "sequencePage": 52
+      "sequencePage": 52,
+      "multiSolutionTrajectories": {
+        "description": "The four actions are placing the pen (A), storing the eraser and closing the drawer (B), switching off the lamp (C), and unplugging it (D). A, B, and the C→D pair can be reordered, yielding 12 valid action orders; either hand may be the primary hand, for 24 solutions in total. The SOP lists 24 action-order/hand combinations."
+      },
+      "suboptimalTrajectories": {
+        "events": [
+          {
+            "failure": "The pen is released outside the pen holder and remains unplaced.",
+            "continuation": "Leave the pen and continue the remaining stages.",
+            "effectiveRecovery": "Adjust the grasp or alignment, place the pen correctly in the holder, and continue.",
+            "ineffectiveRecovery": "Attempt to correct the placement but leave the pen outside the holder, then continue."
+          },
+          {
+            "failure": "The lamp plug is not removed after the unplugging action.",
+            "continuation": "Leave the plug connected and end.",
+            "effectiveRecovery": "Reposition and retry until the plug is removed.",
+            "ineffectiveRecovery": "The SOP text also describes an adjusted retry that removes the plug, so it does not distinguish this branch from effective recovery."
+          },
+          {
+            "failure": "After placing the pen, the robot knocks over the pen holder while returning; the pen and holder are no longer arranged correctly.",
+            "continuation": "Do not rearrange the pen or holder; continue to the end.",
+            "effectiveRecovery": "Rearrange the pen and holder correctly, then finish the task.",
+            "ineffectiveRecovery": "Attempt to rearrange them, but fail to pick up the pen, the holder, or both; the arrangement remains incorrect."
+          }
+        ]
+      }
     },
     {
       "id": "real-world/pack-items-for-shipping",
@@ -2008,7 +2113,29 @@
         "appendix": "D.2",
         "page": 45
       },
-      "sequencePage": 52
+      "sequencePage": 52,
+      "suboptimalTrajectories": {
+        "events": [
+          {
+            "failure": "The gripper closes beside the wireless mouse and lifts empty; the mouse remains at its marked start position.",
+            "continuation": "Leave the mouse and pack the wired earphones and foam sheet.",
+            "effectiveRecovery": "Regrasp the mouse successfully, place it in the box, then pack the earphones and foam sheet.",
+            "ineffectiveRecovery": "Retry the grasp but remain empty-handed; leave the mouse and pack the remaining items."
+          },
+          {
+            "failure": "The wired earphones slip from the gripper while being carried to the box and land on the table outside it.",
+            "continuation": "Leave the earphones outside the box and place the foam sheet.",
+            "effectiveRecovery": "Pick up the dropped earphones, place them in the box, then place the foam sheet.",
+            "ineffectiveRecovery": "Retry the pickup but drop the earphones again; leave them outside and place the foam sheet."
+          },
+          {
+            "failure": "The foam sheet partly covers the contents but hangs over the box rim.",
+            "continuation": "Leave the sheet overhanging and end the task.",
+            "effectiveRecovery": "Reposition the sheet flat inside the box, covering the packed items without crossing the rim.",
+            "ineffectiveRecovery": "Attempt to adjust the sheet, but leave part of it overhanging the rim."
+          }
+        ]
+      }
     },
     {
       "id": "real-world/place-pot-on-induction-cooker",
@@ -2158,7 +2285,29 @@
         "appendix": "D.2",
         "page": 46
       },
-      "sequencePage": 52
+      "sequencePage": 52,
+      "suboptimalTrajectories": {
+        "events": [
+          {
+            "failure": "The first grasp misses the pig bun; the empty gripper reaches above the steamer while the bun remains at its start position.",
+            "continuation": "Leave the pig bun and complete the remaining food and steamer steps.",
+            "effectiveRecovery": "Return to the pig bun, grasp it, place it in the left side of the second-tier basket, and continue.",
+            "ineffectiveRecovery": "Retry but miss the bun again, then complete the remaining steps."
+          },
+          {
+            "failure": "The custard bun misses the second-tier basket and lands in the marked area on the table beside the steamer.",
+            "continuation": "Leave it outside and finish the remaining food, basket, and lid steps.",
+            "effectiveRecovery": "Pick up the bun from the marked area, place it in the right side of the second-tier basket, and continue.",
+            "ineffectiveRecovery": "Retry but miss the basket again, leaving the bun in the same marked area, then continue."
+          },
+          {
+            "failure": "The lid is left visibly tilted on the top basket, with a clear gap on one side.",
+            "continuation": "Leave the lid tilted, reset the arm, and end.",
+            "effectiveRecovery": "Regrasp the lid and seat it evenly on the top basket.",
+            "ineffectiveRecovery": "Attempt to adjust the lid, but leave it tilted with a visible gap."
+          }
+        ]
+      }
     },
     {
       "id": "real-world/press-button-five-times",
@@ -2351,6 +2500,9 @@
             "ineffectiveRecovery": "Try to reposition it but release it outside the tablecloth again, then end."
           }
         ]
+      },
+      "multiSolutionTrajectories": {
+        "description": "The plate, bowl, fork, and knife placements may be reordered independently; there is no precedence constraint between them. The SOP specifies 24 valid orders: the fixed baseline plus 23 alternatives."
       }
     },
     {
