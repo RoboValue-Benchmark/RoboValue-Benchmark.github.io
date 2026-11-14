@@ -17,8 +17,8 @@ export function CommunityPage() {
         <p>Scan the QR code with WeChat to join the RoboValue discussion group.</p>
       </div>
       <figure className="community-qr-card">
-        <a href="/assets/community-wechat.png?v=20261108-white" target="_blank" rel="noopener noreferrer" aria-label="Open the RoboValue WeChat QR code at full size">
-          <img src="/assets/community-wechat.png?v=20261108-white" alt="QR code for the RoboValue WeChat discussion group" width="630" height="968" />
+        <a href="/assets/community-wechat.png?v=20261115" target="_blank" rel="noopener noreferrer" aria-label="Open the RoboValue WeChat QR code at full size">
+          <img src="/assets/community-wechat.png?v=20261115" alt="QR code for the RoboValue WeChat discussion group" width="630" height="968" />
         </a>
         <figcaption>RoboValue WeChat Group</figcaption>
       </figure>
