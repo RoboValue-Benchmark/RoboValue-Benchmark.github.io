@@ -1,7 +1,8 @@
+import { SettingBadge, SettingsSummary } from './evaluation-setting';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Icon } from './benchmark';
 import { GROUPS, CAPABILITY_TABLE_HEADERS, METRICS as BASE_METRICS, CONDITIONS, excludedHighlight, scoreValue } from './benchmark-metrics';
-import { TRACKS, metricGroups as publishedMetricGroups, resultsCSV, scoreHighlights, sortedRows } from './leaderboard-utils';
+import { TRACKS, metricGroups as publishedMetricGroups, resultsCSV, scoreHighlights, sortedRows, unifiedRanking } from './leaderboard-utils';
 import { RankingModel } from './ranking-model';
 import subtaskData from './data/subtask-results.json';
 import { useResults } from './use-results';
@@ -22,7 +23,7 @@ const VIEW_COLUMNS = {
 const capabilityFor = key => GROUPS.find(group => group.id === key || group.metrics.includes(key) || key === 'sia' && group.id === 'understanding');
 
 function mergeSubtaskResults(rows) {
-  const keyFor = row => `${row.setting}:${row.name}`;
+  const keyFor = row => `${row.setting}:${row.name}:${Boolean(row.preview)}`;
   const remaining = new Map(subtaskData.rows.map(row => [keyFor(row), row]));
   const merged = rows.map(row => {
     const subtask = remaining.get(keyFor(row));
@@ -75,16 +76,17 @@ function ResultsTable({ eligible, view, loading, error, retry, tableId, onSort, 
     </th>;
   };
   return <>
-      <div className="lb-table-frame"><div className="lb-table-scroll" tabIndex={0} role="region" aria-label={`${CONDITIONS[view.condition]} results, ${TRACKS[view.track]}`}>
+      <div className="lb-table-frame"><div className="lb-table-scroll" tabIndex={0} role="region" aria-label={`${CONDITIONS[view.condition]} results, all settings`}>
         <table id={tableId} className={`lb-table ${ranked ? 'lb-table-aggregate' : 'lb-table-metrics'}`}>
-          <caption className="sr-only">{CONDITIONS[view.condition]}, {TRACKS[view.track]}. {ranked ? 'Normalized capability scores from 0 to 100; higher is better. Rank is the overall rank within this track, preserved when sorting.' : 'Raw metric scores ×100. FPL: lower is better; other metrics: higher is better. SIA does not contribute to Overall. Dashes indicate unreported metrics.'}</caption>
-          <thead>{ranked ? <tr><th scope="col" className="lb-rank">Rank</th><th scope="col" className="lb-model">Model</th>{columns.map(metricHeader)}</tr> : <>
-            <tr className="lb-group-row"><th rowSpan={2} scope="col" className="lb-model">Model</th>{groups.map(group => <th key={group.id} colSpan={group.metrics.length} scope="colgroup" style={{ '--capability-color': COLORS[group.id] }}>{group.title}</th>)}</tr>
+          <caption className="sr-only">{CONDITIONS[view.condition]}, all settings. {ranked ? 'Published capability scores; higher is better. Rank compares all settings by Overall and is preserved when sorting.' : 'Raw metric scores ×100. FPL: lower is better; other metrics: higher is better. SIA does not contribute to Overall. Dashes indicate unreported metrics.'}</caption>
+          <thead>{ranked ? <tr><th scope="col" className="lb-rank">Rank</th><th scope="col" className="lb-model">Model</th><th scope="col" className="lb-setting">Setting</th>{columns.map(metricHeader)}</tr> : <>
+            <tr className="lb-group-row"><th rowSpan={2} scope="col" className="lb-model">Model</th><th rowSpan={2} scope="col" className="lb-setting">Setting</th>{groups.map(group => <th key={group.id} colSpan={group.metrics.length} scope="colgroup" style={{ '--capability-color': COLORS[group.id] }}>{group.title}</th>)}</tr>
             <tr className="lb-metric-row">{columns.map(metricHeader)}</tr>
           </>}</thead>
           <tbody>{rows.map(row => <tr key={row.id}>
             {ranked && <td className="lb-rank">{row.aggregate.rank}</td>}
             <th scope="row" className="lb-model"><RankingModel row={row} /></th>
+            <td className="lb-setting"><SettingBadge setting={row.setting} /></td>
             {columns.map(key => <td key={key} className={key === 'overall' ? 'lb-overall-column' : ''}><Score value={scoreValue(row, view.condition, key)} highlight={highlights[key]} excluded={excludedHighlight(row, key)} overall={key === 'overall'} /></td>)}
           </tr>)}</tbody>
         </table>
@@ -95,23 +97,21 @@ function ResultsTable({ eligible, view, loading, error, retry, tableId, onSort, 
 
 function DownloadResults({ eligible, view }) {
   const columns = metricGroups(view.condition).flatMap(group => group.metrics);
-  return <button className="lb-download" aria-label={`Download ${TRACKS[view.track]} ${CONDITIONS[view.condition]} results as CSV`} disabled={!eligible.length} onClick={() => saveCSV(resultsCSV(sortedRows(eligible, view), view, columns, METRICS, TRACKS), `robovalue-${view.track}-${view.condition}-results.csv`)}><Icon name="down" size={15} />CSV</button>;
+  return <button className="lb-download" aria-label={`Download all settings ${CONDITIONS[view.condition]} results as CSV`} disabled={!eligible.length} onClick={() => saveCSV(resultsCSV(sortedRows(eligible, view), view, columns, METRICS, TRACKS), `robovalue-all-settings-${view.condition}-results.csv`)}><Icon name="down" size={15} />CSV</button>;
 }
 
-function TrackTable({ track, kind, allRows, loading, error, retry, state, onChange }) {
+function UnifiedTable({ kind, allRows, loading, error, retry, state, onChange }) {
   const ranked = kind === 'ranking';
   const { condition = 'id', sort } = state;
-  const eligible = useMemo(() => allRows.filter(row => row.setting === track), [allRows, track]);
-  const view = { track, condition: ranked ? 'aggregate' : condition, sort, query: '', capability: 'all', selected: [] };
-  const tableId = `lb-${kind}-${track}-table`;
-  const headingId = `lb-${kind}-${track}-title`;
-  return <section className="lb-track-section" data-track={track} data-kind={kind} aria-labelledby={headingId}>
+  const eligible = allRows;
+  const view = { track: 'all', condition: ranked ? 'aggregate' : condition, sort, query: '', capability: 'all', selected: [] };
+  const tableId = `lb-${kind}-table`;
+  return <section className="lb-track-section" data-kind={kind} aria-label={ranked ? 'Overall Ranking, all settings' : 'Results, all settings'}>
     <div className="lb-track-heading">
-      <h3 id={headingId}><span className="lb-track-accent" aria-hidden="true" />{TRACKS[track]}</h3>
       <span className="lb-track-rule" aria-hidden="true" />
       <DownloadResults eligible={eligible} view={view} />
     </div>
-    {!ranked && <div className="lb-condition-tabs" role="group" aria-label={`${TRACKS[track]} evaluation condition`}>{Object.entries(CONDITIONS).filter(([key]) => key !== 'aggregate').map(([key, label]) => <button key={key} aria-pressed={condition === key} aria-controls={tableId} onClick={() => onChange({ condition: key, sort: null })}>{label}</button>)}</div>}
+    {!ranked && <div className="lb-condition-tabs" role="group" aria-label="Evaluation condition">{Object.entries(CONDITIONS).filter(([key]) => key !== 'aggregate').map(([key, label]) => <button key={key} aria-pressed={condition === key} aria-controls={tableId} onClick={() => onChange({ condition: key, sort: null })}>{label}</button>)}</div>}
     <ResultsTable eligible={eligible} view={view} loading={loading} error={error} retry={retry} tableId={tableId} onSort={key => onChange(current => ({ sort: { key, asc: current.sort?.key === key ? !current.sort.asc : !!METRICS[key].lower } }))} onReset={() => onChange({ sort: null })} />
   </section>;
 }
@@ -128,21 +128,23 @@ export function Leaderboard() {
     window.addEventListener('popstate', restore);
     return () => window.removeEventListener('popstate', restore);
   }, []);
-  const changeView = (kind, track, change) => setViews(current => ({
+  const changeView = (kind, change) => setViews(current => ({
     ...current,
-    [kind]: { ...current[kind], [track]: { ...current[kind][track], ...(typeof change === 'function' ? change(current[kind][track]) : change) } },
+    [kind]: { ...current[kind], ...(typeof change === 'function' ? change(current[kind]) : change) },
   }));
-  const resultRows = useMemo(() => data ? mergeSubtaskResults(data.rows) : [], [data]);
-  const rankingRows = data?.rows || [];
+  const rankingRows = useMemo(() => unifiedRanking(data?.rows || []), [data]);
+  const resultRows = useMemo(() => data ? mergeSubtaskResults(rankingRows) : [], [data, rankingRows]);
   return <main className="leaderboard-main" id="main-content" tabIndex={-1}>
-    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. Evaluation tracks are ranked separately.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/eval/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
+    <header className="lb-heading"><h1><span>RoboValue</span> Leaderboard</h1><p>Compare robotic value models across four capability dimensions in simulation and real-world settings. All evaluation settings are ranked together by Overall.</p><nav className="lb-entry-links" aria-label="Evaluation documentation"><a className="lb-participate" href="/eval/">Participate in Evaluation <Icon size={18} /></a><a className="lb-metrics-link" href="/doc/get-started/protocol/">Protocol &amp; Metrics <Icon size={18} /></a></nav></header>
     <section className="lb-ranking" aria-labelledby="lb-ranking-title">
       <h2 id="lb-ranking-title">Overall Ranking</h2>
-      {Object.keys(TRACKS).map(track => <TrackTable key={track} track={track} kind="ranking" state={views.ranking[track]} onChange={change => changeView('ranking', track, change)} allRows={rankingRows} loading={!data} error={error} retry={retry} />)}
+      <SettingsSummary />
+      <UnifiedTable kind="ranking" state={views.ranking} onChange={change => changeView('ranking', change)} allRows={rankingRows} loading={!data} error={error} retry={retry} />
     </section>
     <section className="lb-results" aria-labelledby="lb-results-title">
       <h2 id="lb-results-title">Results</h2>
-      {Object.keys(TRACKS).map(track => <TrackTable key={track} track={track} kind="results" state={views.results[track]} onChange={change => changeView('results', track, change)} allRows={resultRows} loading={!data} error={error} retry={retry} />)}
+      <SettingsSummary />
+      <UnifiedTable kind="results" state={views.results} onChange={change => changeView('results', change)} allRows={resultRows} loading={!data} error={error} retry={retry} />
     </section>
   </main>;
 }

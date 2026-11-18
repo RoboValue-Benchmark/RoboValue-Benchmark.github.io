@@ -1,4 +1,4 @@
-import { AGGREGATE_COLUMNS, CONDITIONS, GROUPS, METRICS, excludedHighlight, scoreValue } from './benchmark-metrics';
+import { AGGREGATE_COLUMNS, CONDITIONS, GROUPS, METRICS, excludedHighlight, scoreValue } from './benchmark-metrics.js';
 
 export const TRACKS = { zero: 'Zero-Shot', one: 'One-Shot', full: 'Full-Shot' };
 export const DEFAULT_VIEW = { condition: 'aggregate', track: 'zero', capability: 'all', query: '', sort: null, selected: [] };
@@ -47,11 +47,24 @@ export const modelName = row => {
   return qualifier ? `${name} ${qualifier}` : name;
 };
 
+// Rank configurations together by the published Overall score. Never compare
+// the old setting-local rank numbers across settings; never invent missing scores.
+export function unifiedRanking(rows) {
+  const ranked = rows.filter(row => Number.isFinite(row.aggregate?.overall))
+    .sort((a, b) => b.aggregate.overall - a.aggregate.overall || (a.order ?? 0) - (b.order ?? 0));
+  const ranks = new Map();
+  ranked.forEach((row, index) => ranks.set(row.id,
+    index && row.aggregate.overall === ranked[index - 1].aggregate.overall
+      ? ranks.get(ranked[index - 1].id) : index + 1));
+  return rows.map(row => ranks.has(row.id)
+    ? { ...row, aggregate: { ...row.aggregate, rank: ranks.get(row.id) } } : row);
+}
+
 export function sortedRows(rows, view) {
   const query = view.query.toLowerCase().trim();
   const filtered = rows.filter(row => `${row.name} ${modelName(row)}`.toLowerCase().includes(query));
   if (!view.sort) return filtered.sort((a, b) =>
-    (a.aggregate?.rank ?? Infinity) - (b.aggregate?.rank ?? Infinity) || a.order - b.order
+    (b.aggregate?.overall ?? -Infinity) - (a.aggregate?.overall ?? -Infinity) || (a.order ?? 0) - (b.order ?? 0)
   );
   return filtered.sort((a, b) => {
     const av = scoreValue(a, view.condition, view.sort.key), bv = scoreValue(b, view.condition, view.sort.key);
@@ -71,7 +84,7 @@ export function scoreHighlights(rows, condition, columns, metrics = METRICS) {
 
 export function resultsCSV(rows, view, columns, metrics = METRICS, tracks = TRACKS) {
   const ranked = view.condition === 'aggregate';
-  const header = ['Model', 'Track', 'Condition', ...(ranked ? ['Rank'] : []), ...columns.map(key => metrics[key].label)];
+  const header = ['Model', 'Setting', 'Condition', ...(ranked ? ['Rank'] : []), ...columns.map(key => metrics[key].label)];
   const values = rows.map(row => [modelName(row), tracks[row.setting], CONDITIONS[view.condition], ...(ranked ? [row.aggregate.rank] : []), ...columns.map(key => scoreValue(row, view.condition, key) ?? '')]);
   const escape = value => `"${String(value).replaceAll('"', '""')}"`;
   return [header, ...values].map(row => row.map(escape).join(',')).join('\r\n');

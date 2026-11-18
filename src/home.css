@@ -183,11 +183,11 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
 .rv-introduction .rv-brand-primary { font-size: 1.25em; font-weight: 800; line-height: 1; letter-spacing: -.025em; }
 .rv-introduction .rv-data-emphasis { color: #303640; font-weight: 500; }
 @supports ((background-clip: text) or (-webkit-background-clip: text)) {
-  .rv-home .rv-eyebrow { background-image: var(--rv-heading-gradient); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .rv-home .rv-eyebrow-text { background-image: var(--rv-heading-gradient); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .rv-introduction .rv-brand-name { background-image: var(--rv-brand-gradient); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 }
 @media (forced-colors: active) {
-  .rv-home .rv-eyebrow, .rv-introduction .rv-brand-name { background-image: none; -webkit-text-fill-color: currentColor; }
+  .rv-home .rv-eyebrow-text, .rv-introduction .rv-brand-name { background-image: none; -webkit-text-fill-color: currentColor; }
 }
 .rv-home .rv-overview-figure { --overview-width: min(1100px, calc(100vw - 64px)); width: var(--overview-width); margin: 32px calc((100% - var(--overview-width)) / 2); }
 .rv-home .rv-overview-figure .figure-open { position: relative; display: block; width: 100%; padding: 0; overflow: hidden; border: 0; border-radius: 12px; background: white; box-shadow: none; }
@@ -607,3 +607,12 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
  .rv-news-item { grid-template-columns: 1fr; gap: 7px; padding-block: 20px; }
  .rv-news-item time { padding: 0; font-size: 13px; }
 }
+
+.rv-results .lb-settings-summary { justify-content: center; margin: 14px 0 0; }
+.rv-preview-table { min-width: 1104px; }
+.rv-preview-table .rv-preview-setting { min-width: 104px; white-space: nowrap; }
+
+/* Mask the actual text run, never the flex container shared with icons/lines.
+   A little ink room protects the final glyph at fractional font/device scales. */
+.rv-home .rv-eyebrow { background-image: none; -webkit-text-fill-color: currentColor; }
+.rv-home .rv-eyebrow-text { display: inline-block; flex: 0 0 auto; padding-inline-end: .15em; margin-inline-end: -.15em; }

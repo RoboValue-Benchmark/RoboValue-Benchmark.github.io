@@ -10,13 +10,14 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_FILES = ('sec/5_1RoboValueLeaderboard.tex', 'sec/5_Experiment.tex')
+SOURCE_FILES = ('sec/5_1RoboValueLeaderboard.tex', 'sec/5_Experiment.tex', 'iclr2027_supplementary.tex')
 METRICS = ('sa', 'tga_ct', 'tga_cf', 'voc', 'cycle_voc', 'memory_voc', 'fpl', 'trr', 'vs', 'csvc')
 OOD_METRICS = tuple(key for key in METRICS if key not in ('trr', 'csvc'))
 CAPABILITIES = ('understanding', 'tracking', 'diagnosis', 'consistency', 'overall')
 MODEL_ROW = re.compile(
     r'^\s*(?P<name>LIV|ProcVLM-2B|RoboFAC-7B|RoboMeter-4B|RoboReward-[48]B|'
-    r'RynnValue-[48]B|TOPReward-(?:8|32)B|VLAC-[28]B|Robo-Dopamine-[348]B)'
+    r'RynnValue-[48]B|TOPReward-(?:8|32)B|VLAC-[28]B|Robo-Dopamine-[348]B|'
+    r'Flora|GPT-6\.1 Sol|Gemini 4 Argon|Claude Opus 5\.5|DeepSeek-V4\.1-Flash|FailSafe)'
     r'\s*(?P<marker>\$\^\{(?:\\dagger|\\ddagger|\*)\}\$)?\s*&(?P<cells>.*?)\\\\',
     re.MULTILINE | re.DOTALL,
 )
@@ -30,6 +31,7 @@ def source_table(text, label):
 
 
 def read_rows(table):
+    table = re.sub(r"~?\\cite[a-z]*\{[^}]*\}", "", table)
     rows = []
     for match in MODEL_ROW.finditer(table):
         preceding = table[:match.start()]
@@ -100,7 +102,7 @@ def extract(paper, version):
         name, preview, setting = row_key(standard)
         rows.append({
             'name': name, 'preview': preview, 'setting': setting,
-            'id': f"{name.lower()}{'-preview' if preview else ''}-{setting}",
+            'id': re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-') + ('-preview' if preview else '') + '-' + setting,
             'order': order, 'conditions': conditions, 'aggregate': aggregates[row_key(standard)],
         })
     return {
@@ -114,17 +116,54 @@ def extract(paper, version):
     }
 
 
+def extract_subtasks(paper, version):
+    path = 'sec/5_Experiment.tex'
+    raw = (paper / path).read_bytes()
+    text = re.sub(r'(?<!\\)%[^\n]*', '', raw.decode())
+    rows = read_rows(source_table(text, 'tab:sia_results'))
+    assert len({row_key(row) for row in rows}) == len(rows), 'Duplicate SIA configuration'
+    result = []
+    for row in rows:
+        assert len(row['cells']) == 4, row
+        values = list(map(number, row['cells']))
+        assert all(value is not None for value in values), row
+        assert abs(sum(values[:3]) / 3 - values[3]) <= 0.011, row
+        result.append({'name': row['name'], 'setting': row['setting'],
+            'conditions': dict(zip(('id', 'emb', 'env'), values)), 'overall': values[3]})
+    return {'source': 'RoboValue manuscript LaTeX: Subtask Identification Results',
+        'sourceVersion': version, 'scale': 100, 'includedInOverall': False, 'rows': result,
+        'sourceFiles': [{'path': 'RoboValue_paper/' + path, 'sha256': hashlib.sha256(raw).hexdigest()}]}
+
+
+def verify_calibration(data):
+    # Cross-check all quantities recoverable from the displayed paper tables.
+    # VROC is not tabulated; never substitute Cycle-VOC or infer raw VROC from P.
+    for row in data['rows']:
+        c, a = row['conditions'], row['aggregate']
+        mean = lambda key: sum(c[condition][key] for condition in ('id', 'emb', 'env')) / 3
+        u = .25 * (mean('sa') - 50) * 2 + .25 * (mean('tga_ct') - 10) * 100/90 + .5 * (mean('tga_cf') - 20) * 100/80
+        r = .5 * (32 - mean('fpl')) * 100/32 + .5 * (c['id']['trr'] - 100/6) * 100/(100-100/6)
+        excluded = row['name'] in ('RoboReward-4B', 'RoboReward-8B')
+        consistency = 0 if excluded else .4 * mean('vs') + .6 * (c['id']['csvc'] + 70) * 100/170
+        overall = .3*a['understanding'] + .2*a['tracking'] + .3*a['diagnosis'] + .2*a['consistency']
+        for key, value in [('understanding', u), ('diagnosis', r), ('consistency', consistency), ('overall', overall)]:
+            assert abs(value-a[key]) <= .025, (row['name'], row['setting'], key, value, a[key])
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('paper', type=Path)
-    parser.add_argument('--version', required=True, help='Source snapshot date in YYYY-MM-DD format.')
+    parser.add_argument('--version', required=True)
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
     data = extract(args.paper, args.version)
-    target = ROOT / 'public/data/results.json'
-    if args.check:
-        assert json.loads(target.read_text()) == data, 'Published data differ from the source tables.'
-        print(f'Verified {len(data["rows"])} configurations, overall ranks and all three conditions against manuscript LaTeX.')
-    else:
-        target.write_text(json.dumps(data, indent=2) + '\n')
-        print(f'Wrote {len(data["rows"])} configurations to {target}.')
+    verify_calibration(data)
+    sia = extract_subtasks(args.paper, args.version)
+    outputs = {'public/data/results.json': data, 'src/data/subtask-results.json': sia}
+    for name, value in outputs.items():
+        target = ROOT / name
+        if args.check:
+            assert json.loads(target.read_text()) == value, name + ' differs from manuscript'
+        else:
+            target.write_text(json.dumps(value, indent=2) + '\n')
+    print(('Verified' if args.check else 'Wrote') + f" {len(data['rows'])} configurations and {len(sia['rows'])} SIA configurations.")

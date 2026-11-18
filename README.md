@@ -84,33 +84,31 @@ The earlier aligned paper-information version without the animated background is
 
 ## Pages
 
-- `/`: paper and resource information over an animated manuscript task-image background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; selected-track rankings; community access; and a copyable BibTeX citation.
+- `/`: paper and resource information over an animated manuscript task-image background; an overview-video placeholder; introduction and SVG overview figure; News; simulation and real-world task galleries; the four benchmark capability dimensions; unified rankings with a Setting column; community access; and a copyable BibTeX citation.
 - `/doc/`: documentation, evaluation and integration guidance, and all simulation and real-world task pages.
 - `/eval/`: evaluation application form with public WeChat and Discord access. Production builds use CloudBase submissions and a saved server receipt. Local development retains the temporary frontend-only success preview; applications in that mode are not sent or saved. The contact fallback remains configurable.
 - `/community/`: public WeChat group invitation and Discord access, without the documentation sidebar.
 - `/data/`: standalone dataset page, currently showing Coming soon.
-- `/leaderboard/`: Overall Ranking and Results each show separate Zero-Shot, One-Shot, and Full-Shot tables from top to bottom. Each Results table independently switches between Standard, Cross-Embodiment, and Cross-Environment. Sorting and CSV export apply to the corresponding table; Full-Shot retains an empty state. Detailed results include SIA.
+- `/leaderboard/`: one Overall Ranking table and one Results table combine all evaluation settings, identified by the Setting column. Default order is descending published Overall; Results retains Standard, Cross-Embodiment and Cross-Environment controls. Sorting and CSV are independent for the two tables. SIA-only FailSafe remains in Results without an invented Overall. No Full-Shot results are reported.
 
 ## Results and sources
 
-Home and Document share the Overview SVG converted from the supplied `overview_10-16.pdf`, preserving its embedded image. The benchmark section presents the four capability dimensions from Section 4.3 and Table 1. Results and task specifications have been checked against the October 24, 2026 manuscript PDF.
+Leaderboard results follow the November 19, 2026 LaTeX snapshot: 24 configurations (17 Zero-Shot and 7 One-Shot) and 9 SIA configurations. Added Zero-Shot models are Flora, GPT-6.1 Sol, Gemini 4 Argon, Claude Opus 5.5 and DeepSeek-V4.1-Flash. Model names and scores are copied from the manuscript, without inferring different service versions. Data files record source paths, SHA-256 hashes and the snapshot date. Private manuscripts and audit inputs stay outside the public repository.
 
-`public/data/results.json` follows Tables 2–4: 12 Zero-Shot and 7 One-Shot configurations, with separate rankings and Standard, Cross-Embodiment, and Cross-Environment results. This update changes 77 numerical entries for One-Shot ProcVLM-2B, VLAC-2B and VLAC-8B; all model identities, Zero-Shot scores and ranks remain unchanged. `src/data/subtask-results.json` follows Table 6, with 15 updated values; SIA remains separate from aggregate scoring. Full-Shot has no results yet. The task catalog follows the updated tea-set and cosmetics-storage instructions, including the tea-set counterfactual constraint. CSVC uses four boundary pairs, permitting repeated pairs for very short subtasks.
+`public/data/results.json` contains the exact displayed capability/Overall scores and raw Standard, Cross-Embodiment and Cross-Environment results. `src/data/subtask-results.json` contains separately reported SIA values. Existing task assets and specifications retain their prior verified snapshot.
 
-The data files record the source PDF filename, SHA-256 and page numbers. See [the October 24 synchronization record](docs/releases/2026-10-24-paper-data-sync.md) for changes and validation, or [the October 19 record](docs/releases/2026-10-19-manuscript-results.md) for the previous update. The original PDF and private audit artifacts are not published with the website.
+The current scoring rules use fixed-reference calibration, equal condition weights, and Overall = 0.30 Understanding + 0.20 Monitoring + 0.30 Reasoning + 0.20 Consistency. Negative scores are retained. SIA and Cycle-VOC do not add further contributions. VROC contributes to Monitoring, but its raw per-condition results are not tabulated in the current LaTeX manuscript: do not substitute Cycle-VOC or reverse-engineer VROC from rounded capability scores. The website preserves the exact published Monitoring score. RoboReward’s excluded VS and CSVC contribute zero after calibration, without treating those exclusions as measured raw zeros.
 
-To reproduce or verify this PDF snapshot, install the manual maintenance tools Poppler (`pdftotext`) and PyMuPDF, then run:
+Reproduce or check the current snapshot with:
 
 ```bash
-python scripts/sync_paper_pdf.py /path/to/10-24_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf --version 2026-10-24
-python scripts/sync_paper_pdf.py /path/to/10-24_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf --version 2026-10-24 --check
+python3 scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-11-19
+python3 scripts/sync_paper_results.py /path/to/RoboValue_paper --version 2026-11-19 --check
 ```
 
-The parser rejects unexpected page counts, table shapes, model coverage or task layouts. It retains the PDF's displayed scores and checks aggregate consistency within rounding tolerance. The older LaTeX synchronization script remains available for historical snapshots.
+The parser rejects incomplete model coverage, duplicates and unexpected cells, and checks all capability/Overall formulas recoverable from the displayed tables within rounding tolerance. Historical PDF tools and release notes remain available for older snapshots.
 
-Home and Leaderboard share the results loader, model identities, and official project links. Homepage rankings include every model in the selected track, and the dedicated leaderboard displays all three tracks. Official project logos take priority over institution fallbacks.
-
-Each leaderboard table has independent condition and sorting state reflected in the URL. Existing single-table links remain readable. Sorting preserves each model's overall rank within its track. Best and second-best marks use all eligible models, including ties. FPL defaults to ascending order; both TOPReward variants' VOC and Memory-VOC are excluded from best/second-best marking, following the manuscript. RoboReward's unmeasured VS and CSVC count as zero in aggregate scoring and remain unreported in raw metric views. CSV exports contain the displayed rows, track, condition, and overall ranks where applicable.
+The dedicated leaderboard ranks configurations across settings by published Overall, preserving competition ties and the unified rank under manual metric sorting. Results follows that order by default; configurations without Overall follow scored rows. Best/second-best marks compare all settings together. FPL defaults to ascending; TOPReward’s VOC and Memory-VOC now participate in highlights according to the current manuscript. CSV exports preserve the displayed order, Setting, condition and unified rank where applicable. Old per-setting URLs migrate to the unified table state. Home uses the same unified Overall ranking and shared colored Setting badges as the dedicated leaderboard. November News entries announce Flora and the four general-purpose multimodal foundation models.
 
 ## Local development
 

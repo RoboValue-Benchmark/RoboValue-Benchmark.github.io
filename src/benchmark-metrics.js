@@ -23,8 +23,8 @@ export const METRICS = {
   csvc: { label: 'CSVC', name: 'Cross-Solution Value Consistency', description: 'Compares gains assigned to the same semantic subtask across valid solutions. Consistency is assessed alongside progress metrics and does not by itself establish correct progress estimation.' },
 };
 export const AGGREGATE_COLUMNS = ['overall', 'understanding', 'tracking', 'diagnosis', 'consistency'];
-METRICS.overall = { label: 'Overall', name: 'Overall score', description: 'Mean of the four capability scores, computed before rounding.' };
+METRICS.overall = { label: 'Overall', name: 'Overall score', description: '30% Task-State Understanding + 20% Temporal Progress Monitoring + 30% Failure and Recovery Reasoning + 20% Value Consistency, computed before rounding; negative scores are retained.' };
 for (const group of GROUPS) METRICS[group.id] = { label: group.short, name: group.title, description: group.title + ' aggregate score from Table 1.' };
 export const scoreValue = (row, condition, key) => condition === 'aggregate' ? row.aggregate?.[key] : row.conditions?.[condition]?.[key];
-export const excludedHighlight = (row, key) => /^TOPReward-(8|32)B$/.test(row.name) && ['voc', 'memory_voc'].includes(key);
+export const excludedHighlight = (row, key) => /^RoboReward-[48]B$/.test(row.name) && ['vs', 'csvc'].includes(key);
 export const CONDITIONS = { aggregate: 'Leaderboard', id: 'Standard', emb: 'Cross-Embodiment', env: 'Cross-Environment' };

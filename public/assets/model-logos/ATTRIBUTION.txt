@@ -51,3 +51,24 @@ Mark: https://www.shlab.org.cn/static/asset/img/favicon.ico
 FailSafe — Nanyang Technological University
 First institution: https://arxiv.org/html/2510.01642v1
 Mark: https://www.ntu.edu.sg/ResourcePackages/NTU/assets/images/favicon.png
+
+GPT-6.1 Sol — OpenAI · model provider brand
+Source page: https://robodojo-benchmark.com/leaderboard#robodojo
+Exact image URL: https://media.luminis-sim.com/media/shared/teams/openai.svg
+
+Gemini 4 Argon — Gemini · official product icon
+Source page: https://gemini.google.com/
+Exact image URL: https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png
+
+Claude Opus 5.5 — Claude · model family brand
+Source page: https://robodojo-benchmark.com/leaderboard#robodojo
+Exact image URL: https://media.luminis-sim.com/media/shared/teams/claude.png
+
+DeepSeek — DeepSeek · model provider brand
+Source page: https://robodojo-benchmark.com/leaderboard#robodojo
+Exact image URL: https://media.luminis-sim.com/media/shared/teams/deepseek.webp
+
+Flora — NVIDIA provider mark (replaces the Flora project favicon)
+Reference: https://robodojo-benchmark.com/leaderboard#robodojo
+Mark: https://media.luminis-sim.com/media/shared/teams/NV.png
+Project: https://research.nvidia.com/labs/gear/flora/

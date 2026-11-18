@@ -53,21 +53,21 @@ export function EvaluationProtocol() {
     </Section>
     <Section id="protocol-results" title="Scoring">
       <p id="protocol-coverage">Metric results are reported separately by track, domain, and evaluation condition. Published TRR and CSVC results cover the standard setting only. For each metric and condition, task scores are averaged within simulation and within the real-world domain. The combined score is the mean of these two averages, giving both domains equal weight.</p>
-      <p>The <a href="/leaderboard/">leaderboard</a> combines normalized metric scores into four capability scores, then averages those scores for the overall ranking. Missing or unsupported measurements remain N/A in metric-level results and contribute zero after normalization to the aggregate, without redistributing their weights.</p>
+      <p>The <a href="/leaderboard/">leaderboard</a> combines calibrated metric contributions into four capability scores. Overall weights Understanding and Reasoning at 30% each, and Monitoring and Consistency at 20% each. All evaluation settings share one website ranking. Unreported measurements remain N/A in metric-level results. RoboReward’s excluded VS and CSVC contributions are zero after calibration, without redistributing their weights.</p>
       <details className="doc-scoring-details" id="leaderboard-scoring">
         <summary>Leaderboard Details</summary>
-        <p>For metric values displayed ×100, normalize VOC, Memory-VOC, VROC, and CSVC by (x + 100) / 2, and FPL by 100 − x. Other percentage scores remain unchanged.</p>
-        <p>For metrics with all three conditions, average the two out-of-domain scores, then average that result with the in-domain score. The effective weights are ½ for Standard and ¼ for each shifted condition. TRR and CSVC use Standard scores. VROC uses an equal average of its reverse-half correlations across all three conditions.</p>
+        <p>On the displayed ×100 scale, use q = 100(x − b)/(100 − b), with fixed references b = 50 for SA, 10 for TGA-CT, 20 for TGA-CF, 100/6 for TRR, −70 for CSVC, and 0 for VOC, Memory-VOC, VROC and VS. For FPL, q = 100(32 − x)/32. Signed contributions and negative scores are retained without clipping.</p>
+        <p>SA, TGA-CT, TGA-CF, VOC, Memory-VOC, VROC, FPL and VS use an equal average of Standard, Cross-Embodiment and Cross-Environment results. TRR and CSVC use Standard results. VROC is the reverse-half Spearman correlation against decreasing progress order in the continuous forward–reverse sequence, retaining the preceding forward context. The current manuscript does not separately tabulate its raw scores; published capability scores are taken directly from the leaderboard table.</p>
         <div className="doc-table-scroll" role="region" aria-label="Capability score weights" tabIndex={0}><table className="doc-contract-table">
-          <thead><tr><th>Capability</th><th>Combination of Normalized Scores</th></tr></thead>
+          <thead><tr><th>Capability</th><th>Combination of Calibrated Contributions</th></tr></thead>
           <tbody>
-            <tr data-capability="understanding"><td className="doc-capability">Task-State Understanding</td><td>½ SA + ¼ TGA-CT + ¼ TGA-CF</td></tr>
-            <tr data-capability="tracking"><td className="doc-capability">Temporal Progress Monitoring</td><td>¼ VOC + ¼ Memory-VOC + ½ VROC</td></tr>
+            <tr data-capability="understanding"><td className="doc-capability">Task-State Understanding</td><td>¼ SA + ¼ TGA-CT + ½ TGA-CF</td></tr>
+            <tr data-capability="tracking"><td className="doc-capability">Temporal Progress Monitoring</td><td>0.10 VOC + 0.40 Memory-VOC + 0.50 VROC</td></tr>
             <tr data-capability="diagnosis"><td className="doc-capability">Failure and Recovery Reasoning</td><td>½ FPL + ½ TRR</td></tr>
-            <tr data-capability="consistency"><td className="doc-capability">Value Consistency</td><td>½ VS + ½ CSVC</td></tr>
+            <tr data-capability="consistency"><td className="doc-capability">Value Consistency</td><td>0.40 VS + 0.60 CSVC</td></tr>
           </tbody>
         </table></div>
-        <p>SIA is reported separately. Cycle-VOC is not added again because its forward and reverse components are already represented. Overall scores are computed before rounding.</p>
+        <p>Overall = 0.30 Understanding + 0.20 Monitoring + 0.30 Reasoning + 0.20 Consistency. SIA and Cycle-VOC are reported separately and do not add further contributions. Calculations use the available source precision, with rounding only for display.</p>
       </details>
     </Section>
   </div>;

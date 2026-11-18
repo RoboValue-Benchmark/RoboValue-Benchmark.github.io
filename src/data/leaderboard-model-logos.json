@@ -1,7 +1,7 @@
 {
   "LIV": {
     "src": "/assets/model-logos/penn.ico",
-    "label": "University of Pennsylvania \u00b7 first institution",
+    "label": "University of Pennsylvania · first institution",
     "kind": "institution",
     "source": "https://penn-pal-lab.github.io/LIV/",
     "institutionSource": "https://www.upenn.edu/",
@@ -12,7 +12,7 @@
   },
   "ProcVLM": {
     "src": "/assets/model-logos/renmin.png",
-    "label": "Renmin University of China \u00b7 first institution",
+    "label": "Renmin University of China · first institution",
     "kind": "institution",
     "source": "https://procvlm.github.io/",
     "institutionSource": "https://www.ruc.edu.cn/xuexiaobiaozhi1924747550510977025.html",
@@ -21,7 +21,7 @@
   },
   "Robo-Dopamine": {
     "src": "/assets/model-logos/robo-dopamine.png",
-    "label": "Robo-Dopamine \u00b7 project logo",
+    "label": "Robo-Dopamine · project logo",
     "kind": "project",
     "source": "https://robo-dopamine.github.io/",
     "assetSource": "https://robo-dopamine.github.io/assets/images/dpm_logo.png",
@@ -29,7 +29,7 @@
   },
   "RoboFAC": {
     "src": "/assets/model-logos/robofac.svg",
-    "label": "RoboFAC \u00b7 project logo",
+    "label": "RoboFAC · project logo",
     "kind": "project",
     "source": "https://mint-sjtu.github.io/RoboFAC.io/",
     "assetSource": "https://mint-sjtu.github.io/RoboFAC.io/static/icons/robot.svg",
@@ -37,7 +37,7 @@
   },
   "RoboMeter": {
     "src": "/assets/model-logos/robometer.png",
-    "label": "Robometer \u00b7 project logo",
+    "label": "Robometer · project logo",
     "kind": "project",
     "source": "https://robometer.github.io/",
     "assetSource": "https://robometer.github.io/assets/images/robometer_logo.png",
@@ -45,7 +45,7 @@
   },
   "RoboReward": {
     "src": "/assets/model-logos/stanford.png",
-    "label": "Stanford University \u00b7 first institution",
+    "label": "Stanford University · first institution",
     "kind": "institution",
     "source": "https://arxiv.org/html/2601.00675v1",
     "institutionSource": "https://www.stanford.edu/",
@@ -57,7 +57,7 @@
   },
   "RynnValue": {
     "renderAs": "rynnvalue-brand-mark",
-    "label": "RynnValue \u00b7 official project mark",
+    "label": "RynnValue · official project mark",
     "kind": "project",
     "source": "https://alibaba-damo-academy.github.io/RynnValue.github.io/",
     "assetSource": "https://alibaba-damo-academy.github.io/RynnValue.github.io/styles.css",
@@ -66,7 +66,7 @@
   },
   "TOPReward": {
     "src": "/assets/model-logos/topreward-project.png",
-    "label": "TOPReward \u00b7 official project icon",
+    "label": "TOPReward · official project icon",
     "kind": "project",
     "source": "https://topreward.github.io/webpage/",
     "assetSource": "https://topreward.github.io/webpage/static/images/favicon.ico",
@@ -74,7 +74,7 @@
   },
   "VLAC": {
     "src": "/assets/model-logos/shlab.ico",
-    "label": "Shanghai AI Laboratory \u00b7 first institution",
+    "label": "Shanghai AI Laboratory · first institution",
     "kind": "institution",
     "source": "https://arxiv.org/html/2509.15937v1",
     "institutionSource": "https://www.shlab.org.cn/",
@@ -85,7 +85,7 @@
   },
   "FailSafe": {
     "src": "/assets/model-logos/ntu.png",
-    "label": "Nanyang Technological University \u00b7 first institution",
+    "label": "Nanyang Technological University · first institution",
     "kind": "institution",
     "source": "https://arxiv.org/html/2510.01642v1",
     "institutionSource": "https://www.ntu.edu.sg/",
@@ -93,5 +93,55 @@
     "reviewed": "2026-10-10",
     "selectionNote": "No distinct project logo identified in official project and paper sources; use the first institution.",
     "projectURL": "https://jimntu.github.io/FailSafe/"
+  },
+  "Flora": {
+    "label": "NVIDIA · model provider brand",
+    "kind": "provider",
+    "source": "https://robodojo-benchmark.com/leaderboard#robodojo",
+    "projectURL": "https://research.nvidia.com/labs/gear/flora/",
+    "src": "/assets/model-logos/nvidia.png",
+    "assetSource": "https://media.luminis-sim.com/media/shared/teams/NV.png",
+    "reviewed": "2026-11-18",
+    "selectionNote": "NVIDIA provider mark requested for Flora; exact NVIDIA logo asset used by RoboDojo. Flora project link retained."
+  },
+  "GPT-6.1 Sol": {
+    "label": "OpenAI · model provider brand",
+    "kind": "provider",
+    "source": "https://robodojo-benchmark.com/leaderboard#robodojo",
+    "projectURL": "https://openai.com/",
+    "src": "/assets/model-logos/openai.svg",
+    "assetSource": "https://media.luminis-sim.com/media/shared/teams/openai.svg",
+    "reviewed": "2026-11-18",
+    "selectionNote": "Exact image used by RoboDojo for the corresponding model family; family/provider mark, not a version-specific logo."
+  },
+  "Gemini 4 Argon": {
+    "label": "Gemini · official product icon",
+    "kind": "product",
+    "source": "https://gemini.google.com/",
+    "projectURL": "https://gemini.google.com/",
+    "src": "/assets/model-logos/gemini.png",
+    "assetSource": "https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png",
+    "reviewed": "2026-11-18",
+    "selectionNote": "Official product favicon, directly referenced by the product HTML."
+  },
+  "Claude Opus 5.5": {
+    "label": "Claude · model family brand",
+    "kind": "product",
+    "source": "https://robodojo-benchmark.com/leaderboard#robodojo",
+    "projectURL": "https://claude.ai/",
+    "src": "/assets/model-logos/claude.png",
+    "assetSource": "https://media.luminis-sim.com/media/shared/teams/claude.png",
+    "reviewed": "2026-11-18",
+    "selectionNote": "Exact image used by RoboDojo for the corresponding model family; family/provider mark, not a version-specific logo."
+  },
+  "DeepSeek": {
+    "label": "DeepSeek · model provider brand",
+    "kind": "provider",
+    "source": "https://robodojo-benchmark.com/leaderboard#robodojo",
+    "projectURL": "https://www.deepseek.com/",
+    "src": "/assets/model-logos/deepseek.webp",
+    "assetSource": "https://media.luminis-sim.com/media/shared/teams/deepseek.webp",
+    "reviewed": "2026-11-18",
+    "selectionNote": "Exact image used by RoboDojo for the corresponding model family; family/provider mark, not a version-specific logo."
   }
 }

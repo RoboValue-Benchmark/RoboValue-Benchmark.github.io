@@ -1,20 +1,23 @@
 {
-  "source": "RoboValue manuscript PDF: Tables 2, 3 and 4",
-  "sourceVersion": "2026-10-24",
+  "source": "RoboValue manuscript LaTeX tables: RoboValue Leaderboard, Main Results and Generalization Results",
+  "sourceVersion": "2026-11-19",
   "sourceFiles": [
     {
-      "path": "10-24_RoboValue__A_Fine_Grained_Sim_and_Real_Benchmark_for_Unified_Evaluation_of_Robotic_Value_Models.pdf",
-      "sha256": "6a6bd588e5425be81b3570bdfb334e7598cbe0100c222ec69ec5ff5347fa62dd",
-      "pages": [
-        13,
-        14,
-        15
-      ]
+      "path": "RoboValue_paper/sec/5_1RoboValueLeaderboard.tex",
+      "sha256": "8ff03e66f98f0e8c3767d9e43ddf124760ca7a90ece5e5704d0af1f48dc7e23a"
+    },
+    {
+      "path": "RoboValue_paper/sec/5_Experiment.tex",
+      "sha256": "72c52c99a2d9193cfd54295915713d373fbe3a52400e321b94c12f0b04a2cf89"
+    },
+    {
+      "path": "RoboValue_paper/iclr2027_supplementary.tex",
+      "sha256": "93399729a610850a0bdf6ba0244c572b2f86592d078b74d9c6d9c0a15c849445"
     }
   ],
   "scale": 100,
-  "modelFamilies": 9,
-  "modelVariants": 16,
+  "modelFamilies": 14,
+  "modelVariants": 21,
   "rows": [
     {
       "name": "LIV",
@@ -47,7 +50,7 @@
         },
         "env": {
           "sa": 52.61,
-          "tga_ct": 8.36,
+          "tga_ct": 8.35,
           "tga_cf": 10.36,
           "voc": 5.52,
           "cycle_voc": 5.52,
@@ -57,12 +60,12 @@
         }
       },
       "aggregate": {
-        "rank": 8,
-        "understanding": 31.92,
-        "tracking": 53.51,
-        "diagnosis": 46.21,
-        "consistency": 24.39,
-        "overall": 39.01
+        "rank": 13,
+        "understanding": -4.5,
+        "tracking": 5.73,
+        "diagnosis": 4.49,
+        "consistency": 22.87,
+        "overall": 5.72
       }
     },
     {
@@ -106,12 +109,12 @@
         }
       },
       "aggregate": {
-        "rank": 6,
-        "understanding": 40.31,
-        "tracking": 67.65,
-        "diagnosis": 42.63,
-        "consistency": 28.46,
-        "overall": 44.76
+        "rank": 11,
+        "understanding": 6.89,
+        "tracking": 29.52,
+        "diagnosis": -3.98,
+        "consistency": 28.09,
+        "overall": 12.4
       }
     },
     {
@@ -135,7 +138,7 @@
         },
         "emb": {
           "sa": 78.22,
-          "tga_ct": 6.16,
+          "tga_ct": 6.15,
           "tga_cf": 7.2,
           "voc": 27.12,
           "cycle_voc": 36.74,
@@ -155,12 +158,12 @@
         }
       },
       "aggregate": {
-        "rank": 7,
-        "understanding": 39.55,
-        "tracking": 61.1,
-        "diagnosis": 48.15,
-        "consistency": 26.88,
-        "overall": 43.92
+        "rank": 12,
+        "understanding": 1.66,
+        "tracking": 14.99,
+        "diagnosis": 0.72,
+        "consistency": 26.24,
+        "overall": 8.96
       }
     },
     {
@@ -204,12 +207,12 @@
         }
       },
       "aggregate": {
-        "rank": 1,
-        "understanding": 68.53,
-        "tracking": 83.33,
-        "diagnosis": 46.78,
-        "consistency": 41.57,
-        "overall": 60.05
+        "rank": 5,
+        "understanding": 40.39,
+        "tracking": 52.9,
+        "diagnosis": 5.27,
+        "consistency": 42.75,
+        "overall": 32.83
       }
     },
     {
@@ -253,12 +256,12 @@
         }
       },
       "aggregate": {
-        "rank": 11,
-        "understanding": 24.5,
-        "tracking": 71.5,
-        "diagnosis": 34.72,
+        "rank": 15,
+        "understanding": -11.67,
+        "tracking": 42.88,
+        "diagnosis": -11.24,
         "consistency": 0.0,
-        "overall": 32.68
+        "overall": 1.71
       }
     },
     {
@@ -270,7 +273,7 @@
       "conditions": {
         "id": {
           "sa": 31.31,
-          "tga_ct": 28.89,
+          "tga_ct": 28.88,
           "tga_cf": 12.81,
           "voc": 83.4,
           "cycle_voc": 43.0,
@@ -282,7 +285,7 @@
         },
         "emb": {
           "sa": 32.12,
-          "tga_ct": 40.17,
+          "tga_ct": 40.16,
           "tga_cf": 10.61,
           "voc": 79.91,
           "cycle_voc": 44.3,
@@ -302,12 +305,12 @@
         }
       },
       "aggregate": {
-        "rank": 10,
-        "understanding": 25.9,
-        "tracking": 71.48,
-        "diagnosis": 34.17,
+        "rank": 14,
+        "understanding": -9.46,
+        "tracking": 42.83,
+        "diagnosis": -13.2,
         "consistency": 0.0,
-        "overall": 32.89
+        "overall": 1.77
       }
     },
     {
@@ -331,7 +334,7 @@
         },
         "emb": {
           "sa": 79.74,
-          "tga_ct": 91.6,
+          "tga_ct": 91.59,
           "tga_cf": 57.61,
           "voc": 77.87,
           "cycle_voc": 83.84,
@@ -351,12 +354,12 @@
         }
       },
       "aggregate": {
-        "rank": 2,
-        "understanding": 75.54,
-        "tracking": 78.64,
-        "diagnosis": 40.29,
-        "consistency": 36.0,
-        "overall": 57.62
+        "rank": 7,
+        "understanding": 58.37,
+        "tracking": 43.36,
+        "diagnosis": -13.33,
+        "consistency": 37.28,
+        "overall": 29.64
       }
     },
     {
@@ -380,7 +383,7 @@
         },
         "emb": {
           "sa": 79.18,
-          "tga_ct": 76.96,
+          "tga_ct": 76.95,
           "tga_cf": 53.49,
           "voc": 77.59,
           "cycle_voc": 84.97,
@@ -400,12 +403,12 @@
         }
       },
       "aggregate": {
-        "rank": 3,
-        "understanding": 70.98,
-        "tracking": 78.78,
-        "diagnosis": 42.39,
-        "consistency": 32.59,
-        "overall": 56.19
+        "rank": 8,
+        "understanding": 51.75,
+        "tracking": 42.59,
+        "diagnosis": -9.89,
+        "consistency": 32.75,
+        "overall": 27.63
       }
     },
     {
@@ -416,45 +419,45 @@
       "order": 8,
       "conditions": {
         "id": {
-          "sa": 58.98,
-          "tga_ct": 51.89,
-          "tga_cf": 21.3,
-          "voc": 94.29,
-          "cycle_voc": 13.5,
-          "memory_voc": 95.51,
-          "fpl": 30.79,
-          "trr": 12.85,
-          "vs": 15.06,
-          "csvc": 45.45
+          "sa": 67.02,
+          "tga_ct": 57.18,
+          "tga_cf": 31.25,
+          "voc": 81.54,
+          "cycle_voc": 38.76,
+          "memory_voc": 39.06,
+          "fpl": 35.09,
+          "trr": 18.73,
+          "vs": 8.57,
+          "csvc": 20.91
         },
         "emb": {
-          "sa": 68.85,
-          "tga_ct": 51.05,
-          "tga_cf": 18.6,
-          "voc": 93.91,
-          "cycle_voc": 18.83,
-          "memory_voc": 96.24,
-          "fpl": 37.78,
-          "vs": 14.13
+          "sa": 73.57,
+          "tga_ct": 60.77,
+          "tga_cf": 24.92,
+          "voc": 89.82,
+          "cycle_voc": 43.37,
+          "memory_voc": 81.14,
+          "fpl": 36.49,
+          "vs": 10.72
         },
         "env": {
-          "sa": 53.4,
-          "tga_ct": 49.1,
-          "tga_cf": 23.9,
-          "voc": 92.36,
-          "cycle_voc": 8.23,
-          "memory_voc": 94.51,
-          "fpl": 34.9,
-          "vs": 14.07
+          "sa": 56.47,
+          "tga_ct": 56.1,
+          "tga_cf": 30.58,
+          "voc": 63.94,
+          "cycle_voc": 24.97,
+          "memory_voc": 18.38,
+          "fpl": 39.18,
+          "vs": 6.42
         }
       },
       "aggregate": {
-        "rank": 5,
-        "understanding": 48.09,
-        "tracking": 57.02,
-        "diagnosis": 39.64,
-        "consistency": 43.65,
-        "overall": 47.1
+        "rank": 10,
+        "understanding": 26.75,
+        "tracking": 22.8,
+        "diagnosis": -6.45,
+        "consistency": 35.51,
+        "overall": 17.75
       }
     },
     {
@@ -465,45 +468,45 @@
       "order": 9,
       "conditions": {
         "id": {
-          "sa": 52.99,
-          "tga_ct": 40.42,
-          "tga_cf": 25.9,
-          "voc": 90.17,
-          "cycle_voc": 19.47,
-          "memory_voc": 95.61,
-          "fpl": 34.31,
-          "trr": 16.19,
-          "vs": 10.36,
-          "csvc": 29.21
+          "sa": 59.81,
+          "tga_ct": 55.93,
+          "tga_cf": 25.57,
+          "voc": 93.59,
+          "cycle_voc": 25.32,
+          "memory_voc": 90.72,
+          "fpl": 36.99,
+          "trr": 15.98,
+          "vs": 14.2,
+          "csvc": 37.58
         },
         "emb": {
-          "sa": 65.83,
-          "tga_ct": 61.54,
-          "tga_cf": 22.55,
-          "voc": 92.02,
-          "cycle_voc": 44.51,
-          "memory_voc": 95.92,
-          "fpl": 29.93,
-          "vs": 12.69
+          "sa": 71.07,
+          "tga_ct": 66.59,
+          "tga_cf": 27.69,
+          "voc": 93.82,
+          "cycle_voc": 54.42,
+          "memory_voc": 92.65,
+          "fpl": 36.73,
+          "vs": 16.18
         },
         "env": {
-          "sa": 59.34,
-          "tga_ct": 44.18,
-          "tga_cf": 28.1,
-          "voc": 93.08,
-          "cycle_voc": 28.1,
-          "memory_voc": 96.46,
-          "fpl": 35.78,
-          "vs": 12.53
+          "sa": 59.92,
+          "tga_ct": 57.01,
+          "tga_cf": 29.2,
+          "voc": 92.55,
+          "cycle_voc": 26.04,
+          "memory_voc": 90.57,
+          "fpl": 42.29,
+          "vs": 13.22
         }
       },
       "aggregate": {
-        "rank": 4,
-        "understanding": 46.96,
-        "tracking": 65.81,
-        "diagnosis": 41.3,
-        "consistency": 38.04,
-        "overall": 48.03
+        "rank": 9,
+        "understanding": 25.32,
+        "tracking": 34.46,
+        "diagnosis": -10.83,
+        "consistency": 43.78,
+        "overall": 20.0
       }
     },
     {
@@ -547,12 +550,12 @@
         }
       },
       "aggregate": {
-        "rank": 12,
-        "understanding": 26.6,
-        "tracking": 55.48,
-        "diagnosis": 31.33,
-        "consistency": 6.39,
-        "overall": 29.95
+        "rank": 17,
+        "understanding": -9.41,
+        "tracking": 8.74,
+        "diagnosis": -26.25,
+        "consistency": -2.93,
+        "overall": -9.54
       }
     },
     {
@@ -596,12 +599,257 @@
         }
       },
       "aggregate": {
-        "rank": 9,
-        "understanding": 36.19,
-        "tracking": 61.16,
-        "diagnosis": 30.06,
-        "consistency": 7.43,
-        "overall": 33.71
+        "rank": 16,
+        "understanding": 4.45,
+        "tracking": 18.03,
+        "diagnosis": -26.99,
+        "consistency": -2.16,
+        "overall": -3.59
+      }
+    },
+    {
+      "name": "Flora",
+      "preview": false,
+      "setting": "zero",
+      "id": "flora-zero",
+      "order": 12,
+      "conditions": {
+        "id": {
+          "sa": 89.95,
+          "tga_ct": 81.61,
+          "tga_cf": 69.52,
+          "voc": 94.17,
+          "cycle_voc": 83.36,
+          "memory_voc": 90.52,
+          "fpl": 25.46,
+          "trr": 26.5,
+          "vs": 24.73,
+          "csvc": 50.86
+        },
+        "emb": {
+          "sa": 91.51,
+          "tga_ct": 82.31,
+          "tga_cf": 68.43,
+          "voc": 93.44,
+          "cycle_voc": 85.45,
+          "memory_voc": 81.88,
+          "fpl": 24.56,
+          "vs": 22.61
+        },
+        "env": {
+          "sa": 89.88,
+          "tga_ct": 91.54,
+          "tga_cf": 69.64,
+          "voc": 93.14,
+          "cycle_voc": 81.35,
+          "memory_voc": 93.74,
+          "fpl": 27.36,
+          "vs": 23.63
+        }
+      },
+      "aggregate": {
+        "rank": 1,
+        "understanding": 71.85,
+        "tracking": 81.44,
+        "diagnosis": 15.6,
+        "consistency": 52.12,
+        "overall": 52.95
+      }
+    },
+    {
+      "name": "GPT-6.1 Sol",
+      "preview": false,
+      "setting": "zero",
+      "id": "gpt-6-1-sol-zero",
+      "order": 13,
+      "conditions": {
+        "id": {
+          "sa": 90.43,
+          "tga_ct": 70.44,
+          "tga_cf": 46.72,
+          "voc": 98.51,
+          "cycle_voc": 96.23,
+          "memory_voc": 89.82,
+          "fpl": 29.72,
+          "trr": 32.53,
+          "vs": 18.95,
+          "csvc": 67.41
+        },
+        "emb": {
+          "sa": 90.25,
+          "tga_ct": 74.12,
+          "tga_cf": 38.41,
+          "voc": 98.63,
+          "cycle_voc": 96.45,
+          "memory_voc": 78.01,
+          "fpl": 27.81,
+          "vs": 16.54
+        },
+        "env": {
+          "sa": 88.83,
+          "tga_ct": 75.96,
+          "tga_cf": 41.05,
+          "voc": 97.38,
+          "cycle_voc": 92.45,
+          "memory_voc": 88.7,
+          "fpl": 32.22,
+          "vs": 16.86
+        }
+      },
+      "aggregate": {
+        "rank": 2,
+        "understanding": 51.34,
+        "tracking": 89.97,
+        "diagnosis": 12.77,
+        "consistency": 55.48,
+        "overall": 48.33
+      }
+    },
+    {
+      "name": "Gemini 4 Argon",
+      "preview": false,
+      "setting": "zero",
+      "id": "gemini-4-argon-zero",
+      "order": 14,
+      "conditions": {
+        "id": {
+          "sa": 88.62,
+          "tga_ct": 87.95,
+          "tga_cf": 50.16,
+          "voc": 93.25,
+          "cycle_voc": 88.52,
+          "memory_voc": 52.15,
+          "fpl": 34.84,
+          "trr": 28.24,
+          "vs": 13.93,
+          "csvc": 47.93
+        },
+        "emb": {
+          "sa": 89.0,
+          "tga_ct": 87.34,
+          "tga_cf": 47.45,
+          "voc": 93.0,
+          "cycle_voc": 88.16,
+          "memory_voc": 40.43,
+          "fpl": 31.22,
+          "vs": 11.27
+        },
+        "env": {
+          "sa": 84.06,
+          "tga_ct": 91.54,
+          "tga_cf": 45.22,
+          "voc": 91.37,
+          "cycle_voc": 86.22,
+          "memory_voc": 46.46,
+          "fpl": 34.15,
+          "vs": 13.17
+        }
+      },
+      "aggregate": {
+        "rank": 3,
+        "understanding": 57.8,
+        "tracking": 69.15,
+        "diagnosis": 4.75,
+        "consistency": 46.74,
+        "overall": 41.94
+      }
+    },
+    {
+      "name": "Claude Opus 5.5",
+      "preview": false,
+      "setting": "zero",
+      "id": "claude-opus-5-5-zero",
+      "order": 15,
+      "conditions": {
+        "id": {
+          "sa": 88.08,
+          "tga_ct": 79.03,
+          "tga_cf": 52.84,
+          "voc": 84.4,
+          "cycle_voc": 81.35,
+          "memory_voc": 55.64,
+          "fpl": 35.89,
+          "trr": 23.26,
+          "vs": 5.77,
+          "csvc": 32.69
+        },
+        "emb": {
+          "sa": 90.82,
+          "tga_ct": 81.65,
+          "tga_cf": 55.91,
+          "voc": 86.44,
+          "cycle_voc": 83.75,
+          "memory_voc": 47.95,
+          "fpl": 35.93,
+          "vs": 5.45
+        },
+        "env": {
+          "sa": 82.84,
+          "tga_ct": 87.09,
+          "tga_cf": 45.91,
+          "voc": 78.54,
+          "cycle_voc": 74.04,
+          "memory_voc": 49.41,
+          "fpl": 35.95,
+          "vs": 4.89
+        }
+      },
+      "aggregate": {
+        "rank": 4,
+        "understanding": 58.5,
+        "tracking": 66.86,
+        "diagnosis": -2.17,
+        "consistency": 38.39,
+        "overall": 37.95
+      }
+    },
+    {
+      "name": "DeepSeek-V4.1-Flash",
+      "preview": false,
+      "setting": "zero",
+      "id": "deepseek-v4-1-flash-zero",
+      "order": 16,
+      "conditions": {
+        "id": {
+          "sa": 83.17,
+          "tga_ct": 73.0,
+          "tga_cf": 36.6,
+          "voc": 80.04,
+          "cycle_voc": 75.76,
+          "memory_voc": 34.12,
+          "fpl": 34.25,
+          "trr": 23.83,
+          "vs": 5.61,
+          "csvc": 20.93
+        },
+        "emb": {
+          "sa": 85.18,
+          "tga_ct": 73.87,
+          "tga_cf": 40.5,
+          "voc": 83.28,
+          "cycle_voc": 78.31,
+          "memory_voc": 29.77,
+          "fpl": 35.48,
+          "vs": 4.96
+        },
+        "env": {
+          "sa": 72.28,
+          "tga_ct": 73.27,
+          "tga_cf": 31.9,
+          "voc": 71.92,
+          "cycle_voc": 66.34,
+          "memory_voc": 27.41,
+          "fpl": 33.96,
+          "vs": 4.33
+        }
+      },
+      "aggregate": {
+        "rank": 6,
+        "understanding": 42.92,
+        "tracking": 54.28,
+        "diagnosis": 0.3,
+        "consistency": 34.08,
+        "overall": 30.64
       }
     },
     {
@@ -609,7 +857,7 @@
       "preview": false,
       "setting": "one",
       "id": "procvlm-2b-one",
-      "order": 12,
+      "order": 17,
       "conditions": {
         "id": {
           "sa": 83.04,
@@ -645,12 +893,12 @@
         }
       },
       "aggregate": {
-        "rank": 2,
-        "understanding": 65.67,
-        "tracking": 84.47,
-        "diagnosis": 44.37,
-        "consistency": 38.1,
-        "overall": 58.15
+        "rank": 1,
+        "understanding": 42.66,
+        "tracking": 58.52,
+        "diagnosis": 1.77,
+        "consistency": 38.15,
+        "overall": 32.66
       }
     },
     {
@@ -658,7 +906,7 @@
       "preview": false,
       "setting": "one",
       "id": "robo-dopamine-3b-one",
-      "order": 13,
+      "order": 18,
       "conditions": {
         "id": {
           "sa": 73.77,
@@ -695,11 +943,11 @@
       },
       "aggregate": {
         "rank": 6,
-        "understanding": 39.68,
-        "tracking": 79.99,
-        "diagnosis": 49.54,
-        "consistency": 34.84,
-        "overall": 51.01
+        "understanding": 1.24,
+        "tracking": 51.69,
+        "diagnosis": 8.17,
+        "consistency": 35.05,
+        "overall": 20.17
       }
     },
     {
@@ -707,11 +955,11 @@
       "preview": true,
       "setting": "one",
       "id": "robo-dopamine-4b-preview-one",
-      "order": 14,
+      "order": 19,
       "conditions": {
         "id": {
           "sa": 87.16,
-          "tga_ct": 3.34,
+          "tga_ct": 3.33,
           "tga_cf": 0.77,
           "voc": 94.47,
           "cycle_voc": 94.43,
@@ -744,11 +992,11 @@
       },
       "aggregate": {
         "rank": 3,
-        "understanding": 43.76,
-        "tracking": 85.94,
-        "diagnosis": 52.61,
-        "consistency": 48.06,
-        "overall": 57.59
+        "understanding": 4.26,
+        "tracking": 59.06,
+        "diagnosis": 14.76,
+        "consistency": 48.27,
+        "overall": 27.17
       }
     },
     {
@@ -756,11 +1004,11 @@
       "preview": false,
       "setting": "one",
       "id": "robo-dopamine-8b-one",
-      "order": 15,
+      "order": 20,
       "conditions": {
         "id": {
           "sa": 80.09,
-          "tga_ct": 3.69,
+          "tga_ct": 3.68,
           "tga_cf": 1.23,
           "voc": 88.17,
           "cycle_voc": 87.19,
@@ -792,12 +1040,12 @@
         }
       },
       "aggregate": {
-        "rank": 4,
-        "understanding": 40.95,
-        "tracking": 82.93,
-        "diagnosis": 52.51,
-        "consistency": 37.95,
-        "overall": 53.58
+        "rank": 5,
+        "understanding": 1.55,
+        "tracking": 55.92,
+        "diagnosis": 12.74,
+        "consistency": 37.74,
+        "overall": 23.02
       }
     },
     {
@@ -805,7 +1053,7 @@
       "preview": true,
       "setting": "one",
       "id": "robo-dopamine-8b-preview-one",
-      "order": 16,
+      "order": 21,
       "conditions": {
         "id": {
           "sa": 86.36,
@@ -841,12 +1089,12 @@
         }
       },
       "aggregate": {
-        "rank": 1,
-        "understanding": 43.23,
-        "tracking": 86.23,
-        "diagnosis": 54.8,
-        "consistency": 49.05,
-        "overall": 58.33
+        "rank": 2,
+        "understanding": 3.42,
+        "tracking": 59.36,
+        "diagnosis": 17.3,
+        "consistency": 49.7,
+        "overall": 28.03
       }
     },
     {
@@ -854,7 +1102,7 @@
       "preview": false,
       "setting": "one",
       "id": "vlac-2b-one",
-      "order": 17,
+      "order": 22,
       "conditions": {
         "id": {
           "sa": 64.55,
@@ -891,11 +1139,11 @@
       },
       "aggregate": {
         "rank": 7,
-        "understanding": 37.1,
-        "tracking": 73.23,
-        "diagnosis": 45.54,
-        "consistency": 42.36,
-        "overall": 49.56
+        "understanding": 0.39,
+        "tracking": 39.82,
+        "diagnosis": 6.13,
+        "consistency": 42.79,
+        "overall": 18.48
       }
     },
     {
@@ -903,7 +1151,7 @@
       "preview": false,
       "setting": "one",
       "id": "vlac-8b-one",
-      "order": 18,
+      "order": 23,
       "conditions": {
         "id": {
           "sa": 63.6,
@@ -939,12 +1187,12 @@
         }
       },
       "aggregate": {
-        "rank": 5,
-        "understanding": 44.94,
-        "tracking": 78.07,
-        "diagnosis": 43.0,
-        "consistency": 44.45,
-        "overall": 52.62
+        "rank": 4,
+        "understanding": 12.62,
+        "tracking": 50.16,
+        "diagnosis": 2.76,
+        "consistency": 44.67,
+        "overall": 23.58
       }
     }
   ]
