@@ -105,6 +105,7 @@ def extract(paper, version):
             'id': re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-') + ('-preview' if preview else '') + '-' + setting,
             'order': order, 'conditions': conditions, 'aggregate': aggregates[row_key(standard)],
         })
+        rows[-1]['logo_url'] = 'https://robovalue-benchmark.github.io/assets/model-logos/png/' + rows[-1]['id'] + '.png'
     return {
         'source': 'RoboValue manuscript LaTeX tables: RoboValue Leaderboard, Main Results and Generalization Results',
         'sourceVersion': version,

@@ -66,7 +66,8 @@
         "diagnosis": 4.49,
         "consistency": 22.87,
         "overall": 5.72
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/liv-zero.png"
     },
     {
       "name": "ProcVLM-2B",
@@ -115,7 +116,8 @@
         "diagnosis": -3.98,
         "consistency": 28.09,
         "overall": 12.4
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/procvlm-2b-zero.png"
     },
     {
       "name": "RoboFAC-7B",
@@ -164,7 +166,8 @@
         "diagnosis": 0.72,
         "consistency": 26.24,
         "overall": 8.96
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/robofac-7b-zero.png"
     },
     {
       "name": "RoboMeter-4B",
@@ -213,7 +216,8 @@
         "diagnosis": 5.27,
         "consistency": 42.75,
         "overall": 32.83
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/robometer-4b-zero.png"
     },
     {
       "name": "RoboReward-4B",
@@ -262,7 +266,8 @@
         "diagnosis": -11.24,
         "consistency": 0.0,
         "overall": 1.71
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/roboreward-4b-zero.png"
     },
     {
       "name": "RoboReward-8B",
@@ -311,7 +316,8 @@
         "diagnosis": -13.2,
         "consistency": 0.0,
         "overall": 1.77
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/roboreward-8b-zero.png"
     },
     {
       "name": "RynnValue-4B",
@@ -360,7 +366,8 @@
         "diagnosis": -13.33,
         "consistency": 37.28,
         "overall": 29.64
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/rynnvalue-4b-zero.png"
     },
     {
       "name": "RynnValue-8B",
@@ -409,7 +416,8 @@
         "diagnosis": -9.89,
         "consistency": 32.75,
         "overall": 27.63
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/rynnvalue-8b-zero.png"
     },
     {
       "name": "TOPReward-8B",
@@ -458,7 +466,8 @@
         "diagnosis": -6.45,
         "consistency": 35.51,
         "overall": 17.75
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/topreward-8b-zero.png"
     },
     {
       "name": "TOPReward-32B",
@@ -507,7 +516,8 @@
         "diagnosis": -10.83,
         "consistency": 43.78,
         "overall": 20.0
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/topreward-32b-zero.png"
     },
     {
       "name": "VLAC-2B",
@@ -556,7 +566,8 @@
         "diagnosis": -26.25,
         "consistency": -2.93,
         "overall": -9.54
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/vlac-2b-zero.png"
     },
     {
       "name": "VLAC-8B",
@@ -605,7 +616,8 @@
         "diagnosis": -26.99,
         "consistency": -2.16,
         "overall": -3.59
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/vlac-8b-zero.png"
     },
     {
       "name": "Flora",
@@ -654,7 +666,8 @@
         "diagnosis": 15.6,
         "consistency": 52.12,
         "overall": 52.95
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/flora-zero.png"
     },
     {
       "name": "GPT-6.1 Sol",
@@ -703,7 +716,8 @@
         "diagnosis": 12.77,
         "consistency": 55.48,
         "overall": 48.33
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/gpt-6-1-sol-zero.png"
     },
     {
       "name": "Gemini 4 Argon",
@@ -752,7 +766,8 @@
         "diagnosis": 4.75,
         "consistency": 46.74,
         "overall": 41.94
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/gemini-4-argon-zero.png"
     },
     {
       "name": "Claude Opus 5.5",
@@ -801,7 +816,8 @@
         "diagnosis": -2.17,
         "consistency": 38.39,
         "overall": 37.95
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/claude-opus-5-5-zero.png"
     },
     {
       "name": "DeepSeek-V4.1-Flash",
@@ -850,7 +866,8 @@
         "diagnosis": 0.3,
         "consistency": 34.08,
         "overall": 30.64
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/deepseek-v4-1-flash-zero.png"
     },
     {
       "name": "ProcVLM-2B",
@@ -899,7 +916,8 @@
         "diagnosis": 1.77,
         "consistency": 38.15,
         "overall": 32.66
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/procvlm-2b-one.png"
     },
     {
       "name": "Robo-Dopamine-3B",
@@ -948,7 +966,8 @@
         "diagnosis": 8.17,
         "consistency": 35.05,
         "overall": 20.17
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/robo-dopamine-3b-one.png"
     },
     {
       "name": "Robo-Dopamine-4B",
@@ -997,7 +1016,8 @@
         "diagnosis": 14.76,
         "consistency": 48.27,
         "overall": 27.17
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/robo-dopamine-4b-preview-one.png"
     },
     {
       "name": "Robo-Dopamine-8B",
@@ -1046,7 +1066,8 @@
         "diagnosis": 12.74,
         "consistency": 37.74,
         "overall": 23.02
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/robo-dopamine-8b-one.png"
     },
     {
       "name": "Robo-Dopamine-8B",
@@ -1095,7 +1116,8 @@
         "diagnosis": 17.3,
         "consistency": 49.7,
         "overall": 28.03
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/robo-dopamine-8b-preview-one.png"
     },
     {
       "name": "VLAC-2B",
@@ -1144,7 +1166,8 @@
         "diagnosis": 6.13,
         "consistency": 42.79,
         "overall": 18.48
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/vlac-2b-one.png"
     },
     {
       "name": "VLAC-8B",
@@ -1193,7 +1216,8 @@
         "diagnosis": 2.76,
         "consistency": 44.67,
         "overall": 23.58
-      }
+      },
+      "logo_url": "https://robovalue-benchmark.github.io/assets/model-logos/png/vlac-8b-one.png"
     }
   ]
 }
