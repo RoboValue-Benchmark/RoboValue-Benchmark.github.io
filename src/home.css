@@ -616,3 +616,18 @@ a.rv-entry:focus-visible { outline: 2px solid var(--entry-accent); outline-offse
    A little ink room protects the final glyph at fractional font/device scales. */
 .rv-home .rv-eyebrow { background-image: none; -webkit-text-fill-color: currentColor; }
 .rv-home .rv-eyebrow-text { display: inline-block; flex: 0 0 auto; padding-inline-end: .15em; margin-inline-end: -.15em; }
+
+/* Reuse the full leaderboard table with the homepage's existing theme tokens. */
+.rv-preview-ranking {
+  --lb-ink: var(--rv-preview-ink);
+  --lb-muted: var(--rv-preview-muted);
+  --lb-accent: var(--rv-preview-accent);
+  --lb-line: var(--rv-preview-line);
+  --lb-surface: var(--rv-preview-surface);
+  --lb-header: var(--rv-preview-header);
+  --lb-highlight: var(--rv-preview-highlight);
+  --lb-overall-header: var(--rv-preview-overall-header);
+  --lb-hover: var(--rv-preview-hover);
+  color: var(--lb-ink);
+}
+.rv-preview-ranking button:focus-visible, .rv-preview-ranking [tabindex="0"]:focus-visible { outline: 2px solid #7863d6; outline-offset: 4px; }

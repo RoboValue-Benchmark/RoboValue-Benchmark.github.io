@@ -159,3 +159,97 @@
 .lb-table-metrics { min-width: 1294px; }
 
 .lb-ranking > h2, .lb-results > h2 { margin-bottom: 12px; }
+
+/* One blue selection rail; the existing Overall tint follows the sorted column. */
+.lb-table { --lb-selection-blue: #2872f6; }
+.lb-table thead .lb-ranking-metric { position: relative; transition: background-color 150ms ease; }
+.lb-table thead .lb-ranking-metric[data-metric="overall"] { color: var(--lb-accent); min-width: 95px; }
+.lb-table thead .lb-ranking-metric::before { content: ''; position: absolute; top: 0; left: 8px; right: 8px; height: 4px; border-radius: 0 0 3px 3px; background: linear-gradient(100deg, #287cf8, #2460e7); opacity: 0; transition: opacity 150ms ease; pointer-events: none; }
+.lb-table .lb-ranking-metric .lb-sort-button { cursor: pointer; }
+.lb-table .lb-ranking-metric .lb-sort-button::after { content: ''; position: absolute; inset: 0; }
+.lb-table .lb-ranking-metric .lb-sort-button:hover:not(:disabled) { color: inherit; }
+.lb-table .lb-ranking-metric:has(.lb-sort-button:focus-visible) { outline: 2px solid var(--lb-selection-blue); outline-offset: -2px; }
+.lb-table .lb-ranking-metric .lb-sort-button:focus-visible { outline: none; }
+.lb-table thead .lb-ranking-metric:has(.lb-sort-button:enabled):hover, .lb-table thead .lb-ranking-metric:has(.lb-sort-button:focus-visible) { background: var(--lb-overall-header); }
+.lb-table thead .lb-ranking-metric:has(.lb-sort-button:enabled):hover::before, .lb-table thead .lb-ranking-metric:has(.lb-sort-button:focus-visible)::before { opacity: .3; }
+.lb-table thead .lb-ranking-metric.lb-selected-column { background: var(--lb-overall-header); font-weight: 700; }
+.lb-table thead .lb-ranking-metric.lb-selected-column:has(.lb-sort-button:enabled)::before { opacity: 1; }
+.lb-table tbody td { transition: background-color 150ms ease; }
+.lb-table tbody .lb-selected-column { background: var(--lb-highlight); }
+.lb-table .lb-ranking-metric .lb-ranking-direction { display: inline-flex; align-items: center; justify-content: center; width: 12px; color: currentColor; opacity: .55; }
+.lb-table .lb-ranking-metric.lb-selected-column .lb-ranking-direction { color: var(--lb-selection-blue); opacity: 1; }
+[data-theme="dark"] .lb-table { --lb-selection-blue: #6b9dff; }
+[data-theme="dark"] .lb-table thead .lb-ranking-metric::before { background: linear-gradient(100deg, #3989ff, #3672f5); }
+@media (prefers-reduced-motion: reduce) { .lb-table thead .lb-ranking-metric, .lb-table thead .lb-ranking-metric::before, .lb-table tbody td { transition: none; } }
+
+/* Hovering any score cell previews its entire capability column. */
+.lb-table:has([data-metric="overall"]:hover) tbody td[data-metric="overall"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table:has([data-metric="overall"]:hover) thead th[data-metric="overall"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table:has([data-metric="overall"]:hover) thead th[data-metric="overall"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table:has([data-metric="understanding"]:hover) tbody td[data-metric="understanding"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table:has([data-metric="understanding"]:hover) thead th[data-metric="understanding"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table:has([data-metric="understanding"]:hover) thead th[data-metric="understanding"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table:has([data-metric="tracking"]:hover) tbody td[data-metric="tracking"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table:has([data-metric="tracking"]:hover) thead th[data-metric="tracking"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table:has([data-metric="tracking"]:hover) thead th[data-metric="tracking"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table:has([data-metric="diagnosis"]:hover) tbody td[data-metric="diagnosis"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table:has([data-metric="diagnosis"]:hover) thead th[data-metric="diagnosis"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table:has([data-metric="diagnosis"]:hover) thead th[data-metric="diagnosis"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table:has([data-metric="consistency"]:hover) tbody td[data-metric="consistency"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table:has([data-metric="consistency"]:hover) thead th[data-metric="consistency"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table:has([data-metric="consistency"]:hover) thead th[data-metric="consistency"]:not(.lb-selected-column)::before { opacity: .3; }
+ .lb-table tbody tr:hover { --row-bg: var(--lb-surface); }
+
+/* Sorting hints render above the table so fixed columns cannot cover them. */
+.lb-cell-sort-tooltip { position: fixed; z-index: 900; width: max-content; max-width: 220px; box-sizing: border-box; padding: 8px 11px; border-radius: 6px; background: #302d3b; color: #f7f6fb; box-shadow: 0 4px 12px #20182d20; font-family: inherit; font-size: 11px; font-weight: 400; line-height: 1.5; text-align: left; pointer-events: none; opacity: 0; animation: lb-cell-hint-in 120ms ease 250ms forwards; }
+.lb-cell-sort-tooltip strong { font-weight: 750; color: #fff; white-space: nowrap; }
+@keyframes lb-cell-hint-in { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .lb-cell-sort-tooltip { animation-duration: 0ms; } }
+
+.lb-sort-header-label { text-decoration: underline; text-underline-offset: 2px; }
+
+/* Raw result metrics use the same column hover treatment as Overall Ranking. */
+.lb-table-metrics:has([data-metric="sa"]:hover) tbody td[data-metric="sa"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="sa"]:hover) thead th[data-metric="sa"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="sa"]:hover) thead th[data-metric="sa"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="tga_ct"]:hover) tbody td[data-metric="tga_ct"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="tga_ct"]:hover) thead th[data-metric="tga_ct"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="tga_ct"]:hover) thead th[data-metric="tga_ct"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="tga_cf"]:hover) tbody td[data-metric="tga_cf"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="tga_cf"]:hover) thead th[data-metric="tga_cf"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="tga_cf"]:hover) thead th[data-metric="tga_cf"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="sia"]:hover) tbody td[data-metric="sia"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="sia"]:hover) thead th[data-metric="sia"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="sia"]:hover) thead th[data-metric="sia"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="voc"]:hover) tbody td[data-metric="voc"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="voc"]:hover) thead th[data-metric="voc"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="voc"]:hover) thead th[data-metric="voc"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="cycle_voc"]:hover) tbody td[data-metric="cycle_voc"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="cycle_voc"]:hover) thead th[data-metric="cycle_voc"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="cycle_voc"]:hover) thead th[data-metric="cycle_voc"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="memory_voc"]:hover) tbody td[data-metric="memory_voc"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="memory_voc"]:hover) thead th[data-metric="memory_voc"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="memory_voc"]:hover) thead th[data-metric="memory_voc"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="fpl"]:hover) tbody td[data-metric="fpl"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="fpl"]:hover) thead th[data-metric="fpl"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="fpl"]:hover) thead th[data-metric="fpl"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="trr"]:hover) tbody td[data-metric="trr"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="trr"]:hover) thead th[data-metric="trr"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="trr"]:hover) thead th[data-metric="trr"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="vs"]:hover) tbody td[data-metric="vs"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="vs"]:hover) thead th[data-metric="vs"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="vs"]:hover) thead th[data-metric="vs"]:not(.lb-selected-column)::before { opacity: .3; }
+.lb-table-metrics:has([data-metric="csvc"]:hover) tbody td[data-metric="csvc"]:not(.lb-selected-column) { background: var(--lb-hover); }
+.lb-table-metrics:has([data-metric="csvc"]:hover) thead th[data-metric="csvc"]:not(.lb-selected-column) { background: var(--lb-overall-header); }
+.lb-table-metrics:has([data-metric="csvc"]:hover) thead th[data-metric="csvc"]:not(.lb-selected-column)::before { opacity: .3; }
+
+/* Keep model identity and evaluation setting visible while raw metrics scroll. */
+.lb-table-metrics .lb-model { position: sticky; left: 0; z-index: 6; box-shadow: 5px 0 9px -8px #40364f40; }
+.lb-table-metrics .lb-setting { position: sticky; left: var(--lb-model-offset, var(--model-width)); z-index: 5; background: var(--lb-surface); box-shadow: 5px 0 9px -8px #40364f40; }
+.lb-table-metrics thead .lb-model, .lb-table-metrics thead .lb-setting { z-index: 6; background: var(--lb-header); }
+.lb-table-metrics thead .lb-model { z-index: 7; }
+@media (max-width: 480px) {
+  .lb-table-metrics { --model-width: 120px; min-width: 0; width: max-content; }
+  .lb-table-metrics .lb-setting { padding-inline: 4px; }
+  .lb-table-metrics .lb-setting-trigger { min-width: 96px; padding-inline: 6px; gap: 4px; }
+}

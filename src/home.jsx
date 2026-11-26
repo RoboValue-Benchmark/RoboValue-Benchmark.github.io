@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Icon } from './benchmark';
 import { ZoomableFigure } from './figure-viewer';
-import { RankingModel } from './ranking-model';
+import { ResultsTable } from './leaderboard';
 import { HeroBackground } from './hero-background';
 import { LoadingImage } from './loading-image';
-import { GROUPS, CAPABILITY_TABLE_HEADERS } from './benchmark-metrics';
-import { scoreHighlights, sortedRows, unifiedRanking } from './leaderboard-utils';
-import { SettingBadge, SettingsSummary } from './evaluation-setting';
+import { GROUPS } from './benchmark-metrics';
+import { TRACKS, unifiedRanking } from './leaderboard-utils';
+import { SettingsSummary } from './evaluation-setting';
 import { useResults } from './use-results';
 import { useHomeReveal } from './use-home-reveal';
 import taskData from './data/tasks.json';
@@ -60,7 +60,6 @@ const TASK_SETTINGS = {
   },
 };
 const taskPath = item => `/doc/${item.domain}-tasks/${item.slug}/`;
-const score = value => value == null ? '—' : value.toFixed(2);
 // Table 1 includes SIA as an understanding capability, separately from aggregate scoring.
 const CAPABILITY_METRICS = {
   understanding: [
@@ -210,16 +209,16 @@ function TaskGallery({ domain }) {
 
 function HomeResults() {
   const { data, error, retry } = useResults();
-  const rows = sortedRows(unifiedRanking(data?.rows || []), { query: '', sort: null });
-  const columns = ['overall', ...GROUPS.map(group => group.id)];
-  const highlights = scoreHighlights(rows, 'aggregate', columns);
-  const colors = { understanding: '#366c9a', tracking: '#447d64', diagnosis: '#a56f2d', consistency: '#a45368' };
-  const renderScore = (value, key) => <span className={value === highlights[key]?.best ? 'rv-score-best' : value === highlights[key]?.second ? 'rv-score-second' : ''}>{score(value)}</span>;
+  const [setting, setSetting] = useState('all');
+  const [sort, setSort] = useState(null);
+  const allRows = unifiedRanking(data?.rows || []);
+  const rows = setting === 'all' ? allRows : allRows.filter(row => row.setting === setting);
+  const counts = { all: allRows.length, ...Object.fromEntries(Object.keys(TRACKS).map(key => [key, allRows.filter(row => row.setting === key).length])) };
+  const view = { condition: 'aggregate', track: setting, sort, query: '', capability: 'all', selected: [] };
   return <section className="rv-section rv-results" id="results" aria-labelledby="home-results-title"><div className="rv-container">
     <div className="rv-results-heading rv-reveal"><div className="rv-centered-heading"><p className="rv-eyebrow"><Icon name="trophy" size={16} /><span className="rv-eyebrow-text">LEADERBOARD</span></p><h2 id="home-results-title">RoboValue Leaderboard</h2><SettingsSummary /></div></div>
-    <div className="rv-preview rv-reveal">
-      <div className="rv-preview-frame"><div className="rv-preview-scroll" role="region" aria-label="Homepage overall ranking, all settings" tabIndex={0}><table className="rv-preview-table" id="home-results-table"><caption className="sr-only">All settings ranked together by Overall. Published capability scores; higher is better. Negative scores are retained.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col" className="rv-preview-setting">Setting</th><th scope="col" className="rv-preview-overall">Overall</th>{GROUPS.map(group => <th scope="col" key={group.id} className="rv-preview-capability" style={{ '--capability-color': colors[group.id] }} title={group.title}>{CAPABILITY_TABLE_HEADERS[group.id]}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row.id}><td className="rv-rank">{row.aggregate.rank}</td><th scope="row"><RankingModel row={row} /></th><td className="rv-preview-setting"><SettingBadge setting={row.setting} /></td><td className="rv-preview-overall">{renderScore(row.aggregate.overall, 'overall')}</td>{GROUPS.map(group => <td key={group.id}>{renderScore(row.aggregate[group.id], group.id)}</td>)}</tr>)}</tbody></table></div>{!rows.length && <div className="rv-preview-empty" role="status">{error ? <><strong>Results could not be loaded.</strong><button type="button" className="rv-text-link" onClick={retry}>Try Again<Icon size={15} /></button></> : data ? 'No results yet.' : 'Loading results…'}</div>}</div>
-      {!!rows.length && <div className="rv-preview-legend"><b>Best</b> · <span className="rv-score-second">Second Best</span></div>}
+    <div className="rv-preview rv-preview-ranking rv-reveal">
+      <ResultsTable eligible={rows} highlightRows={allRows} view={view} loading={!data} error={error} retry={retry} tableId="home-results-table" setting={setting} onSettingChange={setSetting} counts={counts} onSort={key => setSort({ key, asc: false })} onReset={() => setSort(null)} />
     </div>
     <nav className="rv-results-doc-links rv-reveal" aria-label="Detailed evaluation results"><a className="rv-text-link" href="/leaderboard/">View Detailed Results<Icon size={20} /></a></nav>
   </div></section>;
