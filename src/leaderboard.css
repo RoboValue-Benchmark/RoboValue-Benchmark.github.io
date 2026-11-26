@@ -248,8 +248,11 @@
 .lb-table-metrics .lb-setting { position: sticky; left: var(--lb-model-offset, var(--model-width)); z-index: 5; background: var(--lb-surface); box-shadow: 5px 0 9px -8px #40364f40; }
 .lb-table-metrics thead .lb-model, .lb-table-metrics thead .lb-setting { z-index: 6; background: var(--lb-header); }
 .lb-table-metrics thead .lb-model { z-index: 7; }
-@media (max-width: 480px) {
-  .lb-table-metrics { --model-width: 120px; min-width: 0; width: max-content; }
-  .lb-table-metrics .lb-setting { padding-inline: 4px; }
-  .lb-table-metrics .lb-setting-trigger { min-width: 96px; padding-inline: 6px; gap: 4px; }
+/* Small screens need the full viewport for scores: scroll all columns together. */
+@media (max-width: 760px) {
+  .lb-table-metrics .lb-model, .lb-table-metrics .lb-setting {
+    position: static;
+    left: auto;
+    box-shadow: none;
+  }
 }
